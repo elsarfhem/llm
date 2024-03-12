@@ -1,0 +1,58 @@
+% Preamble
+\documentclass[12pt]{report}
+
+% Packages
+\usepackage[a4paper, top=20mm, bottom=20mm, left=20mm, right=20mm]{geometry}
+\usepackage{graphicx}
+\graphicspath{ {./imgs/} }
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[
+    backend=biber,
+    style=numeric,
+    sorting=ynt
+]{biblatex}
+\addbibresource{refs.bib}
+\usepackage{hyperref}
+\usepackage{csquotes}
+\usepackage{amsmath}
+
+% Document
+\begin{document}
+    \title{
+        \begin{figure}[!t]
+            \centering
+            \includegraphics{Logo_Roma_Tre}
+        \end{figure}
+        \vspace{-110pt}
+        {\small Dipartimento di \textit{Ingegneria Civile, Informatica e delle Tecnologie Aeronautiche}}\\
+        \vspace{10pt}
+        {\large Corso di Laurea in Ingegneria Informatica}\\
+        \vspace{140pt}
+        {\huge
+        Compare Large Language Models abilities \\
+        using different parameters}
+        \vspace{130pt}
+
+        \noindent {\hspace{25pt} \small Relatore} \hfill {\small Candidato \hspace{30pt}}
+
+        \noindent {\normalsize Prof. Riccardo Torlone} \hfill {\normalsize Andrea Matarazzo, 528301}
+
+        \vspace{70pt}
+
+        {\small Anno Accademico: 2023/2024}
+
+        \date{}
+    }
+    \maketitle
+
+    \input{chapters/acknowledgements}
+
+    \tableofcontents
+
+    \input{chapters/introduction}
+
+    \chapter*{Bibliography}
+    \printbibliography[heading=none]
+
+\end{document}

@@ -1,0 +1,155 @@
+%! Author = amatarazzo
+%! Date = 10/03/24
+
+
+\chapter{Introduction to Large Language Models}
+\label{ch:introduction}
+
+
+\section{Definition and Overview}
+\label{sec:definition-and-overview}
+
+In the contemporary landscape of artificial intelligence, Large Language Models (LLMs) stand out as monumental achievements, revolutionizing natural language processing.
+These models, characterized by their immense scale and complexity, have become pivotal in understanding and generating human-like text.
+At their core, LLMs are designed to comprehend, learn, and generate coherent and contextually relevant language on a scale previously unparalleled.
+
+Historically, the development of Language Models (LMs) has been rooted in the quest to understand and replicate human language and 4 main stages can be identified:
+\begin{enumerate}
+    \item \textbf{Statistical Language Models:} {These models were developed to capture the statistical properties of language, such as word frequencies and co-occurrences, to predict the likelihood of a given sequence of words based on the Markov assumption, which states that the probability of a word depends only on the previous $n$ words.
+    If the context length $n$ is fixed, the model is called an $n$-gram model.\\
+    However, these models are limited by the exponential number of transitions probabilities to be estimated, and the Markov assumption itself, which it may not always hold true in the complexity of natural languages.
+    Language understanding often involves capturing dependencies over longer distances than what the Markov assumption allows for. Models that consider broader contexts, such as recurrent neural networks (RNNs) and transformers, have been developed to address these long-range dependencies in language processing tasks.}
+    \item \textbf{Neural Language Models:} {The advent of neural networks led to the development of language models that utilized neural architectures to capture the complex patterns and dependencies present in language.
+    These models, such as recurrent neural networks (RNNs) and long short-term memory (LSTM) networks, were able to capture long-range dependencies and contextual information, enabling them to generate coherent and contextually relevant text.
+    The work \cite{nlm} introduced the concept of $distributed representation$ of words and build the word prediction function of the distributed word vectors.
+    Later, word2vec~\cite{word2vec, word2vec2} introduced the word2vec model, which is a shallow, two-layer neural network that is trained to reconstruct linguistic contexts of words.
+    These models were a significant leap forward in the development of language models, representing a shift from word sequencing to learning representation.}
+    \item \textbf{Pre-trained language models (PLM):} {The development of pre-trained language models (PLMs) marked a significant milestone in the evolution of language models.
+    These models were trained on large corpora of data, in an unsupervised or self-supervised manner, before being fine-tuned on specific tasks. The idea is to pre-train a model on a diverse set of data and then transfer its knowledge to a narrower task by fine-tuning on a smaller, task-specific dataset.
+    ELMo (Embeddings from Language Models)~\cite{elmo} was one of the first PLMs, which used a bidirectional LSTM to generate word embeddings (instead of learning fixed word representations).
+    The work \cite{bert} introduced BERT (Bidirectional Encoder Representations from Transformers), which is a transformer-based model that is pre-trained on a large corpus of text and then fine-tuned on specific tasks.
+    BERT was a significant advancement in the field of natural language processing, as it demonstrated the potential of pre-trained language models to achieve state-of-the-art performance on a wide range of tasks.
+    These studies introduced the $"pre-training and fine-tuning"$ paradigm, which has become a standard practice in the development of language models and inspired great number of models, such as GPT-2~\cite{gpt2}, GPT-3~\cite{gpt3}, T5~\cite{t5}, and many others.
+    }
+    \item \textbf{Large Language Models (LLM):} {The emergence of large language models, characterized by their immense scale and complexity, has redefined the capabilities of language processing systems.
+    Studies find that the performance of language models improves as the number of parameters ($e.g.$ model size) or data size increases, a phenomenon known as the scaling law in large language models.
+    Many LLMs are built on the transformer architecture, which is designed to capture long-range dependencies and contextual information in language.
+    The transformer architecture has become the foundation for many state-of-the-art language models and, unlike earlier models that were unidirectional (e.g., traditional RNNs), LLMs, especially those based on transformers, are bidirectional. They consider context from both preceding and following words, enhancing their understanding of language.
+    LLMs find applications across various domains, including but not limited to:
+        \begin{itemize}
+            \item \textbf{Text Generation:} Producing coherent and contextually relevant text.
+            \item \textbf{Question Answering:} Answering questions based on provided context.
+            \item \textbf{Language Translation:} Translating text from one language to another.
+            \item \textbf{Summarization:} Creating concise summaries of longer texts.
+            \item \textbf{Sentiment Analysis:} Determining the sentiment expressed in a piece of text.
+        \end{itemize}
+        These large sized PLMs have been shown to outperform their smaller ($e.g.$, 330M-parameters vs 1.5B-parameters) and show surprising capabilities \footnote{Note that a LLM is not necessarily more capable than a small PLM, and emergent abilities may not occur in some LLMs.}, also called emergent abilities~\cite{emergent2}.
+        \begin{displayquote}
+            Emergence is when quantitative changes in a system result in qualitative changes in behavior~\cite{emergent1}.
+        \end{displayquote}
+        These emergent abilities include, but are not limited to, the ability to perform tasks for which they were not explicitly trained, such as translation, summarization, and question-answering, and to generalize to new tasks and domains, such as zero-shot learning \footnote{it refers to a machine learning scenario where a model makes predictions or performs tasks for classes or examples it has never seen during training}, few-shot learning \footnote{it involves training a model with a very small number of examples per class, usually much fewer than what traditional machine learning models require}, and even one-shot learning \footnote{it is a specific case of few-shot learning where the model is trained with only one example per class} learning.
+    }
+\end{enumerate}
+The advent of LLMs has led to a paradigm shift in the field of natural language processing, with applications ranging from machine translation to text summarization, and from question-answering systems to language generation.
+The development of LLMs has been driven by the exponential growth of data and computational resources, which has enabled the training of models with billions of parameters.
+The scale of these models has enabled them to capture complex patterns in language and generate coherent and contextually relevant text.
+
+The potential of LLMs is vast, and their impact on the field of natural language processing is profound.
+The advent of ChatGPT~\cite{chatgpt} and GPT-4~\cite{gpt4} has further expanded the capabilities of LLMs, leads to the rethinking of the possibilities of artificial general intelligence (AGI).
+Talking about NLP, LLMs can serve somewhat as a general-purpose language task solver.
+In the IR field, LLMs can be used to improve the performance of information retrieval systems, through AI chatbots ($i.e.$, ChatGPT), and New Bing \footnote{https://www.microsoft.com/it-it/bing?form=MA13FV}.
+In the CV field, LLMs can be used to improve the performance of computer vision systems, through multimodal models /footnote{
+    Models designed to process and understand information from multiple modalities or sources ($e.g$, text, image, audio, video).
+    Multimodal models aim to handle and integrate data from two or more of these modalities.
+} ($i.e.$, CLIP~\cite{clip} \footnote{Contrastive Language–Image Pre-training} and DALL-E~\cite{dall-e}).
+
+The purpose of this thesis is to provide an overview of the current state of LLMs, including their capabilities, limitations, and potential applications, and it's mainly based on this~\cite{survey} work.
+The thesis will also explore and compare the abilities of different LLMs, focusing on the impact of various parameters on their performance.
+
+
+\section{Scaling Law}
+\label{sec:scaling-law-in-large-language-models}
+
+The Scaling Law in Large Language Models (LLMs) constitutes a fundamental principle that underlines their development and performance.
+At its essence, the scaling law posits that as the size of language models increases, their capabilities and performance on linguistic tasks exhibit a disproportionately positive growth.
+This concept has become a guiding force in pushing the boundaries of language processing and understanding.
+
+As LLMs scale up in terms of parameters, encompassing tens or hundreds of billions, or even trillions, of parameters, they demonstrate an unprecedented ability to generalize from diverse datasets and generate contextually coherent text.
+The essence of the scaling law lies in the direct correlation between the size of a language model and the number of parameters it encompasses.
+Parameters are the internal variables that the model learns during training, representing the connections and weights that define its understanding of language.
+As the number of parameters increases, so does the model's capacity to encapsulate complex linguistic structures.
+
+One of the primary outcomes of adhering to the scaling law is the substantial improvement in performance across a spectrum of language-related tasks.
+From language generation to sentiment analysis, and from question-answering to summarization, larger models consistently outperform their smaller counterparts.
+The increased capacity for learning intricate language features enables LLMs to excel in understanding and producing more human-like text.
+
+At the time of writing, most of the LLMs are based on the transformer architecture, where multi-headed self-attention layers are stacked in a very deep neural network.
+We'll deep dive into the transformer architecture in the following chapters, but for now, we can say that self-attention is a mechanism to allow a model to weigh different parts of the input sequence differently, capturing dependencies between words.
+The multi-headed self-attention mechanism allows the model to capture different types of dependencies and relationships between words, enhancing its understanding of language.
+The idea is that different attention heads can focus on different aspects or relationships within the data, allowing the model to capture more nuanced patterns.
+Multiple layers of these multi-headed self-attention mechanisms are stacked in a very deep neural network.
+Each layer in the stack processes the output of the previous layer, learning hierarchical representations of the input data, capturing increasingly complex relationships and abstractions.
+
+Two represtantive scaling laws for Transformer-based LLMs are the following \cite{scaling1, scaling2}:
+\enumerate{
+    \item \textbf{KM scaling law:} {named in this way in \cite{survey} and proposed by the OpenAI team in \cite{scaling1}. Given model size $M$, dataset size $D$, amount of training compute $C$, and a compute budget $c$, the KM scaling law states that the performance of a language model scales as per the following three formulas:
+
+        \begin{center}
+            \begin{math}
+                L(N)=(\frac{N_c}{N})^{\alpha_N}, \alpha_N \approx 0.076, N_c \approx 8.8 \times 10^{13}
+            \end{math}
+        \end{center}
+
+        \begin{center}
+            \begin{math}
+                L(D)=(\frac{D_c}{D})^{\alpha_D}, \alpha_D \approx 0.095, D_c \approx 5.4 \times 10^{13}
+            \end{math}
+        \end{center}
+
+        \begin{center}
+            \begin{math}
+                L(C)=(\frac{C_c}{C})^{\alpha_C}, \alpha_C \approx 0.050, C_c \approx 3.1 \times 10^8
+            \end{math}
+        \end{center}
+
+        where $L(N)$, $L(D)$, and $L(C)$ denotes the cross-entropy loss of the model, the dataset, and the amount of training compute, respectively.
+        The three laws were formulated by analyzing the model's performance across a range of data sizes (from 22M to 23B tokens), model sizes (from 768M to 1.5B non-embedding parameters), and training compute, with certain assumptions (e.g., ensuring that the analysis of one factor is not constrained by the other two factors).
+        The findings demonstrated a robust interdependence among the three factors influencing model performance.
+    }
+    \item \textbf{Chincilla scaling law:} {An alternative form of the scaling law has been proposed by the Google DeepMind team in \cite{scaling2} experimenting a large range of model size (70M to 16B) and data sizes (5B to 500B tokens).
+    The Chincilla scaling law posits that the performance of a language model scales as per the following formula:
+
+        \[L(N,D) = E + \frac{A}{N^\alpha} + \frac{B}{D^\beta},\]
+
+        where
+
+        \[E=1.69, A=406.4,B = 410.7, \alpha = 0.34, \beta = 0.28\]
+
+        They showed that optimal allocation of compute budget to model size and data size can be derived as follows \footnote{under the constraint \(C \approx 6ND\)}:
+
+        \begin{center}
+            \begin{equation}
+                N_{opt}(C) = G(\frac{C}{6})^a, D_{opt}(C) = G^{-1}(\frac{C}{6})^b, \label{eq:optimal-allocations}
+            \end{equation}
+        \end{center}
+
+        where \(a=\frac{\alpha}{\alpha+\beta}, b=\frac{\beta}{\alpha+\beta}\) and G is a scaling coefficient.
+        The KM scaling law favors a larger budget allocation in model size than the data size, while the Chinchilla scaling law argues that the two sizes should be increased in equal scales \cite{scaling2}, i.e., having similar values for a and b in \eqref{eq:optimal-allocations}.
+
+    }
+}
+
+Scaling not only boosts performance but also addresses inherent limitations in smaller language models.
+Larger models excel in managing long-range dependencies, comprehending ambiguous language constructs, and displaying a nuanced understanding of context—capabilities that smaller models frequently find challenging.
+
+Despite propelling the field of LLMs to new heights, the scaling law comes with computational challenges.
+Training extremely large models requires significant computational resources, encompassing both processing power and memory.
+This presents practical obstacles, demanding innovations in hardware and distributed training techniques to fully exploit the potential of scaled-up language models.
+
+
+\section{Promiment Model Families}
+\label{sec:promiment-model-families}
+
+
+\section{Applications of Large Language Models}
+\label{sec:applications-of-large-language-models}
