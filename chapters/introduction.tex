@@ -48,6 +48,27 @@ Historically, the development of Language Models (LMs) has been rooted in the qu
             Emergence is when quantitative changes in a system result in qualitative changes in behavior~\cite{emergent1}.
         \end{displayquote}
         These emergent abilities include, but are not limited to, the ability to perform tasks for which they were not explicitly trained, such as translation, summarization, and question-answering, and to generalize to new tasks and domains, such as zero-shot learning \footnote{it refers to a machine learning scenario where a model makes predictions or performs tasks for classes or examples it has never seen during training}, few-shot learning \footnote{it involves training a model with a very small number of examples per class, usually much fewer than what traditional machine learning models require}, and even one-shot learning \footnote{it is a specific case of few-shot learning where the model is trained with only one example per class} learning.
+        Three tipical examples of emergent abilities are:
+        \begin{enumerate}
+            \item \textbf{In-context learning:} {this ability has been formally observed in GPT-3, which is provided with a natural language instruction or task demonstrations, it can generate the expected output for test instances by completing the word sequence of the input text. Importantly, this can be achieved without requiring additional training or gradient updates \footnote{Recent study shows that in-context learning implicitly performs meta optimisation through the attention mechaninsm \cite{icl}}.
+                \begin{quote}
+                    \textbf{Language Translation:} \\
+                    \textit{Input:} {\enquote{Translate the following English text to French: `The quick brown fox jumps over the lazy dog.'}} \\
+                    \textit{Output:} {\enquote{Le renard brun rapide saute par-dessus le chien paresseux.}}\\
+                    \textbf{Arithmetic Tasks:} \\
+                    \textit{Input:} {\enquote{What is the sum of 42 and 63?}} \\
+                    \textit{Output:} {\enquote{The sum of 42 and 63 is 105.}}
+                \end{quote}
+            }
+            \item \textbf{Instruction following:}{
+                Through the process called instruction tuning, LLMs exhibits strong performance on unseen tasks described through natural language instructions \cite{instruction1, ouyang2022training, wei2022fine}.
+                This approach involves fine-tuning the model using a diverse set of multitask datasets, each accompanied by detailed natural language descriptions. The result is an LLM that effectively interprets and follows task instructions for new and unseen tasks without relying on explicit examples, thereby showcasing enhanced generalization capabilities.
+                Experiments detailed in \cite{wei2022fine} demonstrate that LaMDA-PT, fine-tuned with instructions, begins to outperform its untuned counterpart significantly when the model size reaches 68 billion parameters. However, this performance gain is not observed for model sizes of 8 billion or smaller. Furthermore, recent research \cite{chung2022scaling} highlights that a model size of at least 62 billion parameters is necessary for PaLM to excel across various tasks in evaluation benchmarks like MMLU, BBH, TyDiQA, and MGSM. Nevertheless, it is noted that certain specific tasks, such as MMLU, might suffice with a much smaller model size, emphasizing the nuanced relationship between model size and task performance.
+            }
+            \item \textbf{Step-by-step reasoning:} { For small LMs, it is usually difficult to solve complex tasks that involve multiple reasoning steps, e.g., mathematical word problems.
+            In contrast, the chain-of-thought (CoT) prompting strategy \cite{wei2022chain} empowers Large Language Models (LLMs) to surmount these challenges. By leveraging the CoT prompting mechanism, which involves intermediate reasoning steps to derive the final solution, LLMs exhibit proficiency in tasks that demand intricate cognitive processes. This capability is speculated to be honed through training on code \citation{wei2022chain}. Empirical findings \citation{wei2022chain} demonstrate that the employment of CoT prompting yields performance gains, particularly on arithmetic reasoning benchmarks, when applied to variants of models like PaLM and LaMDA, especially with a model size surpassing 60B. The advantages of CoT prompting become more pronounced as the model size exceeds 100B. Furthermore, the effectiveness of CoT prompting exhibits variability across different tasks, with performance improvement observed in the order of GSM8K~\textgreater~MAWPS~\textgreater~SWAMP for PaLM \citation{wei2022chain}.
+            }
+        \end{enumerate}
     }
 \end{enumerate}
 The advent of LLMs has led to a paradigm shift in the field of natural language processing, with applications ranging from machine translation to text summarization, and from question-answering systems to language generation.
@@ -140,7 +161,7 @@ Two represtantive scaling laws for Transformer-based LLMs are the following \cit
 }
 
 Scaling not only boosts performance but also addresses inherent limitations in smaller language models.
-Larger models excel in managing long-range dependencies, comprehending ambiguous language constructs, and displaying a nuanced understanding of context—capabilities that smaller models frequently find challenging.
+Larger models excel in managing long-range dependencies, comprehending ambiguous language constructs, and displaying a nuanced understanding of context---capabilities that smaller models frequently find challenging.
 
 Despite propelling the field of LLMs to new heights, the scaling law comes with computational challenges.
 Training extremely large models requires significant computational resources, encompassing both processing power and memory.
@@ -149,6 +170,146 @@ This presents practical obstacles, demanding innovations in hardware and distrib
 
 \section{Promiment Model Families}
 \label{sec:promiment-model-families}
+
+The development of Large Language Models (LLMs) has been driven by the emergence of prominent model families, each characterized by its unique architecture and capabilities.
+These model families have played a pivotal role in shaping the landscape of language processing and understanding, and have been instrumental in pushing the boundaries of LLMs.
+
+Some of the most prominent large language models (having a size larger than 10B) are depicted in Figure~\ref{fig:llm-evolution}.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=1\textwidth]{public_llm}
+    \caption{Source: \protect\cite{survey}. A diagram showing the evolution of publicly available LLMs.}
+    \label{fig:llm-evolution}
+\end{figure}
+
+\subsection{GPT Series}
+\label{subsec:gpt-series}
+
+Developed by OpenAI, the GPT series has been at the forefront of LLM research.
+The original GPT model, introduced in 2018, laid the groundwork with its transformer-based architecture, which significantly improved upon previous models in understanding context and generating text.
+It was developed based on a generative, decoder-only Transformer architecture, and adopted a hybrid approach of unsupervised pre-training and supervised fine-tuning.
+GPT-2~\cite{gpt2}, released in 2019, expanded on this with 1.5 billion parameters and was trained with a large webpage dataset WebText, demonstrating unprecedented text generation capabilities.
+The subsequent GPT-3 model, unveiled in 2020, further pushed the boundaries with 175 billion parameters, showcasing remarkable abilities in generating human-like text, performing language translation, question-answering, and more without task-specific training.
+In the research paper on GPT-3~\cite{gpt3}, the authors presented a detailed explanation of the concept known as in-context learning (ICL). This approach enables Large Language Models (LLMs) to function in few-shot or zero-shot scenarios.
+ICL empowers LLMs to comprehend tasks when they are described using natural language.
+This method aligns the pre-training and application phases of LLMs under a unified framework: during pre-training, the model predicts subsequent text sequences based on prior context.
+In contrast, during in-context learning, the model generates the appropriate solution to a task—also in the form of a text sequence—using the provided task instructions and examples.
+
+The GPT series is based on the transformer architecture~\cite{vaswani2023attention}.
+This architecture leverages self-attention mechanisms to process input data, which allows the model to weigh the importance of different words within the input context, enhancing its ability to understand and generate language.
+GPT models are characterized by their stacked transformer blocks, which consist of multi-headed self-attention layers followed by fully connected feed-forward neural networks.
+The series has seen an exponential increase in the number of parameters: GPT with 110 million, GPT-2 with 1.5 billion, and GPT-3 with 175 billion parameters.
+
+GPT models exhibit a remarkable ability to generate coherent and contextually relevant text, simulating human-like writing styles.
+They demonstrate strong performance in a wide array of NLP tasks without task-specific data training, showcasing their versatility in few-shot, one-shot, or zero-shot learning scenarios.
+The scalability of the architecture has shown that larger models tend to exhibit better performance, capturing subtler patterns in data.
+
+One significant criticism is their data-hungry nature, requiring vast amounts of text data for training, which raises concerns about environmental impact and computational costs.
+The models can sometimes generate plausible but factually incorrect or nonsensical information, a phenomenon often referred to as \enquote{hallucination}.
+The black-box nature of these models poses challenges in interpretability and transparency, making it difficult to understand how decisions are made or how to correct biases.
+
+GPT-3 demonstrated surprising emergent behaviors, such as improved reasoning, problem-solving, and creative writing, which were not explicitly programmed or observed in its predecessors.
+These abilities suggest that scaling up model size can lead to qualitative changes in how models understand and interact with language, although the relationship is not yet fully understood.
+OpenAI has explored two major approaches to further improving the GPT-3 model, i.e., training on code data and alignment with human preference, which are detailed as follows:
+\begin{enumerate}
+    \item \textbf{Training on code data:} {
+    This approach involves fine-tuning the model on a diverse set of programming tasks, such as code completion, code generation, and code summarization.
+    The model is trained on a large corpus of code data, which includes code snippets, programming languages, and software development documentation.
+    The goal is to improve the model's understanding of programming languages and its ability to generate code, thereby enhancing its performance on programming-related tasks.
+    }
+    \item \textbf{Alignment with human preference:} {
+This approach involves training the model to generate outputs that align with human preferences and values and can be dated back to a work that applied reinforcement learning (RL) \cite{christiano2017deep} (similar to the reward training step in the aligning algorithm of InstructGPT.
+    }
+\end{enumerate}
+
+\section{GTP-4}
+\label{subsec:gpt-4}
+
+GPT-4~\cite{gpt4}, the successor to GPT-3, marks a further advancement in the GPT series developed by OpenAI. While specific details about GPT-4's architecture and capabilities are proprietary, it is known to build upon the foundational concepts of its predecessors, emphasizing scale, capability, and efficiency.
+GPT-4 is a multimodal model which can accept image and text inputs and produce text outputs.
+Such models are an important area of study as they have the potential to be used in a wide range of applications, such as dialogue systems, text summarization, and machine translation.
+
+On the MMLU benchmark \cite{hendrycks2021measuring}, an English-language suite of multiple-choice questions covering 57 subjects, GPT-4 not only outperforms existing models by a considerable margin in English, but also demonstrates strong performance in other languages.
+GPT-4 development was enabled by deep learning infrastructure and optimization methods that behave predictably across a wide range of scales.
+This allowed to make predictions about the expected performance of GPT-4 (based on small runs trained in similar ways) that were tested against the final run to increase confidence in our training.
+The primary reason is that for very large training runs, it is not feasible to do extensive model-specific tuning.
+
+The prediction GPT-4’s final loss was predicted by fitting a scaling law with an irreducible loss term (as in \cite{henighan2020scaling}): \(L(C) = aC^b + c\), from models trained using the same methodology but using at most 10,000x less compute than GPT-4.
+The fitted scaling law predicted GPT-4’s final loss with high accuracy.
+In addition to predicting the final loss, a metric of capability was also predicted.
+One such metric is the pass rate on HumanEval dataset~\cite{chen2021evaluating} which measures the ability to write Python function of various complexity.
+The approximate power law relationship is \(E_P [\log{pass\_rate(C)}] = \alpha \times C^{-k}\), where k and \(\alpha\) are positive constants, and P is a subset of problems in the dataset.
+
+GPT-4 accepts prompts consisting of both images and text, which -- parallel to the text-only setting -- lets the user specify any vision or language task.
+Specifically, the model generates text outputs given inputs consisting of arbitrarily interlaced text and images.
+
+\begin{center}
+    \begin{tabular}{ c c }
+        \hline
+        Example of GPT-4 visual input\\
+        \hline
+        user & What is funny about this image?\\
+        ~ & Describe it panel by panel.\\
+        ~ & \includegraphics[width=0.5\textwidth]{gpt4} \\
+        GPT-4 & {The image shows a package for a \enquote{Lightning Cable} adapter with three panels.}\\
+        ~ & {\raggedleft Panel 1: A smartphone with a VGA connector (a large, blue, 15-pin connector typically used for computer monitors) plugged into its charging port.}\\
+        ~ & {\raggedleft Panel 2: The package for the \enquote{Lightning Cable} adapter with a picture of a VGA connector on it.}\\
+        ~ & {\raggedleft Panel 3: A close-up of the VGA connector with a small Lightning connector (used for charging iPhones and other Apple devices) at the end.}\\
+        ~ & {\raggedleft The humor in this image comes from the absurdity of plugging a large, outdated VGA connector into a small, modern smartphone charging port.}
+    \end{tabular}
+\end{center}
+
+Despite its capabilities, GPT-4 has similar limitations to earlier GPT models: it is not fully reliable (e.g.\ can suffer from \enquote{hallucinations}), has a limited context window, and does not learn from experience.
+Care should be taken when using the outputs of GPT-4, particularly in contexts where reliability is important.
+
+\subsection{BERT}
+\label{subsec:bert}
+
+Introduced by Google in 2018, BERT marked a significant evolution in LLMs by focusing on bidirectional context in text processing.
+Unlike its predecessors, BERT analyzes text in both directions (left-to-right and right-to-left), providing a more nuanced understanding of language context.
+This bi-directionality enables BERT to achieve state-of-the-art results in a variety of NLP tasks, such as question answering, named entity recognition, and sentiment analysis.
+BERT's architecture and training methodology have influenced numerous subsequent models and research initiatives~\cite{bert}.
+
+Even BERT is built on the transformer architecture~\cite{vaswani2023attention}, which relies heavily on attention mechanisms to understand the context of words in a sentence.
+The innovation in BERT is its bidirectional nature, achieved through the use of a mechanism called Masked Language Model (MLM). In MLM, some percentage of the input tokens are randomly masked, and the objective is to predict these masked tokens based on their context, leveraging information from both sides of the sequence.
+BERT also incorporates a next sentence prediction (NSP) task that helps the model learn relationships between sentences, further enhancing its understanding of context.
+
+BERT's bidirectional context understanding significantly improves its performance on a wide range of NLP tasks, including sentiment analysis, question answering, and named entity recognition.
+By pre-training on a large corpus of text and then fine-tuning on specific tasks, BERT can adapt to various domains with relatively little task-specific data, demonstrating impressive transfer learning capabilities.
+Its architecture has set a new standard in the field, inspiring a plethora of subsequent models that build on or modify its foundational structure.
+
+Despite its strengths, BERT is not without limitations.
+The model's size and complexity require substantial computational resources for training, which can be a barrier for some organizations or researchers.
+BERT's focus on context from surrounding text does not inherently solve all challenges in language understanding, particularly with respect to ambiguity, nuance, or the subtleties of human language.
+The model can sometimes struggle with tasks requiring extensive world knowledge or reasoning beyond the scope of its training data.
+
+While BERT itself does not exhibit emergent abilities in the same way that scaling up GPT models does, its architecture has enabled new approaches in handling context and language understanding that were not feasible with prior models.
+Subsequent iterations and variations of BERT, like RoBERTa (Robustly Optimized BERT Pre-training Approach) and ALBERT (A Lite BERT), have sought to optimize and expand upon BERT's foundational principles, exploring how changes in model size, training methodology, and architecture can influence performance and capabilities.
+
+\subsection{T5}
+\label{subsec:t5}
+
+Developed by Google in 2019, T5 re-framed all NLP tasks as a unified text-to-text problem, where every task is cast as generating text from input text.
+It re-frames all NLP tasks as text-to-text problems, meaning every task is formulated in a way that the input and output are both sequences of text.
+This approach simplifies the use of a single model across diverse tasks, encouraging a more generalized understanding of language.
+T5 demonstrated its prowess across a range of benchmarks, setting new standards in the field of NLP~\cite{t5}.
+T5 is built on the transformer model, similar to its predecessors like BERT and GPT, leveraging the effective self-attention mechanism for processing sequences of data.
+The model is designed to handle a variety of tasks without needing task-specific architectural modifications.
+It uses a unified text-to-text framework, where tasks are converted into a format where the input and output are always text strings.
+T5 is pre-trained on a multitask mixture of unsupervised and supervised tasks, utilizing a large-scale dataset known as \enquote{C4} (Colossal Clean Crawled Corpus).
+The text-to-text framework of T5 allows it to generalize across different NLP tasks more effectively, reducing the need for task-specific models or architectures.
+T5's approach simplifies the process of integrating new tasks into the model's training regime, as they only need to be reformulated into the text-to-text format.
+While T5's unified approach offers considerable advantages, it might not be optimally efficient for all types of tasks.
+Some tasks could potentially benefit from more specialized model architectures or formats.
+The training process for T5 is resource-intensive, requiring substantial computational power, which could be a limiting factor for smaller organizations or independent researchers.
+As with other large language models, T5's outputs can sometimes include biases present in the training data, necessitating careful monitoring and potential post-hoc adjustments.
+
+\subsection{LLaMA}
+\label{subsec:llama}
+
+LLaMA (Large Language Model Meta AI) is a language model developed by Meta AI, designed to be a versatile and efficient foundation for a wide range of natural language processing (NLP) tasks.
+LLaMA is built on a transformer architecture~\cite{vaswani2023attention}, similar to other large language models like GPT and BERT. However, specific details about any unique architectural choices or optimizations in LLaMA compared to other transformer-based models might not be fully disclosed and could be proprietary to Meta AI\@.
 
 
 \section{Applications of Large Language Models}

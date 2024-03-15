@@ -2,119 +2,244 @@
 %! Date = 10/03/24
 
 @article{survey,
-    author = {Wayne Xin Zhao AND Kun Zhou* AND Junyi Li* AND Tianyi Tang AND Xiaolei Wang AND Yupeng Hou AND Yingqian Min AND Beichen Zhang AND Junjie Zhang AND Zican Dong AND Yifan Du AND Chen Yang AND Yushuo Chen AND Zhipeng Chen AND Jinhao Jiang AND Ruiyang Ren AND Yifan Li AND Xinyu Tang AND Zikang Liu AND Peiyu Liu AND Jian-Yun Nie and Ji-Rong Wen},
+    author = {Wayne Xin Zhao and Kun Zhou* and Junyi Li* and Tianyi Tang and Xiaolei Wang and Yupeng Hou and Yingqian Min and Beichen Zhang and Junjie Zhang and Zican Dong and Yifan Du and Chen Yang and Yushuo Chen and Zhipeng Chen and Jinhao Jiang and Ruiyang Ren and Yifan Li and Xinyu Tang and Zikang Liu and Peiyu Liu and Jian-Yun Nie and Ji-Rong Wen},
     year = {2023},
     title = {A Survey of Large Language Models},
     publisher = {ArXiv},
 }
+
 @article{nlm,
-    author = {Y. Bengio AND R. Ducharme AND P. Vincent AND C. Janvin},
+    title = {A Neural Probabilistic Language Model},
+    author = {Bengio, Yoshua and Ducharme, Rejean and Vincent, Pascal and Janvin, Christian},
+    journal = {Journal of Machine Learning Research},
+    volume = {3},
+    pages = {1137--1155},
     year = {2003},
-    title = {A neural probabilistic language model},
-    publisher = {JMLR},
 }
-@article{word2vec,
-    author = {T. Mikolov AND I. Sutskever AND K. Chen AND G. Corrado AND J. Dean},
+
+@inproceedings{word2vec,
+    title = {Distributed Representations of Words and Phrases and Their Compositionality},
+    author = {Mikolov, Tomas and Sutskever, Ilya and Chen, Kai and Corrado, Greg S. and Dean, Jeffrey},
+    booktitle = {Advances in Neural Information Processing Systems 26: 27th Annual Conference on Neural Information Processing Systems 2013. Proceedings of a Meeting Held December 5-8, 2013, Lake Tahoe, Nevada, United States},
+    editor = {Burges, C. J. C. and Bottou, L. and Ghahramani, Z. and Weinberger, K. Q.},
     year = {2013},
-    title = {Distributed representations of words and phrases and their compositionality},
-    publisher = {C. J. C. Burges, L. Bottou, Z. Ghahramani, and K. Q. Weinberger, Eds.},
+    pages = {3111--3119},
 }
-@article{word2vec2,
-    author = {T. Mikolov AND K. Chen AND G. Corrado AND J. Dean},
+
+@inproceedings{word2vec2,
+    title = {Efficient Estimation of Word Representations in Vector Space},
+    author = {Mikolov, Tomas and Chen, Kai and Corrado, Greg and Dean, Jeffrey},
+    booktitle = {1st International Conference on Learning Representations, ICLR 2013, Scottsdale, Arizona, USA, May 2-4, 2013, Workshop Track Proceedings},
+    editor = {Bengio, Yoshua and LeCun, Yann},
     year = {2013},
-    title = {Efficient estimation of word representations in vector space},
-    publisher = {arXiv},
 }
 
-@article{elmo,
-    author = {Matthew E. Peters AND Mark Neumann AND Mohit Iyyer AND Matt Gardner AND Christopher Clark AND Kenton Lee AND Luke Zettlemoyer},
+@misc{elmo,
+    author = {Peters, Matthew E. and Neumann, Mark and Iyyer, Mohit and Gardner, Matt and Clark, Christopher and Lee, Kenton and Zettlemoyer, Luke},
     year = {2018},
-    title = {Deep contextualized word representations},
-    publisher = {arXiv},
-
+    title = {Deep Contextualized Word Representations},
+    howpublished = {arXiv preprint},
+    url = {https://arxiv.org/abs/1802.05365},
 }
 
-@article{bert,
-    author = {Jacob Devlin AND Ming-Wei Chang AND Kenton Lee AND Kristina Toutanova},
-    year = {2018},
-    title = {BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding},
-    publisher = {arXiv},
-}
-
-@article{gpt2,
-    author = {Alec Radford AND Karthik Narasimhan AND Tim Salimans AND Ilya Sutskever},
+@inproceedings{bert,
+    author = {Devlin, Jacob and Chang, Ming-Wei and Lee, Kenton and Toutanova, Kristina},
+    title = {Bert: Pre-training of Deep Bidirectional Transformers for Language Understanding},
+    booktitle = {Proceedings of the 2019 Conference of the North American Chapter of the Association for Computational Linguistics: Human Language Technologies, {NAACL-HLT} 2019},
+    editor = {Burstein, Jill and Doran, Christy and Solorio, Thamar},
+    volume = {1},
+    number = {Long and Short Papers},
+    series = {NAACL-HLT '19},
+    pages = {4171--4186},
     year = {2019},
-    title = {Language Models are Unsupervised Multitask Learners},
-    publisher = {arXiv},
+    month = jun,
+    address = {Minneapolis, MN, USA},
+    publisher = {Association for Computational Linguistics},
+    doi = {10.18653/v1/N19-1423},
+    url = {https://www.aclweb.org/anthology/N19-1423},
 }
 
-@article{gpt3,
-    author = {Tom B. Brown AND Benjamin Mann AND Nick Ryder AND Melanie Subbiah AND Jared Kaplan AND Prafulla Dhariwal AND Arvind Neelakantan AND Pranav Shyam AND Girish Sastry AND Amanda Askell AND Sandhini Agarwal AND Ariel Herbert-Voss AND Gretchen Krueger AND Tom Henighan AND Rewon Child AND Aditya Ramesh AND Daniel M. Ziegler AND Jeffrey Wu AND Clemens Winter AND Christopher Hesse AND Mark Chen AND Eric Sigler AND Mateusz Litwin AND Scott Gray AND Benjamin Chess AND Jack Clark AND Christopher Berner AND Sam McCandlish AND Alec Radford AND Ilya Sutskever AND Dario Amodei},
+@online{gpt2,
+    author = {Radford, Alec and Wu, Jeffrey and Child, Rewon and Luan, David and Amodei, Dario and Sutskever, Ilya et al.},
+    title = {Language Models Are Unsupervised Multitask Learners},
+    howpublished = {OpenAI Blog},
+    year = {2019},
+    url = {https://openai.com/blog/better-language-models/},
+}
+
+@misc{gpt3,
+    title = {Language Models Are Few-Shot Learners},
+    author = {Tom B. Brown and Benjamin Mann and Nick Ryder and Melanie Subbiah and Jared Kaplan and Prafulla Dhariwal and Arvind Neelakantan and Pranav Shyam and Girish Sastry and Amanda Askell and Sandhini Agarwal and Ariel Herbert-Voss and Gretchen Krueger and Tom Henighan and Rewon Child and Aditya Ramesh and Daniel M. Ziegler and Jeffrey Wu and Clemens Winter and Christopher Hesse and Mark Chen and Eric Sigler and Mateusz Litwin and Scott Gray and Benjamin Chess and Jack Clark and Christopher Berner and Sam McCandlish and Alec Radford and Ilya Sutskever and Dario Amodei},
     year = {2020},
-    title = {Language Models are Few-Shot Learners},
-    publisher = {arXiv},
+    eprint = {2005.14165},
+    archivePrefix = {arXiv},
+    primaryClass = {cs.CL},
 }
 
 @article{t5,
-    author = {Colin Raffel AND Noam Shazeer AND Adam Roberts AND Katherine Lee AND Sharan Narang AND Michael Matena AND Yanqi Zhou AND Wei Li AND Peter J. Liu},
-    year = {2019},
+    author = {Raffel, Colin and Shazeer, Noam and Roberts, Adam and Lee, Katherine and Narang, Sharan and Matena, Mengye and Zhou, Yanqi and Li, Wei and Liu, Peter J.},
     title = {Exploring the Limits of Transfer Learning with a Unified Text-to-Text Transformer},
-    publisher = {arXiv},
+    journal = {Journal of Machine Learning Research},
+    volume = {21},
+    pages = {140:1--140:67},
+    year = {2020},
 }
 
 @article{emergent1,
     author = {Philip W. Anderson},
     year = {1972},
-    title = {More is different: Broken symmetry and the nature of the hierarchical structure of science},
+    title = {More is Different: Broken Symmetry and the Nature of the Hierarchical Structure of Science},
     publisher = {Science},
     url = {http://www.lanais.famaf.unc.edu.ar/cursos/em/Anderson-MoreDifferent-1972.pdf},
 }
 
-@article{emergent2,
-    author = {J. Wei AND Y. Tay AND R. Bommasani AND C. Raffel AND B. Zoph AND S. Borgeaud AND D. Yogatama AND M. Bosma AND D. Zhou AND D. Metzler AND E. H. Chi AND T. Hashimoto AND O. Vinyals AND P. Liang AND J. Dean AND W. Fedus},
+@misc{emergent2,
+    title = {Emergent Abilities of Large Language Models},
+    author = {Jason Wei and Yi Tay and Rishi Bommasani and Colin Raffel and Barret Zoph and Sebastian Borgeaud and Dani Yogatama and Maarten Bosma and Denny Zhou and Donald Metzler and Ed H. Chi and Tatsunori Hashimoto and Oriol Vinyals and Percy Liang and Jeff Dean and William Fedus},
     year = {2022},
-    title = {Emergent abilities of large language models},
-    publisher = {CoRR},
+    eprint = {2206.07682},
+    archivePrefix = {arXiv},
+    primaryClass = {cs.CL},
 }
 
-@article{chatgpt,
-    author = {Daniel Adiwardana AND Minh-Thang Luong AND David R. So AND Jamie Hall AND Noah Fiedel AND Romal Thoppilan AND Zi Yang AND Apoorv Kulshreshtha AND Gaurav Nemade AND Yifeng Lu AND Quoc V. Le},
-    year = {2020},
+@misc{chatgpt,
     title = {Towards a Human-like Open-Domain Chatbot},
-    publisher = {arXiv},
+    author = {Daniel Adiwardana and Minh-Thang Luong and David R. So and Jamie Hall and Noah Fiedel and Romal Thoppilan and Zi Yang and Apoorv Kulshreshtha and Gaurav Nemade and Yifeng Lu and Quoc V. Le},
+    year = {2020},
+    eprint = {2001.09977},
+    archivePrefix = {arXiv},
+    primaryClass = {cs.CL},
 }
 
-@article{gpt4,
-    author = {OpenAI},
-    year = {2023},
-    title = {GPT-4 Technical Report},
-    publisher = {OpenAI},
+@misc{gpt4,
+    title = {{GPT-4} Technical Report},
+    author = {OpenAI and Josh Achiam and Steven Adler and Sandhini Agarwal and Lama Ahmad and Ilge Akkaya and Florencia Leoni Aleman and Diogo Almeida and Janko Altenschmidt and Sam Altman and Shyamal Anadkat and Red Avila and Igor Babuschkin and Suchir Balaji and Valerie Balcom and Paul Baltescu and Haiming Bao and Mohammad Bavarian and Jeff Belgum and Irwan Bello and Jake Berdine and Gabriel Bernadett-Shapiro and Christopher Berner and Lenny Bogdonoff and Oleg Boiko and Madelaine Boyd and Anna-Luisa Brakman and Greg Brockman and Tim Brooks and Miles Brundage and Kevin Button and Trevor Cai and Rosie Campbell and Andrew Cann and Brittany Carey and Chelsea Carlson and Rory Carmichael and Brooke Chan and Che Chang and Fotis Chantzis and Derek Chen and Sully Chen and Ruby Chen and Jason Chen and Mark Chen and Ben Chess and Chester Cho and Casey Chu and Hyung Won Chung and Dave Cummings and Jeremiah Currier and Yunxing Dai and Cory Decareaux and Thomas Degry and Noah Deutsch and Damien Deville and Arka Dhar and David Dohan and Steve Dowling and Sheila Dunning and Adrien Ecoffet and Atty Eleti and Tyna Eloundou and David Farhi and Liam Fedus and Niko Felix and Simón Posada Fishman and Juston Forte and Isabella Fulford and Leo Gao and Elie Georges and Christian Gibson and Vik Goel and Tarun Gogineni and Gabriel Goh and Rapha Gontijo-Lopes and Jonathan Gordon and Morgan Grafstein and Scott Gray and Ryan Greene and Joshua Gross and Shixiang Shane Gu and Yufei Guo and Chris Hallacy and Jesse Han and Jeff Harris and Yuchen He and Mike Heaton and Johannes Heidecke and Chris Hesse and Alan Hickey and Wade Hickey and Peter Hoeschele and Brandon Houghton and Kenny Hsu and Shengli Hu and Xin Hu and Joost Huizinga and Shantanu Jain and Shawn Jain and Joanne Jang and Angela Jiang and Roger Jiang and Haozhun Jin and Denny Jin and Shino Jomoto and Billie Jonn and Heewoo Jun and Tomer Kaftan and Łukasz Kaiser and Ali Kamali and Ingmar Kanitscheider and Nitish Shirish Keskar and Tabarak Khan and Logan Kilpatrick and Jong Wook Kim and Christina Kim and Yongjik Kim and Jan Hendrik Kirchner and Jamie Kiros and Matt Knight and Daniel Kokotajlo and Łukasz Kondraciuk and Andrew Kondrich and Aris Konstantinidis and Kyle Kosic and Gretchen Krueger and Vishal Kuo and Michael Lampe and Ikai Lan and Teddy Lee and Jan Leike and Jade Leung and Daniel Levy and Chak Ming Li and Rachel Lim and Molly Lin and Stephanie Lin and Mateusz Litwin and Theresa Lopez and Ryan Lowe and Patricia Lue and Anna Makanju and Kim Malfacini and Sam Manning and Todor Markov and Yaniv Markovski and Bianca Martin and Katie Mayer and Andrew Mayne and Bob McGrew and Scott Mayer McKinney and Christine McLeavey and Paul McMillan and Jake McNeil and David Medina and Aalok Mehta and Jacob Menick and Luke Metz and Andrey Mishchenko and Pamela Mishkin and Vinnie Monaco and Evan Morikawa and Daniel Mossing and Tong Mu and Mira Murati and Oleg Murk and David Mély and Ashvin Nair and Reiichiro Nakano and Rajeev Nayak and Arvind Neelakantan and Richard Ngo and Hyeonwoo Noh and Long Ouyang and Cullen O'Keefe and Jakub Pachocki and Alex Paino and Joe Palermo and Ashley Pantuliano and Giambattista Parascandolo and Joel Parish and Emy Parparita and Alex Passos and Mikhail Pavlov and Andrew Peng and Adam Perelman and Filipe de Avila Belbute Peres and Michael Petrov and Henrique Ponde de Oliveira Pinto and Michael and Pokorny and Michelle Pokrass and Vitchyr H. Pong and Tolly Powell and Alethea Power and Boris Power and Elizabeth Proehl and Raul Puri and Alec Radford and Jack Rae and Aditya Ramesh and Cameron Raymond and Francis Real and Kendra Rimbach and Carl Ross and Bob Rotsted and Henri Roussez and Nick Ryder and Mario Saltarelli and Ted Sanders and Shibani Santurkar and Girish Sastry and Heather Schmidt and David Schnurr and John Schulman and Daniel Selsam and Kyla Sheppard and Toki Sherbakov and Jessica Shieh and Sarah Shoker and Pranav Shyam and Szymon Sidor and Eric Sigler and Maddie Simens and Jordan Sitkin and Katarina Slama and Ian Sohl and Benjamin Sokolowsky and Yang Song and Natalie Staudacher and Felipe Petroski Such and Natalie Summers and Ilya Sutskever and Jie Tang and Nikolas Tezak and Madeleine B. Thompson and Phil Tillet and Amin Tootoonchian and Elizabeth Tseng and Preston Tuggle and Nick Turley and Jerry Tworek and Juan Felipe Cerón Uribe and Andrea Vallone and Arun Vijayvergiya and Chelsea Voss and Carroll Wainwright and Justin Jay Wang and Alvin Wang and Ben Wang and Jonathan Ward and Jason Wei and CJ Weinmann and Akila Welihinda and Peter Welinder and Jiayi Weng and Lilian Weng and Matt Wiethoff and Dave Willner and Clemens Winter and Samuel Wolrich and Hannah Wong and Lauren Workman and Sherwin Wu and Jeff Wu and Michael Wu and Kai Xiao and Tao Xu and Sarah Yoo and Kevin Yu and Qiming Yuan and Wojciech Zaremba and Rowan Zellers and Chong Zhang and Marvin Zhang and Shengjia Zhao and Tianhao Zheng and Juntang Zhuang and William Zhuk and Barret Zoph},
+    year = {2024},
+    eprint = {2303.08774},
+    archivePrefix = {arXiv},
+    primaryClass = {cs.CL},
 }
 
-@article{clip,
-    author = {Alec Radford AND Ilya Sutskever AND Jong Wook Kim AND Gretchen Krueger AND Tom Henighan AND Karan Agarwal AND Tom B. Brown},
-    year = {2021},
+@misc{clip,
     title = {Learning Transferable Visual Models From Natural Language Supervision},
-    publisher = {arXiv},
+    author = {Alec Radford and Jong Wook Kim and Chris Hallacy and Aditya Ramesh and Gabriel Goh and Sandhini Agarwal and Girish Sastry and Amanda Askell and Pamela Mishkin and Jack Clark and Gretchen Krueger and Ilya Sutskever},
+    year = {2021},
+    eprint = {2103.00020},
+    archivePrefix = {arXiv},
+    primaryClass = {cs.CV},
 }
 
-@article{dall-e,
-    author = {Aditya Ramesh AND Mikhail Pavlov AND Gabriel Goh AND Scott Gray AND Chelsea Voss AND Alec Radford AND Mark Chen AND Ilya Sutskever},
-    year = {2021},
+@misc{dall-e,
     title = {Zero-Shot Text-to-Image Generation},
-    publisher = {arXiv},
+    author = {Aditya Ramesh and Mikhail Pavlov and Gabriel Goh and Scott Gray and Chelsea Voss and Alec Radford and Mark Chen and Ilya Sutskever},
+    year = {2021},
+    eprint = {2102.12092},
+    archivePrefix = {arXiv},
+    primaryClass = {cs.CV},
 }
 
 @article{scaling1,
-    author = {J. Kaplan AND S. McCandlish AND T. Henighan AND T. B. Brown AND B. Chess AND R. Child AND S. Gray AND A. Radford AND J. Wu AND D. Amodei},
+    author = {Kaplan, Jared and McCandlish, Sam and Henighan, Tom and Brown, Tom B. and Chess, Benjamin and Child, Rewon and Gray, Scott and Radford, Alec and Wu, Jeffrey and Amodei, Dario},
+    title = {Scaling Laws for Neural Language Models},
+    journal = {CoRR},
+    volume = {abs/2001.08361},
     year = {2020},
-    title = {Scaling laws for neural language models},
-    publisher = {CoRR},
 }
 
 @article{scaling2,
-    author = {J. Hoffmann AND S. Borgeaud AND A. Mensch AND E. Buchatskaya AND T. Cai AND E. Rutherford AND D. de Las Casas AND L. A. Hendricks AND J. Welbl AND A. Clark AND T. Hennigan AND E. Noland AND K. Millican AND G. van den Driessche AND B. Damoc AND A. Guy AND S. Osindero AND K. Simonyan AND E. Elsen AND J. W. Rae AND O. Vinyals AND L. Sifre},
+    author = {Hoffmann, Jan and Borgeaud, Samuel and Mensch, Andrei and Buchatskaya, Elena and Cai, Tianlong and Rutherford, Edward and de Las Casas, Daniel and Hendricks, Lisa Anne and Welbl, Johannes and Clark, Alexander and Hennigan, Tim and Noland, Emily and Millican, Kelsey and van den Driessche, Gilles and Damoc, Bogdan and Guy, Adam and Osindero, Simon and Simonyan, Karen and Elsen, Erich and Rae, Jack W. and Vinyals, Oriol and Sifre, Laurent},
+    title = {Training Compute-Optimal Large Language Models},
+    journal = {CoRR},
+    volume = {abs/2203.15556},
     year = {2022},
-    title = {Training compute-optimal large language models},
-    publisher = {arXiv},
+}
+
+@article{icl,
+    author = {D. Dai AND Y. Sun AND L. Dong AND Y. Hao AND Z. Sui AND F. Wei},
+    year = {2022},
+    title = {Why can GPT learn in-context? language models secretly perform gradient descent as meta-optimizers},
+    publisher = {CoRR},
+}
+
+@article{instruction1,
+    author = {V. Sanh AND A. Webson AND C. Raffel AND S. H. Bach AND L. Sutawika AND Z. Alyafeai AND A. Chaffin AND A. Stiegler AND A. Raja AND M. Dey AND M. S. Bari AND C. Xu AND U. Thakker AND S. S. Sharma AND E. Szczechla AND T. Kim AND G. Chhablani AND N. V. Nayak AND D. Datta AND J. Chang AND M. T. Jiang AND H. Wang AND M. Manica AND S. Shen AND Z. X. Yong AND H. Pandey AND R. Bawden AND T. Wang AND T. Neeraj AND J. Rozen AND A. Sharma AND A. Santilli AND T. Fe ́vry AND J. A. Fries AND R. Teehan AND T. L. Scao AND S. Biderman AND L. Gao AND T. Wolf AND A. M. Rush},
+    year = {2022},
+    title = {Multitask prompted training enables zero-shot task generalization},
+    publisher = {The Tenth International Conference on Learning Representations, ICLR 2022, Virtual Event, April 25-29, 2022. OpenReview.net},
+}
+
+@article{ouyang2022training,
+    title={Training Language Models to Follow Instructions with Human Feedback},
+    author={Ouyang, L. and Wu, J. and Jiang, X. and Almeida, D. and Wainwright, C. L. and Mishkin, P. and Zhang, C. and Agarwal, S. and Slama, K. and Ray, A. and Schulman, J. and Hilton, J. and Kelton, F. and Miller, L. and Simens, M. and Askell, A. and Welinder, P. and Christiano, P. F. and Leike, J. and Lowe, R.},
+    journal={CoRR},
+    volume={abs/2203.02155},
+    year={2022}
+}
+
+@inproceedings{wei2022fine,
+    title={Fine-tuned Language Models are Zero-shot Learners},
+    author={Wei, J. and Bosma, M. and Zhao, V. Y. and Guu, K. and Yu, A. W. and Lester, B. and Du, N. and Dai, A. M. and Le, Q. V.},
+    booktitle={The Tenth International Conference on Learning Representations, ICLR 2022},
+    year={2022},
+    address={Virtual Event},
+    month={April 25-29},
+    organization={OpenReview.net}
+}
+
+@article{chung2022scaling,
+    title={Scaling Instruction-Finetuned Language Models},
+    author={Chung, H. W. and Hou, L. and Longpre, S. and Zoph, B. and Tay, Y. and Fedus, W. and Li, E. and Wang, X. and Dehghani, M. and Brahma, S. and Webson, A. and Gu, S. S. and Dai, Z. and Suzgun, M. and Chen, X. and Chowdhery, A. and Narang, S. and Mishra, G. and Yu, A. and Zhao, V. Y. and Huang, Y. and Dai, A. M. and Yu, H. and Petrov, S. and Chi, E. H. and Dean, J. and Devlin, J. and Roberts, A. and Zhou, D. and Le, Q. V. and Wei, J.},
+    journal={CoRR},
+    volume={abs/2210.11416},
+    year={2022}
+}
+
+@article{wei2022chain,
+    title={Chain of thought prompting elicits reasoning in large language models},
+    author={Wei, J. and Wang, X. and Schuurmans, D. and Bosma, M. and Chi, E. H. and Le, Q. and Zhou, D.},
+    journal={CoRR},
+    volume={abs/2201.11903},
+    year={2022}
+}
+
+@misc{vaswani2023attention,
+    title={Attention Is All You Need},
+    author={Ashish Vaswani and Noam Shazeer and Niki Parmar and Jakob Uszkoreit and Llion Jones and Aidan N. Gomez and Lukasz Kaiser and Illia Polosukhin},
+    year={2023},
+    eprint={1706.03762},
+    archivePrefix={arXiv},
+    primaryClass={cs.CL}
+}
+
+@inproceedings{christiano2017deep,
+    title        = {Deep reinforcement learning from human preferences},
+    author       = {Christiano, Paul F. and Leike, Jan and Brown, Tom B. and Martic, Miljan and Legg, Shane and Amodei, Dario},
+    booktitle    = {Advances in Neural Information Processing Systems 30: Annual Conference on Neural Information Processing Systems 2017},
+    editor       = {Guyon, Isabelle and von Luxburg, Ulrike and Bengio, Samy and Wallach, Hanna M. and Fergus, Rob and Vishwanathan, S. V. N. and Garnett, Roman},
+    year         = {2017},
+    pages        = {4299--4307},
+    address      = {Long Beach, CA, USA},
+    organization = {Curran Associates, Inc.},
+    date         = {2017-12-04/2017-12-09}
+}
+
+@inproceedings{hendrycks2021measuring,
+    title     = {Measuring Massive Multitask Language Understanding},
+    author    = {Hendrycks, Dan and Burns, Collin and Basart, Steven and Zou, Andy and Mazeika, Mantas and Song, Dawn and Steinhardt, Jacob},
+    booktitle = {Proceedings of the International Conference on Learning Representations (ICLR)},
+    year      = {2021}
+}
+
+@article{henighan2020scaling,
+    title     = {Scaling Laws for Autoregressive Generative Modeling},
+    author    = {Henighan, Tom and Kaplan, Jared and Katz, Mor and Chen, Mark and Hesse, Christopher and Jackson, Jacob and Jun, Heewoo and Brown, Tom B. and Dhariwal, Prafulla and Gray, Scott and others},
+    journal   = {arXiv preprint arXiv:2010.14701},
+    year      = {2020}
+}
+
+@misc{chen2021evaluating,
+    title     = {Evaluating Large Language Models Trained on Code},
+    author    = {Chen, Mark and Tworek, Jerry and Jun, Heewoo and Yuan, Qiming and Ponde de Oliveira Pinto, Henrique and Kaplan, Jared and Edwards, Harri and Burda, Yuri and Joseph, Nicholas and Brockman, Greg and Ray, Alex and Puri, Raul and Krueger, Gretchen and Petrov, Michael and Khlaaf, Heidy and Sastry, Girish and Mishkin, Pamela and Chan, Brooke and Gray, Scott and Ryder, Nick and Pavlov, Mikhail and Power, Alethea and Kaiser, Lukasz and Bavarian, Mohammad and Winter, Clemens and Tillet, Philippe and Such, Felipe Petroski and Cummings, Dave and Plappert, Matthias and Chantzis, Fotios and Barnes, Elizabeth and Herbert-Voss, Ariel and Guss, William Hebgen and Nichol, Alex and Paino, Alex and Tezak, Nikolas and Tang, Jie and Babuschkin, Igor and Balaji, Suchir and Jain, Shantanu and Saunders, William and Hesse, Christopher and Carr, Andrew N. and Leike, Jan and Achiam, Josh and Misra, Vedant and Morikawa, Evan and Radford, Alec and Knight, Matthew and Brundage, Miles and Murati, Mira and Mayer, Katie and Welinder, Peter and McGrew, Bob and Amodei, Dario and McCandlish, Sam and Sutskever, Ilya and Zaremba, Wojciech},
+    year      = {2021},
+    howpublished = {arXiv preprint arXiv:2107.03374}
 }
