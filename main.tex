@@ -15,7 +15,20 @@
 \addbibresource{refs.bib}
 \usepackage{hyperref}
 \usepackage{csquotes}
+\MakeOuterQuote{"}
 \usepackage{amsmath}
+\usepackage{capt-of}
+\usepackage{array}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{booktabs} % For better looking tables
+\usepackage{tabularx}
+
+
+% Define caption styles
+\DeclareCaptionFont{captionfont}{\small\itshape}
+\DeclareCaptionFormat{customformat}{#1#2#3\hrulefill}
+\captionsetup{format=customformat, font=captionfont, labelfont=bf}
 
 % Document
 \begin{document}
@@ -50,7 +63,7 @@
 
     \tableofcontents
 
-    \input{chapters/introduction}
+    \input{chapters/chapter1}
 
     \chapter*{Bibliography}
     \printbibliography[heading=none]
