@@ -328,7 +328,7 @@ Care should be taken when using the outputs of GPT-4, particularly in contexts w
 
 LLaMA~\footnote{Large Language Model Meta AI} is a language model developed by Meta AI, designed to be a versatile and efficient foundation for a wide range of natural language processing (NLP) tasks.
 LLaMA is built on a transformer architecture~\cite{vaswani2023attention}, similar to other large language models, with a range from 7B to 65B parameters.
-Main differences between LLaMA and original Tranformer architecture~\cite{vaswani2023attention} are the following:
+Main differences between LLaMA and original Transformer architecture~\cite{vaswani2023attention} are the following:
 \begin{enumerate}
     \item \textbf{Pre-normalization\footnote{Inspired by GTP-3 model}} {LLaMA uses pre-normalization, which means that the normalization layer is placed before the self-attention and feed-forward layers.
     Pre-normalization has been shown to improve training stability and convergence in large language models, making it a popular choice for many state-of-the-art models.
@@ -388,6 +388,166 @@ We report a synthetic view of the LLaMA model family parameters in Table~\ref{ta
 
 Authors~\cite{touvron2023llama} acknowledges the presence of biases and toxicity in the models due to the nature of web data and evaluates these aspects using benchmarks from the responsible AI community.
 
+\subsection{Gemma}
+\label{subsec:gemma}
 
-\section{Applications of Large Language Models}
+The recent development in the domain of Natural Language Processing has seen Google's introduction of a new family of models named Gemma~\cite{gemma_google_ai, gemmateam2024gemma}.
+Derived from the same research lineage as the renowned Gemini models, Gemma stands as a testament to the rapid advancements in lightweight, high-performance language models designed for a broad spectrum of computational environments.
+
+Gemma is built upon a transformer-based architecture~\cite{vaswani2023attention}, optimized to deliver state-of-the-art performance with a fraction of the parameter count typically seen in large language models (LLMs).
+Notable enhancements include the adoption of Multi-Query Attention, RoPE embeddings, GeGLU activations, and RMSNorm, indicating an evolution of the original transformer architecture.
+The family comprises two main configurations: Gemma 2B and Gemma 7B, available in pre-trained and instruction-tuned variants.
+The design philosophy targets efficient deployment across diverse hardware platforms, including but not limited to, mobile devices, laptops, desktop computers, and servers.
+
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.7\textwidth]{gemma_comparison2}
+    \caption{Gemma models exhibit superior performance in language understanding and reasoning tasks compared to larger models. Source: \protect\cite{gemmateam2024gemma}.}
+    \label{fig:gemma-comparison2}
+\end{figure}
+
+In comparative benchmarks, Gemma models have demonstrated capabilities that exceed those of larger parameter models, such as Llama-2 (13B), indicating a significant efficiency in parameter utilization.
+This is particularly evident in language understanding and reasoning tasks where Gemma models have been pitted against their contemporaries.
+
+One of the prominent strengths of Gemma models is their deployment efficiency, which democratizes access to state-of-the-art NLP tools.
+The models are designed to be run on common developer hardware, eschewing the need for specialized AI accelerators.
+
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.5\textwidth]{gemma_comparison}
+    \caption{Gemma models are designed to be lightweight and efficient, making them accessible to a wide range of developers and applications. Source: \protect\cite{gemma_google_ai}.}
+    \label{fig:gemma-comparison}
+\end{figure}
+
+Despite their efficiencies, the Gemma models are not without limitations.
+The reduced parameter count, while advantageous for accessibility and computational efficiency, may impact performance in complex NLP tasks that can benefit from larger models.
+Additionally, ethical considerations, such as bias in language models, remain an area of concern and active development.
+
+Google has emphasized the responsible development of AI, evident in Gemma's design.
+Techniques to mitigate sensitive data inclusion and reinforcement learning from human feedback are incorporated to ensure the models' outputs adhere to safety standards.
+Moreover, Google's release includes a Responsible Generative AI Toolkit to aid developers in prioritizing the creation of ethical AI applications.
+
+
+\section{Specialized Large Language Models}
 \label{sec:applications-of-large-language-models}
+
+Specialized Large Language Models (LLMs) are checkpoints refined for particular fields or tasks, such as healthcare and finance.
+These models serve as domain-specific problem solvers and are evaluated based on both general competencies, such as fundamental complex reasoning and more nuanced capabilities like alignment with human intent, as well as their performance in areas specific to their application.
+To accurately measure their efficacy, specialized benchmarks are developed that cater to these distinct sectors.
+These tailored benchmarks are then employed in conjunction with broader assessments to provide a holistic and focused evaluation of the models' capabilities.
+The following sections highlight some of the key applications of LLMs and their impact on different sectors, from healthcare to finance, and from education to research.
+
+\subsection{LLMs in Healthcare}
+\label{subsec:llms-in-healthcare}
+
+The intersection of artificial intelligence (AI) and healthcare has precipitated unparalleled advances in the provision of medical services, diagnosis, treatment, and patient care.
+Central to these advancements are Large Language Models (LLMs), which have been instrumental in catalyzing transformative changes across the healthcare sector.
+
+\begin{enumerate}
+    \item \textbf{Medical image analysis:}{
+        Large Language Models (LLMs) have been integrated with medical imaging technologies to enhance diagnostic accuracy and efficiency.
+        By analyzing radiological images and clinical reports, LLMs can assist radiologists in interpreting images, identifying abnormalities, and providing diagnostic insights.
+        These models leverage their natural language processing capabilities to extract information from textual reports and correlate it with visual data, thereby augmenting the diagnostic process~\cite{li2021survey, zhang2021medical}.
+    }
+
+    \item \textbf{Clinical Decision Support:}{
+        LLMs have been pivotal in augmenting clinical decision support systems (CDSS). By analyzing patient data and medical literature, LLMs assist clinicians in diagnosing conditions, suggesting treatment options, and predicting patient outcomes. For instance, models like BERT and its derivatives have been fine-tuned on medical corpora, yielding tools that can parse clinical notes, interpret lab results, and provide evidence-based recommendations~\cite{alsentzer2019publicly}.
+    }
+
+    \item \textbf{Medical Documentation and Coding:}{
+        The onus of medical documentation and billing has traditionally been a significant administrative burden for healthcare providers. LLMs have demonstrated the ability to streamline these processes by automating the translation of clinical dialogue and notes into structured electronic health records (EHRs) and accurately coding medical procedures, thus mitigating errors and saving time~\cite{shickel2018deep}.
+    }
+
+    \item \textbf{Drug Discovery and Development:}{
+        In the domain of pharmaceuticals, LLMs have expedited the drug discovery and development pipelines. By mining through vast chemical libraries and medical databases, these models facilitate the identification of potential drug candidates and repurposing existing drugs for new therapeutic uses~\cite{zhavoronkov2019deep}.
+    }
+
+    \item \textbf{Personalized Medicine:}{
+        Personalized medicine, which tailors treatment to individual patient characteristics, has benefited from LLMs through the generation of patient-specific models that predict disease susceptibility and drug response. This personalization extends to creating tailored health interventions based on patient history and genetic information~\cite{hamburg2010path}.
+    }
+
+    \item \textbf{Patient Engagement and Self-Management:}{
+        LLMs are also revolutionizing patient engagement by powering intelligent virtual health assistants capable of providing information, reminders, and motivational support for chronic disease self-management. These AI assistants interact with patients in natural language, thus fostering an environment conducive to patient education and adherence to treatment regimens~\cite{kocaballi2019personalization}.
+    }
+\end{enumerate}
+
+Despite these strengths, LLMs face significant challenges within healthcare applications.
+Concerns regarding patient privacy, data security, and the need for explainability in AI-driven decisions are paramount~\cite{beam2018big}.
+Additionally, biases inherent in training data can perpetuate disparities in patient care, necessitating rigorous validation and fairness assessments before clinical deployment~\cite{chen2019single}.
+
+Large Language Models represent a transformative force in healthcare, enhancing efficiency, accuracy, and personalization in various medical domains.
+Their integration into clinical practice must be pursued with diligent oversight to navigate ethical considerations and ensure equitable and safe applications.
+
+\subsubsection{Med-PaLM}
+\label{subsubsec:med-palm}
+
+One of the most advanced LLMs for healthcare is Med-PaLM, a derivative of the PaLM (540B) model developed by Google, and its instruction-tuned variant, Flan-PaLM. Using a combination of few-shot~\cite{gpt3}, chain-of-thought (CoT)~\cite{wei2022chain}, and self-consistency~\cite{wang2022self} prompting strategies, Flan-PaLM achieved state-of-the-art accuracy on every MultiMedQA \footnote{stands for a multi-domain medical question answering benchmark. It has been designed to evaluate the performance of LLMs in the healthcare sector.
+This benchmark likely encompasses a wide range of medical questions, covering various disciplines, conditions, and scenarios that medical professionals encounter.} multiple-choice dataset (MedQA, MedMCQA, PubMedQA, MMLU clinical topics and a newly introduced dataset, HealthSearchQA, which consists of commonly searched health questions).
+
+\begin{table}[ht]
+    \centering
+    \caption{Performance comparison of different models on the MedQA (USMLE) benchmark. Source: \protect\cite{singhal2022large}.}
+    \label{tab:medqa_performance}
+    \begin{tabular}{@{}lc@{}}
+        \toprule
+        Model (number of parameters) & MedQA (USMLE) Accuracy \% \\
+        \midrule
+        Flan-PaLM (540 B)              & 67.6                      \\
+        PubMedGPT (2.7 B)              & 50.3                      \\
+        DRAGON (360 M)                 & 47.5                      \\
+        BioLinkBERT (340 M)            & 45.1                      \\
+        Galactica (120 B)              & 44.4                      \\
+        PubMedBERT (100 M)             & 38.1                      \\
+        GPT-Neo (2.7 B)                & 33.3                      \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+Despite this remarkable results, human evaluation reveals key gaps in Flan-PaLM responses and remains inferior to clinicians~\cite{singhal2022large}.
+To resolve this issue researches introduced "instruction prompt tuning" to align the Flan-PaLM model to the medical domain.
+Instruction prompt tuning can thus be seen as a lightweight way (data-efficient, parameter-efficient, compute-efficient during both training and inference) of training a model to follow instructions in one or more domains.
+Instruction prompt tuning adapted LLMs to better follow the specific type of instructions used in the family of medical datasets.
+The result was Med-PaLM, a model that significantly reduces the gap (or even compares favorably) to clinicians on several axes of evaluation, according to both clinicians and lay users.
+
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=\textwidth]{flan-palm}
+    \caption{Large Language Models (LLMs) have revolutionized healthcare by enhancing diagnostic accuracy, clinical decision support, and patient engagement. Source: \protect\cite{singhal2022large}.}
+    \label{fig:llm-healthcare}
+\end{figure}
+
+\subsection{LLMs in Finance}
+\label{subsec:llms-in-finance}
+
+The financial sector has witnessed a paradigm shift with the advent of Large Language Models (LLMs), which have revolutionized the way financial institutions analyze data, make decisions, and interact with customers.
+These AI-driven models leverage vast amounts of textual data to extract insights, predict market trends, and enhance customer experiences, thereby reshaping the landscape of finance.
+
+\begin{enumerate}
+    \item \textbf{Algorithmic Trading:}
+    {LLMs analyze vast amounts of unstructured data, including news articles, financial reports, and social media, to gauge market sentiment and predict stock price movements.
+    Their predictive insights enable more informed algorithmic trading strategies~\cite{buehler2018deep}.}
+
+    \item \textbf{Risk Management:}
+    {In risk management, LLMs contribute by parsing and interpreting complex regulatory documents, identifying potential compliance risks, and offering actionable insights to mitigate financial and reputational risks~\cite{li2020natural}.}
+
+    \item \textbf{Customer Service Automation:}
+    {Financial institutions leverage LLMs to power chatbots and virtual assistants, providing real-time, personalized customer service. These AI-driven systems can handle inquiries, execute transactions, and offer financial advice, enhancing customer experience and operational efficiency~\cite{pal2021enhancing}.}
+
+    \item \textbf{Fraud Detection:}
+    {LLMs enhance fraud detection systems by analyzing transactional data and customer communication to identify patterns indicative of fraudulent activities, thereby bolstering the security of financial transactions~\cite{smith2019improving}.}
+\end{enumerate}
+
+Despite their potential, LLMs in finance face challenges, including data privacy concerns, the need for interpretability in model decisions, and the risk of perpetuating biases from training data.
+Ensuring these models adhere to ethical standards and regulatory compliance is paramount~\cite{jones2020ethical}.
+
+LLMs hold promise for transforming finance through enhanced decision-making, personalized services, and improved risk management.
+As the technology evolves, it is imperative to address its challenges to fully harness its potential in the financial sector.
+
+\subsection{LLMs in Education}
+\label{subsec:llms-in-education}
+
+\subsection{LLMs in Law}
+\label{subsec:llms-in-law}
+
+\subsection{LLMs in Scientific Research}
+\label{subsec:llms-in-scientific-research}
