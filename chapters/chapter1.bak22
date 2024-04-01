@@ -289,6 +289,7 @@ Such models are an important area of study as they have the potential to be used
 
 \begin{table}[h!]
 	\centering
+	\caption{Example prompt demonstrating GPT-4's visual input capability. The prompt consists of a question about an image with multiple panels which GPT-4 is able to answer}
 	\label{tab:gpt4_example}
 	\begin{tabular}{@{}m{2cm}@{}m{10cm}@{}}
 		User  & What is funny about this image? Describe it panel by panel.                                                                               \\
@@ -303,7 +304,6 @@ Such models are an important area of study as they have the potential to be used
 			The humor in this image comes from the absurdity of plugging a large, outdated VGA connector into a small, modern smartphone charging port.
 		\end{tabular} \\
 	\end{tabular}
-	\caption{Example prompt demonstrating GPT-4's visual input capability. The prompt consists of a question about an image with multiple panels which GPT-4 is able to answer}
 \end{table}
 
 On the MMLU benchmark~\textcite{hendrycks2021measuring}, an English-language suite of multiple-choice questions covering 57 subjects, GPT-4 not only outperforms existing models by a considerable margin in English, but also demonstrates strong performance in other languages.
@@ -343,6 +343,7 @@ Main differences between LLaMA and original Transformer architecture (\textcite{
 
 \begin{table}[ht]
 	\centering
+	\caption{Model sizes, architectures, and optimization hyper-parameters. Source: \protect\textcite{touvron2023llama}.}
 	\label{tab:llama-model-params}
 	\begin{tabular}{@{}ccccccc@{}}
 		\toprule
@@ -354,14 +355,15 @@ Main differences between LLaMA and original Transformer architecture (\textcite{
 		65.2B  & 8192      & 64      & 80       & \(1.5 \times 10^{-4}\) & 4M         & 1.4T     \\
 		\bottomrule
 	\end{tabular}
-	\caption{Model sizes, architectures, and optimization hyper-parameters. Source: \protect\textcite{touvron2023llama}.}
 \end{table}
 
-Based on the LLaMA paper by \textcite{touvron2023llama}, even though LLaMA-13B is smaller than many competitors, it outperforms GPT-3 on most benchmarks, and the 65B model is competitive with the best large language models available, such as Chinchilla and PaLM-540B, despite being x10 smaller (Table~\ref{tab:llama-zero-shot-performance}).
+Based on the LLaMA paper~\textcite{touvron2023llama}, even though LLaMA-13B is smaller than many competitors, it outperforms GPT-3 on most benchmarks, and the 65B model is competitive with the best large language models available, such as Chinchilla and PaLM-540B, despite being x10 smaller (\ref{tab:llama-zero-shot-performance}).
 
 \begin{table}[htbp]
 	\centering
 	\scriptsize
+	\caption{Zero-shot performance on Common Sense Reasoning tasks. Source: \protect\textcite{touvron2023llama}.}
+	\label{tab:llama-zero-shot-performance}
 	\begin{tabularx}{\textwidth}{@{}lXXXXXXXXX@{}}
 		\toprule
 		Model      & Params & BoolQ & PIQA & SIQA & HellaSwag & WinoGrande & ARC-e & ARC-c & OBQA \\
@@ -379,8 +381,6 @@ Based on the LLaMA paper by \textcite{touvron2023llama}, even though LLaMA-13B i
 		LLaMA      & 65B    & 85.3  & 82.8 & 52.3 & 84.2      & 77.0       & 78.9  & 56.0  & 60.2 \\
 		\bottomrule
 	\end{tabularx}
-	\caption{Zero-shot performance on Common Sense Reasoning tasks. Source: \protect\textcite{touvron2023llama}.}
-	\label{tab:llama-zero-shot-performance}
 \end{table}
 
 The LLaMA models were trained exclusively on publicly available data, setting them apart from other models that rely on proprietary datasets~\footnote{Such as "Books --- 2TB" or "Social media conversations"}.
@@ -443,7 +443,7 @@ The following sections highlight some of the key applications of LLMs and their 
 \label{subsec:llms-in-healthcare}
 
 The intersection of artificial intelligence (AI) and healthcare has precipitated unparalleled advances in the provision of medical services, diagnosis, treatment, and patient care.
-Central to these advancements are Large Language Models (LLMs), which have been instrumental in catalyzing transformative changes across the healthcare sector:
+Central to these advancements are Large Language Models (LLMs), which have been instrumental in catalyzing transformative changes across the healthcare sector.
 
 \begin{enumerate}
 	\item \textbf{Medical image analysis:}{
@@ -488,6 +488,8 @@ One of the most advanced LLMs for healthcare is Med-PaLM, a derivative of the Pa
 
 \begin{table}[ht]
 	\centering
+	\caption{Performance comparison of different models on the MedQA (USMLE) benchmark. Source: \protect\textcite{singhal2022large}.}
+	\label{tab:medqa_performance}
 	\begin{tabular}{@{}lc@{}}
 		\toprule
 		Model (number of parameters) & MedQA (USMLE) Accuracy \% \\
@@ -501,8 +503,6 @@ One of the most advanced LLMs for healthcare is Med-PaLM, a derivative of the Pa
 		GPT-Neo (2.7 B)              & 33.3                      \\
 		\bottomrule
 	\end{tabular}
-	\caption{Performance comparison of different models on the MedQA (USMLE) benchmark. Source: \protect\textcite{singhal2022large}.}
-	\label{tab:medqa_performance}
 \end{table}
 
 Despite this remarkable results, human evaluation reveals key gaps in Flan-PaLM responses and remains inferior to clinicians~\textcite{singhal2022large}.
@@ -564,6 +564,8 @@ Here's a more detailed look at these techniques:
 \begin{table}[h]
 	\scriptsize
 	\centering
+	\caption{The abbreviations correspond to Paras.= Model Parameter Size (Billions); Disc. = Discriminative, Gen. = Generative; Post-PT = Post-Pre-training, PT = Pre-training, FT = Fine-Tuning, PE = Prompt Engineering, IFT = Fine-Tuning, PEFT = Parameter Efficient Fine-Tuning; (G) = General domain, (F) = Financial domain; (in Evaluation) [SA] Sentiment Analysis, [TC] Text Classification, [SBD] Structure Boundary Detection, [NER] Named Entity Recognition, [QA] Question Answering, [SMP] Stock Movement Prediction, [Summ] Text Summarization, [RE] Relation Extraction; O.S. Model = Open Source Model. It is marked as Y if it is publicly accessible as of Dec 2023. Source: \textcite{lee2024survey}.}
+	\label{tab:fin_llms}
 	\begin{tabularx}{\textwidth}{@{}lp{1.5cm}p{1cm}p{1cm}p{1.5cm}p{1.5cm}p{1.5cm}p{1cm}p{1cm}p{1cm}p{1cm}@{}}
 		\toprule
 		Model                                  & Backbone           & Paras.  & PT Techniques & PT \newline Data Size                    & Evaluation \newline Task & Dataset                                               & O.S.\ Model & PT & IFT \\
@@ -574,8 +576,6 @@ Here's a more detailed look at these techniques:
 		FinGPT~\cite{wang2023fingpt}           & 6 open-source LLMs & 7B      & PEFT          & (G) 2T tokens                            & SA, TC, NER, RE          & FPB, FiQA-SA, Headline \newline FIN, FinRED           & Y           & Y  & Y   \\
 		\bottomrule
 	\end{tabularx}
-	\caption{The abbreviations correspond to Paras.= Model Parameter Size (Billions); Disc. = Discriminative, Gen. = Generative; Post-PT = Post-Pre-training, PT = Pre-training, FT = Fine-Tuning, PE = Prompt Engineering, IFT = Fine-Tuning, PEFT = Parameter Efficient Fine-Tuning; (G) = General domain, (F) = Financial domain; (in Evaluation) [SA] Sentiment Analysis, [TC] Text Classification, [SBD] Structure Boundary Detection, [NER] Named Entity Recognition, [QA] Question Answering, [SMP] Stock Movement Prediction, [Summ] Text Summarization, [RE] Relation Extraction; O.S. Model = Open Source Model. It is marked as Y if it is publicly accessible as of Dec 2023. Source: \textcite{lee2024survey}.}
-	\label{tab:fin_llms}
 \end{table}
 
 
@@ -654,57 +654,63 @@ These datasets are instrumental in assessing the models' performance, guiding th
 
 Recent studies have shown that they outperform fine-tuned models on some tasks.
 But, they still fail in some other cases (\textcite{li2023chatgpt}).
-Some interesting results are shown in Table~\ref{tab:finllm_comparison, tab:fiqa_results, tab:headline_classification, tab:ner_few_shot_performance}.
-For example, in the sentiment analysis task, FinMA-30B and GPT-4 achieved similar results (87\% on F1) with a 5-shot prompting, while FLANG-ELECTRA achieved the best results (92\% on F1)~\textcite{lee2024survey}, while GPT-4 could be the first choice for Sentiment Analysis and Relation Extraction tasks.
+For example, in the sentiment analysis task, FinMA-30B and GPT-4 achieved similar results (87\% on F1) with a 5-shot prompting, while FLANG-ELECTRA achieved the best results (92\% on F1)~\textcite{lee2024survey}.
 
-\begin{table}[!htbp]
-	\centering
-	\begin{tabularx}{0.8\textwidth}{Xcccc}
-		\toprule
-		Data Model                      & \multicolumn{2}{c}{50\% Agreement} & \multicolumn{2}{c}{100\% Agreement}                                 \\
-		                                & Accuracy                           & F1 score                            & Accuracy      & F1 score      \\
-		\midrule
-		ChatGPT\textsubscript{(0)}      & 0.78                               & 0.78                                & 0.90          & 0.90          \\
-		ChatGPT\textsubscript{(5)}      & 0.79                               & 0.79                                & 0.90          & 0.90          \\
-		GPT-4\textsubscript{(0)}        & 0.83                               & 0.83                                & 0.96          & 0.96          \\
-		GPT-4\textsubscript{(5)}        & \textbf{0.86}                      & \textbf{0.86}                       & \textbf{0.97} & \textbf{0.97} \\
-		BloombergGPT\textsubscript{(5)} & /                                  & 0.51                                & /             & /             \\
-		GPT-NeoX\textsubscript{(5)}     & /                                  & 0.45                                & /             & /             \\
-		OPT6B\textsubscript{(5)}        & /                                  & 0.49                                & /             & /             \\
-		BLOOM176B\textsubscript{(5)}    & /                                  & 0.50                                & /             & /             \\
-		FinBert                         & \textbf{0.86}                      & 0.84                                & \textbf{0.97} & 0.95          \\
-		\bottomrule
-	\end{tabularx}
-	\caption{Results on the Phrasebank dataset. The sub-script (n) after an LLM name represents the number of shots. The best results are marked in bold and the second-best with underscored. The results of other LLMs like BloombergGPT are from the corresponding papers. ‘/’ indicates the metrics were not included in the original study. Source:\protect\textcite{li2023chatgpt}.}
-	\label{tab:finllm_comparison}
-\end{table}
-\begin{table}[!htbp]
-	\centering
-	\begin{tabularx}{0.8\textwidth}{Xcc}
-		\toprule
-		\textbf{Model}                  & \textbf{Category} & \textbf{Weighted F1} \\
-		\midrule
-		ChatGPT\textsubscript{(0)}      & OpenAI LLMs       & 75.90                \\
-		ChatGPT\textsubscript{(5)}      & OpenAI LLMs       & 78.33                \\
-		GPT-4\textsubscript{(9)}        & OpenAI LLMs       & 87.15                \\
-		GPT-4\textsubscript{(5)}        & OpenAI LLMs       & \textbf{88.11}       \\
-		\addlinespace
-		BloombergGPT\textsubscript{(5)} & Domain LLM        & 75.07                \\
-		\addlinespace
-		GPT-NeoX\textsubscript{(5)}     & Prior LLMs        & 50.59                \\
-		OPT 6B\textsubscript{(5)}       & Prior LLMs        & 51.60                \\
-		BLOOM 176B\textsubscript{(5)}   & Prior LLMs        & 53.12                \\
-		\addlinespace
-		RoBERTa-large                   & Fine-tune         & 87.09                \\
-		\bottomrule
-	\end{tabularx}
-	\caption{Results for the sentiment analysis task on the FiQA dataset. Source: \protect\textcite{li2023chatgpt}.}
-	\label{tab:fiqa_results}
+\begin{table}[h]
+	\begin{minipage}{0.5\textwidth}
+		\centering
+		\scriptsize
+		\caption{Results on the Phrasebank dataset. The sub-script (n) after an LLM name represents the number of shots. The best results are marked in bold and the second-best with underscored. The results of other LLMs like BloombergGPT are from the corresponding papers. ‘/’ indicates the metrics were not included in the original study. Source:\protect\textcite{li2023chatgpt}.}
+		\label{tab:finllm_comparison}
+		\begin{tabularx}{@{}ccccc@{}}
+			\toprule
+			Data Model                      & \multicolumn{2}{c}{50\% Agreement} & \multicolumn{2}{c}{100\% Agreement}                                 \\
+			                                & Accuracy                           & F1 score                            & Accuracy      & F1 score      \\
+			\midrule
+			ChatGPT\textsubscript{(0)}      & 0.78                               & 0.78                                & 0.90          & 0.90          \\
+			ChatGPT\textsubscript{(5)}      & 0.79                               & 0.79                                & 0.90          & 0.90          \\
+			GPT-4\textsubscript{(0)}        & 0.83                               & 0.83                                & 0.96          & 0.96          \\
+			GPT-4\textsubscript{(5)}        & \textbf{0.86}                      & \textbf{0.86}                       & \textbf{0.97} & \textbf{0.97} \\
+			BloombergGPT\textsubscript{(5)} & /                                  & 0.51                                & /             & /             \\
+			GPT-NeoX\textsubscript{(5)}     & /                                  & 0.45                                & /             & /             \\
+			OPT6B\textsubscript{(5)}        & /                                  & 0.49                                & /             & /             \\
+			BLOOM176B\textsubscript{(5)}    & /                                  & 0.50                                & /             & /             \\
+			FinBert                         & \textbf{0.86}                      & 0.84                                & \textbf{0.97} & 0.95          \\
+			\bottomrule
+		\end{tabularx}
+	\end{minipage}%
+	\begin{minipage}{0.5\textwidth}
+		\centering
+		\caption{Results for the sentiment analysis task on the FiQA dataset. Source: \protect\textcite{li2023chatgpt}.}
+		\label{tab:fiqa_results}
+		\begin{tabularx}{0.5\textwidth}{Xlc}
+			\toprule
+			\textbf{Model}                  & \textbf{Category} & \textbf{Weighted F1} \\
+			\midrule
+			ChatGPT\textsubscript{(0)}      & OpenAI LLMs       & 75.90                \\
+			ChatGPT\textsubscript{(5)}      & OpenAI LLMs       & 78.33                \\
+			GPT-4\textsubscript{(9)}        & OpenAI LLMs       & 87.15                \\
+			GPT-4\textsubscript{(5)}        & OpenAI LLMs       & \textbf{88.11}       \\
+			\addlinespace
+			BloombergGPT\textsubscript{(5)} & Domain LLM        & 75.07                \\
+			\addlinespace
+			GPT-NeoX\textsubscript{(5)}     & Prior LLMs        & 50.59                \\
+			OPT 6B\textsubscript{(5)}       & Prior LLMs        & 51.60                \\
+			BLOOM 176B\textsubscript{(5)}   & Prior LLMs        & 53.12                \\
+			\addlinespace
+			RoBERTa-large                   & Fine-tune         & 87.09                \\
+			\bottomrule
+		\end{tabularx}
+	\end{minipage}
 \end{table}
 
-\begin{table}[!htbp]
+\begin{table}[H]
 	\centering
-	\begin{tabularx}{0.8\textwidth}{Xc}
+	\scriptsize
+	\captionsetup{width=0.5\linewidth}
+	\caption{Results on the headline classification task. Source: \protect\textcite{li2023chatgpt}.}
+	\label{tab:headline_classification}
+	\begin{tabularx}{0.5\textwidth}{Xc}
 		\toprule
 		\textbf{Model}                  & \textbf{Weighted F1} \\
 		\midrule
@@ -719,13 +725,13 @@ For example, in the sentiment analysis task, FinMA-30B and GPT-4 achieved simila
 		BERT                            & \textbf{95.36}       \\
 		\bottomrule
 	\end{tabularx}
-	\caption{Results on the headline classification task. Source: \protect\textcite{li2023chatgpt}.}
-	\label{tab:headline_classification}
 \end{table}
 
-\begin{table}[!htbp]
+\begin{table}[H]
 	\centering
-	\begin{tabularx}{0.8\textwidth}{Xc}
+	\caption{Results of few-shot performance on the NER dataset. CRF\textsubscript{CoNLL} refers to CRF model that is trained on general CoNLL data, CRF\textsubscript{FIN5} refers to CRF model that is trained on FIN5 data. Source: \protect\textcite{li2023chatgpt}.}
+	\label{tab:ner_few_shot_performance}
+	\begin{tabularx}{0.5\textwidth}{Xc}
 		\toprule
 		\textbf{Model}                   & \textbf{Entity F1} \\
 		\midrule
@@ -741,13 +747,13 @@ For example, in the sentiment analysis task, FinMA-30B and GPT-4 achieved simila
 		CRF\textsubscript{FIN5}          & \textbf{82.70}     \\
 		\bottomrule
 	\end{tabularx}
-	\caption{Results of few-shot performance on the NER dataset. CRF\textsubscript{CoNLL} refers to CRF model that is trained on general CoNLL data, CRF\textsubscript{FIN5} refers to CRF model that is trained on FIN5 data. Source: \protect\textcite{li2023chatgpt}.}
-	\label{tab:ner_few_shot_performance}
 \end{table}
 
-\begin{table}[!htbp]
+\begin{table}[H]
 	\centering
-	\begin{tabularx}{\textwidth}{Xcc}
+	\caption{Model performance (accuracy) on the question answering tasks. FinQANet here refers to the best-performing FinQANet version based on RoBERTa-Large (\textcite{chen2022afinqa}). Few-shot and CoT learning cannot be executed on ConvFinQA due to the conservation nature of ConvFinQA.}
+	\label{tab:model_performance_qa}
+	\begin{tabularx}{0.5\textwidth}{Xcc}
 		\toprule
 		\textbf{Model}                  & \textbf{FinQA} & \textbf{ConvFinQA} \\
 		\midrule
@@ -766,8 +772,6 @@ For example, in the sentiment analysis task, FinMA-30B and GPT-4 achieved simila
 		General Crowd                   & 50.68          & 46.90              \\
 		\bottomrule
 	\end{tabularx}
-	\caption{Model performance (accuracy) on the question answering tasks. FinQANet here refers to the best-performing FinQANet version based on RoBERTa-Large (\textcite{chen2022afinqa}). Few-shot and CoT learning cannot be executed on ConvFinQA due to the conservation nature of ConvFinQA.}
-	\label{tab:model_performance_qa}
 \end{table}
 
 \subsubsection{BloombergGPT}
@@ -775,179 +779,21 @@ For example, in the sentiment analysis task, FinMA-30B and GPT-4 achieved simila
 
 The BloombergGPT model, developed by \textcite{wu2023bloomberggpt}, is a specialized LLM tailored for the financial domain.
 With its 50 billion parameters, is posited to be the apex of financial language models, having been trained on a comprehensive dataset of an unprecedented scale within the financial domain.
-\textcite{wu2023bloomberggpt} detail the intricacies of BloombergGPT's training regimen, which employed an amalgamation of financial texts, encompassing a multitude of formats, and a general dataset to ensure versatility\footnote{"\textsc{FinPile}", a comprehensive dataset consisting of a range of English financial documents including news, filings, press releases, web-scraped financial documents, and social media drawn from the Bloomberg archives augmented with public available data.} as shown in Table~\ref{tab:training_set}.
-
-\begin{table}[htbp]
-	\centering
-	\begin{tabularx}{\textwidth}{lrrrrrr}
-		\toprule
-		\textbf{Dataset}    & \textbf{Docs}    & \textbf{C/D}   & \textbf{Chars}  & \textbf{C/T}  & \textbf{Toks}  & \textbf{T\%}      \\
-		\midrule
-		FINPILE             & 175,886          & 1,017          & 17,883          & 4.92          & 6,935          & 51.27\%           \\
-		Web                 & 158,250          & 933            & 14,768          & 4.96          & 2,978          & 42.01\%           \\
-		News                & 10,040           & 1,665          & 1,672           & 4.44          & 376            & 5.31\%            \\
-		Filings             & 3,335            & 2,340          & 780             & 5.39          & 145            & 2.04\%            \\
-		Press               & 1,265            & 3,443          & 435             & 5.06          & 86             & 1.21\%            \\
-		Bloomberg           & 2,996            & 758            & 227             & 4.60          & 49             & 0.70\%            \\
-		PUBLIC              & 50,744           & 3,314          & 16,818          & 4.87          & 3,454          & 48.73\%           \\
-		C4                  & 34,832           & 2,206          & 7,683           & 5.56          & 1,381          & 19.48\%           \\
-		Pile-CC             & 5,255            & 4,401          & 2,312           & 5.42          & 427            & 6.02\%            \\
-		GitHub              & 1,428            & 5,364          & 766             & 3.38          & 227            & 3.20\%            \\
-		Books3              & 19               & 552,398        & 1,064           & 4.97          & 214            & 3.02\%            \\
-		PubMed Central      & 294              & 32,181         & 947             & 4.51          & 210            & 2.96\%            \\
-		ArXiv               & 124              & 47,819         & 541             & 3.56          & 166            & 2.35\%            \\
-		OpenWebText2        & 1,684            & 3,850          & 648             & 5.07          & 128            & 1.80\%            \\
-		FreeLaw             & 349              & 15,381         & 537             & 4.99          & 108            & 1.80\%            \\
-		StackExchange       & 1,538            & 2,201          & 339             & 4.17          & 81             & 1.15\%            \\
-		DM Mathematics      & 100              & 8,193          & 82              & 1.92          & 43             & 0.60\%            \\
-		Wikipedia (en)      & 590              & 2,988          & 176             & 4.65          & 38             & 0.53\%            \\
-		USPTO Backgrounds   & 517              & 4,339          & 224             & 6.18          & 36             & 0.51\%            \\
-		PubMed Abstracts    & 1,527            & 1,333          & 204             & 5.77          & 35             & 0.50\%            \\
-		OpenSubtitles       & 38               & 31,055         & 119             & 4.90          & 24             & 0.34\%            \\
-		Gutenberg (PG-19)   & 3                & 399,351        & 112             & 4.89          & 23             & 0.32\%            \\
-		Ubuntu IRC          & 1                & 539,222        & 56              & 3.16          & 18             & 0.25\%            \\
-		EuroParl            & 7                & 65,053         & 45              & 2.93          & 15             & 0.21\%            \\
-		YouTubeSubtitles    & 17               & 19,831         & 33              & 2.54          & 13             & 0.19\%            \\
-		BookCorpus2         & 2                & 370,384        & 65              & 5.36          & 12             & 0.17\%            \\
-		HackerNews          & 82               & 5,009          & 41              & 4.87          & 8              & 0.12\%            \\
-		PhilPapers          & 3                & 74,827         & 23              & 4.21          & 6              & 0.08\%            \\
-		NIH ExPorter        & 92               & 2,165          & 20              & 6.65          & 3              & 0.04\%            \\
-		Enron Emails        & 2                & 1,882          & 20              & 3.90          & 3              & 0.04\%            \\
-		Wikipedia (fr/1/22) & 2,218            & 3,271          & 76              & 3.06          & 237            & 0.32\%            \\
-		\textbf{TOTAL}      & \textbf{226,631} & \textbf{1,531} & \textbf{34,701} & \textbf{4.89} & \textbf{7,089} & \textbf{100.00\%} \\
-		\bottomrule
-	\end{tabularx}
-	\caption{Breakdown of the full training set used to train BLOOMBERGGPT. The statistics provided are the average number of characters per document ("C/D"), the average number of characters per token ("C/T"), and the percentage of the overall tokens ("T\%"). Source: \protect\textcite{wu2023bloomberggpt}.}
-	\label{tab:training_set}
-\end{table}
+\textcite{wu2023bloomberggpt} detail the intricacies of BloombergGPT's training regimen, which employed an amalgamation of financial texts, encompassing a multitude of formats, and a general dataset to ensure versatility.
 
 The core of BloombergGPT's training material involved 363 billion tokens of finance-specific data, accompanied by a general corpus of 345 billion tokens.
 The dataset's breadth is vast, incorporating textual data spanning web sources, news articles, financial reports, and proprietary content from Bloomberg terminals.
 This diversified data portfolio enables the model to navigate the financial lexicon and nuances expertly.
 
-\textcite{wu2023bloomberggpt} proffer insights into their methodological choices and their repercussions on model performance.
-Authors used a parallel tokenizer training strategies, because the Unigram tokenizer was found to be too inefficient to process the entire Pile dataset.
-So the dataset was split into domains and each domain was further split into chunks.
-Every chunk was tokenized by a separate tokenizer and then the tokenizer from each domain was merged hierarchically using a weighted average of the probabilities of corresponding tokens.
-The result was cut from a tokenizer with 7 million tokens to only 2\textsuperscript{17} tokens, dropping tokens with smallest probabilities.
-
-The BloombergGPT model is a decoder-only causal language model based on BLOOM (\textcite{workshop2023bloom}).
-The model contains 70 layers of transformer decoder blocks defined as follows:
-
-\begin{align*}
-	h_{\ell} & = h_{\ell-1} + \text{SA}(\text{LN}(h_{\ell-1})) \\
-	h_{\ell} & = h_{\ell} + \text{FFN}(\text{LN}(h_{\ell}))
-\end{align*}
-
-where SA is multi-head self-attention, LN is layer-normalization, and FFN is a feed-forward network with 1-hidden layer.
-Inside FFN, the non-linear function is GELU (\textcite{hendrycks2016gelu}).
-ALiBi positional encoding is applied through additive biases at the self-attention component of the transformer network (\textcite{lescao2022milliongpuhours}). The input token embeddings are tied to the linear mapping before the final softmax.
-The model also has an additional layer normalization after token embeddings.
-
 BloombergGPT's prowess was rigorously benchmarked against a suite of established LLMs' assessments, as well as financial-specific benchmarks and a series of internally devised tests.
-The model exhibited a remarkable ability to outperform existing models on financial NLP tasks, a testament to the efficacy of its specialized training as shown in Tables~\ref{tab:financial_tasks, tab:internal_aspect_sentiment, tab:ner_ned_results}.
-BloombergGPT's performance on standard, general-purpose benchmarks was also evaluated, demonstrating its versatility and proficiency across a range of NLP tasks.
+The model exhibited a remarkable ability to outperform existing models on financial NLP tasks, a testament to the efficacy of its specialized training.
 
-Overall, while BloombergGPT falls behind the much larger PaLM\textsubscript{540B} (10x parameters) and BLOOM\textsubscript{176B} (3.5x parameters), it is the best-performing among similarly sized models.
-In fact, its performance is closer to BLOOM\textsubscript{176B} than it is to either GPT-NeoX or OPT\textsubscript{66B}.
-
-In sum, according to benchmarks in \textcite{wu2023bloomberggpt}, developing finance-specific BloombergGPT did not come at the expense of its general-purpose abilities.
-
-
-\begin{table}[htbp]
-	\begin{tabularx}{\textwidth}{Xcccc}
-		\toprule
-		                & \textbf{BLOOMBERGGPT} & \textbf{GPT-NeoX} & \textbf{OPT\textsubscript{66B}} & \textbf{BLOOM\textsubscript{176B}} \\
-		\midrule
-		ConvFinQA       & \textbf{43.41}        & 30.06             & 27.88                           & 36.31                              \\
-		FiQA SA         & \textbf{75.07}        & 50.59             & 51.60                           & 53.12                              \\
-		FPB             & \textbf{51.07}        & 44.64             & 48.67                           & 50.25                              \\
-		Headline        & \textbf{82.20}        & 73.22             & 79.41                           & 76.51                              \\
-		NER             & 60.82                 & \textbf{60.98}    & 57.49                           & 55.56                              \\
-		\midrule
-		All Tasks (avg) & \textbf{62.51}        & 51.90             & 53.01                           & 54.35                              \\
-		All Tasks (WR)  & \textbf{0.93}         & 0.27              & 0.33                            & 0.47                               \\
-		\bottomrule
-	\end{tabularx}
-	\caption{Results on financial domain tasks. Source: \protect\textcite{wu2023bloomberggpt}.}
-	\label{tab:financial_tasks}
-\end{table}
-
-\begin{table}[htbp]
-	\centering
-	\begin{tabularx}{\textwidth}{Xcccc}
-		\toprule
-		                    & \textbf{BLOOMBERGGPT} & \textbf{GPT-NeoX} & \textbf{OPT\textsubscript{66B}} & \textbf{BLOOM\textsubscript{176B}} \\
-		\midrule
-		Equity News         & \textbf{79.63}        & 14.17             & 20.98                           & 19.96                              \\
-		Equity Social Media & \textbf{72.40}        & 66.48             & 71.36                           & 68.04                              \\
-		Equity Transcript   & \textbf{65.06}        & 25.08             & 37.58                           & 34.82                              \\
-		ES News             & \textbf{46.12}        & 26.99             & 31.44                           & 28.07                              \\
-		Country News        & \textbf{49.14}        & 13.45             & 17.41                           & 16.06                              \\
-		\midrule
-		All Tasks (avg)     & \textbf{62.47}        & 29.23             & 35.76                           & 33.39                              \\
-		All Tasks (WR)      & \textbf{1.00}         & 0.00              & 0.67                            & 0.33                               \\
-		\bottomrule
-	\end{tabularx}
-	\caption{Results on internal aspect-specific sentiment analysis datasets. BLOOMBERGGPT far outperforms all other models on sentiment analysis tasks. Source: \protect\textcite{wu2023bloomberggpt}.}
-	\label{tab:internal_aspect_sentiment}
-\end{table}
-
-\begin{table}[htbp]
-	\centering
-	\begin{tabularx}{\textwidth}{Xcccc}
-		\toprule
-		                & \textbf{BLOOMBERGGPT} & \textbf{GPT-NeoX} & \textbf{OPT\textsubscript{66B}} & \textbf{BLOOM\textsubscript{176B}} \\
-		\midrule
-		\multicolumn{5}{c}{NER}                                                                                                            \\
-		\midrule
-		BFW             & 72.04                 & 71.66             & 72.53                           & 76.87                              \\
-		BN              & 57.31                 & 52.83             & 46.87                           & 59.61                              \\
-		Filings         & 58.84                 & 59.26             & 59.01                           & 64.88                              \\
-		Headlines       & 53.61                 & 47.70             & 46.21                           & 52.17                              \\
-		Premium         & 60.49                 & 59.39             & 57.56                           & 61.61                              \\
-		Transcripts     & 75.50                 & 70.62             & 72.53                           & 77.80                              \\
-		Social Media    & 60.60                 & 56.80             & 51.93                           & 60.88                              \\
-		\midrule
-		All Tasks (avg) & 62.63                 & 59.75             & 58.09                           & 64.83                              \\
-		All Tasks (WR)  & 0.57                  & 0.29              & 0.19                            & 0.95                               \\
-		\midrule
-		\multicolumn{5}{c}{NER+NED}                                                                                                        \\
-		\midrule
-		BFW             & 55.29                 & 34.92             & 36.73                           & 39.36                              \\
-		BN              & 60.09                 & 44.71             & 54.60                           & 49.85                              \\
-		Filings         & 66.67                 & 31.70             & 65.63                           & 42.93                              \\
-		Headlines       & 67.17                 & 36.46             & 56.46                           & 42.93                              \\
-		Premium         & 64.11                 & 40.84             & 57.06                           & 42.11                              \\
-		Transcripts     & 73.15                 & 23.65             & 70.44                           & 34.87                              \\
-		Social Media    & 67.34                 & 62.57             & 70.57                           & 65.94                              \\
-		\midrule
-		All Tasks (avg) & 64.83                 & 39.26             & 58.79                           & 45.43                              \\
-		All Tasks (WR)  & 0.95                  & 0.00              & 0.67                            & 0.38                               \\
-		\bottomrule
-	\end{tabularx}
-	\caption{Results on internal NER and NED datasets. On NER, while the much larger BLOOM176b model outperforms all other models, results from all models are relatively close, with BLOOMBERGGPT outperforming the other two models. On NER+NED, BLOOMBERGGPT outperforms all other models by a large margin. Source: \protect\textcite{wu2023bloomberggpt}.}
-	\label{tab:ner_ned_results}
-\end{table}
+\textcite{wu2023bloomberggpt} proffer insights into their methodological choices and their repercussions on model performance.
+These include the model's tokenizer configuration, which they found to be integral to the model's proficiency in financial field.
+Moreover, the paper delineates the future research trajectory, including but not limited to, enhanced task-specific fine-tuning, the influence of dataset composition on intrinsic model biases, and the tokenizer's impact on performance.
 
 \subsection{LLMs in Education}
 \label{subsec:llms-in-education}
-
-Education is a sector that has been significantly impacted by the advent of LLMs. LLMs can be leveraged to create educational content that is tailored to individual student needs, providing explanations, generating practice problems, and even offering feedback.
-LLMs can achieve student-level performance on standardized tests (\textcite{gpt4}) in a variety of subjects of mathematics (e.g., physics, computer science) on both multiple-choice and free-response problems.
-Additionally, these models can assist in language learning, both for native speakers and language acquisition, due to their deep understanding of linguistic structures and idiomatic expressions.
-
-In the realm of intelligent tutoring systems, LLMs can be applied to simulate one-on-one interaction with a tutor, adapting to the student's learning pace, style, and current level of knowledge.
-These systems can engage in dialogue, answer student queries, and provide explanations, much like a human tutor would (\textcite{malinka2023educationalimpact,susnjak2022chatgpt}).
-
-Furthermore, LLMs have the capacity to automate the grading process by evaluating open-ended responses in exams and assignments.
-This can free up time for educators to focus on more personalized teaching methods and direct student engagement.
-
-The intersection of LLMs and education also extends to research, where these models can aid in summarizing literature, generating hypotheses, and even writing research proposals or papers, albeit with careful oversight to ensure academic integrity.
-
-In administrative and support roles, LLMs can streamline communication with students, handle routine inquiries, and manage scheduling and reminders, thereby enhancing the overall educational experience for both students and faculty.
-
-To tap into the full potential of LLMs in education, it is crucial to address challenges such as ensuring the reliability of the information provided, avoiding biases, and maintaining privacy and security, especially with data-sensitive environments like schools and universities.
 
 \subsection{LLMs in Law}
 \label{subsec:llms-in-law}

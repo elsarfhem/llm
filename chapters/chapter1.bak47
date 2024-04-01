@@ -443,7 +443,7 @@ The following sections highlight some of the key applications of LLMs and their 
 \label{subsec:llms-in-healthcare}
 
 The intersection of artificial intelligence (AI) and healthcare has precipitated unparalleled advances in the provision of medical services, diagnosis, treatment, and patient care.
-Central to these advancements are Large Language Models (LLMs), which have been instrumental in catalyzing transformative changes across the healthcare sector:
+Central to these advancements are Large Language Models (LLMs), which have been instrumental in catalyzing transformative changes across the healthcare sector.
 
 \begin{enumerate}
 	\item \textbf{Medical image analysis:}{
@@ -845,19 +845,12 @@ ALiBi positional encoding is applied through additive biases at the self-attenti
 The model also has an additional layer normalization after token embeddings.
 
 BloombergGPT's prowess was rigorously benchmarked against a suite of established LLMs' assessments, as well as financial-specific benchmarks and a series of internally devised tests.
-The model exhibited a remarkable ability to outperform existing models on financial NLP tasks, a testament to the efficacy of its specialized training as shown in Tables~\ref{tab:financial_tasks, tab:internal_aspect_sentiment, tab:ner_ned_results}.
-BloombergGPT's performance on standard, general-purpose benchmarks was also evaluated, demonstrating its versatility and proficiency across a range of NLP tasks.
-
-Overall, while BloombergGPT falls behind the much larger PaLM\textsubscript{540B} (10x parameters) and BLOOM\textsubscript{176B} (3.5x parameters), it is the best-performing among similarly sized models.
-In fact, its performance is closer to BLOOM\textsubscript{176B} than it is to either GPT-NeoX or OPT\textsubscript{66B}.
-
-In sum, according to benchmarks in \textcite{wu2023bloomberggpt}, developing finance-specific BloombergGPT did not come at the expense of its general-purpose abilities.
-
+The model exhibited a remarkable ability to outperform existing models on financial NLP tasks, a testament to the efficacy of its specialized training as shown in Table~\ref{tab:financial_tasks, tab:internal_aspect_sentiment}.
 
 \begin{table}[htbp]
 	\begin{tabularx}{\textwidth}{Xcccc}
 		\toprule
-		                & \textbf{BLOOMBERGGPT} & \textbf{GPT-NeoX} & \textbf{OPT\textsubscript{66B}} & \textbf{BLOOM\textsubscript{176B}} \\
+		& \textbf{BLOOMBERGGPT} & \textbf{GPT-NeoX} & \textbf{OPT\textsubscript{66B}} & \textbf{BLOOM\textsubscript{176B}} \\
 		\midrule
 		ConvFinQA       & \textbf{43.41}        & 30.06             & 27.88                           & 36.31                              \\
 		FiQA SA         & \textbf{75.07}        & 50.59             & 51.60                           & 53.12                              \\
@@ -897,7 +890,7 @@ In sum, according to benchmarks in \textcite{wu2023bloomberggpt}, developing fin
 	\centering
 	\begin{tabularx}{\textwidth}{Xcccc}
 		\toprule
-		                & \textbf{BLOOMBERGGPT} & \textbf{GPT-NeoX} & \textbf{OPT\textsubscript{66B}} & \textbf{BLOOM\textsubscript{176B}} \\
+		& \textbf{BLOOMBERGGPT} & \textbf{GPT-NeoX} & \textbf{OPT\textsubscript{66B}} & \textbf{BLOOM\textsubscript{176B}} \\
 		\midrule
 		\multicolumn{5}{c}{NER}                                                                                                            \\
 		\midrule
@@ -932,22 +925,6 @@ In sum, according to benchmarks in \textcite{wu2023bloomberggpt}, developing fin
 
 \subsection{LLMs in Education}
 \label{subsec:llms-in-education}
-
-Education is a sector that has been significantly impacted by the advent of LLMs. LLMs can be leveraged to create educational content that is tailored to individual student needs, providing explanations, generating practice problems, and even offering feedback.
-LLMs can achieve student-level performance on standardized tests (\textcite{gpt4}) in a variety of subjects of mathematics (e.g., physics, computer science) on both multiple-choice and free-response problems.
-Additionally, these models can assist in language learning, both for native speakers and language acquisition, due to their deep understanding of linguistic structures and idiomatic expressions.
-
-In the realm of intelligent tutoring systems, LLMs can be applied to simulate one-on-one interaction with a tutor, adapting to the student's learning pace, style, and current level of knowledge.
-These systems can engage in dialogue, answer student queries, and provide explanations, much like a human tutor would (\textcite{malinka2023educationalimpact,susnjak2022chatgpt}).
-
-Furthermore, LLMs have the capacity to automate the grading process by evaluating open-ended responses in exams and assignments.
-This can free up time for educators to focus on more personalized teaching methods and direct student engagement.
-
-The intersection of LLMs and education also extends to research, where these models can aid in summarizing literature, generating hypotheses, and even writing research proposals or papers, albeit with careful oversight to ensure academic integrity.
-
-In administrative and support roles, LLMs can streamline communication with students, handle routine inquiries, and manage scheduling and reminders, thereby enhancing the overall educational experience for both students and faculty.
-
-To tap into the full potential of LLMs in education, it is crucial to address challenges such as ensuring the reliability of the information provided, avoiding biases, and maintaining privacy and security, especially with data-sensitive environments like schools and universities.
 
 \subsection{LLMs in Law}
 \label{subsec:llms-in-law}

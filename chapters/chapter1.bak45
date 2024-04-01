@@ -362,6 +362,7 @@ Based on the LLaMA paper by \textcite{touvron2023llama}, even though LLaMA-13B i
 \begin{table}[htbp]
 	\centering
 	\scriptsize
+	\label{tab:llama-zero-shot-performance}
 	\begin{tabularx}{\textwidth}{@{}lXXXXXXXXX@{}}
 		\toprule
 		Model      & Params & BoolQ & PIQA & SIQA & HellaSwag & WinoGrande & ARC-e & ARC-c & OBQA \\
@@ -380,7 +381,6 @@ Based on the LLaMA paper by \textcite{touvron2023llama}, even though LLaMA-13B i
 		\bottomrule
 	\end{tabularx}
 	\caption{Zero-shot performance on Common Sense Reasoning tasks. Source: \protect\textcite{touvron2023llama}.}
-	\label{tab:llama-zero-shot-performance}
 \end{table}
 
 The LLaMA models were trained exclusively on publicly available data, setting them apart from other models that rely on proprietary datasets~\footnote{Such as "Books --- 2TB" or "Social media conversations"}.
@@ -443,7 +443,7 @@ The following sections highlight some of the key applications of LLMs and their 
 \label{subsec:llms-in-healthcare}
 
 The intersection of artificial intelligence (AI) and healthcare has precipitated unparalleled advances in the provision of medical services, diagnosis, treatment, and patient care.
-Central to these advancements are Large Language Models (LLMs), which have been instrumental in catalyzing transformative changes across the healthcare sector:
+Central to these advancements are Large Language Models (LLMs), which have been instrumental in catalyzing transformative changes across the healthcare sector.
 
 \begin{enumerate}
 	\item \textbf{Medical image analysis:}{
@@ -680,6 +680,7 @@ For example, in the sentiment analysis task, FinMA-30B and GPT-4 achieved simila
 \end{table}
 \begin{table}[!htbp]
 	\centering
+	\label{tab:fiqa_results}
 	\begin{tabularx}{0.8\textwidth}{Xcc}
 		\toprule
 		\textbf{Model}                  & \textbf{Category} & \textbf{Weighted F1} \\
@@ -699,11 +700,11 @@ For example, in the sentiment analysis task, FinMA-30B and GPT-4 achieved simila
 		\bottomrule
 	\end{tabularx}
 	\caption{Results for the sentiment analysis task on the FiQA dataset. Source: \protect\textcite{li2023chatgpt}.}
-	\label{tab:fiqa_results}
 \end{table}
 
 \begin{table}[!htbp]
 	\centering
+	\label{tab:headline_classification}
 	\begin{tabularx}{0.8\textwidth}{Xc}
 		\toprule
 		\textbf{Model}                  & \textbf{Weighted F1} \\
@@ -720,11 +721,11 @@ For example, in the sentiment analysis task, FinMA-30B and GPT-4 achieved simila
 		\bottomrule
 	\end{tabularx}
 	\caption{Results on the headline classification task. Source: \protect\textcite{li2023chatgpt}.}
-	\label{tab:headline_classification}
 \end{table}
 
 \begin{table}[!htbp]
 	\centering
+	\label{tab:ner_few_shot_performance}
 	\begin{tabularx}{0.8\textwidth}{Xc}
 		\toprule
 		\textbf{Model}                   & \textbf{Entity F1} \\
@@ -742,11 +743,11 @@ For example, in the sentiment analysis task, FinMA-30B and GPT-4 achieved simila
 		\bottomrule
 	\end{tabularx}
 	\caption{Results of few-shot performance on the NER dataset. CRF\textsubscript{CoNLL} refers to CRF model that is trained on general CoNLL data, CRF\textsubscript{FIN5} refers to CRF model that is trained on FIN5 data. Source: \protect\textcite{li2023chatgpt}.}
-	\label{tab:ner_few_shot_performance}
 \end{table}
 
 \begin{table}[!htbp]
 	\centering
+	\label{tab:model_performance_qa}
 	\begin{tabularx}{\textwidth}{Xcc}
 		\toprule
 		\textbf{Model}                  & \textbf{FinQA} & \textbf{ConvFinQA} \\
@@ -767,7 +768,6 @@ For example, in the sentiment analysis task, FinMA-30B and GPT-4 achieved simila
 		\bottomrule
 	\end{tabularx}
 	\caption{Model performance (accuracy) on the question answering tasks. FinQANet here refers to the best-performing FinQANet version based on RoBERTa-Large (\textcite{chen2022afinqa}). Few-shot and CoT learning cannot be executed on ConvFinQA due to the conservation nature of ConvFinQA.}
-	\label{tab:model_performance_qa}
 \end{table}
 
 \subsubsection{BloombergGPT}
@@ -779,6 +779,7 @@ With its 50 billion parameters, is posited to be the apex of financial language 
 
 \begin{table}[htbp]
 	\centering
+	\label{tab:training_set}
 	\begin{tabularx}{\textwidth}{lrrrrrr}
 		\toprule
 		\textbf{Dataset}    & \textbf{Docs}    & \textbf{C/D}   & \textbf{Chars}  & \textbf{C/T}  & \textbf{Toks}  & \textbf{T\%}      \\
@@ -818,7 +819,6 @@ With its 50 billion parameters, is posited to be the apex of financial language 
 		\bottomrule
 	\end{tabularx}
 	\caption{Breakdown of the full training set used to train BLOOMBERGGPT. The statistics provided are the average number of characters per document ("C/D"), the average number of characters per token ("C/T"), and the percentage of the overall tokens ("T\%"). Source: \protect\textcite{wu2023bloomberggpt}.}
-	\label{tab:training_set}
 \end{table}
 
 The core of BloombergGPT's training material involved 363 billion tokens of finance-specific data, accompanied by a general corpus of 345 billion tokens.
@@ -845,16 +845,10 @@ ALiBi positional encoding is applied through additive biases at the self-attenti
 The model also has an additional layer normalization after token embeddings.
 
 BloombergGPT's prowess was rigorously benchmarked against a suite of established LLMs' assessments, as well as financial-specific benchmarks and a series of internally devised tests.
-The model exhibited a remarkable ability to outperform existing models on financial NLP tasks, a testament to the efficacy of its specialized training as shown in Tables~\ref{tab:financial_tasks, tab:internal_aspect_sentiment, tab:ner_ned_results}.
-BloombergGPT's performance on standard, general-purpose benchmarks was also evaluated, demonstrating its versatility and proficiency across a range of NLP tasks.
-
-Overall, while BloombergGPT falls behind the much larger PaLM\textsubscript{540B} (10x parameters) and BLOOM\textsubscript{176B} (3.5x parameters), it is the best-performing among similarly sized models.
-In fact, its performance is closer to BLOOM\textsubscript{176B} than it is to either GPT-NeoX or OPT\textsubscript{66B}.
-
-In sum, according to benchmarks in \textcite{wu2023bloomberggpt}, developing finance-specific BloombergGPT did not come at the expense of its general-purpose abilities.
-
+The model exhibited a remarkable ability to outperform existing models on financial NLP tasks, a testament to the efficacy of its specialized training as shown in Table~\ref{tab:financial_tasks, tab:internal_aspect_sentiment}.
 
 \begin{table}[htbp]
+	\label{tab:financial_tasks}
 	\begin{tabularx}{\textwidth}{Xcccc}
 		\toprule
 		                & \textbf{BLOOMBERGGPT} & \textbf{GPT-NeoX} & \textbf{OPT\textsubscript{66B}} & \textbf{BLOOM\textsubscript{176B}} \\
@@ -870,7 +864,6 @@ In sum, according to benchmarks in \textcite{wu2023bloomberggpt}, developing fin
 		\bottomrule
 	\end{tabularx}
 	\caption{Results on financial domain tasks. Source: \protect\textcite{wu2023bloomberggpt}.}
-	\label{tab:financial_tasks}
 \end{table}
 
 \begin{table}[htbp]
@@ -895,6 +888,8 @@ In sum, according to benchmarks in \textcite{wu2023bloomberggpt}, developing fin
 
 \begin{table}[htbp]
 	\centering
+	\label{tab:ner_ned_results}
+
 	\begin{tabularx}{\textwidth}{Xcccc}
 		\toprule
 		                & \textbf{BLOOMBERGGPT} & \textbf{GPT-NeoX} & \textbf{OPT\textsubscript{66B}} & \textbf{BLOOM\textsubscript{176B}} \\
@@ -927,27 +922,10 @@ In sum, according to benchmarks in \textcite{wu2023bloomberggpt}, developing fin
 		\bottomrule
 	\end{tabularx}
 	\caption{Results on internal NER and NED datasets. On NER, while the much larger BLOOM176b model outperforms all other models, results from all models are relatively close, with BLOOMBERGGPT outperforming the other two models. On NER+NED, BLOOMBERGGPT outperforms all other models by a large margin. Source: \protect\textcite{wu2023bloomberggpt}.}
-	\label{tab:ner_ned_results}
 \end{table}
 
 \subsection{LLMs in Education}
 \label{subsec:llms-in-education}
-
-Education is a sector that has been significantly impacted by the advent of LLMs. LLMs can be leveraged to create educational content that is tailored to individual student needs, providing explanations, generating practice problems, and even offering feedback.
-LLMs can achieve student-level performance on standardized tests (\textcite{gpt4}) in a variety of subjects of mathematics (e.g., physics, computer science) on both multiple-choice and free-response problems.
-Additionally, these models can assist in language learning, both for native speakers and language acquisition, due to their deep understanding of linguistic structures and idiomatic expressions.
-
-In the realm of intelligent tutoring systems, LLMs can be applied to simulate one-on-one interaction with a tutor, adapting to the student's learning pace, style, and current level of knowledge.
-These systems can engage in dialogue, answer student queries, and provide explanations, much like a human tutor would (\textcite{malinka2023educationalimpact,susnjak2022chatgpt}).
-
-Furthermore, LLMs have the capacity to automate the grading process by evaluating open-ended responses in exams and assignments.
-This can free up time for educators to focus on more personalized teaching methods and direct student engagement.
-
-The intersection of LLMs and education also extends to research, where these models can aid in summarizing literature, generating hypotheses, and even writing research proposals or papers, albeit with careful oversight to ensure academic integrity.
-
-In administrative and support roles, LLMs can streamline communication with students, handle routine inquiries, and manage scheduling and reminders, thereby enhancing the overall educational experience for both students and faculty.
-
-To tap into the full potential of LLMs in education, it is crucial to address challenges such as ensuring the reliability of the information provided, avoiding biases, and maintaining privacy and security, especially with data-sensitive environments like schools and universities.
 
 \subsection{LLMs in Law}
 \label{subsec:llms-in-law}

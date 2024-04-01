@@ -443,7 +443,7 @@ The following sections highlight some of the key applications of LLMs and their 
 \label{subsec:llms-in-healthcare}
 
 The intersection of artificial intelligence (AI) and healthcare has precipitated unparalleled advances in the provision of medical services, diagnosis, treatment, and patient care.
-Central to these advancements are Large Language Models (LLMs), which have been instrumental in catalyzing transformative changes across the healthcare sector:
+Central to these advancements are Large Language Models (LLMs), which have been instrumental in catalyzing transformative changes across the healthcare sector.
 
 \begin{enumerate}
 	\item \textbf{Medical image analysis:}{
@@ -932,22 +932,6 @@ In sum, according to benchmarks in \textcite{wu2023bloomberggpt}, developing fin
 
 \subsection{LLMs in Education}
 \label{subsec:llms-in-education}
-
-Education is a sector that has been significantly impacted by the advent of LLMs. LLMs can be leveraged to create educational content that is tailored to individual student needs, providing explanations, generating practice problems, and even offering feedback.
-LLMs can achieve student-level performance on standardized tests (\textcite{gpt4}) in a variety of subjects of mathematics (e.g., physics, computer science) on both multiple-choice and free-response problems.
-Additionally, these models can assist in language learning, both for native speakers and language acquisition, due to their deep understanding of linguistic structures and idiomatic expressions.
-
-In the realm of intelligent tutoring systems, LLMs can be applied to simulate one-on-one interaction with a tutor, adapting to the student's learning pace, style, and current level of knowledge.
-These systems can engage in dialogue, answer student queries, and provide explanations, much like a human tutor would (\textcite{malinka2023educationalimpact,susnjak2022chatgpt}).
-
-Furthermore, LLMs have the capacity to automate the grading process by evaluating open-ended responses in exams and assignments.
-This can free up time for educators to focus on more personalized teaching methods and direct student engagement.
-
-The intersection of LLMs and education also extends to research, where these models can aid in summarizing literature, generating hypotheses, and even writing research proposals or papers, albeit with careful oversight to ensure academic integrity.
-
-In administrative and support roles, LLMs can streamline communication with students, handle routine inquiries, and manage scheduling and reminders, thereby enhancing the overall educational experience for both students and faculty.
-
-To tap into the full potential of LLMs in education, it is crucial to address challenges such as ensuring the reliability of the information provided, avoiding biases, and maintaining privacy and security, especially with data-sensitive environments like schools and universities.
 
 \subsection{LLMs in Law}
 \label{subsec:llms-in-law}
