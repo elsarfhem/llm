@@ -484,7 +484,7 @@ Their integration into clinical practice must be pursued with diligent oversight
 \label{subsubsec:med-palm}
 
 One of the most advanced LLMs for healthcare is Med-PaLM, a derivative of the PaLM (540B) model developed by Google, and its instruction-tuned variant, Flan-PaLM. Using a combination of few-shot (\textcite{gpt3}), chain-of-thought (CoT) (\textcite{wei2022chain}), and self-consistency (\textcite{wang2022self}) prompting strategies, Flan-PaLM achieved state-of-the-art accuracy on every MultiMedQA \footnote{stands for a multi-domain medical question answering benchmark. It has been designed to evaluate the performance of LLMs in the healthcare sector.
-	This benchmark likely encompasses a wide range of medical questions, covering various disciplines, conditions, and scenarios that medical professionals encounter.} multiple-choice dataset (MedQA, MedMCQA, PubMedQA, MMLU clinical topics and a newly introduced dataset, HealthSearchQA, which consists of commonly searched health questions).
+This benchmark likely encompasses a wide range of medical questions, covering various disciplines, conditions, and scenarios that medical professionals encounter.} multiple-choice dataset (MedQA, MedMCQA, PubMedQA, MMLU clinical topics and a newly introduced dataset, HealthSearchQA, which consists of commonly searched health questions).
 
 \begin{table}[!h]
 	\centering

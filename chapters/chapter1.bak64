@@ -484,26 +484,27 @@ Their integration into clinical practice must be pursued with diligent oversight
 \label{subsubsec:med-palm}
 
 One of the most advanced LLMs for healthcare is Med-PaLM, a derivative of the PaLM (540B) model developed by Google, and its instruction-tuned variant, Flan-PaLM. Using a combination of few-shot (\textcite{gpt3}), chain-of-thought (CoT) (\textcite{wei2022chain}), and self-consistency (\textcite{wang2022self}) prompting strategies, Flan-PaLM achieved state-of-the-art accuracy on every MultiMedQA \footnote{stands for a multi-domain medical question answering benchmark. It has been designed to evaluate the performance of LLMs in the healthcare sector.
-	This benchmark likely encompasses a wide range of medical questions, covering various disciplines, conditions, and scenarios that medical professionals encounter.} multiple-choice dataset (MedQA, MedMCQA, PubMedQA, MMLU clinical topics and a newly introduced dataset, HealthSearchQA, which consists of commonly searched health questions).
 
-\begin{table}[!h]
-	\centering
-	\begin{tabular}{@{}lc@{}}
-		\toprule
-		Model (number of parameters) & MedQA (USMLE) Accuracy \% \\
-		\midrule
-		Flan-PaLM (540 B)            & 67.6                      \\
-		PubMedGPT (2.7 B)            & 50.3                      \\
-		DRAGON (360 M)               & 47.5                      \\
-		BioLinkBERT (340 M)          & 45.1                      \\
-		Galactica (120 B)            & 44.4                      \\
-		PubMedBERT (100 M)           & 38.1                      \\
-		GPT-Neo (2.7 B)              & 33.3                      \\
-		\bottomrule
-	\end{tabular}
-	\caption{Performance comparison of different models on the MedQA (USMLE) benchmark. Source: \protect\textcite{singhal2022large}.}
-	\label{tab:medqa_performance}
-\end{table}
+	\begin{table}[!h]
+		\centering
+		\begin{tabular}{@{}lc@{}}
+			\toprule
+			Model (number of parameters) & MedQA (USMLE) Accuracy \% \\
+			\midrule
+			Flan-PaLM (540 B)            & 67.6                      \\
+			PubMedGPT (2.7 B)            & 50.3                      \\
+			DRAGON (360 M)               & 47.5                      \\
+			BioLinkBERT (340 M)          & 45.1                      \\
+			Galactica (120 B)            & 44.4                      \\
+			PubMedBERT (100 M)           & 38.1                      \\
+			GPT-Neo (2.7 B)              & 33.3                      \\
+			\bottomrule
+		\end{tabular}
+		\caption{Performance comparison of different models on the MedQA (USMLE) benchmark. Source: \protect\textcite{singhal2022large}.}
+		\label{tab:medqa_performance}
+	\end{table}
+
+This benchmark likely encompasses a wide range of medical questions, covering various disciplines, conditions, and scenarios that medical professionals encounter.} multiple-choice dataset (MedQA, MedMCQA, PubMedQA, MMLU clinical topics and a newly introduced dataset, HealthSearchQA, which consists of commonly searched health questions).
 
 Despite this remarkable results, human evaluation reveals key gaps in Flan-PaLM responses and remains inferior to clinicians~\textcite{singhal2022large}.
 To resolve this issue researches introduced "instruction prompt tuning" to align the Flan-PaLM model to the medical domain.

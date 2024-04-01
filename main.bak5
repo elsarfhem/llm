@@ -24,7 +24,6 @@
 \usepackage{booktabs} % For better looking tables
 \usepackage{tabularx}
 \usepackage{float}
-\usepackage{lipsum}
 
 % Define caption styles
 \DeclareCaptionFont{captionfont}{\small\itshape}

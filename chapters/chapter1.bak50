@@ -486,7 +486,7 @@ Their integration into clinical practice must be pursued with diligent oversight
 One of the most advanced LLMs for healthcare is Med-PaLM, a derivative of the PaLM (540B) model developed by Google, and its instruction-tuned variant, Flan-PaLM. Using a combination of few-shot (\textcite{gpt3}), chain-of-thought (CoT) (\textcite{wei2022chain}), and self-consistency (\textcite{wang2022self}) prompting strategies, Flan-PaLM achieved state-of-the-art accuracy on every MultiMedQA \footnote{stands for a multi-domain medical question answering benchmark. It has been designed to evaluate the performance of LLMs in the healthcare sector.
 	This benchmark likely encompasses a wide range of medical questions, covering various disciplines, conditions, and scenarios that medical professionals encounter.} multiple-choice dataset (MedQA, MedMCQA, PubMedQA, MMLU clinical topics and a newly introduced dataset, HealthSearchQA, which consists of commonly searched health questions).
 
-\begin{table}[!h]
+\begin{table}[ht]
 	\centering
 	\begin{tabular}{@{}lc@{}}
 		\toprule
@@ -511,7 +511,7 @@ Instruction prompt tuning can thus be seen as a lightweight way (data-efficient,
 Instruction prompt tuning adapted LLMs to better follow the specific type of instructions used in the family of medical datasets.
 The result was Med-PaLM, a model that significantly reduces the gap (or even compares favorably) to clinicians on several axes of evaluation, according to both clinicians and lay users.
 
-\begin{figure}[h!]
+\begin{figure}[ht!]
 	\centering
 	\includegraphics[width=\textwidth]{flan-palm}
 	\caption{Large Language Models (LLMs) have revolutionized healthcare by enhancing diagnostic accuracy, clinical decision support, and patient engagement. Source: \protect\textcite{singhal2022large}.}
@@ -525,7 +525,7 @@ In the financial domain, there has been growing interest in applying NLP across 
 Despite the extensive research into general-domain LLMs, and their immense potential in finance, Financial LLM (Fin-LLM) research remains limited and the field of financial LLMs is at an early stage (\textcite{lee2024survey}).
 An overview of the evolution of selected PLM/LLM releases from the general domain to the financial domain is shown in Figure~\ref{fig:llm-finance}.
 
-\begin{figure}[h]
+\begin{figure}[ht!]
 	\centering
 	\includegraphics[width=\textwidth]{FinLLMs}
 	\caption{Timeline showing the evolution of selected PLM/LLM releases from the general domain to the financial domain. Source: \protect\textcite{lee2024survey}.}
@@ -561,7 +561,7 @@ Let's delve deeper into the techniques used to adapt LLMs for the financial sect
 These techniques are designed to enhance the models' understanding of financial language, data, and context, thereby improving their performance on finance-specific tasks.
 Here's a more detailed look at these techniques:
 
-\begin{table}[!h]
+\begin{table}[h]
 	\scriptsize
 	\centering
 	\begin{tabularx}{\textwidth}{@{}lp{1.5cm}p{1cm}p{1cm}p{1.5cm}p{1.5cm}p{1.5cm}p{1cm}p{1cm}p{1cm}p{1cm}@{}}
@@ -657,7 +657,7 @@ But, they still fail in some other cases (\textcite{li2023chatgpt}).
 Some interesting results are shown in Table~\ref{tab:finllm_comparison, tab:fiqa_results, tab:headline_classification, tab:ner_few_shot_performance}.
 For example, in the sentiment analysis task, FinMA-30B and GPT-4 achieved similar results (87\% on F1) with a 5-shot prompting, while FLANG-ELECTRA achieved the best results (92\% on F1)~\textcite{lee2024survey}, while GPT-4 could be the first choice for Sentiment Analysis and Relation Extraction tasks.
 
-\begin{table}[!h]
+\begin{table}[!htbp]
 	\centering
 	\begin{tabularx}{0.8\textwidth}{Xcccc}
 		\toprule
@@ -678,7 +678,7 @@ For example, in the sentiment analysis task, FinMA-30B and GPT-4 achieved simila
 	\caption{Results on the Phrasebank dataset. The sub-script (n) after an LLM name represents the number of shots. The best results are marked in bold and the second-best with underscored. The results of other LLMs like BloombergGPT are from the corresponding papers. ‘/’ indicates the metrics were not included in the original study. Source:\protect\textcite{li2023chatgpt}.}
 	\label{tab:finllm_comparison}
 \end{table}
-\begin{table}[!h]
+\begin{table}[!htbp]
 	\centering
 	\begin{tabularx}{0.8\textwidth}{Xcc}
 		\toprule
@@ -702,7 +702,7 @@ For example, in the sentiment analysis task, FinMA-30B and GPT-4 achieved simila
 	\label{tab:fiqa_results}
 \end{table}
 
-\begin{table}[!h]
+\begin{table}[!htbp]
 	\centering
 	\begin{tabularx}{0.8\textwidth}{Xc}
 		\toprule
@@ -723,7 +723,7 @@ For example, in the sentiment analysis task, FinMA-30B and GPT-4 achieved simila
 	\label{tab:headline_classification}
 \end{table}
 
-\begin{table}[!h]
+\begin{table}[!htbp]
 	\centering
 	\begin{tabularx}{0.8\textwidth}{Xc}
 		\toprule
@@ -745,9 +745,9 @@ For example, in the sentiment analysis task, FinMA-30B and GPT-4 achieved simila
 	\label{tab:ner_few_shot_performance}
 \end{table}
 
-\begin{table}[!h]
+\begin{table}[!htbp]
 	\centering
-	\begin{tabularx}{0.8\textwidth}{Xcc}
+	\begin{tabularx}{\textwidth}{Xcc}
 		\toprule
 		\textbf{Model}                  & \textbf{FinQA} & \textbf{ConvFinQA} \\
 		\midrule
@@ -777,7 +777,7 @@ The BloombergGPT model, developed by \textcite{wu2023bloomberggpt}, is a special
 With its 50 billion parameters, is posited to be the apex of financial language models, having been trained on a comprehensive dataset of an unprecedented scale within the financial domain.
 \textcite{wu2023bloomberggpt} detail the intricacies of BloombergGPT's training regimen, which employed an amalgamation of financial texts, encompassing a multitude of formats, and a general dataset to ensure versatility\footnote{"\textsc{FinPile}", a comprehensive dataset consisting of a range of English financial documents including news, filings, press releases, web-scraped financial documents, and social media drawn from the Bloomberg archives augmented with public available data.} as shown in Table~\ref{tab:training_set}.
 
-\begin{table}[!h]
+\begin{table}[htbp]
 	\centering
 	\begin{tabularx}{\textwidth}{lrrrrrr}
 		\toprule
@@ -854,7 +854,7 @@ In fact, its performance is closer to BLOOM\textsubscript{176B} than it is to ei
 In sum, according to benchmarks in \textcite{wu2023bloomberggpt}, developing finance-specific BloombergGPT did not come at the expense of its general-purpose abilities.
 
 
-\begin{table}[h]
+\begin{table}[htbp]
 	\begin{tabularx}{\textwidth}{Xcccc}
 		\toprule
 		                & \textbf{BLOOMBERGGPT} & \textbf{GPT-NeoX} & \textbf{OPT\textsubscript{66B}} & \textbf{BLOOM\textsubscript{176B}} \\
@@ -873,7 +873,7 @@ In sum, according to benchmarks in \textcite{wu2023bloomberggpt}, developing fin
 	\label{tab:financial_tasks}
 \end{table}
 
-\begin{table}[h!]
+\begin{table}[htbp]
 	\centering
 	\begin{tabularx}{\textwidth}{Xcccc}
 		\toprule
@@ -893,7 +893,7 @@ In sum, according to benchmarks in \textcite{wu2023bloomberggpt}, developing fin
 	\label{tab:internal_aspect_sentiment}
 \end{table}
 
-\begin{table}[h!]
+\begin{table}[htbp]
 	\centering
 	\begin{tabularx}{\textwidth}{Xcccc}
 		\toprule
@@ -959,51 +959,46 @@ To tap into the full potential of LLMs in education, it is crucial to address ch
 \subsection{LLMs in Law}
 \label{subsec:llms-in-law}
 
-
 The legal sector is another domain that has been significantly impacted by the advent of LLMs.
 A number of tasks in the legal field, such as legal document analysis (\textcite{blairstanek2023gpt3statutory}), legal judgment prediction (\textcite{trautmann2022legalprompt}), and legal document writing (\textcite{choi2023chatgptlaw}), can be solved by LLMs with high accuracy and efficiency.
 
-\begin{figure}[!h]
+\textcite{blairstanek2023gpt3statutory} evaluates the capacity of OpenAI's GPT-3 model, specifically text-davinci-003, to perform statutory reasoning\footnote{Statutory reasoning is the application of legal rules written by legislative bodies to facts that are also in natural language}, a fundamental skill in legal practice, on an established dataset known as SARA (StAtutory Reasoning Assessment).
+The investigation includes several approaches like dynamic few-shot prompting, chain-of-thought prompting, and zero-shot prompting (examples in Figure~\ref{fig:legal_prompting}).
+
+\begin{figure}
 	\centering
 	\includegraphics[width=\textwidth]{statutory}
 	\caption{Prompts used in \protect\textcite{blairstanek2023gpt3statutory} to pose SARA test cases to GPT-3. Top boxes, in orange, contain statutes (optional). Example cases are in blue; in zero-shot there are no example cases. At the bottom, in green, are test cases. Text highlighted in yellow is generated by GPT-3. If GPT-3’s first response is not clear, the second prompt with "Therefore the answer is" is used, following \protect\textcite{kojima2022largelanguagemodels}. Source: \protect\textcite{trautmann2022legalprompt}.}
 	\label{fig:legal_prompting}
 \end{figure}
 
-
-\textcite{blairstanek2023gpt3statutory} evaluates the capacity of OpenAI's GPT-3 model, specifically text-davinci-003, to perform statutory reasoning\footnote{Statutory reasoning is the application of legal rules written by legislative bodies to facts that are also in natural language}, a fundamental skill in legal practice, on an established dataset known as SARA (StAtutory Reasoning Assessment).
-The investigation includes several approaches like dynamic few-shot prompting, chain-of-thought prompting, and zero-shot prompting (examples in Figure~\ref{fig:legal_prompting}).
-
 The model surpasses previous benchmarks yet still exhibits considerable room for improvement, especially when handling simple synthetic statutes, revealing limitations in its current statutory reasoning capabilities even though GPT-3 has some prior knowledge of the U.S.\ Code.
-
-\begin{table}[!h]
-	\centering
-	\begin{tabularx}{\textwidth}{Xcccc}
-		\toprule
-		Method     & Constitutional Law & Taxation & Torts & Total \\
-		\midrule
-		Simple     & 21/25              & 24/60    & 6/10  & 51/95 \\
-		CoT        & 21/25              & 18/60    & 5/10  & 44/95 \\
-		Rank Order & 20/25              & 21/60    & 6/10  & 47/95 \\
-		\bottomrule
-	\end{tabularx}
-	\caption{Comparison of Multiple Choice Methods. Source: \protect\textcite{choi2023chatgptlaw}.}
-	\label{tab:mc_comparison}
-\end{table}
 
 \textcite{choi2023chatgptlaw} explored ChatGPT's ability to write law school exams at the University of Minnesota Law School, encompassing multiple choice and essay questions across four courses.
 ChatGPT generated answers for exams in Constitutional Law, Employee Benefits, Taxation, and Torts, with varying question formats across these subjects.
 These answers were blindly graded in line with the standard grading process.
 ChatGPT managed to pass all four classes, averaging a C+ grade, demonstrating better performance on essay questions compared to multiple choice, with notable strengths in organizing and composing essays (Table~\ref{tab:mc_comparison}).
 
+\begin{table}[htbp]
+	\centering
+	\begin{tabularx}{\textwidth}{Xccc}
+		\toprule
+		Method       & Constitutional Law & Taxation & Torts & Total \\
+		\midrule
+		Simple       & 21/25              & 24/60    & 6/10  & 51/95 \\
+		CoT          & 21/25              & 18/60    & 5/10  & 44/95 \\
+		Rank Order   & 20/25              & 21/60    & 6/10  & 47/95 \\
+		\bottomrule
+	\end{tabularx}
+	\caption{Comparison of Multiple Choice Methods. Source: \protect\textcite{choi2023chatgptlaw}.}
+	\label{tab:mc_comparison}
+\end{table}
+
 Despite its overall passing performance, ChatGPT ranked at or near the bottom in each class.
 The model's essays showcased a strong grasp of basic legal rules but struggled with issue spotting and detailed application of rules to facts.
 The findings suggest that while ChatGPT can assist in legal education and potentially in legal practice, it currently lacks the nuanced understanding and depth of reasoning required for high-level legal analysis.
-
-Recent studies on the latest GPT-4 model have shown that it can achieve a top 10\% score in a simulated bar exam compared with human test-takers (\textcite{gpt4}), while \textcite{nay2022lawinformscode} and exhibit powerful abilities of legal interpretation and reasoning.
-To further improve the performance of LLMs in the law domain, specially designed legal prompt engineering are employed to yield advanced performance in long legal document comprehension and complex legal reasoning (\textcite{survey}).
+This study underscores the potential and limitations of using AI in legal education, emphasizing the need for further research and development in AI's application to law.
 
 
 \subsection{LLMs in Scientific Research}
 \label{subsec:llms-in-scientific-research}
-\lipsum
