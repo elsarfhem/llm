@@ -343,7 +343,6 @@ Main differences between LLaMA and original Transformer architecture (\textcite{
 
 \begin{table}[ht]
 	\centering
-	\label{tab:llama-model-params}
 	\begin{tabular}{@{}ccccccc@{}}
 		\toprule
 		params & dimension & n heads & n layers & learning rate          & batch size & n tokens \\
@@ -355,6 +354,7 @@ Main differences between LLaMA and original Transformer architecture (\textcite{
 		\bottomrule
 	\end{tabular}
 	\caption{Model sizes, architectures, and optimization hyper-parameters. Source: \protect\textcite{touvron2023llama}.}
+	\label{tab:llama-model-params}
 \end{table}
 
 Based on the LLaMA paper by \textcite{touvron2023llama}, even though LLaMA-13B is smaller than many competitors, it outperforms GPT-3 on most benchmarks, and the 65B model is competitive with the best large language models available, such as Chinchilla and PaLM-540B, despite being x10 smaller (Table~\ref{tab:llama-zero-shot-performance}).
@@ -654,7 +654,7 @@ These datasets are instrumental in assessing the models' performance, guiding th
 
 Recent studies have shown that they outperform fine-tuned models on some tasks.
 But, they still fail in some other cases (\textcite{li2023chatgpt}).
-Some interesting results are shown in Table~\ref{tab:finllm_comparison, tab:fiqa_results, tab:headline_classification, tab:ner_few_shot_performance}.
+Some interesting results are shown in Table~\ref{tab:finllm_comparison}, Table~\ref{tab:fiqa_results}, Table~\ref{tab:headline_classification}, Table~\ref{tab:ner_few_shot_performance}.
 For example, in the sentiment analysis task, FinMA-30B and GPT-4 achieved similar results (87\% on F1) with a 5-shot prompting, while FLANG-ELECTRA achieved the best results (92\% on F1)~\textcite{lee2024survey}, while GPT-4 could be the first choice for Sentiment Analysis and Relation Extraction tasks.
 
 \begin{table}[!h]
@@ -845,7 +845,7 @@ ALiBi positional encoding is applied through additive biases at the self-attenti
 The model also has an additional layer normalization after token embeddings.
 
 BloombergGPT's prowess was rigorously benchmarked against a suite of established LLMs' assessments, as well as financial-specific benchmarks and a series of internally devised tests.
-The model exhibited a remarkable ability to outperform existing models on financial NLP tasks, a testament to the efficacy of its specialized training as shown in Tables~\ref{tab:financial_tasks, tab:internal_aspect_sentiment, tab:ner_ned_results}.
+The model exhibited a remarkable ability to outperform existing models on financial NLP tasks, a testament to the efficacy of its specialized training as shown in Table~\ref{tab:financial_tasks}, Table~\ref{tab:internal_aspect_sentiment}, and Table~\ref{tab:ner_ned_results}.
 BloombergGPT's performance on standard, general-purpose benchmarks was also evaluated, demonstrating its versatility and proficiency across a range of NLP tasks.
 
 Overall, while BloombergGPT falls behind the much larger PaLM\textsubscript{540B} (10x parameters) and BLOOM\textsubscript{176B} (3.5x parameters), it is the best-performing among similarly sized models.
