@@ -36,7 +36,7 @@
   howpublished  = {arXiv preprint},
   url           = {https://arxiv.org/abs/1802.05365}
 }
-@inproceedings{bert,
+@inproceedings{devlin2019bert,
   author        = {Devlin, Jacob and Chang, Ming-Wei and Lee, Kenton and Toutanova, Kristina},
   title         = {Bert: Pre-training of Deep Bidirectional Transformers for Language Understanding},
   booktitle     = {Proceedings of the 2019 Conference of the North American Chapter of the Association for Computational Linguistics: Human Language Technologies, {NAACL-HLT} 2019},
@@ -52,14 +52,14 @@
   doi           = {10.18653/v1/N19-1423},
   url           = {https://www.aclweb.org/anthology/N19-1423}
 }
-@online{gpt2,
+@online{radford2019language,
   author        = {Radford, Alec and Wu, Jeffrey and Child, Rewon and Luan, David and Amodei, Dario and Sutskever, Ilya et al.},
   title         = {Language Models Are Unsupervised Multitask Learners},
   howpublished  = {OpenAI Blog},
   year          = {2019},
   url           = {https://openai.com/blog/better-language-models/}
 }
-@misc{gpt3,
+@misc{brown2020language,
   title         = {Language Models Are Few-Shot Learners},
   author        = {Tom B. Brown and Benjamin Mann and Nick Ryder and Melanie Subbiah and Jared Kaplan and Prafulla Dhariwal and Arvind Neelakantan and Pranav Shyam and Girish Sastry and Amanda Askell and Sandhini Agarwal and Ariel Herbert-Voss and Gretchen Krueger and Tom Henighan and Rewon Child and Aditya Ramesh and Daniel M. Ziegler and Jeffrey Wu and Clemens Winter and Christopher Hesse and Mark Chen and Eric Sigler and Mateusz Litwin and Scott Gray and Benjamin Chess and Jack Clark and Christopher Berner and Sam McCandlish and Alec Radford and Ilya Sutskever and Dario Amodei},
   year          = {2020},
@@ -881,4 +881,219 @@
   title         = {Do You Know English Grammar Better Than ChatGPT?},
   year          = {2023},
   url           = {https://medium.com/writing-cooperative/do-you-know-english-grammar-better-than-chatgpt-8fc550f23681}
+}
+@inproceedings{liu2019roberta,
+  title         = {RoBERTa: A Robustly Optimized BERT Pretraining Approach},
+  author        = {Liu, Yinhan and Ott, Myle and Goyal, Naman and Du, Jingfei and Joshi, Mandar and Chen, Danqi and Levy, Omer and Lewis, Mike and Zettlemoyer, Luke and Stoyanov, Veselin},
+  booktitle     = {arXiv preprint arXiv:1907.11692},
+  year          = {2019}
+}
+@inproceedings{strubell2019energy,
+  title         = {Energy and Policy Considerations for Deep Learning in NLP},
+  author        = {Strubell, Emma and Ganesh, Ananya and McCallum, Andrew},
+  booktitle     = {ACL 2019},
+  year          = {2019}
+}
+@article{bender2021dangers,
+  title         = {On the Dangers of Stochastic Parrots: Can Language Models Be Too Big?},
+  author        = {Bender, Emily M and Gebru, Timnit and McMillan-Major, Angelina and Shmitchell, Shmargaret},
+  journal       = {FAccT '21},
+  year          = {2021}
+}
+@inproceedings{ruder2019transfer,
+  title         = {Transfer Learning in Natural Language Processing},
+  author        = {Ruder, Sebastian and Peters, Matthew E. and Swayamdipta, Swabha and Wolf, Thomas},
+  editor        = {Sarkar, Anoop and Strube, Michael},
+  booktitle     = {Proceedings of the 2019 Conference of the North American Chapter of the Association for Computational Linguistics: Tutorials},
+  month         = jun,
+  year          = {2019},
+  address       = {Minneapolis, Minnesota},
+  publisher     = {Association for Computational Linguistics},
+  url           = {https://aclanthology.org/N19-5004},
+  doi           = {10.18653/v1/N19-5004},
+  pages         = {15--18},
+  abstract      = {The classic supervised machine learning paradigm is based on learning in isolation, a single predictive model for a task using a single dataset. This approach requires a large number of training examples and performs best for well-defined and narrow tasks. Transfer learning refers to a set of methods that extend this approach by leveraging data from additional domains or tasks to train a model with better generalization properties. Over the last two years, the field of Natural Language Processing (NLP) has witnessed the emergence of several transfer learning methods and architectures which significantly improved upon the state-of-the-art on a wide range of NLP tasks. These improvements together with the wide availability and ease of integration of these methods are reminiscent of the factors that led to the success of pretrained word embeddings and ImageNet pretraining in computer vision, and indicate that these methods will likely become a common tool in the NLP landscape as well as an important research direction. We will present an overview of modern transfer learning methods in NLP, how models are pre-trained, what information the representations they learn capture, and review examples and case studies on how these models can be integrated and adapted in downstream NLP tasks.}
+}
+@misc{gururangan2020don,
+  title         = {Don't Stop Pretraining: Adapt Language Models to Domains and Tasks},
+  author        = {Suchin Gururangan and Ana Marasovi\'{c} and Swabha Swayamdipta and Kyle Lo and Iz Beltagy and Doug Downey and Noah A. Smith},
+  year          = {2020},
+  eprint        = {2004.10964},
+  archiveprefix = {arXiv},
+  primaryclass  = {cs.CL}
+}
+@misc{phang2019sentence,
+  title         = {Sentence Encoders on STILTs: Supplementary Training on Intermediate Labeled-data Tasks},
+  author        = {Jason Phang and Thibault F\'{e}vry and Samuel R. Bowman},
+  year          = {2019},
+  eprint        = {1811.01088},
+  archiveprefix = {arXiv},
+  primaryclass  = {cs.CL}
+}
+@misc{howard2018universal,
+  title         = {Universal Language Model Fine-tuning for Text Classification},
+  author        = {Jeremy Howard and Sebastian Ruder},
+  year          = {2018},
+  eprint        = {1801.06146},
+  archiveprefix = {arXiv},
+  primaryclass  = {cs.CL}
+}
+@book{zhu2005semi,
+  title         = {Semi-supervised Learning Literature Survey},
+  author        = {Zhu, Xiaojin},
+  year          = {2005},
+  publisher     = {University of Wisconsin-Madison Department of Computer Sciences}
+}
+@book{chapelle2009semi,
+  title         = {Semi-supervised Learning},
+  author        = {Chapelle, Olivier and Scholkopf, Bernhard and Zien, Alexander},
+  year          = {2009},
+  publisher     = {MIT Press}
+}
+@misc{yang2017transfer,
+  title         = {Transfer Learning for Sequence Tagging with Hierarchical Recurrent Networks},
+  author        = {Zhilin Yang and Ruslan Salakhutdinov and William W. Cohen},
+  year          = {2017},
+  eprint        = {1703.06345},
+  archiveprefix = {arXiv},
+  primaryclass  = {cs.CL}
+}
+@online{bergmann2023semi,
+  author        = {Dave Bergmann},
+  title         = {What Is Semi-Supervised Learning?},
+  year          = {2023},
+  url           = {https://www.ibm.com/cloud/learn/semi-supervised-learning},
+  urldate       = {2023-12-12},
+  note          = {IBM}
+}
+@article{lee2013pseudo,
+  title         = {Pseudo-Label: The Simple and Efficient Semi-supervised Learning Method for Deep Neural Networks},
+  author        = {Lee, Dong-Hyun},
+  journal       = {ICML 2013 Workshop: Challenges in Representation Learning (WREPL)},
+  year          = {2013}
+}
+@inproceedings{sajjadi2016regularization,
+  title         = {Regularization with stochastic transformations and perturbations for deep semi-supervised learning},
+  author        = {Sajjadi, Mehdi and Javanmardi, Mehran and Tasdizen, Tolga},
+  booktitle     = {Advances in neural information processing systems},
+  pages         = {1163--1171},
+  year          = {2016}
+}
+@book{vapnik1998statistical,
+  title         = {Statistical Learning Theory},
+  author        = {Vapnik, Vladimir},
+  year          = {1998},
+  publisher     = {Wiley-Interscience}
+}
+@inproceedings{joachims1999transductive,
+  title         = {Transductive inference for text classification using support vector machines},
+  author        = {Joachims, Thorsten},
+  booktitle     = {ICML},
+  year          = {1999},
+  organization  = {Citeseer}
+}
+@book{mitchell1997machine,
+  title         = {Machine Learning},
+  author        = {Mitchell, Tom M.},
+  year          = {1997},
+  publisher     = {McGraw-Hill}
+}
+@inproceedings{zhou2004learning,
+  title         = {Learning with unlabeled data and its application to image retrieval},
+  author        = {Zhou, Dengyong and Bousquet, Olivier and Lal, Thomas Navin and Weston, Jason and Scholkopf, Bernhard},
+  booktitle     = {Proceedings of the 2004 ACM SIGKDD international conference on Knowledge discovery and data mining},
+  year          = {2004},
+  organization  = {ACM}
+}
+@inproceedings{belkin2006manifold,
+  title         = {Manifold regularization: A geometric framework for learning from labeled and unlabeled examples},
+  author        = {Belkin, Mikhail and Niyogi, Partha and Sindhwani, Vikas},
+  booktitle     = {Journal of machine learning research},
+  year          = {2006},
+  organization  = {MIT Press}
+}
+@inproceedings{zhu2015aligning,
+  title         = {Aligning books and movies: Towards story-like visual explanations by watching movies and reading books},
+  author        = {Zhu, Yukun and Kiros, Ryan and Zemel, Richard S. and Salakhutdinov, Ruslan and Urtasun, Raquel and Torralba, Antonio and Fidler, Sanja},
+  booktitle     = {2015 IEEE International Conference on Computer Vision (ICCV)},
+  pages         = {19--27},
+  year          = {2015},
+  organization  = {IEEE Computer Society},
+  address       = {Santiago, Chile},
+  month         = {dec},
+  doi           = {10.1109/ICCV.2015.10}
+}
+@misc{projectgutenberg,
+  title         = {Project Gutenberg},
+  howpublished  = {\url{https://www.gutenberg.org/}},
+  note          = {Accessed: 2024-04-14}
+}
+@article{trinh2018simple,
+  title         = {A Simple Method for Commonsense Reasoning},
+  author        = {Trinh, Trieu H. and Le, Quoc V.},
+  journal       = {CoRR},
+  volume        = {abs/1806.02847},
+  year          = {2018},
+  eprint        = {1806.02847},
+  archiveprefix = {arXiv},
+  primaryclass  = {cs.AI}
+}
+@inproceedings{zellers2019defending,
+  title         = {Defending Against Neural Fake News},
+  author        = {Zellers, Rowan and Holtzman, Ari and Rashkin, Hannah and Bisk, Yonatan and Farhadi, Ali and Roesner, Franziska and Choi, Yejin},
+  booktitle     = {Advances in Neural Information Processing Systems 32},
+  editor        = {Wallach, Hanna M. and Larochelle, Hugo and Beygelzimer, Alina and d'Alch{\'e}-Buc, Florence and Fox, Emily B. and Garnett, Roman},
+  pages         = {9051--9062},
+  year          = {2019},
+  address       = {Vancouver, BC, Canada},
+  publisher     = {NeurIPS},
+  note          = {NeurIPS 2019, December 8-14}
+}
+@misc{gokaslan2019openwebtext,
+  author        = {Gokaslan, Aaron and Pavlick, Ellie and Tellex, Stefanie},
+  title         = {OpenWebText Corpus},
+  year          = {2019},
+  howpublished  = {\url{http://Skylion007.github.io/OpenWebTextCorpus}}
+}
+@inproceedings{baumgartner2020pushshift,
+  title         = {The Pushshift Reddit Dataset},
+  author        = {Baumgartner, Jason and Zannettou, Savvas and Keegan, Brian and Squire, Megan and Blackburn, Jeremy},
+  booktitle     = {Proceedings of the Fourteenth International AAAI Conference on Web and Social Media},
+  pages         = {830--839},
+  year          = {2020},
+  publisher     = {AAAI Press},
+  address       = {Atlanta, Georgia, USA},
+  note          = {ICWSM 2020, Held Virtually}
+}
+@misc{wikipedia,
+  title         = {Wikipedia},
+  howpublished  = {\url{https://en.wikipedia.org/wiki/Main\_Page}},
+  note          = {Accessed: 2024-04-14}
+}
+@misc{bigquerydataset,
+  title         = {BigQuery Dataset},
+  howpublished  = {\url{https://cloud.google.com/bigquery?hl=zh-cn}},
+  note          = {Accessed: 2024-04-14}
+}
+@article{gao2021pile,
+  title         = {The Pile: An 800GB Dataset of Diverse Text for Language Modeling},
+  author        = {Gao, Leo and Biderman, Stella and Black, Sid and Golding, Laurence and Hoppe, Travis and Foster, Charles and Phang, Jason and He, Horace and Thite, Anish and Nabeshima, Noa and Presser, Shawn and Leahy, Connor},
+  journal       = {CoRR},
+  volume        = {abs/2101.00027},
+  year          = {2021},
+  eprint        = {2101.00027},
+  archiveprefix = {arXiv},
+  primaryclass  = {cs.CL}
+}
+@inproceedings{laurencon2022bigscience,
+  title         = {The BigScience ROOTS Corpus: A 1.6 TB Composite Multilingual Dataset},
+  author        = {Lauren\c{c}on, Herv{\'e} and Saulnier, Thibault and Wang, Teven and Akiki, Colin and del Moral, Angelina V. and Le Scao, Teven and Von Werra, Leandro and Mou, Charlie and Ponferrada, E. G. and Nguyen, Hang et al.},
+  booktitle     = {Thirty-sixth Conference on Neural Information Processing Systems Datasets and Benchmarks Track},
+  year          = {2022},
+  organization  = {NeurIPS}
+}
+@misc{commoncrawl,
+  title         = {Common Crawl},
+  howpublished  = {\url{https://commoncrawl.org/}},
+  note          = {Accessed: 2024-04-15}
 }

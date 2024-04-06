@@ -9,5 +9,5 @@ all:
 
 clean:
 	rm -f out/*
-	rm -f *.bak*
-	rm -f chapters/*.bak*
+	find . -type f -name "*.bak*" -exec rm {} \;
+	find . -type f -name "*.log" -exec rm {} \;
