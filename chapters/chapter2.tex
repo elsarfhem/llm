@@ -11,8 +11,8 @@ In the following sections, we will explore the key concepts and techniques that 
 
 Finally, we will discuss some model adaptation techniques that can be used to fine-tune LLMs for specific tasks or domains.
 
-\section{Pre-training strategies}
-\label{sec:pre-training-strategies}
+\section{Pre-training}
+\label{sec:pre-training}
 
 Pre-training constitutes a foundational phase in the development of Large Language Models (LLMs).
 It allows the model to capture the relationships between words and generate coherent and contextually relevant text, laying the groundwork for its subsequent performance on specific NLP tasks~\cite{devlin2019bert, brown2020language}.\\
@@ -25,31 +25,34 @@ Additionally, the data used for pre-training can influence the model's biases an
 The field is evolving towards more efficient pre-training methods, such as transfer learning, where a pre-trained model is adapted to new tasks or languages with minimal additional training~\cite{ruder2019transfer}.\\
 Moreover, emerging approaches aim to enhance the contextual awareness and ethical sensitivity of LLMs during the pre-training phase, addressing the challenges of bias and fairness head-on.\\
 
+\subsection{Pre-training strategies}
+\label{subsec:pre-training-strategies}
+
 There are several pre-training strategies that have been used to train large language models, including unsupervised pre-training, supervised pre-training, and semi-supervised pre-training.
 Let's explore each of these strategies in more detail.
 
-\subsection{Unsupervised pre-training}
-\label{subsec:unsupervised-pre-training}
+\subsubsection{Unsupervised pre-training}
+\label{subsubsec:unsupervised-pre-training}
 
 Unsupervised pre-training is a pre-training strategy that involves training a model on a large corpus of text data without any labels or annotations.\\
 The model is trained to predict the next word in a sequence of words, given the previous words in the sequence~\cite{brown2020language}.
 This is done using a technique called Autoregressive Language Modeling (ALM), where the model is trained to predict the probability distribution over the next word in the sequence given the previous words in the sequence in a unidirectional manner.\\
 Models like GPT-3 and its variants use this autoregressive language modeling objective to pre-train on large text corpora and learn the relationships between words in the language.\\
 The main idea behind ALM is the prediction of the next token in a sequence based on the tokens that precede it.
-The computational realization of this modeling approach is typically achieved through neural networks, particularly transformers, which leverage self-attention mechanisms to encapsulate dependencies across varying distances in the input sequence \cite{vaswani2023attention}.
+The computational realization of this modeling approach is typically achieved through neural networks, particularly transformers, which leverage self-attention mechanisms to encapsulate dependencies across varying distances in the input sequence~\cite{vaswani2023attention}.
 During the generation process, a token is sampled based on the probability distribution predicted by the model for the next token position, appended to the sequence, and this augmented sequence is then fed back into the model iteratively to generate subsequent tokens~\cite{brown2020language}.
 Despite its prowess, the autoregressive nature of these models imbues them with an intrinsic limitation: the inability to leverage future context in token prediction, constraining their context comprehension to a unidirectional scope.\\
 BERT and its variants, on the other hand, employ a masked language model (MLM) objective, where random words in a sentence are masked, and the model is trained to predict these masked words based on their context, integrating both preceding and succeeding context in representation learning~\cite{devlin2019bert}.
 
 
-\subsection{Supervised pre-training}
-\label{subsec:supervised-pre-training}
+\subsubsection{Supervised pre-training}
+\label{subsubsec:supervised-pre-training}
 
 Supervised pre-training is a pre-training strategy that involves training a model on a large corpus of text data with labels or annotations.
 This paradigm contrasts with unsupervised pre-training, where models learn from raw text without explicit labels.
 The supervised approach enables models to learn representations that are more closely aligned with the end tasks, potentially enhancing their performance and efficiency~\cite{gururangan2020don}.\\
 
-\begin{figure}[H]
+\begin{figure}[h]
 	\centering
 	\includegraphics[width=\textwidth]{supervised}
 	\caption{Using only the very limited labeled data points available, a supervised model may learn a decision boundary that will generalize poorly and be prone to misclassifying new examples. Source: \textcite{bergmann2023semi}.}
@@ -66,15 +69,15 @@ Moreover, supervised pre-training can lead to improvements in model generalizati
 The reliance on large labeled datasets introduces concerns regarding the cost and feasibility of data annotation, especially in specialized domains where expert knowledge is required.\\
 Furthermore, as shown in Figure~\ref{fig:supervised}, the risk of overfitting to the pre-training data is non-trivial, necessitating careful regularization and validation to ensure the model's generalizability~\cite{howard2018universal}.
 
-\subsection{Semi-supervised pre-training}
-\label{subsec:semi-supervised-pre-training}
+\subsubsection{Semi-supervised pre-training}
+\label{subsubsec:semi-supervised-pre-training}
 
 Semi-supervised pre-training emerges as a compelling paradigm in the evolution of Large Language Models (LLMs), blending the strengths of supervised and unsupervised learning methodologies.
 This hybrid training approach leverages a combination of labeled and unlabeled data, optimizing the utilization of available information and enhancing the model's learning efficacy and adaptability~\cite{zhu2005semi, chapelle2009semi}.\\
 
 At its core, semi-supervised pre-training involves the initial training of models using a vast corpus of unlabeled data, akin to unsupervised pre-training.
 This phase allows the model to capture a broad understanding of language structures and patterns.
-Subsequently, the model undergoes further training or fine-tuning on a smaller labeled dataset, which instills task-specific knowledge and nuances \cite{ruder2019transfer, yang2017transfer}.\\
+Subsequently, the model undergoes further training or fine-tuning on a smaller labeled dataset, which instills task-specific knowledge and nuances~\cite{ruder2019transfer, yang2017transfer}.\\
 The rationale behind this approach is to exploit the abundance of readily available unlabeled data to develop a comprehensive language model, which is then refined using the more scarce labeled data to achieve superior performance on target tasks.\\
 
 Various techniques underpin semi-supervised pre-training in LLMs.
@@ -91,7 +94,7 @@ One of the main applications of transductive learning is in the realm of support
 Conversely, inductive learning aims to build a general model that predicts outcomes for new, unseen data based on the patterns learned from the training data.
 Label propagation (Figure~\ref{fig:label_propagation}) is a common technique in inductive learning, where the model infers the labels of unlabeled data points based on the labels of their neighbors in the feature space.
 
-\begin{figure}[H]
+\begin{figure}[h]
 	\centering
 	\includegraphics[width=\textwidth]{label_propagation}
 	\caption{LEFT: original labeled and unlabeled data points. RIGHT: using label propagation, the unlabeled data points have been assigned pseudo-labels. Source: \textcite{bergmann2023semi}.}
@@ -111,30 +114,80 @@ Semi-supervised approach is predicated on certain assumptions about the underlyi
 	\item \textbf{Low-Density Separation Assumption:} {This assumption posits that the decision boundary between different classes should lie in regions of low data density~\cite{chapelle2009semi}. Essentially, it is expected that there is a natural separation or gap between classes, and the learning algorithm should prefer hypotheses that place the decision boundary in regions where few data points are present.}
 \end{itemize}
 
-\section{Commonly-used data sources}
-\label{sec:commonly-used-data-sources}
+\subsection{Data source}
+\label{subsec:data-source}
+
+Large Language Models (LLMs) exhibit a strong dependency on extensive, high-caliber data for pre-training, with their efficacy closely tied to the nature and preprocessing of the utilized corpora.
+The main sources of data for training and evaluating LLMs can be broadly categorized into general and specialized datasets, each serving distinct purposes in enhancing the models' capabilities~\cite{survey}.\\
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=\textwidth]{datasources}
+	\caption{Commonly-used data sources for training and evaluating Large Language Models (LLMs). Source: \textcite{survey}.}
+	\label{fig:data_sources}
+\end{figure}
+
+\textbf{General Data:} This category typically encompasses web content, literary works, and conversational texts, prized for their voluminous, varied, and accessible nature, thereby bolstering the language modeling and generalization prowess of LLMs. The inclusion of general data, such as web pages and books, offers a rich lexicon spanning various themes, essential for the comprehensive training of LLMs. As shown in Figure~\ref{fig:data_sources}, general purpose data are among the most commonly used general data sources for training LLMs.\\
+Three important general data sources are:
+\begin{itemize}
+	\item \textbf{Webpages:} {Web content, extracted from the internet, is a valuable source of diverse and up-to-date text data, encompassing news articles, blog posts, and forum discussions. This data is instrumental in training LLMs to gain different linguistic knowledge and enhance generalization capabilities~\cite{brown2020language, t5}.
+		      Crawled web data tend be a mix of high-quality and noisy text, necessitating careful preprocessing to ensure the data's quality and relevance.
+	      }
+	\item \textbf{Conversation text:} {
+		      Conversation text, including chat logs and social media interactions, provides a rich source of informal language and colloquial expressions, enabling LLMs to capture the nuances of human communication~\cite{zhang2022opt}. This data is particularly useful for training LLMs on question answering~\cite{chowdhery2022palm} and sentiment analysis tasks~\cite{zellers2019defending}.\\
+		      Conversational data often involve multiple speakers, so an effective way is to trasform the conversation in a tree structure, where the utterance is linked to the one it is replying to. The tree can be divided in multiple subtrees, each one representing a sub-conversation, which can be collected in the pre-training corpus.
+		      Overtraining on conversational data can lead to the model to a performance decline, since the declarative instructions and direct interrogatives can be erroneously interpreted as the beginning of a conversation~\cite{zhang2022opt}.
+	      }
+	\item \textbf{Books:} {
+		      Books, comprising novels, essays, and scientific literature, offer a rich source of long structured and coherent text data, enabling LLMs to learn complex language structures and thematic nuances~\cite{zhu2015aligning}. This data is instrumental in training LLMs on literary text generation tasks and enhancing their proficiency in narrative comprehension and storytelling~\cite{radford2019language}.
+	      }
+\end{itemize}
+
+\textbf{Specialized Data:} Tailored to refine LLMs' proficiency in particular tasks, specialized datasets encompass multilingual text, scientific literature, and programming code.
+Specialized datasets are useful to improve the specific capabilities of LLMs on downstream tasks.
+Next, we introduce three kinds of specialized data.
+\begin{itemize}
+	\item \textbf{Multilingual text:} {
+		      Multilingual text data, spanning multiple languages and dialects, is crucial for training LLMs to understand and generate text in diverse linguistic contexts~\cite{survey}. This data is instrumental in enhancing the models' cross-lingual capabilities and enabling them to perform translation tasks across different languages~\cite{survey}.
+		      BLOOM~\cite{workshop2023bloom} and PaLM~\cite{chowdhery2022palm} are two models that have been trained on multilingual text data to improve their performance on cross-lingual tasks. They have impressive performances on translation, multilingual question answering, and cross-lingual summarization tasks, and they achieve comparable or superior results to models fine-tuned on specific languages.
+	      }
+	\item \textbf{Scientific literature:} {
+		      Scientific literature, encompassing research papers, patents, and technical documents, provides a rich source of domain-specific text data, essential for training LLMs on scientific text generation and reasoning tasks~\cite{survey, taylor2022galactica, lewkowycz2022minerva}.
+		      To build the scientific corpus for training LLMs, existing efforts mainly collect arXiv papers, scientific textbooks, math web-pages, and other related scientific resources.
+		      Data in sceintific fields are complex, commonly including mathematical symbols and protein sequences, so specific tokenization and preprocessing techniques are required to transform these different formats of data into a unified form that can be processed by language models.
+	      }
+	\item \textbf{Code:} {
+		      Code, encompassing source code snippets and software documentation, is a valuable source of structured text data, essential for training LLMs on code generation and code completion tasks~\cite{survey, nijkamp2022codegen}.
+		      Code data is often collected from open-source repositories like GitHub and StackOverflow, and it is used to train LLMs to generate code snippets, complete code fragments, and perform code summarization tasks.
+		      Recently ~\textcite{chen2021evaluating, austin2021program} have shown that models trained on code data can be used to generate code with high accuracy and efficiency, and they can be used to improve the performance of code completion tasks. Generated code can successfully pass expert-designed unit-test cases~\cite{chen2021evaluating} or solve competitive programming problems~\cite{li2022competition}.
+		      In general, two types of code corpora are used: one is question answering datasets like Stack Exchange~\cite{xu2022systematic}; the second is public software repositoris like GitHub~\cite{chen2021evaluating} where code, comments and docstring are collected for utilization.
+	      }
+\end{itemize}
+
+\subsubsection{Commonly-used data sources}
+\label{subsec:commonly-used-data-sources}
 
 The development and evaluation of Large Language Models (LLMs) rely heavily on the availability of high-quality datasets that span diverse domains and languages.
-The datasets in Table~\ref{tab:table} serve as the foundation for pre-training and fine-tuning LLMs, enabling researchers to assess the models' performance on a wide range of tasks, from text generation to machine translation.\\
+The datasets in Table~\ref{tab:table} serve as the foundation for pre-training and fine-tuning LLMs, enabling researchers to assess the models' performance on a wide range of tasks, from text generation to translation.\\
 
-\begin{table}[H]
+\begin{table}[h]
 	\centering
 	\begin{tabularx}{\textwidth}{|X|X|X|X|}
 		\hline
-		\textbf{Corpora}                           & \textbf{Size} & \textbf{Source} & \textbf{Latest Update Time} \\
+		\textbf{Corpora}                           & \textbf{Size} & \textbf{Source} & \textbf{Update Time} \\
 		\hline
-		BookCorpus~\cite{zhu2015aligning}          & 5GB           & Books           & Dec-2015                    \\
-		Gutenberg~\cite{projectgutenberg}          & -             & Books           & Dec-2021                    \\
-		C4~\cite{t5}                               & 800GB         & CommonCrawl     & Apr-2019                    \\
-		CC-Stories-R~\cite{trinh2018simple}        & 31GB          & CommonCrawl     & Sep-2019                    \\
-		CC-NEWS~\cite{liu2019roberta}              & 78GB          & CommonCrawl     & Feb-2019                    \\
-		REALNEWS~\cite{zellers2019defending}       & 120GB         & CommonCrawl     & Apr-2019                    \\
-		OpenWebText~\cite{gokaslan2019openwebtext} & 38GB          & Reddit links    & Mar-2023                    \\
-		Pushift.io~\cite{baumgartner2020pushshift} & 2TB           & Reddit links    & Mar-2023                    \\
-		Wikipedia~\cite{wikipedia}                 & 21GB          & Wikipedia       & Mar-2023                    \\
-		BigQuery~\cite{bigquerydataset}            & -             & Codes           & Dec-2023                    \\
-		the Pile~\cite{gao2021pile}                & 800GB         & Other           & Dec-2020                    \\
-		ROOTS~\cite{laurencon2022bigscience}       & 1.6TB         & Other           & Jun-2022                    \\
+		BookCorpus~\cite{zhu2015aligning}          & 5GB           & Books           & Dec-2015             \\
+		Gutenberg~\cite{projectgutenberg}          & -             & Books           & Dec-2021             \\
+		C4~\cite{t5}                               & 800GB         & CommonCrawl     & Apr-2019             \\
+		CC-Stories-R~\cite{trinh2018simple}        & 31GB          & CommonCrawl     & Sep-2019             \\
+		CC-NEWS~\cite{liu2019roberta}              & 78GB          & CommonCrawl     & Feb-2019             \\
+		REALNEWS~\cite{zellers2019defending}       & 120GB         & CommonCrawl     & Apr-2019             \\
+		OpenWebText~\cite{gokaslan2019openwebtext} & 38GB          & Reddit links    & Mar-2023             \\
+		Pushift.io~\cite{baumgartner2020pushshift} & 2TB           & Reddit links    & Mar-2023             \\
+		Wikipedia~\cite{wikipedia}                 & 21GB          & Wikipedia       & Mar-2023             \\
+		BigQuery~\cite{bigquerydataset}            & -             & Codes           & Dec-2023             \\
+		the Pile~\cite{gao2021pile}                & 800GB         & Other           & Dec-2020             \\
+		ROOTS~\cite{laurencon2022bigscience}       & 1.6TB         & Other           & Jun-2022             \\
 		\hline
 	\end{tabularx}
 	\caption{Statistics of commonly-used data sources. Source: \textcite{survey}}
@@ -142,12 +195,14 @@ The datasets in Table~\ref{tab:table} serve as the foundation for pre-training a
 \end{table}
 
 In this section, we will explore some of the most commonly-used data sources for training and evaluating LLMs.
-Based on their content types, we catego- rize these corpora into six groups: Books, CommonCrawl, Reddit links, Wikipedia, Code, and others.
+Based on their content types, we categorize these corpora into six groups: Books, CommonCrawl, Reddit links, Wikipedia, Code, and others.
 
 \begin{itemize}
 	\item \textbf{Books:} {
 		      BookCorpus~\cite{zhu2015aligning} and Gutenberg~\cite{projectgutenberg} are two prominent datasets that contain text from a wide range of books, spanning various genres and topics. These datasets are valuable for training LLMs on literary text and assessing their performance on text generation tasks.\\
-		      BookCorpus is a dataset consisting of text from over 11,000 books (e.g., novels and biographies), while Gutenberg is a collection of over 70,000 free ebooks including novels, essays, poetry, drama, history, science, philosophy, and other types of works in the public domain -- used for training of LLaMa~\cite{touvron2023llama}.
+		      BookCorpus is a dataset consisting of text from over 11,000 books (e.g., novels and biographies), while Gutenberg is a collection of over 70,000 free ebooks including novels, essays, poetry, drama, history, science, philosophy, and other types of works in the public domain.\\
+		      BookCorpus is commonly used in previous small-scale models (e.g., GPT~\cite{radford2018improving} and GPT-2~\cite{radford2019language}), while Gutenberg is used in more recent large-scale models (i.e., LLaMa~\cite{touvron2023llama}).\\
+		      Book1 and Book2 used in GPT-3~\cite{brown2020language} are much larger than BookCorpus, but they have not been publicly released.
 	      }
 	\item \textbf{CommonCrawl:} {
 		      CommonCrawl~\cite{commoncrawl} is a vast web corpus that contains data from billions of web pages, covering diverse topics and languages. Due to noise and redundancy in the data, researchers often extract subsets of CommonCrawl for training LLMs. The main subsets used for training LLMs are C4\footnote{Colossal Clean Crawled Corpus}~\cite{t5}, CC-Stories-R~\cite{trinh2018simple}, CC-NEWS~\cite{liu2019roberta}, and REALNEWS~\cite{zellers2019defending}.\\
@@ -162,12 +217,123 @@ Based on their content types, we catego- rize these corpora into six groups: Boo
 		      Wikipedia is available in multiple languages, so it can be used in multilingual settings.
 	      }
 	\item \textbf{Code:} {
-		      Two major sources are GitHub for open-source licenses and StackOverflow for code-related question-answering platforms.\\
-		      Google has publicly released the BigQuery, a dataset that contains code snippets from various programming languages. This dataset is useful for training LLMs (i.e., CodeGen) on code text and assessing their performance on code generation and code completion tasks.
+		      Two major sources are GitHub, for open-source licensed code, and StackOverflow, for code-related question-answering platforms.\\
+		      Google has publicly released BigQuery~\cite{bigquerydataset}, a dataset that contains code snippets from various programming languages. This dataset is useful for training LLMs (i.e., CodeGen~\cite{nijkamp2022codegen}) on code text and assessing their performance on code generation and code completion tasks.
 	      }
 	\item \textbf{Others:} {
-		      The Pile and ROOTS are datasets that contain text data from various sources, such as books, articles, and websites.\\
-		      The Pile contains 800GB of data from multiple sources, including books, websites, codes, scientific papers, and social media platforms.\\
-		      ROOTS is composed of various smaller datasets (totally 1.61 TB of text) and covers 59 different languages (containing natural languages and programming languages).
+		      The Pile~\cite{gao2021pile} and ROOTS~\cite{laurencon2022bigscience} are datasets that contain text data from various sources, such as books, articles, and websites.\\
+		      The Pile contains 800GB of data from multiple sources, including books, websites, codes, scientific papers, and social media platforms. It's widely used in training LLMs with different size (e.g., CodeGen(16B)~\cite{nijkamp2022codegen} and Megatron-Turing NLG(530B)~\cite{smith2022deepspeed}).\\
+		      ROOTS is composed of various smaller datasets (totally 1.61 TB of text) in 59 different languages (containing natural languages and programming languages). It's been used for training BLOOM~\cite{workshop2023bloom}.
 	      }
 \end{itemize}
+
+In practice, a mixture of these datasets is often used to train LLMs, as they provide a diverse range of text data (Figure~\ref{fig:data_sources}).
+The choice of datasets depends on the specific task and domain of interest, as well as the computational resources available for training the model.
+Furthermore, to train LLMs that are adaptative to specific tasks or domains, is also important to consider the data sources that are relevant to them.\\
+
+\subsection{Data preprocessing}
+\label{subsec:data-preprocessing}
+
+After collecting the data, the next step is to preprocess it to ensure that it is clean, consistent, and ready for training Large Language Models (LLMs) removing noise and irrelevant, or potentially toxic information~\cite{chowdhery2022palm, rae2021scaling, longpre2023pretrainer}.
+In \textcite{chen2023datajuicer} the authors propose a new data preprocessing system, DataJuicer, that can be used to improve quality of the processed data.\\
+A typical pipeline for data preprocessing involves several steps, as shown in Figure~\ref{fig:preprocessing}:
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{preprocessing}
+	\caption{Common data preprocessing steps for training Large Language Models (LLMs). Source: \textcite{survey}.}
+	\label{fig:preprocessing}
+\end{figure}
+
+\textbf{Quality Filtering.}
+The first step in data preprocessing is quality filtering, where the data is cleaned to remove irrelevant or low-quality content.
+Existing works mainly adopt two strategies for quality filtering: classifier-based and heuristic-based filtering.
+The former approach involves training a classifier to distinguish between high-quality and low-quality data, using well-curated data (e.g., Wikipedia pages) as positive examples and noisy data (e.g., spam or irrelevant content) as negative examples.
+\textcite{rae2021scaling, du2022glam} find that classifier-based filtering may remove high-quality data in dialect, colloquial, and sociolectal\footnote{In sociolinguistics, a sociolect is a form of language or a set of lexical items used by a socioeconomic class, profession, age group, or other social group. Sociolects involve both passive acquisition of particular communicative practices through association with a local community, as well as active learning and choice among speech or writing forms to demonstrate identification with particular groups. Source: \textcite{wikipedia}} languages, which potentially leads to bias in the pre-training data and diminishes the corpus diversity.\\
+Heuristic-based filtering, on the other hand, involves setting predefined rules to identify and remove noisy data~\cite{workshop2023bloom, rae2021scaling}.
+The set of rules can be summarized as follows:
+\begin{itemize}
+	\item \textit{Language based filtering}: {Remove data that is not in the target language.}
+	\item \textit{Metric based filtering}: {Remove data that does not meet certain quality metrics, e.g., perplexity, readability, or coherence.
+	      Perplexity (PPL) is one of the most common metrics for evaluating language models.
+	      This metric applies specifically to classical language models (sometimes called autoregressive or causal language models) and is not well-defined for masked language models like BERT~\cite{devlin2019bert}.
+	      Perplexity is defined as the exponential average negative log-likelihood of a sequence.
+	      If we have a tokenized sequence \(X = x_1, x_2, \ldots, x_t\), the perplexity of the sequence is defined as:
+	      \begin{equation}
+		      PPL(X) = \exp \left\{ -\frac{1}{t} \sum_{i}^{t} \log p_{\theta}(x_i | x_{<i}) \right\}
+		      \label{eq:equation_perplexity}
+	      \end{equation}
+	      where \(\log p_{\theta}(x_i | x_{<i})\) is the log-likelihood of the token \(x_i\) given the previous tokens \(x_{<i}\) in the sequence.
+	      Intuitively, it can be thought of as an evaluation of the model’s ability to predict uniformly among the set of specified tokens in a corpus\footnote{This means that the tokenization procedure has a direct impact on a model’s perplexity which should always be taken into consideration when comparing different models.}~\cite{huggingface2023perplexity}.
+	      }
+	\item \textit{Statistic based filtering}: {
+	      statistical features like punctuation distribution, symbol-to-word ratio, and sentence length can be used to filter out low-quality data.
+	      }
+	\item \textit{Keyword based filtering}: {Remove data that contains specific keywords that are noisy, irrelevant or toxic like HTML tags, URLs, boilerplate text, or offensive language.}
+\end{itemize}
+
+\textbf{Deduplication.}
+The next step in data preprocessing is deduplication, where duplicate data  are removed to reduce redundancy and improve the diversity of the training data.
+Moreover, \textcite{hernandez2022scaling} found that duplication may cause instability in the training process, leading to overfitting and poor generalization performance.
+Therefore, deduplication is essential to ensure that the model is exposed to a diverse range of text data during training.
+It can be done at various granularity, such as at the document level, paragraph level, or sentence level.
+Low-quality sentences that contains repeated words or phrases can be removed to improve the quality of the data.
+At document level, the deduplication can be done by computing overlap ratio of surface features (e.g., words and n-grams overlap) between documents, and removing the duplicates that contains similar contents~\cite{touvron2023llama,rae2021scaling,workshop2023bloom,lee2022deduplicating}.
+To avoid the contamination problem, the deduplication process should be done before the data is split into training, validation, and test sets~\cite{chowdhery2022palm}.
+\textcite{chowdhery2022palm} and \textcite{carlini2022quantifying} have shown that the three deduplication strategies should be used in conjunction to improve the training of LLMs.
+
+\textbf{Privacy reduction.}
+Privacy reduction is another important step in data preprocessing, especially when dealing with sensitive or personal information.
+Since data is often collected from web and contains user-generated content, the risk of privacy breaching is high~\cite{carlini2021extracting}.
+This step involves anonymizing or obfuscating sensitive data to protect the privacy of individuals.
+Common techniques for privacy reduction include masking personally identifiable information (PII), such as names, addresses, and phone numbers, and replacing them with generic placeholders or tokens~\cite{laurencon2022bigscience}.\\
+Privacy attacks to LLMs can be attributed to presence of duplicated PII data in the pre-training, which can be used to extract the original PII data~\cite{lee2022deduplicating}.
+Therefore, de-duplication can also reduce privacy risks to some extent.
+
+\textbf{Tokenization.}
+Tokenization is a crucial step in data preprocessing, where the text data is converted into tokens that can be processed by the model.
+The choice of tokenization method can have a significant impact on the model's performance, as different tokenization strategies can affect the model's ability to capture the underlying structure of the language.
+Common tokenization techniques include word-based tokenization, subword-based tokenization, and character-based tokenization.
+Word-based tokenization splits the text into individual words, while subword-based tokenization breaks down the text into subword units, such as prefixes, suffixes, and roots.
+Character-based tokenization, on the other hand, tokenizes the text into individual characters.
+Word-based tokenization is the predominant method used in traditional NLP research~\cite{lafferty2001conditional}.
+However, word-based tokenization can be problematic for languages with complex morphology or limited vocabulary, as it may result in a large vocabulary size and sparse data representation.
+In some other languages, like Chinese, Japanese, and Korean, word-based tokenization is not suitable because these languages do not have explicit word boundaries\footnote{It means that it can yield different segmentation results for the same input.}.
+Thus, several neural network-based models employed subword-based tokenization, such as Byte Pair Encoding (BPE)~\cite{sennrich2016neural}, Unigram~\cite{kudo2018sentencepiece}, and WordPiece~\cite{wu2016google}, to address these challenges.\\
+
+Byte Pair Encoding (BPE) is a type of data compression technique that has been effectively adapted for natural language processing tasks, particularly in the domain of tokenization for large language models (LLMs).
+The BPE algorithm operates by iteratively merging the most frequent pair of bytes (or characters in the context of text) in a given dataset into a single, new byte (or character), and it repeats this process until a specified number of merges has been reached or another stopping criterion has been met.
+The application of BPE in the field of NLP was popularized by \textcite{sennrich2016neural} in the context of neural machine translation.
+They demonstrated that using BPE allowed for efficient handling of rare and unknown words, which are commonplace in languages with rich morphology or in specialized vocabularies, such as scientific texts or code.
+By splitting words into subword units, BPE provides a balance between the granularity of characters and the semantic units of full words, enabling models to represent a wide vocabulary with a limited set of tokens.
+BPE has been fundamental in the architecture of influential language models, such as OpenAI's GPT series, BART and LLaMA\@.\\
+
+WordPiece tokenization is a tokenization method that segments text into subword units, allowing for a balance between the flexibility of character-based models and the efficiency of word-based models.
+Originating from speech processing~\cite{wu2016google}, this method has found significant application in natural language processing, particularly within neural network-based models such as BERT and its variants.\\
+In WordPiece tokenization, a base vocabulary is first constructed with individual characters, and then more frequent and meaningful sub-word units are incrementally added.
+This construction process is guided by a criterion that aims to maximize the language model likelihood on a training corpus, thus ensuring that the resulting tokens are optimal representations for the given data.
+The WordPiece algorithm iteratively merges the most frequently co-occurring pairs of tokens to form new sub-word units until a specified vocabulary size is reached.\\
+This tokenization strategy has shown effectiveness in reducing out-of-vocabulary issues, as the model can fall back on smaller sub-word units when encountering unfamiliar words.
+Moreover, by capturing sub-word regularities, WordPiece facilitates the learning of meaningful representations for morphologically rich languages within large language models.
+This is particularly advantageous for handling agglutinative languages, where words often comprise a series of affixed morphemes\footnote{
+	Agglutinative languages are a type of morphological linguistic classification in which words are formed through the linear addition of discrete units, each of which carries a specific grammatical meaning. These discrete units are known as morphemes, which are the smallest grammatical units in a language. In agglutinative languages, morphemes are concatenated in a way that each morpheme represents a single grammatical function, such as tense, number, case, or aspect.
+	For example, in Turkish -- an agglutinative language -- a single word can be made up of a base or root word with several affixes attached to it to modify its meaning. These affixes remain relatively invariant; they don’t undergo significant changes in form when they’re combined with other morphemes. Here’s an illustrative example from Turkish:\\
+	"ev" means "house"\\
+	"evler" means "houses" (plural)\\
+	"evlerim" means "my houses" (possessive plural)\\
+	Each suffix attached to "ev" is a separate morpheme that changes the meaning of the word, indicating plurality and possession without ambiguity.
+	This is in contrast to fusional languages, where a single affix can represent multiple grammatical categories, or isolating languages, where words generally do not change form at all, and grammatical relations are indicated by word order or separate words.
+}.
+
+Unigram tokenization is a statistical method that employs an unigram language model for the probabilistic segmentation of text into tokens.
+This technique, standing in contrast to the deterministic nature of Byte Pair Encoding, involves constructing a unigram model from a large initial vocabulary and iteratively refining it to maximize the likelihood of the observed corpus~\cite{kudo2018sentencepiece}.
+The essence of Unigram tokenization lies in its iterative pruning process, wherein less probable tokens are systematically eliminated from the vocabulary.
+To estimate the unigram language model, it adopts an expectation–maximization (EM) algorithm: at each iteration, we first find the currently optimal tokenization of words based on the old language model, and then re-estimate the probabilities of unigrams to update the language model.
+During this procedure, dynamic programming algorithms (i.e., the Viterbi algorithm) are used to efficiently find the optimal decomposition way of a word given the language model\cite{survey}.
+This probabilistic approach is adept at handling the linguistic complexities and variations found across different languages and domains.
+It particularly excels in the context of language models that require a nuanced understanding of morphological structures and sub-word variations.
+Unigram tokenization has been pivotal in the development of the SentencePiece~\cite{kudo2018sentencepiece} tokenization library, which is renowned for its application in T5 and mBART.
+The adaptability and language-agnostic properties of Unigram tokenization make it a preferred choice for LLMs tasked with processing multilingual data~\cite{kudo2018sentencepiece}.
+
+\section{Architecture}
+\label{sec:architecture}
