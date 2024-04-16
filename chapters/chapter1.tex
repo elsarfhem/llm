@@ -111,9 +111,9 @@ The multi-headed self-attention mechanism allows the model to capture different 
 The idea is that different attention heads can focus on different aspects or relationships within the data, allowing the model to capture more nuanced patterns.
 Multiple layers of these multi-headed self-attention mechanisms are stacked in a very deep neural network.
 Each layer in the stack processes the output of the previous layer, learning hierarchical representations of the input data, capturing increasingly complex relationships and abstractions. \\
-Two representative scaling laws for Transformer-based LLMs are the following~\textcite{scaling1, scaling2}:
+Two representative scaling laws for Transformer-based LLMs are the following~\textcite{kaplan2020scaling, hoffmann2022training}:
 \begin{enumerate}
-	\item \textbf{KM scaling law:} {named in this way in \textcite{survey} and proposed by the OpenAI team in \textcite{scaling1}. Given model size $M$, dataset size $D$, amount of training compute $C$, and a compute budget $c$, the KM scaling law states that the performance of a language model scales as per the following three formulas:
+	\item \textbf{KM scaling law:} {named in this way in \textcite{survey} and proposed by the OpenAI team in \textcite{kaplan2020scaling}. Given model size $M$, dataset size $D$, amount of training compute $C$, and a compute budget $c$, the KM scaling law states that the performance of a language model scales as per the following three formulas:
 
 		      \begin{center}
 			      \begin{math}
@@ -137,7 +137,7 @@ Two representative scaling laws for Transformer-based LLMs are the following~\te
 		      The three laws were formulated by analyzing the model's performance across a range of data sizes (from 22M to 23B tokens), model sizes (from 768M to 1.5B non-embedding parameters), and training compute, with certain assumptions (e.g., ensuring that the analysis of one factor is not constrained by the other two factors).
 		      The findings demonstrated a robust interdependence among the three factors influencing model performance.
 	      }
-	\item \textbf{Chincilla scaling law:} {An alternative form of the scaling law has been proposed by the Google DeepMind team in \textcite{scaling2} experimenting a large range of model size (70M to 16B) and data sizes (5B to 500B tokens).
+	\item \textbf{Chincilla scaling law:} {An alternative form of the scaling law has been proposed by the Google DeepMind team in \textcite{hoffmann2022training} experimenting a large range of model size (70M to 16B) and data sizes (5B to 500B tokens).
 		      The Chincilla scaling law posits that the performance of a language model scales as per the following formula:
 
 		      \[L(N,D) = E + \frac{A}{N^\alpha} + \frac{B}{D^\beta},\]
@@ -155,7 +155,7 @@ Two representative scaling laws for Transformer-based LLMs are the following~\te
 		      \end{center}
 
 		      where \(a=\frac{\alpha}{\alpha+\beta}, b=\frac{\beta}{\alpha+\beta}\) and G is a scaling coefficient.
-		      The KM scaling law favors a larger budget allocation in model size than the data size, while the Chinchilla scaling law argues that the two sizes should be increased in equal scales (\textcite{scaling2}), i.e., having similar values for a and b in \eqref{eq:optimal-allocations}.
+		      The KM scaling law favors a larger budget allocation in model size than the data size, while the Chinchilla scaling law argues that the two sizes should be increased in equal scales (\textcite{hoffmann2022training}), i.e., having similar values for a and b in \eqref{eq:optimal-allocations}.
 	      }
 \end{enumerate}
 

@@ -335,5 +335,227 @@ It particularly excels in the context of language models that require a nuanced 
 Unigram tokenization has been pivotal in the development of the SentencePiece~\cite{kudo2018sentencepiece} tokenization library, which is renowned for its application in T5 and mBART.
 The adaptability and language-agnostic properties of Unigram tokenization make it a preferred choice for LLMs tasked with processing multilingual data~\cite{kudo2018sentencepiece}.
 
-\section{Architecture}
-\label{sec:architecture}
+\section{Architectures}
+\label{sec:architectures}
+
+The architecture of Large Language Models (LLMs) plays a pivotal role in determining the model's performance, efficiency, and scalability.
+The Transformer architecture (Figure~\ref{fig:architecture}) has emerged as the de facto standard for LLMs, owing to its ability to capture long-range dependencies and model complex language structures effectively~\cite{vaswani2023attention} making possible to train models with billions or even trillions of parameters~\cite{brown2020language, touvron2023llama}.\\
+In general, LLMs are composed of three main components: the encoder, the decoder, and the cross-attention mechanism.
+
+The encoder is an essential component in LLMs, and its role is to process input sequences and map them to a higher dimensional space, capturing the contextual information in the data.
+The structure of an encoder in LLMs typically involves a stack of identical layers, each comprising two main sub-layers: a multi-head self-attention mechanism and a position-wise fully connected feed-forward network~\cite{vaswani2023attention}.
+The self-attention mechanism within the encoder enables the model to weigh the influence of different parts of the input sequence when processing each token.\\
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{transformer_architecture}
+	\caption{The Transformer model architecture. Source: \textcite{vaswani2023attention}.}
+	\label{fig:architecture}
+\end{figure}
+
+The decoder, on the other hand, is responsible for generating output sequences based on the encoded representations.
+The decoder in models such as GPT-3~\cite{brown2020language} and its successors operates on the principle of autoregressive modeling, where each subsequent token is predicted based on the previously generated tokens.
+
+A key feature of decoders in LLMs is causality, which ensures that the prediction for the current token can only attend to previous tokens, not future ones.
+This is implemented through masked attention mechanisms in the transformer's decoder layers~\cite{vaswani2023attention}.
+For instance, in a language translation task, the decoder would generate a translated sequence word by word, conditioning each prediction on the sentence's bilingual context provided by the encoder.\\
+In code generation, decoders can create syntactically correct code snippets given comments or docstrings as input, as demonstrated by Codex~\cite{chen2021evaluating}.\\
+
+The cross-attention mechanism is a fundamental component in LLMs that enables the model to capture the relationships between different parts of the input sequence.
+In the transformer architecture, the cross-attention mechanism allows the model to attend to the encoder's output when generating the decoder's output, facilitating the alignment of input and output sequences~\cite{vaswani2023attention}.
+This mechanism enables the model to integrate information from all parts of the input sequence, dynamically focusing on relevant parts as needed.
+The cross-attention layer calculates attention scores based on queries from the current decoder state and keys and values derived from the encoder output.
+For example, in a translation task, the encoder processes the source sentence and produces a set of vectors representing its content.
+During translation, the decoder uses cross-attention to decide which words (or phrases) in the source sentence are most relevant for predicting the next word in the target language.
+This process is repeated for each word in the translation, allowing the model to adaptively consider different parts of the source sentence as the translation unfolds.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.8\textwidth]{attention}
+	\caption{(left) Scaled Dot-Product Attention. (right) Multi-Head Attention consists of several attention layers running in parallel. Source: \textcite{vaswani2023attention}.}
+	\label{fig:attention}
+\end{figure}
+
+An attention function can be described as mapping a query and a set of key-value pairs to an output, where the query, keys, values, and output are all vectors.
+The output is computed as a weighted sum of the values, where the weight assigned to each value is computed by a compatibility function of the query with the corresponding key.
+The two most commonly used attention functions are additive attention~\cite{bahdanau2014neural}, and dot-product (multiplicative) attention.
+The scaled dot-product attention function used in \textcite{vaswani2023attention} is defined as follows:
+\begin{equation}
+	\text{Attention}(Q, K, V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V
+	\label{eq:dot-scaled-attention}
+\end{equation}
+where \(Q\), \(K\), and \(V\) are the query, key, and value matrices, respectively, and \(d_k\) is the dimension of the key vectors.
+While for small values of dk the two mechanisms perform similarly, additive attention outperforms dot product attention without scaling for larger values of d\textsubscript{k}~\cite{britz2017massive}.
+A multihead attention functions by splitting the query, key, and value vectors into multiple heads and computing the attention function in parallel,  yielding d\textsubscript{v}-dimensional output values.
+These are concatenated and once again projected, resulting in the final values, as depicted in Figure~\ref{fig:attention}.
+The multihead attention mechanism allows the model to jointly attend to information from different representation subspaces at different positions, enhancing the model's capacity to capture complex relationships in the data.
+\begin{equation}
+	\text{MultiHead}(Q, K, V) = \text{Concat}(\text{head}_1, \ldots, \text{head}_h)W^O
+	\text{where head}_i = \text{Attention}(QW_i^Q, KW_i^K, VW_i^V)
+	\label{eq:multihead-attention}
+\end{equation}
+where \(W_i^Q\), \(W_i^K\), and \(W_i^V\) are the weight matrices for the query, key, and value projections of the \(i\)-th head, respectively, and \(W^O\) is the final output projection matrix.\\
+
+Based on the components and the way they are connected, LLMs can be categorized into three main types: encoder-only\footnote{We refer to BERT-style methods as encoder-only, the description encoder-only may be misleading since these methods also decode the embeddings into output tokens or text during pretraining.
+	In other words, both encoder-only and decoder-only architectures are "decoding." However, the encoder-only architectures, in contrast to decoder-only and encoder-decoder architectures, are not decoding in an autoregressive fashion.
+	Autoregressive decoding refers to generating output sequences one token at a time, conditioning each token on the previously generated tokens.
+	Encoder-only models do not generate coherent output sequences in this manner.
+	Instead, they focus on understanding the input text and producing task-specific outputs, such as labels or token predictions~\cite{raschka2023encoderdecoder}.},
+decoder-only, and encoder-decoder models.
+All of these methods are sequence-to-sequence models (often abbreviated as seq2seq).
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{LLMs-Architectures}
+	\caption{Some of the mainstream LLMs models by type.}
+	\label{fig:llms-architectures}
+\end{figure}
+
+Mainstream architectures can be categorized into three major types, namely encoder-decoder, casual decoder and prefix decoder as shown in Figure~\ref{fig:architectures}.
+Both casual decoder and prefix decoder are decoder-only architectures, but they differ in the way they generate tokens.
+
+\subsection{Encoder-decoder architecture}
+\label{subsec:encoder-decoder-architecture}
+
+This is the original version of the Transformer architecture introduced by \textcite{vaswani2023attention}, which consists of an encoder and a decoder, respectively.\\
+The encoder's purpose is to transform an input sequence into a set of representations which capture its semantic and syntactic properties.
+The self-attention mechanisms allows the encoder to weigh different parts of the input sequence and focus on relevant information without being constrained by the input's sequential nature.\\
+The decoder, on the other hand, is tasked with generating an output sequence from the encoded representations.
+It predicts each token by conditioning on the previously generated tokens and the encoded input, a process that has seen significant improvements with the integration of cross-attention modules.\\
+By segregating the understanding (encoding) and generation (decoding) processes, the Encoder-Decoder architecture enables a flexible approach to diverse language tasks.
+So far, there are only a small number of models that use the encoder-decoder architecture (Figure~\ref{fig:llms-architectures}), such as BART~\cite{lewis2020bart} and T5~\cite{t5}.
+
+\subsection{Casual decoder architecture}
+\label{subsec:casual-decoder-architecture}
+
+In a causal decoder, each token is predicted based on the tokens that precede it, ensuring that the generation process is unidirectional and prevents the model from using future tokens in the prediction process~\cite{vaswani2023attention}.
+This mechanism is akin to how humans produce language, one word at a time, building upon what has already been said without access to future words.
+
+The architecture typically employs self-attention mechanisms where the attention distribution is masked to prevent tokens from attending to subsequent positions in the sequence (i.e., unidirectional attention mask).
+This form of masking is instrumental in preserving the autoregressive property within the transformer-based models~
+\cite{radford2019language}.
+The GPT series\footnote{GPT-3~\cite{brown2020language} showed amazing in-context learning capability, whereas GPT-1~\cite{radford2018improving} and GPT-2~\cite{radford2019language} didn't. It seems that scaling plays an important role in increasing the model capacity of this model architecture} of language models by OpenAI are prominent examples that utilize causal decoder architectures, where the ability to generate coherent and contextually relevant text has been demonstrated effectively~\cite{brown2020language}.
+The causal decoder architecture is particularly well-suited for tasks that require sequential generation, such as text completion, language modeling, and text generation.
+It has been widely adopted as the architecture of choice for many large-scale language models, such as OPT~\cite{zhang2022opt}, BLOOM~\cite{workshop2023bloom}, and Gopher~\cite{rae2021scaling}.
+
+\subsection{Prefix decoder architecture}
+\label{subsec:prefix-decoder-architecture}
+
+The prefix decoder architecture\footnote{Also called non-casula decoder~\cite{zhang2022examining}} enables partial conditioning of generated sequences, revising the masking mechanism of causal decoders, to enable performing bidirectional attention over the prefix tokens~\cite{dong2019unified} and unidirectional attention only on generated tokens.
+In other words, this architecture allows the model to generate tokens based on both the input prefix and the target prefix, which can be useful for tasks that require generating sequences with specific prefixes or constraints.
+In practice, a prefix decoder is implemented by feeding a fixed sequence of tokens, known as the prefix, into the decoder alongside the tokens generated so far.
+The model then extends the prefix by generating subsequent tokens that logically follow the context provided by the prefix.\\
+
+Unlike the causal decoder, which strictly adheres to a unidirectional generation pattern, the prefix decoder allows for a predefined context or prefix to guide the generative process~\cite{li2021prefixtuning}.
+This is particularly useful in tasks such as machine translation, where the prefix can be a part of the translation that is already known or hypothesized, but the flexibility provided by the prefix decoder makes it suitable for a range of applications, from controlled text generation to task-oriented dialog systems, where maintaining context and coherence is crucial~\cite{li2022ptuning}.
+
+This architecture has been utilized in various language models to improve control over text generation and to enhance the models' ability to handle specific formats or styles~\cite{raffel2023exploring}.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=\textwidth]{main_architectures}
+	\caption{A comparison of the attention patterns in three mainstream architectures. Here, the blue, green, yellow and grey rounded rectangles indicate the attention between prefix tokens, attention between prefix and target tokens, attention between target tokens, and masked attention respectively. Source: \textcite{survey}.}
+	\label{fig:architectures}
+\end{figure}
+
+\subsection{Emerging architectures}
+\label{subsec:emerging-architectures}
+
+In addition to the three main types of architectures, there are several emerging architectures that have been proposed to address specific challenges or improve the performance of LLMs.
+The Transformer architecture suffers from quadratic complexity in terms of the number of tokens, which can limit the model's scalability to longer sequences.
+To address this performance issue, several studies proposed alternative architectures, such as parameterized state space models (e.g., S4~\cite{gu2022efficiently}, GSS~\cite{mehta2022long}, and H3~\cite{dao2022hungry}]), long convolutions(e.g.,Hyena~\cite{poli2023hyena}), and recursive update mechanisms (RWKV~\cite{peng2023rwkv} and RetNet~\cite{sun2023retentive}).
+
+\subsection{Configurations}
+\label{subsec:configurations}
+
+Since the introduction of the Transformer architecture, several variants and configurations have been proposed to improve the performance and efficiency of LLMs.
+The configuration of the four major parts of the Transformer architecture include normalization, position embeddings, activation functions, and attention and bias (Table~\ref{tab:configurations}).
+
+\begin{table}[htb]
+	\centering
+	\scriptsize
+	\begin{tabularx}{\textwidth}{|l|X|l|l|l|l|l|l|l|l|l|}
+		\hline
+		Model                                  & Category               & Size & Normalization & PE       & Activation & Bias & \#L & \#H & d\textsubscript{model} & MCL  \\
+		\hline
+		GPT3~\cite{brown2020language}          & Causal\newline decoder & 175B & Pre LayerNorm & Learned  & GeLU       & Y    & 96  & 96  & 12288                  & 2048 \\
+		PanGU-\(\alpha\)~\cite{zeng2021pangu}  & Causal\newline decoder & 207B & Pre LayerNorm & Learned  & GeLU       & Y    & 64  & 128 & 16384                  & 1024 \\
+		OPT~\cite{zhang2022opt}                & Causal\newline decoder & 175B & Pre LayerNorm & Learned  & ReLU       & Y    & 96  & 96  & 12288                  & 2048 \\
+		PaLM~\cite{chowdhery2022palm}          & Causal\newline decoder & 540B & Pre LayerNorm & RoPE     & SwiGLU     & N    & 118 & 48  & 18432                  & 2048 \\
+		BLOOM~\cite{workshop2023bloom}         & Causal\newline decoder & 176B & Pre LayerNorm & ALiBi    & GeLU       & Y    & 70  & 112 & 14336                  & 2048 \\
+		MT-NLG~\cite{smith2022deepspeed}       & Causal\newline decoder & 530B & -             & -        & -          & -    & 105 & 128 & 20480                  & 2048 \\
+		Gopher~\cite{rae2021scaling}           & Causal\newline decoder & 280B & Pre RMSNorm   & Relative & -          & -    & 80  & 128 & 16384                  & 2048 \\
+		Chinchilla~\cite{hoffmann2022training} & Causal\newline decoder & 70B  & Pre RMSNorm   & Relative & -          & -    & 80  & 64  & 8192                   & -    \\
+		Galactica~\cite{taylor2022galactica}   & Causal\newline decoder & 120B & Pre LayerNorm & Learned  & GeLU       & N    & 96  & 80  & 10240                  & 2048 \\
+		LaMDA~\cite{thoppilan2022lamda}        & Causal\newline decoder & 137B & -             & Relative & GeGLU      & -    & 64  & 128 & 8192                   & -    \\
+		Jurassic-1~\cite{lieber2021jurassic}   & Causal\newline decoder & 178B & Pre LayerNorm & Learned  & GeLU       & Y    & 76  & 96  & 13824                  & 2048 \\
+		LLaMA~\cite{touvron2023llama}          & Causal\newline decoder & 65B  & Pre RMSNorm   & RoPE     & SwiGLU     & Y    & 80  & 64  & 8192                   & 2048 \\
+		LLaMA 2~\cite{touvron2023llama2}       & Causal\newline decoder & 70B  & Pre RMSNorm   & RoPE     & SwiGLU     & Y    & 80  & 64  & 8192                   & 4096 \\
+		Falcon~\cite{penedo2023refinedweb}     & Causal\newline decoder & 40B  & Pre LayerNorm & RoPE     & GeLU       & N    & 60  & 64  & 8192                   & 2048 \\
+		GLM-130B~\cite{zeng2022glm130b}        & Prefix\newline decoder & 130B & Post DeepNorm & RoPE     & GeGLU      & Y    & 64  & 96  & 12288                  & 2048 \\
+		T5~\cite{t5}                           & Encoder-decoder        & 11B  & Pre RMSNorm   & Relative & ReLU       & N    & 24  & 128 & 1024                   & 512  \\
+		\hline
+	\end{tabularx}
+	\caption{Model cards of several selected LLMs with public configuration details. PE denotes position embedding, \#L denotes the number of layers, \#H denotes the number of attention heads, d\textsubscript{model} denotes the size of hidden states, and MCL denotes the maximum context length during training. Source: \textcite{survey}.}
+	\label{tab:model-cards}
+\end{table}
+
+\subsubsection{Normalization Methods}
+\label{subsubsec:normalization}
+Normalization methods are crucial for stabilizing the training process and improving the convergence of LLMs.
+In the vanilla Transformer~\cite{vaswani2023attention} architecture, LayerNorm~\cite{ba2016layer} is the most commonly used normalization method, which normalizes the hidden states across the feature dimension.
+Before LayerNorm was introduced, BatchNorm~\cite{ioffe2015batch} was widely used in convolutional neural networks, but it was found to be less effective in sequence models due to the varying batch sizes and sequence lengths.
+LayerNorm addresses this issue by normalizing the hidden states across the feature dimension, making it more suitable for sequence models.
+Specifically, LayerNorm normalizes the hidden states using the mean and the variance of the summed inputs within each layer.\\
+
+RMSNorm~\cite{zhang2019root} is another normalization method that has been proposed to improve the training speed of LayerNorm.
+RMSNorm normalizes the hidden states by dividing them by the root mean square of the squared hidden states, which has been shown to improve the training speed and performance~\cite{narang2021transformer}.
+ChinchiLLa~\cite{hoffmann2022training} amd Gopher~\cite{rae2021scaling} are examples of LLMs that use RMSNorm as the normalization method.\\
+
+DeepNorm~\cite{wang2022deepnet} is a novel normalization method that combines LayerNorm with a learnable scaling factor to stabilize the training process of deep Transformer models.
+With DeepNorm, Transformer models can be scaled up to hundreds of layers without the need for additional normalization layers, making it an effective method for training large-scale LLMs~\cite{wang2022deepnet}.
+It has been used in models such as GLM-130B~\cite{zeng2022glm130b}.\\
+
+\begin{table}[htbp]
+	\begin{tabularx}{\textwidth}{|X|X|X|}
+		\hline
+		\textbf{Configuration} & \textbf{Method}             & \textbf{Equation}                                                                                                                                         \\ \hline
+		Normalization position & Post Norm~\cite{vaswani2023attention}      & $\text{Norm}(x+\text{Sublayer}(x))$                                                                                                                       \\
+		                       & Pre Norm~\cite{radford2019language}       & $x + \text{Sublayer}(\text{Norm}(x))$                                                                                                                     \\
+		                       & Sandwich Norm~\cite{ding2021cogview} & $x + \text{Norm}(\text{Sublayer}(\text{Norm}(x)))$                                                                                                        \\ \hline
+		Normalization method   & LayerNorm~\cite{ba2016layer}     & $x = \frac{x-\mu}{\sigma} \cdot \gamma + \beta, \quad \mu = \frac{1}{d}\sum_{i=1}^{d} x_i, \quad \sigma = \sqrt{\frac{1}{d} \sum_{i=1}^{d}(x_i - \mu)^2}$ \\
+		                       & RMSNorm~\cite{zhang2019root}       & $x = \frac{x}{\text{RMS}(x)} \cdot \gamma, \quad \text{RMS}(x) = \sqrt{\frac{1}{d}\sum_{i=1}^{d} x_i^2}$                                                  \\
+		                       & DeepNorm~\cite{wang2022deepnet}      & $\text{LayerNorm}(\alpha \cdot x + \text{Sublayer}(x))$                                                                                                   \\ \hline
+		Activation function    & ReLU~\cite{nair2010rectified}          & $\text{ReLU}(x) = \max(x, 0)$                                                                                                                             \\
+		                       & GeLU~\cite{wang2018glue}          & $\text{GeLU}(x) = 0.5x \left[ 1 + \text{erf}\left(\frac{x}{\sqrt{2}}\right)\right], \quad \text{erf}(x) = \frac{2}{\sqrt{\pi}} \int_{0}^{x} e^{-t^2} dt$  \\
+		                       & Swish~\cite{ramachandran2017searching}         & $\text{Swish}(x) = x \otimes \text{sigmoid}(x)$                                                                                                           \\
+		                       & SwiGLU~\cite{shazeer2020glu}        & $\text{SwiGLU}(x_1, x_2) = \text{Swish}(x_1) \otimes x_2$                                                                                                 \\
+		                       & GeGLU~\cite{shazeer2020glu}         & $\text{GeGLU}(x_1, x_2) = \text{GeLU}(x_1) \otimes x_2$                                                                                                   \\ \hline
+		Position embedding     & Absolute \cite{ref22}       & $x_i = x_i + p_i$                                                                                                                                         \\
+		                       & Relative~\cite{ref73}       & $A_{ij} = \mathbf{W}_q x_i \cdot \mathbf{W}_k^T x_j^T + r_{i-j}$                                                                                          \\
+		                       & RoPE~\cite{ref209}          & $A_{ij} = \mathbf{W}_q x_i \cdot \text{Ro}_\theta \cdot \mathbf{W}_k^T x_j^T$                                                                             \\
+		                       & Alibi~\cite{ref210}         & $A_{ij} = \mathbf{W}_q x_i \cdot \text{Ro}_\theta \cdot \mathbf{W}_k^T x_j^T - m(i-j)$                                                                    \\ \hline
+	\end{tabularx}
+	\caption{Detailed formulations for the network configurations. Here, Sublayer denotes a FFN or a self-attention module in a Transformer layer, d denotes the size of hidden states, p\textsubscript{i} denotes position embedding at position i, A\textsubscript{ij} denotes the attention score between a query and a key, r\textsubscript{i-j} denotes a learnable scalar based on the offset between the query and the key, and $R_{\theta,t}$ denotes a rotary matrix with rotation degree $t \cdot \theta$. Source: \textcite{survey}}
+	\label{tab:configurations}
+\end{table}
+
+\subsubsection{Normalization Position}
+\label{subsubsec:normalization-position}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=\textwidth]{prepostln}
+	\caption{The Architecture and notations of Pre-LN Transformers (Left) and Post-LN Transformers (Right). Source: \textcite{liu2020understanding}.}
+	\label{fig:prepostln}
+\end{figure}
+
+The position of the normalization layer in the Transformer architecture can have a significant impact on the model's performance and convergence.
+There are three main positions for the normalization layer in the Transformer architecture: pre-norm, post-norm, and sandwich norm.
+In the pre-norm configuration, the normalization layer is placed inside the residual blocks, while in the post-norm configuration, the normalization layer is placed after the residual blocks as shown in Figure~\ref{fig:prepostln}.
+
+Post-norm is used in the vanilla Transformer architecture~\cite{vaswani2023attention}, where the normalization layer is placed between the residual blocks.
+Existing works found that training of Transformer models with post-norm tends to be instable due to large gradients near the output layer~\cite{xiong2020layer}.\\
+
+Pre-norm~\cite{baevski2019adaptive} is another configuration where the normalization layer is placed before the sublayer operations, and an additional layer is placed before the final prediction.
+The Transformers with pre-norm have shown to be more stable during training but have worst performance~\cite{liu2020understanding}.
