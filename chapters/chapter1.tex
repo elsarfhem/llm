@@ -29,7 +29,7 @@ Historically, the development of Language Models (LMs) has been rooted in the qu
 		      ELMo~\footnote{Embeddings from Language Models} (\textcite{elmo}) was one of the first PLMs, which used a bidirectional LSTM to generate word embeddings (instead of learning fixed word representations).
 		      \textcite{devlin2019bert} introduced BERT (Bidirectional Encoder Representations from Transformers), which is a transformer-based model that is pre-trained on a large corpus of text and then fine-tuned on specific tasks.
 		      BERT was a significant advancement in the field of natural language processing, as it demonstrated the potential of pre-trained language models to achieve state-of-the-art performance on a wide range of tasks.
-		      These studies introduced the $"pre-training and fine-tuning"$ paradigm, which has become a standard practice in the development of language models and inspired great number of models, such as GPT-2 (\textcite{radford2019language}), GPT-3 (\textcite{brown2020language}), T5 (\textcite{t5}), and many others.
+		      These studies introduced the $"pre-training and fine-tuning"$ paradigm, which has become a standard practice in the development of language models and inspired great number of models, such as GPT-2 (\textcite{radford2019language}), GPT-3 (\textcite{brown2020language}), T5 (\textcite{raffel2023exploring}), and many others.
 	      }
 	\item \textbf{Large Language Models (LLM):} {The emergence of large language models, characterized by their immense scale and complexity, has redefined the capabilities of language processing systems.
 		      Studies find that the performance of language models improves as the number of parameters ($e.g.$ model size) or data size increases, a phenomenon known as the scaling law in large language models.
@@ -224,11 +224,11 @@ This approach simplifies the use of a single model across diverse tasks, encoura
 \begin{figure}[h!]
 	\centering
 	\includegraphics[width=\textwidth]{t5}
-	\caption{A diagram of the T5 text-to-text framework. Every task -- including translation, question answering, and classification -- is cast as feeding the model text as input and training it to generate some target text. This allows to use the same model, loss function, hyperparameters, etc. across diverse set of tasks. Source: \protect\textcite{t5}.}
+	\caption{A diagram of the T5 text-to-text framework. Every task -- including translation, question answering, and classification -- is cast as feeding the model text as input and training it to generate some target text. This allows to use the same model, loss function, hyperparameters, etc. across diverse set of tasks. Source: \protect\textcite{raffel2023exploring}.}
 	\label{fig:t5-t2t}
 \end{figure}
 
-T5 demonstrated its prowess across a range of benchmarks, setting new standards in the field of NLP (\textcite{t5}).
+T5 demonstrated its prowess across a range of benchmarks, setting new standards in the field of NLP (\textcite{raffel2023exploring}).
 It's built on the transformer model, similar to its predecessors like BERT and GPT, leveraging the effective self-attention mechanism for processing sequences of data.
 The model is designed to handle a variety of tasks without needing task-specific architectural modifications.
 It uses a unified text-to-text framework, where tasks are converted into a format where the input and output are always text strings.
