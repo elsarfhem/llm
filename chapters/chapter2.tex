@@ -816,3 +816,56 @@ As for position embeddings, RoPE or ALiBi is a better choice since it performs b
 There are several emerging architectures that have been proposed to address specific challenges or improve the performance of the Transformers.
 One of the main issues with the vanilla Transformer architecture is the quadratic complexity in terms of the number of tokens, which can limit the model's scalability to longer sequences.
 To address this performance issue, several studies proposed alternative architectures, such as parameterized state space models (e.g., S4~\cite{gu2022efficiently}, GSS~\cite{mehta2022long}, and H3~\cite{dao2022hungry}]), long convolutions(e.g.,Hyena~\cite{poli2023hyena}), and recursive update mechanisms (RWKV~\cite{peng2023rwkv} and RetNet~\cite{sun2023retentive}).
+
+Parameterized state space models are a class of models that use a parameterized state space to represent the hidden states of the model.
+However, this method has prohibitive computation and memory requirements, rendering it infeasible as a general sequence modeling solution.
+To address this issue, S4~\cite{gu2022efficiently} proposed a novel parameterized state space model that uses a fixed-size state space to represent the hidden states of the model.
+This approach significantly reduces the computational and memory requirements of the model while maintaining high performance on a range of tasks.
+In \textcite{gu2022efficiently}, the authors found that S4 can be trained quickly and efficiently efficient compared to Transformer variants designed for long-range sequence modeling as shown in Table~\ref{tab:ssm_efficiency}.
+
+\begin{table}[htbp]
+	\centering
+	\begin{tabularx}{0.6\textwidth}{Xcccc}
+		\toprule
+		            & \multicolumn{2}{c}{LENGTH 1024} & \multicolumn{2}{c}{LENGTH 4096}                                    \\
+		\cmidrule(lr){2-3} \cmidrule(lr){4-5}
+		            & Speed                           & Mem.                            & Speed          & Mem.            \\
+		\midrule
+		Transformer & 1x                              & 1x                              & 1x             & 1x              \\
+		S4          & \textbf{1.58x}                  & \textbf{0.43x}                  & \textbf{5.19x} & \textbf{0.091x} \\
+		\bottomrule
+	\end{tabularx}
+	\caption{Benchmarks vs. efficient Transformers}
+	\label{tab:ssm_efficiency}
+\end{table}
+
+Long Range Arena(LRA)~\cite{tay2021longrange} is a benchmark suite that evaluates the performance of LLMs on a range of tasks that require capturing long-range dependencies.
+It contains 6 tasks with lengths 1K-16K steps, encompassing modalities and objectives that require similarity, structural, and visuospatial reasoning.
+Table~\ref{tab:LRA} shows the performance of S4 and 11 Transformer variants from \textcite{tay2021longrange}.
+Notably, S4 solves the Path-X task, an extremely challenging task that involves reasoning about LRDs over sequences of length 128 × 128 = 16384.
+All previous models have failed (i.e., random guessing) due to memory or computation bottlenecks, or simply being unable to learn such long dependencies.
+\begin{table}[htbp]
+	\centering
+	\begin{tabularx}{\textwidth}{Xccccccccc}
+		\toprule
+		MODEL       & ListOps        & Text           & Retrieval      & Image          & Pathfinder     & Path-X         & AVG            \\
+		\midrule
+		Transformer & 36.37          & 64.27          & 57.46          & 42.44          & 71.40          & X              & 53.66          \\
+		\addlinespace
+		S4          & \textbf{58.35} & \textbf{76.02} & \textbf{87.09} & \textbf{87.26} & \textbf{86.05} & \textbf{88.10} & \textbf{80.48} \\
+		\bottomrule
+	\end{tabularx}
+	\caption{(Long Range Arena) Accuracy on full suite of LRA tasks. (Top) Original Transformer variants in LRA. Source: \textcite{gu2022efficiently}.}
+	\label{tab:LRA}
+\end{table}
+Other benchmarks in \textcite{gu2022efficiently} show that S4 looks promising for long-range sequence modeling, achieving state-of-the-art performance on a range of tasks that require capturing long-range dependencies.
+
+Long convolutions are a class of models that use convolutional layers to capture long-range dependencies in the input sequence. \textcite{poli2023hyena} proposed an operation-efficient architecture called Hyena defined by two recurring sub-quadratic operators: a long convolution and an element-wise multiplicative gating (Figure~\ref{fig:hyena}).
+Compared to attention operator in Transformers, Hyena has a lower computational complexity and memory footprint, making it more efficient for long-range sequence modeling.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.8\textwidth]{hyena}
+	\caption{The Hyena operator is defined as a recurrence of two efficient subquadratic primitives: an implicit long convolution h (i.e., Hyena filters parameterized by a feed-forward network) and multiplicative element-wise gating of the (projected) input. The depth of the recurrence specifies the size of the operator. Source: \textcite{poli2023hyena}.}
+	\label{fig:hyena}
+\end{figure}
