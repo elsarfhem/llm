@@ -170,7 +170,7 @@ Next, we introduce three kinds of specialized data.
 \end{itemize}
 
 \subsubsection{Commonly-used data sources}
-\label{subsec:commonly-used-data-sources}
+\label{subsubsec:commonly-used-data-sources}
 
 The development and evaluation of Large Language Models (LLMs) rely heavily on the availability of high-quality datasets that span diverse domains and languages.
 The datasets in Table~\ref{tab:table} serve as the foundation for pre-training and fine-tuning LLMs, enabling researchers to assess the models' performance on a wide range of tasks, from text generation to translation.\\
@@ -337,7 +337,7 @@ To estimate the unigram language model, it adopts an expectation–maximization 
 During this procedure, dynamic programming algorithms (i.e., the Viterbi algorithm) are used to efficiently find the optimal decomposition way of a word given the language model\cite{survey}.
 This probabilistic approach is adept at handling the linguistic complexities and variations found across different languages and domains.
 It particularly excels in the context of language models that require a nuanced understanding of morphological structures and sub-word variations.
-Unigram tokenization has been pivotal in the development of the SentencePiece~\cite{kudo2018sentencepiece} tokenization library, which is renowned for its application in T5 and mBART.
+Unigram tokenization has been pivotal in the development of the SentencePiece~\cite{kudo2018sentencepiece} tokenization library, which is renowned for its application in T5 and mBART\@.
 The adaptability and language-agnostic properties of Unigram tokenization make it a preferred choice for LLMs tasked with processing multilingual data~\cite{kudo2018sentencepiece}.
 
 \section{Architectures}
@@ -348,7 +348,7 @@ The architecture of Large Language Models (LLMs) plays a pivotal role in determi
 Generally speaking, we can identify some key components that define different LLM architectures: the encoder and the decoder.
 
 The encoder is an essential component in LLMs, and its role is to process input sequences and map them to a higher dimensional space, capturing the contextual information in the data.
-The structure of an encoder in LLMs typically involves a stack of identical layers, each comprising two main sub-layers: a multi-head self-attention mechanism and a position-wise fully connected feed-forward network~\cite{vaswani2023attention}.
+The structure of an encoder in LLMs typically involves a stack of identical layers, each comprising two main sub-layers: a multi-head self-attention\footnote{See Section~\ref{subsubsec:attention-mechanisms} for more details on self-attention mechanisms.} mechanism and a position-wise fully connected feed-forward network~\cite{vaswani2023attention}.
 
 The decoder, on the other hand, is responsible for generating output sequences based on the encoded representations.
 The decoder in models such as GPT-3~\cite{brown2020language} and its successors operates on the principle of autoregressive modeling, where each subsequent token is predicted based on the previously generated tokens.
@@ -403,8 +403,7 @@ In a causal decoder, each token is predicted based on the tokens that precede it
 This mechanism is akin to how humans produce language, one word at a time, building upon what has already been said without access to future words.
 
 The architecture typically employs self-attention mechanisms where the attention distribution is masked to prevent tokens from attending to subsequent positions in the sequence (i.e., unidirectional attention mask).
-This form of masking is instrumental in preserving the autoregressive property within the transformer-based models~
-\cite{radford2019language}.
+This form of masking is instrumental in preserving the autoregressive property within the transformer-based models~\cite{radford2019language}.
 
 The GPT series\footnote{GPT-3~\cite{brown2020language} showed amazing in-context learning capability, whereas GPT-1~\cite{radford2018improving} and GPT-2~\cite{radford2019language} didn't. It seems that scaling plays an important role in increasing the model capacity of this model architecture} of language models by OpenAI are prominent examples that utilize causal decoder architectures, where the ability to generate coherent and contextually relevant text has been demonstrated effectively~\cite{brown2020language}.
 
@@ -437,40 +436,6 @@ Residual connection~\cite{he2016deep} and layer normalization~\cite{ba2016layer}
 	\caption{The Transformer model architecture. Source: \textcite{vaswani2023attention}.}
 	\label{fig:architecture}
 \end{figure}
-
-An attention function can be described as mapping a query and a set of key-value pairs to an output, where the query, keys, values, and output are all vectors.
-The output is computed as a weighted sum of the values, where the weight assigned to each value is computed by a compatibility function of the query with the corresponding key.
-The two most commonly used attention functions are additive attention~\cite{bahdanau2014neural}, and dot-product (multiplicative) attention.
-
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=0.8\textwidth]{attention}
-	\caption{(left) Scaled Dot-Product Attention. (right) Multi-Head Attention consists of several attention layers running in parallel. Source: \textcite{vaswani2023attention}.}
-	\label{fig:attention}
-\end{figure}
-
-The scaled dot-product attention function used in \textcite{vaswani2023attention} is defined as follows:
-
-\begin{equation}
-	\text{Attention}(Q, K, V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V
-	\label{eq:dot-scaled-attention}
-\end{equation}
-
-\noindent where \(Q\), \(K\), and \(V\) are the query, key, and value matrices, respectively, and d\textsubscript{k} is the dimension of the key vectors.
-While for small values of d\textsubscript{k} the two mechanisms perform similarly, additive attention outperforms dot product attention without scaling for larger values of d\textsubscript{k}~\cite{britz2017massive}.
-A multihead attention functions is implemented by splitting the query, key, and value vectors into multiple heads and computing the attention function in parallel, yielding d\textsubscript{v}-dimensional output values.
-These are concatenated and once again projected, resulting in the final values, as depicted in Figure~\ref{fig:attention}.
-The multihead attention mechanism allows the model to jointly attend to information from different representation subspaces at different positions, enhancing the model's capacity to capture complex relationships in the data.
-
-\begin{equation}
-	\begin{aligned}
-		\text{MultiHead}(Q, K, V) & = \text{Concat}(\text{head}_1, \ldots, \text{head}_h)W^O, \\
-		\text{head}_i             & = \text{Attention}(QW_i^Q, KW_i^K, VW_i^V)
-	\end{aligned}
-	\label{eq:multihead-attention}
-\end{equation}
-
-\noindent where \(W_i^Q\), \(W_i^K\), and \(W_i^V\) are the weight matrices for the query, key, and value projections of the \(i\)-th head, respectively, and \(W^O\) is the final output projection matrix.\\
 
 The position-wise FFN sub-layer is a two-layer feed-forward network with a ReLU activation function between the layers.
 Given a sequence of vectors \(h_1, h_2, \ldots, h_n\), the computation of a position-wise FFN sub-layer on any \(h_i\), as shown in Equation~\ref{eq:ffn}.
@@ -714,6 +679,8 @@ Rotary Position Embeddings were introduced by \textcite{su2021roformer} and have
 ALiBi\footnote{Attention with Linear Biases}~\cite{press2022train} position embeddings offer an alternative mechanism for incorporating position information into Transformer models.
 Unlike traditional absolute or relative position embeddings, ALiBi introduces biases directly into the self-attention mechanism to handle positional dependencies.
 ALiBi introduces a linear bias based on the distance between tokens in the attention scores.
+Similar to relative position embedding, it biases attention scores with a penalty based on the distances between keys and queries.
+Different from the relative positional embedding methods like T5~\cite{zeng2021pangu}, the penalty scores in ALiBi are pre-defined without any trainable parameters.
 This bias is subtracted from the attention logits before the softmax operation, helping the model to prioritize nearby tokens over distant ones, which is crucial in many sequential tasks.
 The modified attention score with ALiBi can be represented as:
 
@@ -727,10 +694,103 @@ The modified attention score with ALiBi can be represented as:
 
 \noindent where \(Q\), \(K\), and \(V\) are the query, key, and value matrices, respectively, and \(b\) is a learnable scalar parameter that controls the strength of the bias, and \(|i-j|\) is the absolute distance between tokens \(i\) and \(j\), and \(d_k\) is the dimension of the key vectors.
 
-\subsubsection{Position Attention}
-\label{subsubsec:position-attention}
-\lipsum[1]
+In \textcite{press2022train}, the authors found that ALiBi has better extrapolation performance than traditional position embeddings, and it can also improve the stability and convergence of Transformer models during training~\cite{workshop2023bloom}.
 
+\subsubsection{Attention Mechanisms}
+\label{subsubsec:attention-mechanisms}
+
+Attention mechanisms are a key component of the Transformer architecture that allows the model to capture long-range dependencies and complex relationships between tokens in the input sequence.
+An attention function can be described as mapping a query and a set of key-value pairs to an output, where the query, keys, values, and output are all vectors.
+The output is computed as a weighted sum of the values, where the weight assigned to each value is computed by a compatibility function of the query with the corresponding key.
+The two most commonly used attention functions are additive attention~\cite{bahdanau2014neural}, and dot-product (multiplicative) attention.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.8\textwidth]{attention}
+	\caption{(left) Scaled Dot-Product Attention. (right) Multi-Head Attention consists of several attention layers running in parallel. Source: \textcite{vaswani2023attention}.}
+	\label{fig:attention}
+\end{figure}
+
+The scaled dot-product attention function used in \textcite{vaswani2023attention} is defined as follows:
+
+\begin{equation}
+	\text{Attention}(Q, K, V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V
+	\label{eq:dot-scaled-attention}
+\end{equation}
+
+\noindent where \(Q\), \(K\), and \(V\) are the query, key, and value matrices, respectively, and d\textsubscript{k} is the dimension of the key vectors.
+While for small values of d\textsubscript{k} the two mechanisms perform similarly, additive attention outperforms dot product attention without scaling for larger values of d\textsubscript{k}~\cite{britz2017massive}.
+A multi-head attention functions is implemented by splitting the query, key, and value vectors into multiple heads and computing the attention function in parallel, yielding d\textsubscript{v}-dimensional output values.
+These are concatenated and once again projected, resulting in the final values, as depicted in Figure~\ref{fig:attention}.
+The multi-head attention mechanism allows the model to jointly attend to information from different representation subspaces at different positions, enhancing the model's capacity to capture complex relationships in the data.
+
+\begin{equation}
+	\begin{aligned}
+		\text{MultiHead}(Q, K, V) & = \text{Concat}(\text{head}_1, \ldots, \text{head}_h)W^O, \\
+		\text{head}_i             & = \text{Attention}(QW_i^Q, KW_i^K, VW_i^V)
+	\end{aligned}
+	\label{eq:multihead-attention}
+\end{equation}
+
+\noindent where \(W_i^Q\), \(W_i^K\), and \(W_i^V\) are the weight matrices for the query, key, and value projections of the \(i\)-th head, respectively, and \(W^O\) is the final output projection matrix.\\
+
+We can categorize the attention mechanisms into: full attention, sparse attention, multi-query/grouped-query attention, Flash attention, and Paged attention.
+The Full attention mechanism is the standard attention mechanism used in the vanilla Transformer architecture~\cite{vaswani2023attention}, where each token attends to all other tokens in the sequence.
+It adopts the scaled dot-product we already discussed in Equation~\ref{eq:dot-scaled-attention}.
+This mechanism is computationally expensive and has a quadratic complexity in terms of the number of tokens, which can limit the model's scalability to longer sequences.
+To address this issue, several studies have proposed alternative attention mechanisms.
+
+In the Sparse attention mechanism, tokens only attend to a subset of other tokens, according to a predefined pattern (e.g., local windows).
+This mechanism reduces the computational complexity of the attention operation and allows the model to scale to longer sequences.
+
+\begin{equation}
+	\text{Sparse Attention}(Q, K, V) = \text{softmax}((\frac{QK^T \cdotp M}{\sqrt{d_k}}))V
+	\label{eq:sparse-attention}
+\end{equation}
+
+\noindent where \(M\) is a sparse attention mask that defines the pattern of attention between tokens.
+
+Various sparse attention mechanisms have been proposed in the literature, such as \textcite{peng2021random}, \textcite{zaheer2020big} and \textcite{child2019generating}.
+It a useful in tasks involving very long documents or sequences, such as document classification and genomic sequence analysis.
+
+The multi-query/grouped-query attention mechanism~\cite{shazeer2019fast} is an extension of the standard attention mechanism, where the keys and values are shared across all of the different attention "heads", greatly reducing the size of these tensors and hence the memory bandwidth requirements of incremental decoding.
+This mechanism is particularly useful in tasks that require processing large amounts of data, such as machine translation and summarization.
+It can significantly reduce the computational cost of the attention operation with small sacrifices in model quality.
+Palm~\cite{chowdhery2022palm} and Starcoder~\cite{li2023starcoder} are examples of LLMs that use the multi-query attention mechanism.
+A tradeoff between multi-query and multi-head attention, grouped-query (GQA) has been explored in \textcite{ainslie2023gqa}.
+In GQA heads are grouped together, and each group attends share the same transformation matrices.
+This mechanism has been adopted and empirically tested in LlaMA 2 model~\cite{touvron2023llama2}.
+
+Flash attention~\cite{dao2022flashattention} is an approach that propose to optimize the speed and and memory consumption of attention module on the GPUs.
+Modern GPUs have different memory types, and Flash attention takes advantage of this by organizing the input block on the faster memory\footnote{SRAM has fast IO, while HBM is slower}.
+Updated version FlashAttention-2~\cite{liu2022fast} has been proposed to further improve the performance of the attention module on GPUs, partitioning of GPU thread blocks and warps, leading to around 2× speedup when compared to the original FlashAttention.
+
+PagedAttention~\cite{vllm2023} is based on the observation that GPU memory is bottlenecked by cached attention keys and value tensors.
+These cached key and value tensors are often referred to as KV cache.
+The KV cache is large and highly dynamic, depending on the sequence length.
+Authors finds that existent system waste 60\%-80\% of the memory due to fragmentation and over-reservation.
+PagedAttention proposed techniques inspired by virtual memory management\footnote{Paging} to manage the KV cache, partition sequences to sub-sequences allocating corresponding KV caches into non-contiguous physical blocks as shown in Figure~\ref{fig:paging}.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.8\textwidth]{pagedattentionblocks}
+	\caption{PagedAttention: KV Cache are partitioned into blocks. Source: \textcite{vllm2023}.}
+	\label{fig:paging}
+\end{figure}
+
+Paging increases the GPU memory utilization and enables efficient memory sharing in parallel sampling (Figure~\ref{fig:paging-parallel}).
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.8\textwidth]{pagedattentionparalle}
+	\caption{PagedAttention: example of parallel sampling. Source: \textcite{vllm2023}.}
+	\label{fig:paging-parallel}
+\end{figure}
+
+To put all these discussions together, \textcite{survey} summarize the suggestions from existing literature for detailed configuration.
+For stronger generalization and training stability, it is suggested to choose the pre RMSNorm for layer normalization, and SwiGLU or GeGLU as the activation function.
+In addition, LN may not be used immediately after embedding layers, which is likely to incur performance degradation.
+As for position embeddings, RoPE or ALiBi is a better choice since it performs better on long sequences.
 
 \subsection{Emerging architectures}
 \label{subsec:emerging-architectures}
@@ -738,4 +798,3 @@ The modified attention score with ALiBi can be represented as:
 There are several emerging architectures that have been proposed to address specific challenges or improve the performance of the Transformers.
 One of the main issues with the vanilla Transformer architecture is the quadratic complexity in terms of the number of tokens, which can limit the model's scalability to longer sequences.
 To address this performance issue, several studies proposed alternative architectures, such as parameterized state space models (e.g., S4~\cite{gu2022efficiently}, GSS~\cite{mehta2022long}, and H3~\cite{dao2022hungry}]), long convolutions(e.g.,Hyena~\cite{poli2023hyena}), and recursive update mechanisms (RWKV~\cite{peng2023rwkv} and RetNet~\cite{sun2023retentive}).
-
