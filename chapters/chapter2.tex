@@ -579,7 +579,7 @@ One of the first activation functions to be used in deep learning, ReLU has been
 This non-linear activation function introduces sparsity in the activations of the network, which can lead to faster training and better performance due to its simplicity and efficiency.
 However, ReLU can suffer from the dying ReLU problem, where neurons can become inactive and stop learning if the input is negative~\cite{maas2013rectifier}.
 
-GeLU~\cite{hendrycks2016gaussian} is a Gaussian Error Linear Unit (GeLU) activation function that is used to model uncertainties in neural networks.
+GeLU~\cite{hendrycks2016gaussian} is a Gaussian Error Linear Unit activation function that is used to model uncertainties in neural networks.
 It was introduced to improve upon ReLU by taking into account the stochastic regularisation techniques.
 The smoothness of the GELU function can be advantageous in deep neural networks with many layers, as it can help prevent the problem of "dying ReLU" and improve the flow of gradients through the network.
 The GELU activation function is mathematically described as:
@@ -614,7 +614,7 @@ The Swish~\cite{ramachandran2017searching} activation function is a smooth, non-
 It is defined as
 
 \begin{equation}
-	\text{Swish} = x \cdot \sigma\left(\beta x\right)
+	\text{Swish} = x \cdot \sigma\left(x\right)
 	\label{eq:swish}
 \end{equation}
 
@@ -652,9 +652,10 @@ The output of this multiplication is then passed through a second matrix V and a
 Position embeddings are a crucial component of the Transformer architecture that allows the model to capture the sequential order of tokens in the input sequence.
 There are several types of position embeddings used in LLMs, including absolute, relative, RoPE, and Alibi embeddings.
 
-Absolute position embeddings~\cite{vaswani2023attention} proposed in the original Transformer model.
+Absolute position embeddings~\cite{vaswani2023attention} was proposed in the original Transformer model.
 At the bottoms of the encoder and the decoder, the absolute positional embeddings are added to the input embeddings.
 There are two variants of absolute position embeddings, i.e., sinusoidal and learned position embeddings, where the latter is commonly used in existing pre-trained language models.
+
 The formulation for adding absolute position embeddings is straightforward:
 
 \begin{equation}
@@ -717,17 +718,16 @@ In \textcite{press2022train}, the authors found that ALiBi has better extrapolat
 \label{subsubsec:attention-mechanisms}
 
 Attention mechanisms are a key component of the Transformer architecture that allows the model to capture long-range dependencies and complex relationships between tokens in the input sequence.
+
 An attention function can be described as mapping a query and a set of key-value pairs to an output, where the query, keys, values, and output are all vectors.
 The output is computed as a weighted sum of the values, where the weight assigned to each value is computed by a compatibility function of the query with the corresponding key.
 The two most commonly used attention functions are additive attention~\cite{bahdanau2014neural}, and dot-product (multiplicative) attention.
-
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.8\textwidth]{attention}
 	\caption{(left) Scaled Dot-Product Attention. (right) Multi-Head Attention consists of several attention layers running in parallel. Source: \textcite{vaswani2023attention}.}
 	\label{fig:attention}
 \end{figure}
-
 The scaled dot-product attention function used in \textcite{vaswani2023attention} is defined as follows:
 
 \begin{equation}
@@ -737,6 +737,7 @@ The scaled dot-product attention function used in \textcite{vaswani2023attention
 
 \noindent where \(Q\), \(K\), and \(V\) are the query, key, and value matrices, respectively, and d\textsubscript{k} is the dimension of the key vectors.
 While for small values of d\textsubscript{k} the two mechanisms perform similarly, additive attention outperforms dot product attention without scaling for larger values of d\textsubscript{k}~\cite{britz2017massive}.
+
 A multi-head attention functions is implemented by splitting the query, key, and value vectors into multiple heads and computing the attention function in parallel, yielding d\textsubscript{v}-dimensional output values.
 These are concatenated and once again projected, resulting in the final values, as depicted in Figure~\ref{fig:attention}.
 The multi-head attention mechanism allows the model to jointly attend to information from different representation subspaces at different positions, enhancing the model's capacity to capture complex relationships in the data.
@@ -749,7 +750,7 @@ The multi-head attention mechanism allows the model to jointly attend to informa
 	\label{eq:multihead-attention}
 \end{equation}
 
-\noindent where \(W_i^Q\), \(W_i^K\), and \(W_i^V\) are the weight matrices for the query, key, and value projections of the \(i\)-th head, respectively, and \(W^O\) is the final output projection matrix.\\
+\noindent where \(W_i^Q\), \(W_i^K\), and \(W_i^V\) are the weight matrices for the query, key, and value projections of the \(i\)-th head, respectively, and \(W^O\) is the final output projection matrix.
 
 We can categorize the attention mechanisms into: full attention, sparse attention, multi-query/grouped-query attention, Flash attention, and Paged attention.
 The Full attention mechanism is the standard attention mechanism used in the vanilla Transformer architecture~\cite{vaswani2023attention}, where each token attends to all other tokens in the sequence.
