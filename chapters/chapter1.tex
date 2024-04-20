@@ -407,7 +407,7 @@ The design philosophy targets efficient deployment across diverse hardware platf
 	\label{fig:gemma-comparison2}
 \end{figure}
 
-In comparative benchmarks, Gemma models have demonstrated capabilities that exceed those of larger parameter models, such as Llama-2 (13B), indicating a significant efficiency in parameter utilization.
+In comparative benchmarks, Gemma models have demonstrated capabilities that exceed those of larger parameter models, such as LLaMA-2 (13B), indicating a significant efficiency in parameter utilization.
 This is particularly evident in language understanding and reasoning tasks where Gemma models have been pitted against their contemporaries.
 
 One of the prominent strengths of Gemma models is their deployment efficiency, which democratizes access to state-of-the-art NLP tools.
@@ -569,8 +569,8 @@ Here's a more detailed look at these techniques:
 		Model                                  & Backbone           & Paras.  & PT Techniques & PT \newline Data Size                    & Evaluation \newline Task & Dataset                                               & O.S.\ Model & PT & IFT \\
 		\midrule
 		BloombergGPT~\cite{wu2023bloomberggpt} & BLOOM              & 50B     & PT, PE        & (G) 345B tokens \newline (F) 363B tokens & SA, TC                   & FPB, FiQA-SA, Headline                                & N           & N  & N   \\
-		FinMA~\cite{xie2023pixiu}              & LLAMA              & 7B, 30B & IFT, PE       & (G) 1T tokens                            & SA, TC, NER, QA          & FPB, FiQA-SA, Headline \newline FIN, FinQA, ConvFinQA & Y           & Y  & Y   \\
-		InvestLM~\cite{yang2023investlm}       & LLAMA              & 65B     & PEFT          & (G) 1.4T tokens                          & SA, TC, SMP              & StockNet, CIKM18, BigData22                           & Y           & N  & N   \\
+		FinMA~\cite{xie2023pixiu}              & LLaMA              & 7B, 30B & IFT, PE       & (G) 1T tokens                            & SA, TC, NER, QA          & FPB, FiQA-SA, Headline \newline FIN, FinQA, ConvFinQA & Y           & Y  & Y   \\
+		InvestLM~\cite{yang2023investlm}       & LLaMA              & 65B     & PEFT          & (G) 1.4T tokens                          & SA, TC, SMP              & StockNet, CIKM18, BigData22                           & Y           & N  & N   \\
 		FinGPT~\cite{wang2023fingpt}           & 6 open-source LLMs & 7B      & PEFT          & (G) 2T tokens                            & SA, TC, NER, RE          & FPB, FiQA-SA, Headline \newline FIN, FinRED           & Y           & Y  & Y   \\
 		\bottomrule
 	\end{tabularx}

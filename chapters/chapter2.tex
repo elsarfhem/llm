@@ -4,10 +4,10 @@
 \chapter{Foundations of Large Language Models}
 \label{ch:foundations-of-large-language-models}
 
-Large Language Models (LLMs) have revolutionized the field of Natural Language Processing (NLP) by achieving state-of-the-art performance on a wide range of tasks, such as text generation, text classification, and machine translation.\\
-These models are trained on vast amounts of text data to learn the underlying structure of the language and capture the relationships between words.\\
+Large Language Models (LLMs) have revolutionized the field of Natural Language Processing (NLP) by achieving state-of-the-art performance on a wide range of tasks, such as text generation, text classification, and machine translation.
+These models are trained on vast amounts of text data to learn the underlying structure of the language and capture the relationships between words.
 
-In the following sections, we will explore the key concepts and techniques that underpin the development of LLMs, including pre-training strategies and major datasets used for training and evaluation, as well as the Transformer architecture, which forms the basis of many modern LLMs.\\
+In the following sections, we will explore the key concepts and techniques that underpin the development of LLMs, including pre-training strategies and major datasets used for training and evaluation, as well as the Transformer architecture, which forms the basis of many modern LLMs.
 
 Finally, we will discuss some model adaptation techniques that can be used to fine-tune LLMs for specific tasks or domains.
 
@@ -15,15 +15,15 @@ Finally, we will discuss some model adaptation techniques that can be used to fi
 \label{sec:pre-training}
 
 Pre-training constitutes a foundational phase in the development of Large Language Models (LLMs).
-It allows the model to capture the relationships between words and generate coherent and contextually relevant text, laying the groundwork for its subsequent performance on specific NLP tasks~\cite{devlin2019bert, brown2020language}.\\
-This phase involves training a language model on a vast corpus of text data before fine-tuning it on a smaller, task-specific dataset, such as text generation or text classification, to improve its performance on that task.\\
-Moreover, the extensive pre-training on diverse corpora enables LLMs to develop a broad understanding, making them adaptable to a wide range of domains and languages~\cite{liu2019roberta, radford2019language}.\\
+It allows the model to capture the relationships between words and generate coherent and contextually relevant text, laying the groundwork for its subsequent performance on specific NLP tasks~\cite{devlin2019bert, brown2020language}.
+This phase involves training a language model on a vast corpus of text data before fine-tuning it on a smaller, task-specific dataset, such as text generation or text classification, to improve its performance on that task.
+Moreover, the extensive pre-training on diverse corpora enables LLMs to develop a broad understanding, making them adaptable to a wide range of domains and languages~\cite{liu2019roberta, radford2019language}.
 Despite its advantages, pre-training LLMs is not without its challenges.
 The process requires substantial computational resources and energy, raising concerns about its environmental impact~\cite{strubell2019energy}.
 Additionally, the data used for pre-training can influence the model's biases and sensitivities, necessitating careful curation of the training corpus to mitigate potential ethical and fairness issues~\cite{bender2021dangers}.
 
 The field is evolving towards more efficient pre-training methods, such as transfer learning, where a pre-trained model is adapted to new tasks or languages with minimal additional training~\cite{ruder2019transfer}.
-Moreover, emerging approaches aim to enhance the contextual awareness and ethical sensitivity of LLMs during the pre-training phase, addressing the challenges of bias and fairness head-on.\\
+Moreover, emerging approaches aim to enhance the contextual awareness and ethical sensitivity of LLMs during the pre-training phase, addressing the challenges of bias and fairness.
 
 \subsection{Pre-training strategies}
 \label{subsec:pre-training-strategies}
@@ -81,19 +81,18 @@ At its core, semi-supervised pre-training involves the initial training of model
 This phase allows the model to capture a broad understanding of language structures and patterns.
 Subsequently, the model undergoes further training or fine-tuning on a smaller labeled dataset, which instills task-specific knowledge and nuances~\cite{ruder2019transfer, yang2017transfer}.
 The rationale behind this approach is to exploit the abundance of readily available unlabeled data to develop a comprehensive language model, which is then refined using the more scarce labeled data to achieve superior performance on target tasks.
-Various techniques underpin semi-supervised pre-training in LLMs.
 
-One prominent method involves self-training, where the model, initially trained on labeled data, generates pseudo-labels for the unlabeled dataset.
+Various techniques underpin semi-supervised pre-training in LLMs. One prominent method involves self-training, where the model, initially trained on labeled data, generates pseudo-labels for the unlabeled dataset.
 These pseudo-labeled data points are then incorporated into further training cycles, iteratively enhancing the model's accuracy and robustness~\cite{lee2013pseudo}.
 
 Another notable technique is the use of consistency regularization, which ensures that the model produces similar outputs for perturbed versions of the same input data, enhancing the model's stability and generalization capabilities~\cite{sajjadi2016regularization}.
 
 Other key techniques in semi-supervised learning include transductive and inductive learning, with practical methods like label propagation and active learning aiding in leveraging unlabeled data.
-These approaches are instrumental in refining the model's decision-making capabilities~\cite{bergmann2023semi}.\\
+These approaches are instrumental in refining the model's decision-making capabilities~\cite{bergmann2023semi}.
+
 Transductive learning, a concept primarily attributed to \textcite{vapnik1998statistical}, focuses on predicting specific examples from the training set without attempting to generalize beyond those.
 In transductive inference, the model is directly applied to the specific test set, aiming to infer the correct labels for the given unlabeled data.
-
-The key characteristic distinguishing transductive learning from other machine learning methods is its focus on the particular sample at hand rather than on a general rule applicable to new, unseen instances.\\
+The key characteristic distinguishing transductive learning from other machine learning methods is its focus on the particular sample at hand rather than on a general rule applicable to new, unseen instances.
 One of the main applications of transductive learning is in the realm of support vector machines (SVMs), where it is employed to predict labels for a given, fixed set of test data, optimizing the margin not only for the training data but also for the test data, despite their labels being unknown~\cite{joachims1999transductive}.
 
 Conversely, inductive learning aims to build a general model that predicts outcomes for new, unseen data based on the patterns learned from the training data.
@@ -253,16 +252,17 @@ A typical pipeline for data preprocessing involves several steps, as shown in Fi
 \textbf{Quality Filtering.}
 The first step in data preprocessing is quality filtering, where the data is cleaned to remove irrelevant or low-quality content.
 Existing works mainly adopt two strategies for quality filtering: classifier-based and heuristic-based filtering.
+
 The former approach involves training a classifier to distinguish between high-quality and low-quality data, using well-curated data (e.g., Wikipedia pages) as positive examples and noisy data (e.g., spam or irrelevant content) as negative examples.
 \textcite{rae2021scaling, du2022glam} find that classifier-based filtering may remove high-quality data in dialect, colloquial, and sociolectal\footnote{In sociolinguistics, a sociolect is a form of language or a set of lexical items used by a socioeconomic class, profession, age group, or other social group. Sociolects involve both passive acquisition of particular communicative practices through association with a local community, as well as active learning and choice among speech or writing forms to demonstrate identification with particular groups. Source: \textcite{wikipedia}} languages, which potentially leads to bias in the pre-training data and diminishes the corpus diversity.\\
 Heuristic-based filtering, on the other hand, involves setting predefined rules to identify and remove noisy data~\cite{workshop2023bloom, rae2021scaling}.
 The set of rules can be summarized as follows:
 \begin{itemize}
-	\item \textit{Language based filtering}: {Remove data that is not in the target language.}
-	\item \textit{Metric based filtering}: {Remove data that does not meet certain quality metrics, e.g., perplexity, readability, or coherence.
+	\item \textit{Language based filtering}. {Remove data that is not in the target language.}
+	\item \textit{Metric based filtering}. {Remove data that does not meet certain quality metrics, e.g., perplexity, readability, or coherence.
 	      Perplexity (PPL) is one of the most common metrics for evaluating language models.
 	      This metric applies specifically to classical language models (sometimes called autoregressive or causal language models) and is not well-defined for masked language models like BERT~\cite{devlin2019bert}.
-	      Perplexity is defined as the exponential average negative log-likelihood of a sequence.
+	      Perplexity is defined as the exponential average negative log-likelihood of a sequence.\\
 	      If we have a tokenized sequence \(X = x_1, x_2, \ldots, x_t\), the perplexity of the sequence is defined as:
 	      \begin{equation}
 		      PPL(X) = \exp \left\{ -\frac{1}{t} \sum_{i}^{t} \log p_{\theta}(x_i | x_{<i}) \right\}
@@ -271,16 +271,16 @@ The set of rules can be summarized as follows:
 	      where \(\log p_{\theta}(x_i | x_{<i})\) is the log-likelihood of the token \(x_i\) given the previous tokens \(x_{<i}\) in the sequence.
 	      Intuitively, it can be thought of as an evaluation of the model’s ability to predict uniformly among the set of specified tokens in a corpus\footnote{This means that the tokenization procedure has a direct impact on a model’s perplexity which should always be taken into consideration when comparing different models.}~\cite{huggingface2023perplexity}.
 	      }
-	\item \textit{Statistic based filtering}: {
-	      statistical features like punctuation distribution, symbol-to-word ratio, and sentence length can be used to filter out low-quality data.
+	\item \textit{Statistic based filtering}. {Statistical features like punctuation distribution, symbol-to-word ratio, and sentence length can be used to filter out low-quality data.
 	      }
-	\item \textit{Keyword based filtering}: {Remove data that contains specific keywords that are noisy, irrelevant or toxic like HTML tags, URLs, boilerplate text, or offensive language.}
+	\item \textit{Keyword based filtering}. {Remove data that contains specific keywords that are noisy, irrelevant or toxic like HTML tags, URLs, boilerplate text, or offensive language.}
 \end{itemize}
 
 \textbf{Deduplication.}
 The next step in data preprocessing is deduplication, where duplicate data  are removed to reduce redundancy and improve the diversity of the training data.
 Moreover, \textcite{hernandez2022scaling} found that duplication may cause instability in the training process, leading to overfitting and poor generalization performance.
 Therefore, deduplication is essential to ensure that the model is exposed to a diverse range of text data during training.
+
 It can be done at various granularity, such as at the document level, paragraph level, or sentence level.
 Low-quality sentences that contains repeated words or phrases can be removed to improve the quality of the data.
 At document level, the deduplication can be done by computing overlap ratio of surface features (e.g., words and n-grams overlap) between documents, and removing the duplicates that contains similar contents~\cite{touvron2023llama,rae2021scaling,workshop2023bloom,lee2022deduplicating}.
@@ -298,26 +298,28 @@ Therefore, de-duplication can also reduce privacy risks to some extent.
 \textbf{Tokenization.}
 Tokenization is a crucial step in data preprocessing, where the text data is converted into tokens that can be processed by the model.
 The choice of tokenization method can have a significant impact on the model's performance, as different tokenization strategies can affect the model's ability to capture the underlying structure of the language.
+
 Common tokenization techniques include word-based tokenization, subword-based tokenization, and character-based tokenization.
 Word-based tokenization splits the text into individual words, while subword-based tokenization breaks down the text into subword units, such as prefixes, suffixes, and roots.
 Character-based tokenization, on the other hand, tokenizes the text into individual characters.
 Word-based tokenization is the predominant method used in traditional NLP research~\cite{lafferty2001conditional}.
+
 However, word-based tokenization can be problematic for languages with complex morphology or limited vocabulary, as it may result in a large vocabulary size and sparse data representation.
 In some other languages, like Chinese, Japanese, and Korean, word-based tokenization is not suitable because these languages do not have explicit word boundaries\footnote{It means that it can yield different segmentation results for the same input.}.
-Thus, several neural network-based models employed subword-based tokenization, such as Byte Pair Encoding (BPE)~\cite{sennrich2016neural}, Unigram~\cite{kudo2018sentencepiece}, and WordPiece~\cite{wu2016google}, to address these challenges.\\
+Thus, several neural network-based models employed subword-based tokenization, such as Byte Pair Encoding (BPE)~\cite{sennrich2016neural}, Unigram~\cite{kudo2018sentencepiece}, and WordPiece~\cite{wu2016google}, to address these challenges.
 
 Byte Pair Encoding (BPE) is a type of data compression technique that has been effectively adapted for natural language processing tasks, particularly in the domain of tokenization for large language models (LLMs).
 The BPE algorithm operates by iteratively merging the most frequent pair of bytes (or characters in the context of text) in a given dataset into a single, new byte (or character), and it repeats this process until a specified number of merges has been reached or another stopping criterion has been met.
 The application of BPE in the field of NLP was popularized by \textcite{sennrich2016neural} in the context of neural machine translation.
 They demonstrated that using BPE allowed for efficient handling of rare and unknown words, which are commonplace in languages with rich morphology or in specialized vocabularies, such as scientific texts or code.
 By splitting words into subword units, BPE provides a balance between the granularity of characters and the semantic units of full words, enabling models to represent a wide vocabulary with a limited set of tokens.
-BPE has been fundamental in the architecture of influential language models, such as OpenAI's GPT series, BART and LLaMA\@.\\
+BPE has been fundamental in the architecture of influential language models, such as OpenAI's GPT series, BART and LLaMA\@.
 
 WordPiece tokenization is a tokenization method that segments text into subword units, allowing for a balance between the flexibility of character-based models and the efficiency of word-based models.
-Originating from speech processing~\cite{wu2016google}, this method has found significant application in natural language processing, particularly within neural network-based models such as BERT and its variants.\\
+Originating from speech processing~\cite{wu2016google}, this method has found significant application in natural language processing, particularly within neural network-based models such as BERT and its variants.
 In WordPiece tokenization, a base vocabulary is first constructed with individual characters, and then more frequent and meaningful sub-word units are incrementally added.
 This construction process is guided by a criterion that aims to maximize the language model likelihood on a training corpus, thus ensuring that the resulting tokens are optimal representations for the given data.
-The WordPiece algorithm iteratively merges the most frequently co-occurring pairs of tokens to form new sub-word units until a specified vocabulary size is reached.\\
+The WordPiece algorithm iteratively merges the most frequently co-occurring pairs of tokens to form new sub-word units until a specified vocabulary size is reached.
 This tokenization strategy has shown effectiveness in reducing out-of-vocabulary issues, as the model can fall back on smaller sub-word units when encountering unfamiliar words.
 Moreover, by capturing sub-word regularities, WordPiece facilitates the learning of meaningful representations for morphologically rich languages within large language models.
 This is particularly advantageous for handling agglutinative languages, where words often comprise a series of affixed morphemes\footnote{
@@ -333,15 +335,15 @@ This is particularly advantageous for handling agglutinative languages, where wo
 Unigram tokenization is a statistical method that employs an unigram language model for the probabilistic segmentation of text into tokens.
 This technique, standing in contrast to the deterministic nature of Byte Pair Encoding, involves constructing a unigram model from a large initial vocabulary and iteratively refining it to maximize the likelihood of the observed corpus~\cite{kudo2018sentencepiece}.
 The essence of Unigram tokenization lies in its iterative pruning process, wherein less probable tokens are systematically eliminated from the vocabulary.
-To estimate the unigram language model, it adopts an expectation–maximization (EM) algorithm: at each iteration, we first find the currently optimal tokenization of words based on the old language model, and then re-estimate the probabilities of unigrams to update the language model.
+To estimate the unigram language model, it adopts an expectation–maximization (EM) algorithm: at each iteration, it first finds the currently optimal tokenization of words based on the old language model, and then re-estimate the probabilities of unigrams to update the language model.
 During this procedure, dynamic programming algorithms (i.e., the Viterbi algorithm) are used to efficiently find the optimal decomposition way of a word given the language model\cite{survey}.
 This probabilistic approach is adept at handling the linguistic complexities and variations found across different languages and domains.
 It particularly excels in the context of language models that require a nuanced understanding of morphological structures and sub-word variations.
 Unigram tokenization has been pivotal in the development of the SentencePiece~\cite{kudo2018sentencepiece} tokenization library, which is renowned for its application in T5 and mBART\@.
 The adaptability and language-agnostic properties of Unigram tokenization make it a preferred choice for LLMs tasked with processing multilingual data~\cite{kudo2018sentencepiece}.
 
-\section{Architectures}
-\label{sec:architectures}
+\section{Architecture}
+\label{sec:architecture}
 
 The architecture of Large Language Models (LLMs) plays a pivotal role in determining the model's performance, efficiency, and scalability.
 
@@ -366,7 +368,7 @@ Based on the components and the way they are connected, LLMs can be categorized 
 	Instead, they focus on understanding the input text and producing task-specific outputs, such as labels or token predictions~\cite{raschka2023encoderdecoder}.
 },
 decoder-only, and encoder-decoder models.
-All of these methods are sequence-to-sequence models (often abbreviated as seq2seq).\\
+All of these are sequence-to-sequence models (ofter referred to as seq2seq models).
 
 \begin{figure}[H]
 	\centering
@@ -382,7 +384,9 @@ Both casual decoder and prefix decoder are decoder-only architectures, but they 
 \label{subsec:encoder-decoder}
 
 Vanilla version of the Transformer architecture introduced by \textcite{vaswani2023attention} belongs to this category, which consists of an encoder and a decoder.
+
 The encoder's purpose is to transform an input sequence into a set of representations which capture its semantic and syntactic properties.
+
 The decoder, on the other hand, is tasked with generating an output sequence from the encoded representations.
 It predicts each token by conditioning on the previously generated tokens and the encoded input, a process that has seen significant improvements with the integration of cross-attention modules.
 By segregating the understanding (encoding) and generation (decoding) processes, the Encoder-Decoder architecture enables a flexible approach to diverse language tasks.
@@ -414,9 +418,10 @@ It has been widely adopted as the architecture of choice for many large-scale la
 \label{subsec:prefix-decoder}
 
 The prefix decoder architecture\footnote{Also called non-causal decoder~\cite{zhang2022examining}} enables partial conditioning of generated sequences, revising the masking mechanism of causal decoders, to enable performing bidirectional attention over the prefix tokens~\cite{dong2019unified} and unidirectional attention only on generated tokens.
+
 In other words, this architecture allows the model to generate tokens based on both the input prefix and the target prefix, which can be useful for tasks that require generating sequences with specific prefixes or constraints.
-In practice, a prefix decoder is implemented by feeding a fixed sequence of tokens, known as the prefix, into the decoder alongside the tokens generated so far.
-The model then extends the prefix by generating subsequent tokens that logically follow the context provided by the prefix.\\
+In practice, a prefix decoder is implemented by feeding a fixed sequence of tokens \footnote{Also known as the prefix} into the decoder alongside the tokens generated so far.
+The model then extends the prefix by generating subsequent tokens that logically follow the context provided by the prefix.
 
 Unlike the causal decoder, which strictly adheres to a unidirectional generation pattern, the prefix decoder allows for a predefined context or prefix to guide the generative process~\cite{li2021prefixtuning}.
 This is particularly useful in tasks such as machine translation, where the prefix can be a part of the translation that is already known or hypothesized, but the flexibility provided by the prefix decoder makes it suitable for a range of applications, from controlled text generation to task-oriented dialog systems, where maintaining context and coherence is crucial~\cite{li2022ptuning}.
@@ -427,6 +432,7 @@ This architecture has been utilized in various language models to improve contro
 \label{subsec:transformer-architecture}
 
 The Transformer architecture has emerged as the de facto standard for LLMs, owing to its ability to capture long-range dependencies and model complex language structures effectively~\cite{vaswani2023attention} making possible to train models with billions or even trillions of parameters~\cite{brown2020language, touvron2023llama}.
+
 This architecture usually consists of stacked Transformer layers (Figure~\ref{fig:architecture}), each comprising multi-head self-attention sub-layer and a position-wise fully connected feed-forward network~\cite{vaswani2023attention}.
 Residual connection~\cite{he2016deep} and layer normalization~\cite{ba2016layer} are applied for both sub-layers individually.
 
@@ -484,7 +490,7 @@ Different orders and configuration of the sub-layers, residual connection and la
 \label{subsubsec:configurations}
 
 Since the introduction of the Transformer architecture, several variants and configurations have been proposed to improve the performance and efficiency of LLMs.
-The configuration of the four major parts of the Transformer architecture include normalization, position embeddings, activation functions, and attention and bias (Table~\ref{tab:configurations}).
+The configuration of the four major parts of the Transformer architecture includes normalization, position embeddings, activation functions, and attention and bias as shown in Table~\ref{tab:configurations}.
 
 \subsubsection{Normalization Methods}
 \label{subsubsec:normalization}
@@ -575,6 +581,7 @@ However, ReLU can suffer from the dying ReLU problem, where neurons can become i
 
 GeLU~\cite{hendrycks2016gaussian} is a Gaussian Error Linear Unit (GeLU) activation function that is used to model uncertainties in neural networks.
 It was introduced to improve upon ReLU by taking into account the stochastic regularisation techniques.
+The smoothness of the GELU function can be advantageous in deep neural networks with many layers, as it can help prevent the problem of "dying ReLU" and improve the flow of gradients through the network.
 The GELU activation function is mathematically described as:
 
 \begin{equation}
@@ -587,19 +594,27 @@ This can also be approximated as:
 
 \begin{equation}
 	\text{GeLU}(x) \approx 0.5x(1 + \tanh[\sqrt{2/\pi}(x + 0.044715x^3))]
-	\label{eq:gelu}
+	\label{eq:geluapprox1}
+\end{equation}
+
+Alternatively, the GELU function can be expressed as a scaled version of the sigmoid function, as shown below:
+
+\begin{equation}
+	\text{GeLU}(x) \approx x \cdot \sigma(1.702x)
+	\label{eq:geluapprox2}
 \end{equation}
 
 The GELU function allows the input to control its own gate, deciding whether to pass through or be dampened.
 When x is large, GELU approximates to x, acting like a linear unit.
 When x is close to zero or negative, it squashes the output, making it closer to zero.
 In other words, the GELU function would produce outputs that are smoothed around zero, rather than sharply cut off as with ReLU\@.
+The GELU activation function is used in many deep learning models, including GPT-3 and BERT\@.
 
 The Swish~\cite{ramachandran2017searching} activation function is a smooth, non-monotonic function that was developed to overcome some limitations of ReLU and was found to perform better in deeper models.
 It is defined as
 
 \begin{equation}
-	\text{Swish}(x) = x \cdotp \sigma(x)
+	\text{Swish} = x \cdot \sigma\left(\beta x\right)
 	\label{eq:swish}
 \end{equation}
 
@@ -611,23 +626,25 @@ SwiGLU~\cite{shazeer2020glu} is a variant of the Swish activation function that 
 The SwiGLU activation function is defined as
 
 \begin{equation}
-	\text{SwiGLU}(x_1, x_2) = \text{Swish}(x_1) \odot x_2
+	\text{SwiGLU}\left(x, W, V, b, c, \beta\right) = \text{Swish}\left(xW + b\right) \otimes \left(xV + c\right)
 	\label{eq:swiglu}
 \end{equation}
 
-\noindent where \(x_1\) and \(x_2\) are the input vectors, \(\odot\) denotes element-wise multiplication, and Swish is the Swish activation function described in Equation~\ref{eq:swish}.
+\noindent Here, x is the input to the neuron, W and V are weight matrices, b and c are bias vectors, and $\beta$ is a constant.
+The $\otimes$ symbol denotes element-wise multiplication, while Swish is the activation function described in Equation~\ref{eq:swish}.
 This function allows the network to learn which parts of the input should be retained (gated) for further layers, combining the advantages of non-saturating functions and dynamic gating mechanisms.
-Note that in practice, \(x_1\) and \(x_2\) often originate from splitting a larger tensor along the feature dimension, and the function is applied across all corresponding elements of the two halves.
 
-GeGLU~\cite{shazeer2020glu} is another variant of the Swish activation function that combines the GeLU function with the GLU function.
+GeGLU~\cite{shazeer2020glu} is another variant of the GLU activation function that combines the GeLU function with the Gated Linear Unit (GLU) function.
 The GeGLU activation is formulated as:
 
 \begin{equation}
-	\text{GeGLU}(x_1, x_2) = \text{GeLU}(x_1) \odot x_2
+	\text{GeGLU}\left(x, W, V, b, c\right) = \text{GeLU}\left(xW + b\right) \otimes \left(xV + c\right)
 	\label{eq:geglu}
 \end{equation}
 
-\noindent Here, \(x_1\) and \(x_2\) are the input vectors, \(\odot\) denotes element-wise multiplication, and GeLU is defined in Equation~\ref{eq:geluf}.
+\noindent After the output of the GeLU function is calculated, it is multiplied element-wise with a second matrix.
+This second matrix is calculated by multiplying the input matrix x with another matrix W and adding a bias term b.
+The output of this multiplication is then passed through a second matrix V and added to a scalar term c.
 
 \subsubsection{Position Embeddings}
 \label{subsubsec:position-embeddings}
@@ -759,7 +776,7 @@ It can significantly reduce the computational cost of the attention operation wi
 Palm~\cite{chowdhery2022palm} and Starcoder~\cite{li2023starcoder} are examples of LLMs that use the multi-query attention mechanism.
 A tradeoff between multi-query and multi-head attention, grouped-query (GQA) has been explored in \textcite{ainslie2023gqa}.
 In GQA heads are grouped together, and each group attends share the same transformation matrices.
-This mechanism has been adopted and empirically tested in LlaMA 2 model~\cite{touvron2023llama2}.
+This mechanism has been adopted and empirically tested in LLaMA 2 model~\cite{touvron2023llama2}.
 
 Flash attention~\cite{dao2022flashattention} is an approach that propose to optimize the speed and and memory consumption of attention module on the GPUs.
 Modern GPUs have different memory types, and Flash attention takes advantage of this by organizing the input block on the faster memory\footnote{SRAM has fast IO, while HBM is slower}.
