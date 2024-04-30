@@ -25,12 +25,12 @@
 \usepackage{tabularx}
 \usepackage{float}
 \usepackage{lipsum}
+\usepackage{amssymb}
 
 % Define caption styles
 \DeclareCaptionFont{captionfont}{\small\itshape}
 \DeclareCaptionFormat{customformat}{#1#2#3\hrulefill}
 \captionsetup{format=customformat, font=captionfont, labelfont=bf}
-
 % Document
 \begin{document}
 \title{

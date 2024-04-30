@@ -29,7 +29,7 @@ Historically, the development of Language Models (LMs) has been rooted in the qu
 		      ELMo~\footnote{Embeddings from Language Models} (\textcite{elmo}) was one of the first PLMs, which used a bidirectional LSTM to generate word embeddings (instead of learning fixed word representations).
 		      \textcite{devlin2019bert} introduced BERT (Bidirectional Encoder Representations from Transformers), which is a transformer-based model that is pre-trained on a large corpus of text and then fine-tuned on specific tasks.
 		      BERT was a significant advancement in the field of natural language processing, as it demonstrated the potential of pre-trained language models to achieve state-of-the-art performance on a wide range of tasks.
-		      These studies introduced the $"pre-training and fine-tuning"$ paradigm, which has become a standard practice in the development of language models and inspired great number of models, such as GPT-2 (\textcite{radford2019language}), GPT-3 (\textcite{brown2020language}), T5 (\textcite{t5}), and many others.
+		      These studies introduced the $"pre-training and fine-tuning"$ paradigm, which has become a standard practice in the development of language models and inspired great number of models, such as GPT-2 (\textcite{radford2019language}), GPT-3 (\textcite{brown2020language}), T5 (\textcite{raffel2023exploring}), and many others.
 	      }
 	\item \textbf{Large Language Models (LLM):} {The emergence of large language models, characterized by their immense scale and complexity, has redefined the capabilities of language processing systems.
 		      Studies find that the performance of language models improves as the number of parameters ($e.g.$ model size) or data size increases, a phenomenon known as the scaling law in large language models.
@@ -111,9 +111,9 @@ The multi-headed self-attention mechanism allows the model to capture different 
 The idea is that different attention heads can focus on different aspects or relationships within the data, allowing the model to capture more nuanced patterns.
 Multiple layers of these multi-headed self-attention mechanisms are stacked in a very deep neural network.
 Each layer in the stack processes the output of the previous layer, learning hierarchical representations of the input data, capturing increasingly complex relationships and abstractions. \\
-Two representative scaling laws for Transformer-based LLMs are the following~\textcite{scaling1, scaling2}:
+Two representative scaling laws for Transformer-based LLMs are the following~\textcite{kaplan2020scaling, hoffmann2022training}:
 \begin{enumerate}
-	\item \textbf{KM scaling law:} {named in this way in \textcite{survey} and proposed by the OpenAI team in \textcite{scaling1}. Given model size $M$, dataset size $D$, amount of training compute $C$, and a compute budget $c$, the KM scaling law states that the performance of a language model scales as per the following three formulas:
+	\item \textbf{KM scaling law:} {named in this way in \textcite{survey} and proposed by the OpenAI team in \textcite{kaplan2020scaling}. Given model size $M$, dataset size $D$, amount of training compute $C$, and a compute budget $c$, the KM scaling law states that the performance of a language model scales as per the following three formulas:
 
 		      \begin{center}
 			      \begin{math}
@@ -137,7 +137,7 @@ Two representative scaling laws for Transformer-based LLMs are the following~\te
 		      The three laws were formulated by analyzing the model's performance across a range of data sizes (from 22M to 23B tokens), model sizes (from 768M to 1.5B non-embedding parameters), and training compute, with certain assumptions (e.g., ensuring that the analysis of one factor is not constrained by the other two factors).
 		      The findings demonstrated a robust interdependence among the three factors influencing model performance.
 	      }
-	\item \textbf{Chincilla scaling law:} {An alternative form of the scaling law has been proposed by the Google DeepMind team in \textcite{scaling2} experimenting a large range of model size (70M to 16B) and data sizes (5B to 500B tokens).
+	\item \textbf{Chincilla scaling law:} {An alternative form of the scaling law has been proposed by the Google DeepMind team in \textcite{hoffmann2022training} experimenting a large range of model size (70M to 16B) and data sizes (5B to 500B tokens).
 		      The Chincilla scaling law posits that the performance of a language model scales as per the following formula:
 
 		      \[L(N,D) = E + \frac{A}{N^\alpha} + \frac{B}{D^\beta},\]
@@ -155,7 +155,7 @@ Two representative scaling laws for Transformer-based LLMs are the following~\te
 		      \end{center}
 
 		      where \(a=\frac{\alpha}{\alpha+\beta}, b=\frac{\beta}{\alpha+\beta}\) and G is a scaling coefficient.
-		      The KM scaling law favors a larger budget allocation in model size than the data size, while the Chinchilla scaling law argues that the two sizes should be increased in equal scales (\textcite{scaling2}), i.e., having similar values for a and b in \eqref{eq:optimal-allocations}.
+		      The KM scaling law favors a larger budget allocation in model size than the data size, while the Chinchilla scaling law argues that the two sizes should be increased in equal scales (\textcite{hoffmann2022training}), i.e., having similar values for a and b in \eqref{eq:optimal-allocations}.
 	      }
 \end{enumerate}
 
@@ -224,11 +224,11 @@ This approach simplifies the use of a single model across diverse tasks, encoura
 \begin{figure}[h!]
 	\centering
 	\includegraphics[width=\textwidth]{t5}
-	\caption{A diagram of the T5 text-to-text framework. Every task -- including translation, question answering, and classification -- is cast as feeding the model text as input and training it to generate some target text. This allows to use the same model, loss function, hyperparameters, etc. across diverse set of tasks. Source: \protect\textcite{t5}.}
+	\caption{A diagram of the T5 text-to-text framework. Every task -- including translation, question answering, and classification -- is cast as feeding the model text as input and training it to generate some target text. This allows to use the same model, loss function, hyperparameters, etc. across diverse set of tasks. Source: \protect\textcite{raffel2023exploring}.}
 	\label{fig:t5-t2t}
 \end{figure}
 
-T5 demonstrated its prowess across a range of benchmarks, setting new standards in the field of NLP (\textcite{t5}).
+T5 demonstrated its prowess across a range of benchmarks, setting new standards in the field of NLP (\textcite{raffel2023exploring}).
 It's built on the transformer model, similar to its predecessors like BERT and GPT, leveraging the effective self-attention mechanism for processing sequences of data.
 The model is designed to handle a variety of tasks without needing task-specific architectural modifications.
 It uses a unified text-to-text framework, where tasks are converted into a format where the input and output are always text strings.
@@ -407,7 +407,7 @@ The design philosophy targets efficient deployment across diverse hardware platf
 	\label{fig:gemma-comparison2}
 \end{figure}
 
-In comparative benchmarks, Gemma models have demonstrated capabilities that exceed those of larger parameter models, such as Llama-2 (13B), indicating a significant efficiency in parameter utilization.
+In comparative benchmarks, Gemma models have demonstrated capabilities that exceed those of larger parameter models, such as LLaMA-2 (13B), indicating a significant efficiency in parameter utilization.
 This is particularly evident in language understanding and reasoning tasks where Gemma models have been pitted against their contemporaries.
 
 One of the prominent strengths of Gemma models is their deployment efficiency, which democratizes access to state-of-the-art NLP tools.
@@ -569,8 +569,8 @@ Here's a more detailed look at these techniques:
 		Model                                  & Backbone           & Paras.  & PT Techniques & PT \newline Data Size                    & Evaluation \newline Task & Dataset                                               & O.S.\ Model & PT & IFT \\
 		\midrule
 		BloombergGPT~\cite{wu2023bloomberggpt} & BLOOM              & 50B     & PT, PE        & (G) 345B tokens \newline (F) 363B tokens & SA, TC                   & FPB, FiQA-SA, Headline                                & N           & N  & N   \\
-		FinMA~\cite{xie2023pixiu}              & LLAMA              & 7B, 30B & IFT, PE       & (G) 1T tokens                            & SA, TC, NER, QA          & FPB, FiQA-SA, Headline \newline FIN, FinQA, ConvFinQA & Y           & Y  & Y   \\
-		InvestLM~\cite{yang2023investlm}       & LLAMA              & 65B     & PEFT          & (G) 1.4T tokens                          & SA, TC, SMP              & StockNet, CIKM18, BigData22                           & Y           & N  & N   \\
+		FinMA~\cite{xie2023pixiu}              & LLaMA              & 7B, 30B & IFT, PE       & (G) 1T tokens                            & SA, TC, NER, QA          & FPB, FiQA-SA, Headline \newline FIN, FinQA, ConvFinQA & Y           & Y  & Y   \\
+		InvestLM~\cite{yang2023investlm}       & LLaMA              & 65B     & PEFT          & (G) 1.4T tokens                          & SA, TC, SMP              & StockNet, CIKM18, BigData22                           & Y           & N  & N   \\
 		FinGPT~\cite{wang2023fingpt}           & 6 open-source LLMs & 7B      & PEFT          & (G) 2T tokens                            & SA, TC, NER, RE          & FPB, FiQA-SA, Headline \newline FIN, FinRED           & Y           & Y  & Y   \\
 		\bottomrule
 	\end{tabularx}

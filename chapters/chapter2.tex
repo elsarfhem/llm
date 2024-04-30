@@ -342,6 +342,79 @@ It particularly excels in the context of language models that require a nuanced 
 Unigram tokenization has been pivotal in the development of the SentencePiece~\cite{kudo2018sentencepiece} tokenization library, which is renowned for its application in T5 and mBART\@.
 The adaptability and language-agnostic properties of Unigram tokenization make it a preferred choice for LLMs tasked with processing multilingual data~\cite{kudo2018sentencepiece}.
 
+\section{Adaptation of Large Language Models}
+\label{sec:adaptation-of-llms}
+
+The adaptation of Large Language Models (LLMs) is a critical aspect of their deployment in real-world applications, as it enables the models to be fine-tuned on specific tasks or domains after pre-training, enhancing their performance without losing generalization capabilities.
+Adaptation can be achieved through various techniques, such as instruction tuning and alignment tuning, which allow LLMs to enhance (or unlock) theirs abilities and align their behaviours with human values or preferences~\cite{survey}.
+After that, we will discuss tuning and quantization of LLMs, techniques used to reduce the model's size and computational complexity, making it more efficient for deployment on resource-constrained devices.
+
+\begin{table}[htbp]
+	\centering
+	\caption{A detailed list of available collections for instruction tuning.}
+	\label{tab:instruction_tuning}
+	\begin{tabularx}{\textwidth}{|X|X|X|X|}
+		\hline
+		\textbf{Categories} & \textbf{Collections}                        & \textbf{Time} & \textbf{\#Examples} \\
+		\hline
+		Task                & Nat. Inst. \cite{mishra2022crosstask}       & Apr-2021      & 193K                \\
+		                    & FLAN~\cite{wei2022fine}                     & Sep-2021      & 4.4M                \\
+		                    & P3~\cite{bach2022promptsource}              & Oct-2021      & 12.1M               \\
+		                    & Super Nat. Inst. \cite{wang2022super}       & Apr-2022      & 5M                  \\
+		                    & MVPCorpus~\cite{tang2022mvp}                & Jun-2022      & 41M                 \\
+		                    & xP3~\cite{muennighoff2022crosslingual}      & Nov-2022      & 81M                 \\
+		                    & OIG~\cite{vaswani2023attention}             & Mar-2023      & 43M                 \\
+		\hline
+		Chat                & HH-RLHF~\cite{bai2022training}              & Apr-2022      & 160K                \\
+		                    & HC3~\cite{guo2023close}                     & Jan-2023      & 87K                 \\
+		                    & ShareGPT~\cite{devlin2019bert}              & Mar-2023      & 90K                 \\
+		                    & Dolly~\cite{lewis2020bart}                  & Apr-2023      & 15K                 \\
+		                    & OpenAssistant~\cite{koepf2023openassistant} & Apr-2023      & 161K                \\
+		\hline
+		Synthetic           & Self-Instruct~\cite{wang2022selfinstruct}   & Dec-2022      & 82K                 \\
+		                    & Alpaca~\cite{taori2023stanford}             & Mar-2023      & 52K                 \\
+		                    & Guanaco~\cite{fedus2021switch}              & Mar-2023      & 535K                \\
+		                    & Baize~\cite{xu2023baize}                    & Apr-2023      & 158K                \\
+		                    & BELLE~\cite{ji2023towards}                  & Apr-2023      & 1.5M                \\
+		\hline
+	\end{tabularx}
+\end{table}
+
+\subsection{Instruction Tuning}
+\label{subsec:instruction-tuning}
+
+Instruction tuning enhances LLMs by refining their ability to follow and comprehend natural language instructions.
+Unlike traditional fine-tuning, which adapts models to specific tasks, instruction tuning employs a more generalized approach that broadens the model's utility across a variety of tasks through an "instruction-following" paradigm (Figure~\ref{fig:instruction-tuning}).
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{instruction-tuning}
+	\caption{Overview of instruction tuning. Source: \textcite{survey}.}
+	\label{fig:instruction-tuning}
+\end{figure}
+
+FLAN\footnote{Finetuned LAnguage Net, a 137B parameter pretrained language model and instruction tune it on over 60 NLP datasets verbalized via natural language instruction templates}~\cite{wei2022fine} is noted for substantially improving zero-shot learning capabilities when compared to traditional models like GPT-3~\cite{brown2020language} (Figure~\ref{fig:instruction-tuning-comparison}).
+This technique not only improves zero-shot learning but also establishes new benchmarks in few-shot learning scenarios.
+The improvement is attributed to the instruction tuning across diverse datasets which likely provides a richer context for model adaptation~\cite{wei2022fine}.
+The idea is that by using supervision to teach an LM to perform tasks described via instructions, the LM will learn to follow instructions and do so even for unseen tasks.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{instruction-tuning-comparison}
+	\caption{Top: overview of instruction tuning and FLAN. Instruction tuning finetunes a pretrained language model on a mixture of tasks phrased as instructions. Evaluation on unseen task type at inference time (i.e., evaluate the model on natural language inference (NLI) when no NLI tasks were seen during instruction tuning).\\
+		Bottom: performance of zero-shot FLAN, compared with zero-shot and few-shot GPT-3, on three unseen task types where instruction tuning improved performance substantially out of ten evaluated. NLI datasets: ANLI R1–R3, CB, RTE. Reading comprehension datasets: BoolQ, MultiRC, OBQA. Closed-book QA datasets: ARC-easy, ARC-challenge, NQ, TriviaQA.
+		Source: \textcite{wei2022fine}.}
+	\label{fig:instruction-tuning-comparison}
+\end{figure}
+
+One of the main challenges in instruction tuning is dataset creation.
+The dataset must cover a diverse range of instructions and their expected outcomes.
+This requirement necessitates a substantial collection and curation effort to ensure the model can generalize across various instruction types.
+One of the most large and diverse collection of tasks and instructions is Super-Natural Instructions~\cite{wang2022supernaturalinstructions} a benchmark of 1,616 diverse NLP tasks and their expert-written instructions.
+The collection covers 76 distinct task types, including but not limited to classification, extraction, infilling, sequence tagging, text rewriting, and text composition.
+This collection enables rigorous benchmarking of cross-task generalization under instructions -- training models to follow instructions on a subset of tasks and evaluating them on the remaining unseen ones.
+
+
 \section{Architecture}
 \label{sec:architecture}
 
