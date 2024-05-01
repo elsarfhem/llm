@@ -61,7 +61,7 @@ Historically, the development of Language Models (LMs) has been rooted in the qu
 				            \end{quote}
 			            }
 			      \item \textbf{Instruction following:}{
-				            Through the process called instruction tuning, LLMs exhibits strong performance on unseen tasks described through natural language instructions (\textcite{instruction1, ouyang2022training, wei2022fine}).
+				            Through the process called instruction tuning, LLMs exhibits strong performance on unseen tasks described through natural language instructions (\textcite{sanhetal2022multitask, ouyang2022training, wei2022fine}).
 				            This approach involves fine-tuning the model using a diverse set of multitask datasets, each accompanied by detailed natural language descriptions. The result is an LLM that effectively interprets and follows task instructions for new and unseen tasks without relying on explicit examples, thereby showcasing enhanced generalization capabilities.
 				            Experiments detailed in \textcite{wei2022fine} demonstrate that LaMDA-PT, fine-tuned with instructions, begins to outperform its untuned counterpart significantly when the model size reaches 68 billion parameters. However, this performance gain is not observed for model sizes of 8 billion or smaller. Furthermore, recent research (\textcite{chung2022scaling}) highlights that a model size of at least 62 billion parameters is necessary for PaLM to excel across various tasks in evaluation benchmarks like MMLU, BBH, TyDiQA, and MGSM. Nevertheless, it is noted that certain specific tasks, such as MMLU, might suffice with a much smaller model size, emphasizing the nuanced relationship between model size and task performance.
 			            }

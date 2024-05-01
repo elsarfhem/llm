@@ -345,7 +345,7 @@ The adaptability and language-agnostic properties of Unigram tokenization make i
 \section{Adaptation of Large Language Models}
 \label{sec:adaptation-of-llms}
 
-The adaptation of Large Language Models (LLMs) is a critical aspect of their deployment in real-world applications, as it enables the models to be fine-tuned on specific tasks or domains after pre-training, enhancing their performance without losing generalization capabilities.
+The adaptation of Large Language Models (LLMs) is a critical aspect of their deployment in real-world applications, as it enables the models to be fine-tuned on specific tasks or domains after pre-training, enhancing their performance minimizing loss of  generalization capabilities.
 Adaptation can be achieved through various techniques, such as instruction tuning and alignment tuning, which allow LLMs to enhance (or unlock) theirs abilities and align their behaviours with human values or preferences~\cite{survey}.
 After that, we will discuss tuning and quantization of LLMs, techniques used to reduce the model's size and computational complexity, making it more efficient for deployment on resource-constrained devices.
 
@@ -383,10 +383,11 @@ After that, we will discuss tuning and quantization of LLMs, techniques used to 
 \subsection{Instruction Tuning}
 \label{subsec:instruction-tuning}
 
+Instruction tuning is a technique that leverages natural language instructions to fine-tune pre-trained LLMs~\cite{wei2022fine}, which is highly related to supervised fine-tuning~\cite{ouyang2022training} and multi-task prompted training~\cite{sanhetal2022multitask}.
 Instruction tuning enhances LLMs by refining their ability to follow and comprehend natural language instructions.
 Unlike traditional fine-tuning, which adapts models to specific tasks, instruction tuning employs a more generalized approach that broadens the model's utility across a variety of tasks through an "instruction-following" paradigm (Figure~\ref{fig:instruction-tuning}).
 
-\begin{figure}[H]
+\begin{figure}[h!]
 	\centering
 	\includegraphics[width=\textwidth]{instruction-tuning}
 	\caption{Overview of instruction tuning. Source: \textcite{survey}.}
@@ -394,11 +395,8 @@ Unlike traditional fine-tuning, which adapts models to specific tasks, instructi
 \end{figure}
 
 FLAN\footnote{Finetuned LAnguage Net, a 137B parameter pretrained language model and instruction tune it on over 60 NLP datasets verbalized via natural language instruction templates}~\cite{wei2022fine} is noted for substantially improving zero-shot learning capabilities when compared to traditional models like GPT-3~\cite{brown2020language} (Figure~\ref{fig:instruction-tuning-comparison}).
-This technique not only improves zero-shot learning but also establishes new benchmarks in few-shot learning scenarios.
-The improvement is attributed to the instruction tuning across diverse datasets which likely provides a richer context for model adaptation~\cite{wei2022fine}.
-The idea is that by using supervision to teach an LM to perform tasks described via instructions, the LM will learn to follow instructions and do so even for unseen tasks.
 
-\begin{figure}[H]
+\begin{figure}[h!]
 	\centering
 	\includegraphics[width=\textwidth]{instruction-tuning-comparison}
 	\caption{Top: overview of instruction tuning and FLAN. Instruction tuning finetunes a pretrained language model on a mixture of tasks phrased as instructions. Evaluation on unseen task type at inference time (i.e., evaluate the model on natural language inference (NLI) when no NLI tasks were seen during instruction tuning).\\
@@ -407,13 +405,215 @@ The idea is that by using supervision to teach an LM to perform tasks described 
 	\label{fig:instruction-tuning-comparison}
 \end{figure}
 
-One of the main challenges in instruction tuning is dataset creation.
-The dataset must cover a diverse range of instructions and their expected outcomes.
-This requirement necessitates a substantial collection and curation effort to ensure the model can generalize across various instruction types.
-One of the most large and diverse collection of tasks and instructions is Super-Natural Instructions~\cite{wang2022supernaturalinstructions} a benchmark of 1,616 diverse NLP tasks and their expert-written instructions.
-The collection covers 76 distinct task types, including but not limited to classification, extraction, infilling, sequence tagging, text rewriting, and text composition.
-This collection enables rigorous benchmarking of cross-task generalization under instructions -- training models to follow instructions on a subset of tasks and evaluating them on the remaining unseen ones.
+\textcite{chung2022scaling} have shown instruction-tuned (Figure~\ref{fig:instruction-finetuning}) PaLM\footnote{also called Flan-PaLM 540B-parameter model} enhance model performance on various tasks (i.e., MMLU, BBH, TyDiQA and MGSM) when the model size is at least 62B, though a much smaller size might suffice for some specific tasks (e.g., MMLU).
 
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=\textwidth]{instruction-finetuning}
+	\caption{Overview of FLAN instruction tuning with and without exemplars (i.e., zero-shot and few-shots) and with and without CoT. Following evaluation on unseen tasks. Source: \textcite{chung2022scaling}.}
+	\label{fig:instruction-finetuning}
+\end{figure}
+
+Instruction tuning has been widely applied also in other models like Instruct-GPT~\cite{ouyang2022training} and GPT-4~\cite{radford2023gpt4}.
+Other experiments in \textcite{wei2022fine} have shown that instruction tuning of LaMDA-PT started to significantly improve performance on zero-shot tasks when the model size is at least 68B\@.
+
+Let's have a look at the construction of instruction-formatted instances, which are essential for instruction tuning.
+Generally, an instruction-formatted instance consists of a task description (called an \textit{instruction}) and a set of input-output examples, optionally followed by a small number of demonstrations.
+There are three main approaches to construct instruction-formatted instances: formatting task datasets, formatting daily dialogues, and formatting synthetic data as represented in Figure~\ref{fig:instruction-formatted-instances}.
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=\textwidth]{instruction-formatted-instances}
+	\caption{Three main approaches to construct instruction-formatted instances. Source: \textcite{survey}.}
+	\label{fig:instruction-formatted-instances}
+\end{figure}
+
+Historically, datasets encompassing various tasks like text summarization, classification, and translation were used to create multi-task training datasets~\cite{tang2022mvp,liu2019multi,aghajanyan2021muppet}.
+These datasets have become crucial for instruction tuning, particularly when formatted with natural language descriptions that clarify the task objectives to the LLMs. This augmentation helps the models understand and execute the tasks more effectively~\cite{sanhetal2022multitask,ouyang2022training,wei2022fine, wang2022super}.
+For instance, each example in a question-answering dataset might be supplemented with a directive like "Please answer this question" which guides the LLM in its response generation.
+The effectiveness of such instruction tuning is evident as LLMs demonstrate improved generalization to unfamiliar tasks when trained with these enriched datasets~\cite{wei2022fine}.
+The importance of these instructions is underscored by the observed decline in performance when task descriptions are omitted from training.
+
+PromptSource~\cite{bach2022promptsource}, a crowd-sourcing platform, has been proposed to aid in the creation, sharing, and verification of task descriptions for datasets.
+This platform enhances the utility of instruction tuning by ensuring a rich variety of well-defined task descriptions.
+Several studies~\cite{sanhetal2022multitask, tang2022mvp, longpre2023flan} also tried to invert the input-output pairs of existing instances to create new instances using specially designed task descriptions (e.g., "Please generate a question given this answer").
+
+Talking about formatting daily chat data, Instruct-GPT has been fine-tuned using real user queries submitted to the OpenAI API to fill the significant gap in the data used for training models -- most training instances come from public NLP datasets that often lack instructional diversity and do not align well with actual human needs.
+This approach helps to harness the model's capability to follow instructions effectively.
+To further enhance task diversity and real-life applicability, human labelers are employed to create instructions for a variety of tasks including open-ended generation, open question answering, brainstorming, and casual chatting.
+Another set of labelers then provides responses to these instructions, which are used as training outputs.
+This method not only enriches the training data but also aligns the model's responses more closely with human-like conversational patterns.
+InstructGPT also employs these real-world tasks formatted in natural language for alignment tuning (see Section~\ref{subsec:alignment-tuning}).
+GPT-4 extends this approach by specifically designing potentially high-risk instructions and guided the model to reject these instructions through supervised fine-tuning for safety concerns.
+Recent efforts have also focused on collecting user chat requests as input data, with models like ChatGPT or GPT-4 generating the responses.
+A notable dataset in this realm is the conversational data from ShareGPT, which provides a rich source of real-world interactions for training and refining the performance of LLMs.
+
+Semi-automated methods~\cite{wang2022selfinstruct} for generating synthetic data have also been explored to create instruction-formatted instances, which helps alleviate the need for extensive human annotation and manual data collection.
+One such method is the Self-Instruct approach, which efficiently utilizes a relatively small initial dataset.
+With the Self-Instruct method, only about 100 examples are required to start the data augmentation process (Figure~\ref{fig:instruction-formatted-instances}c).
+From this initial task pool, a few instances are selected randomly and used as demonstrations for an LLM. The model is then prompted to generate new task descriptions along with corresponding input-output pairs.
+This process not only expands the dataset but also ensures a variety of training examples by incorporating a diversity and quality check before adding the newly synthesized instances back into the task pool.
+This synthetic approach to data generation is portrayed as both cost-effective and efficient, providing a scalable solution for enriching training datasets for LLMs. It leverages the generative capabilities of LLMs to create diverse and relevant training materials, thereby enhancing the training process without the usual resource-intensive demands of manual data creation.
+Instruction tuning not only improves zero-shot learning but also establishes new benchmarks in few-shot learning scenarios.
+The improvement is attributed to the instruction tuning across diverse datasets which likely provides a richer context for model adaptation~\cite{wei2022fine}.
+The idea is that by using supervision to teach a model to perform tasks described via instructions, the model will learn to follow instructions and do so even for unseen tasks.
+
+
+Two essentials factors for instance construction are:
+\begin{itemize}
+	\item \textbf{Scaling the instructions.} {Increasing the number of tasks within training data can significantly improve the generalization ability of LLMs, as evidenced by~\textcite{wei2022fine, sanh2021distilbert, chowdhery2022palm}. The performance of LLMs typically increases with the number of tasks but plateaus after reaching a saturation point~\cite{raffel2023exploring, chowdhery2022palm}. It is suggested that beyond a certain threshold, additional tasks do not contribute to performance gains~\cite{raffel2023exploring}. The diversity in task descriptions, including variations in length, structure, and creativity, is beneficial~\cite{wei2022fine}. However, increasing the number of instances per task might lead to overfitting if the numbers are excessively high~\cite{chowdhery2022palm, chen2023maybe}.}
+	\item \textbf{Formatting design.} {
+		      The way instructions are formatted also plays a crucial role in the generalization performance of LLMs~\cite{chowdhery2022palm}. Task descriptions, supplemented by optional demonstrations, form the core through which LLMs grasp the tasks~\cite{chowdhery2022palm}. Utilizing a suitable number of exemplars as demonstrations can notably enhance performance and reduce the model's sensitivity to instruction nuances~\cite{sanh2021distilbert, raffel2023exploring}. However, including additional elements like prohibitions, reasons, or suggestions within instructions may not effectively impact or might even negatively affect LLM performance~\cite{chowdhery2022palm, mishra2022crosstask}. Recently, some studies suggest incorporating chain-of-thought (CoT) examples in datasets that require step-by-step reasoning, which has proven effective across a variety of reasoning tasks~\cite{raffel2023exploring, iyer2022opt}.
+	      }
+\end{itemize}
+
+Instruction tuning is often more efficient since only moderate number of instances are needed for training.
+Since instruction tuning can be considered as a supervised training process, its optimization is different from pre-training in several aspects~\cite{chung2022scaling}, such as the training objective (i.e., sequence-to-sequence loss) and optimization
+configuration (e.g., smaller batch size and learning rate), which require special attention in practice.
+
+Balancing the proportion of different tasks during fine-tuning is crucial.
+A commonly used method is the examples-proportional mixing strategy~\cite{raffel2023exploring}, ensuring that no single dataset overwhelms the training process~\cite{raffel2023exploring, wei2022fine}.
+Additionally, setting a maximum cap on the number of examples from any dataset helps maintain this balance~\cite{raffel2023exploring, wei2022fine}.
+
+To enhance the stability and effectiveness of instruction tuning, integrating pre-training data into the tuning process is beneficial, serving as regularization~\cite{wei2022fine}.
+Some models, such as GLM-130B and Galactica, start with a mix of pre-training and instruction-tuned data, effectively combining the strengths of both pre-training and instruction tuning~\cite{chowdhery2022palm, lewis2021paLM}.
+
+A strategic approach involves multiple stages of tuning, starting with extensive task-specific data and followed by less frequent types such as daily chat instructions, to avoid the forgetting of previously learned tasks~\cite{raffel2023exploring}.
+
+
+Some additional strategies to improve the instruction tuning process include:
+\begin{itemize}
+	\item \textbf{Efficient training for multi-turn chat data.} {Given a multiturn chat\footnote{the conversation between a user and a bot} dataset, each conversation can be split into multiple context-response pairs for training: the model is fine-tuned to generate responses based on the corresponding context for all splits. To save computational resources, \textcite{chiang2023vicuna} propose a method that fine-tunes the model on the whole conversation, but relies on a loss mask that only computes the loss on the responses of the chatbot for training.
+	      }
+	\item \textbf{Filtering low-quality instructions using LLMs.} {Filtering out low-quality instructions through advanced LLMs helps maintain high training standards and reduces unnecessary computational expenses~\cite{wei2022fine}.}
+	\item \textbf{Establishing self-identification for LLM.} {In real world applications, it is important for LLMs to be able to identify themselves when asked. To achieve this, models like GPT-4 are trained to recognize and respond to self-identification instructions~\cite{radford2023gpt4}.
+	      }
+	\item \textbf{Concatenate multiple examples to approach max length.} {
+		      To handle variable-length sequences during training, it is common practice to introduce padding tokens to ensure uniform sequence lengths. However, this approach can lead to inefficient use of the model's capacity, as the padding tokens do not contribute to the learning process. By concatenating multiple examples to approach the maximum sequence length, the model can process more information in each training step, thereby enhancing the training efficiency and performance~\cite{krell2021efficient}.
+	      }
+	\item \textbf{Evaluate the quality of instructions.}{
+		      \textcite{cao2023instruction} introduced \textsc{InstructMining} to autonomously select premium instruction-following data for finetuning LLMs by employing a combination of data mining techniques and performance evaluation strategies.
+		      The quality of instruction data is primarily assessed through its impact on model performance, quantified by the inference loss of a finetuned model on an evaluation dataset. \textsc{InstructMining} correlates the values of the natural language indicators\footnote{Some of the indicators include:
+			      \begin{itemize}
+				      \item Input and output length
+				      \item Reward model scores
+				      \item Perplexity
+				      \item Measures of Textual Lexical Diversity (MTLD)
+				      \item Approximate distance to nearest neighbors in embedding space
+				      \item Scores for naturalness, coherence, and understandability from models like UniEval
+			      \end{itemize}
+		      }
+		      with the inference loss, creating a predictive model that estimates data quality based on these indicators.
+		      To identify the most effective subset of data for finetuning, \textsc{InstructMining} integrates an optimization technique called \textsc{BlendSearch}. This method helps in determining the optimal size and composition of the data subset that leads to the best finetuning outcomes. \textsc{BlendSearch} combines global and local search strategies to efficiently explore the complex search space, focusing on minimizing the model’s inference loss on a high-quality evaluation set.
+		      \textcite{cao2023instruction} also accounts for the double descent phenomenon observed in model training, where increasing the dataset size initially improves performance up to a point, after which performance declines before potentially improving again as more data is added. This observation guides the selection process to focus on an optimal point that balances data quality and quantity, improving model performance efficiently.
+	      }
+	\item \textbf{Rewriting instructions into more complex ones.} {
+		      \textcite{xu2023wizardlm} introduces an innovative method, termed "Evol-Instruct", which significantly enhances the instruction-following capabilities and overall performance of large language models (LLMs). It is a systematic approach for automatically generating complex instruction data using LLMs instead of human input. This method involves iterative evolution and refinement of initial, simpler instructions into more complex and diverse variants. These evolved instructions are then used to fine-tune LLMs, specifically targeting their ability to understand and execute more complex tasks effectively. Starting with a basic set of instructions, Evol-Instruct employs a two-pronged strategy -- In-Depth Evolving and In-Breadth Evolving.
+
+		      In-Depth Evolving enhances the complexity and depth of instructions by adding constraints, increasing reasoning demands, or introducing more detailed contexts.
+		      In-Breadth Evolving expands the variety and coverage of topics and skills addressed by the instructions, aiming to fill gaps in the LLM’s training data and increase its general robustness across different types of tasks.
+
+		      Throughout the evolution process, ineffective or poorly structured instructions are filtered out to ensure only high-quality data is used for model training. This step is crucial for maintaining the integrity and effectiveness of the training dataset.
+		      The process repeats several cycles, allowing the system to gradually refine the instruction set to maximize complexity and utility, while ensuring the instructions remain understandable and executable by the LLM.
+		      By training with the complex instructions generated by Evol-Instruct, LLMs like the WizardLM demonstrate significant improvements in several key areas:
+		      \begin{itemize}
+			      \item Enhanced Generalization: The model becomes capable of handling a wider variety of tasks beyond the scope of its original training data.
+			      \item Improved Complexity Handling: The LLM shows better performance in understanding and executing tasks that require higher levels of reasoning or multiple steps to complete.
+			      \item Competitive Performance: Compared to models like OpenAI's ChatGPT and other contemporary LLMs, WizardLM trained with Evol-Instruct data exhibits competitive or superior performance, especially on complex instruction-following tasks.
+		      \end{itemize}
+	      }
+\end{itemize}
+
+
+The main effects of instruction tuning are:
+\begin{itemize}
+	\item \textbf{Performance Improvement.} {
+		      Instruction tuning significantly enhances LLMs, proving effective across models of various scales from 77M to 540B parameters. Smaller models subjected to instruction tuning can surpass larger models that haven't been fine-tuned, showcasing the technique's broad applicability and cost-effectiveness \cite{tamkin2021understanding, wei2022fine}. This approach not only boosts model performance as parameter scale increases but also demonstrates improvements across different architectures, objectives, and adaptation methods \cite{raffel2023exploring}.
+	      }
+	\item \textbf{Task Generalization.} {
+		      Instruction tuning endows LLMs with the capability to understand and execute tasks based on natural language instructions. This method is particularly effective in generalizing across both familiar and novel tasks, significantly enhancing performance without direct prior exposure \cite{chowdhery2022palm, tamkin2021understanding}. Notably, models like BLOOMZ-P3, fine-tuned on English-only tasks, demonstrate remarkable improvements in multilingual sentence completion, indicating robust cross-lingual transfer capabilities \cite{lewis2021paLM}.
+	      }
+	\item \textbf{Domain Specialization.} {
+		      Despite their prowess in general NLP tasks, LLMs often lack the domain-specific knowledge required for fields like medicine, law, and finance. Instruction tuning facilitates the transformation of general-purpose LLMs into domain-specific experts. For example, Flan-PaLM has been adapted into Med-PaLM for medical applications, achieving expert-level performance in medical tasks \cite{raffel2023exploring}. Similar adaptations have been made in other domains, significantly enhancing LLMs' effectiveness in specialized applications \cite{wei2022fine}.
+	      }
+\end{itemize}
+
+
+\subsection{Alignment Tuning}
+\label{subsec:alignment-tuning}
+
+Alignment tuning is a technique that aims to align the behavior of Large Language Models (LLMs) with human values or preferences.
+This process involves training the model to generate outputs that are consistent with a set of predefined values or constraints, such as ethical principles, fairness criteria, or social norms.
+By aligning the model's behavior with human values, alignment tuning can help mitigate potential biases, improve the model's interpretability, and enhance its overall performance on various tasks.
+Alignment tuning is defined as the process of adjusting a model’s parameters or training environment to ensure that the model's outputs are in line with specified ethical guidelines or desired behaviors.
+The primary objective is to minimize the divergence between the model's decisions and human values, thus mitigating risks associated with unintended model behaviors.
+
+The typical approach involves several steps:
+
+\begin{enumerate}
+	\item \textbf{Data Curation:} {Collecting and curating datasets that embody the desired values and norms. This may involve filtering out harmful biases or enhancing the dataset with examples that promote positive values}.
+
+	\item \textbf{Reward Modeling:} {Developing a reward function that quantifies the alignment of model outputs with human values. This function is often learned from human feedback}.
+
+	\item \textbf{Fine-Tuning:} {Applying reinforcement learning or supervised learning techniques to adjust the model parameters based on the reward function. This is often done using techniques like Proximal Policy Optimization or other policy gradient methods.}
+\end{enumerate}
+
+\subsection{Quantization}
+\label{subsec:quantization}
+
+Quantization techniques reduce memory and computational costs by representing weights and activations with lower-precision data types like 8-bit integers (int8).
+This enables loading larger models you normally wouldn’t be able to fit into memory, and speeding up inference.
+This process can lead to substantial reductions in both the storage requirements and the computational complexity of deploying LLMs, which is crucial for their application in resource-constrained environments.
+
+Quantization can be done in two ways: post-training quantization and quantization-aware training.
+Post-training quantization is done after the model has been trained, while quantization-aware training is done during training.
+Post-training quantization is easier to implement, but quantization-aware training can lead to better results.
+
+Main quantization techniques include: uniform quantization, non-uniform quantization, and mixed-precision quantization.
+Uniform quantization maps the floating-point values to a fixed set of integer values, while non-uniform quantization uses a non-linear mapping to better represent the distribution of the data.
+Mixed-precision quantization uses a combination of different precision data types to represent the weights and activations.
+
+Uniform quantization discretizes the values within a certain range into equal-sized intervals.
+Mathematically, it can be described as:
+
+\begin{equation}
+	\textbf{LinearQuant}(x, bitwidth) = \text{Clip}(\text{round}(\frac{x}{bitwidth}) \times bitwidth, minV, maxV)
+	\label{eq:uniform-quantization}
+\end{equation}
+
+\noindent where minV and maxV are the minimum and maximum scale range respectively~\cite{hubara2017quantized}.
+
+Non-uniform quantization, such as logarithmic quantization, allocates more fine-grained intervals to values that are more frequent or more sensitive to quantization errors.
+This method can be represented as:
+
+\begin{equation}
+	\textbf{LogQuant}(x, bitwidth)(x) = \text{Clip}(\text{AP2}(x), minV, maxV)
+	\label{eq:non-uniform-quantization}
+\end{equation}
+
+\noindent where AP2 is the approximate-power-of-2 function that maps the input to the nearest power of two as defined in \textcite{hubara2017quantized}.
+This approach is particularly effective for distributions with a high dynamic range~\cite{miyashita2016convolutional}.
+
+Mixed-precision quantization leverages the strengths of both uniform and non-uniform quantization by using different precision data types for different parts of the model.
+For example, weights can be quantized to 8-bit integers while activations are quantized to 16-bit integers.
+
+\begin{table}[htbp]
+	\centering
+	\begin{tabular}{ccc}
+		\toprule
+		Bit-width           & Storage Reduction & Accuracy Loss \\
+		\midrule
+		32 (Full Precision) & 0\%               & 0\%           \\
+		16                  & 50\%              & 1\%           \\
+		8                   & 75\%              & 2\%           \\
+		4                   & 87.5\%            & 5\%           \\
+		\bottomrule
+	\end{tabular}
+	\caption{Performance comparison of quantized LLM}
+	\label{tab:quant_perf}
+\end{table}
+
+As per Table~\ref{tab:quant_perf}, lower bit-widths generally result in more significant storage savings, but they can also lead to higher accuracy losses~\cite{jacob2017quantization}.
 
 \section{Architecture}
 \label{sec:architecture}
@@ -421,7 +621,6 @@ This collection enables rigorous benchmarking of cross-task generalization under
 The architecture of Large Language Models (LLMs) plays a pivotal role in determining the model's performance, efficiency, and scalability.
 
 Generally speaking, we can identify some key components that define different LLM architectures: the encoder and the decoder.
-
 The encoder is an essential component in LLMs, and its role is to process input sequences and map them to a higher dimensional space, capturing the contextual information in the data.
 The structure of an encoder in LLMs typically involves a stack of identical layers, each comprising two main sub-layers: a multi-head self-attention\footnote{See Section~\ref{subsubsec:attention-mechanisms} for more details on self-attention mechanisms.} mechanism and a position-wise fully connected feed-forward network~\cite{vaswani2023attention}.
 
