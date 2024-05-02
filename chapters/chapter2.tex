@@ -458,7 +458,6 @@ Instruction tuning not only improves zero-shot learning but also establishes new
 The improvement is attributed to the instruction tuning across diverse datasets which likely provides a richer context for model adaptation~\cite{wei2022fine}.
 The idea is that by using supervision to teach a model to perform tasks described via instructions, the model will learn to follow instructions and do so even for unseen tasks.
 
-
 Two essentials factors for instance construction are:
 \begin{itemize}
 	\item \textbf{Scaling the instructions.} {Increasing the number of tasks within training data can significantly improve the generalization ability of LLMs, as evidenced by~\textcite{wei2022fine, sanh2021distilbert, chowdhery2022palm}. The performance of LLMs typically increases with the number of tasks but plateaus after reaching a saturation point~\cite{raffel2023exploring, chowdhery2022palm}. It is suggested that beyond a certain threshold, additional tasks do not contribute to performance gains~\cite{raffel2023exploring}. The diversity in task descriptions, including variations in length, structure, and creativity, is beneficial~\cite{wei2022fine}. However, increasing the number of instances per task might lead to overfitting if the numbers are excessively high~\cite{chowdhery2022palm, chen2023maybe}.}
@@ -479,7 +478,6 @@ To enhance the stability and effectiveness of instruction tuning, integrating pr
 Some models, such as GLM-130B and Galactica, start with a mix of pre-training and instruction-tuned data, effectively combining the strengths of both pre-training and instruction tuning~\cite{chowdhery2022palm, lewis2021paLM}.
 
 A strategic approach involves multiple stages of tuning, starting with extensive task-specific data and followed by less frequent types such as daily chat instructions, to avoid the forgetting of previously learned tasks~\cite{raffel2023exploring}.
-
 
 Some additional strategies to improve the instruction tuning process include:
 \begin{itemize}
@@ -538,25 +536,85 @@ The main effects of instruction tuning are:
 	      }
 \end{itemize}
 
+In summary, instruction tuning is a powerful technique that significantly enhances the performance, generalization, and domain specialization of LLMs. The effectiveness of instruction tuning is evident across models of various scales and architectures, demonstrating its versatility and broad applicability.
+Larger models, such as LLaMA (13B) compared to LLaMA (7B), generally perform better, suggesting that increased model size enhances the model’s ability to follow instructions and utilize knowledge more effectively.
+This is particularly evident in QA settings, where larger models show markedly improved performance~\cite{survey}.
+
+Increasing the complexity and diversity of the Self-Instruct-52K dataset enhances LLaMA's performance in both chat and QA settings.
+For example, improving instruction complexity significantly boosts performance on QA tasks, which typically involve complex queries.
+Merely increasing the number of instructions or attempting to balance instruction difficulty does not necessarily yield better outcomes.
+In some cases, such as scaling up instruction numbers without focusing on quality, it can even degrade performance~\cite{survey}.
 
 \subsection{Alignment Tuning}
 \label{subsec:alignment-tuning}
 
-Alignment tuning is a technique that aims to align the behavior of Large Language Models (LLMs) with human values or preferences.
-This process involves training the model to generate outputs that are consistent with a set of predefined values or constraints, such as ethical principles, fairness criteria, or social norms.
-By aligning the model's behavior with human values, alignment tuning can help mitigate potential biases, improve the model's interpretability, and enhance its overall performance on various tasks.
-Alignment tuning is defined as the process of adjusting a model’s parameters or training environment to ensure that the model's outputs are in line with specified ethical guidelines or desired behaviors.
-The primary objective is to minimize the divergence between the model's decisions and human values, thus mitigating risks associated with unintended model behaviors.
+LLMs may sometimes generate outputs that are inconsistent with human values or preferences (e.g., fabricating false information, pursuing inaccurate objectives, and producing harmful, misleading, or biased content)~\cite{ouyang2022training, kenton2021alignment}.
+To avoid such undesirable outcomes, alignment tuning is employed to ensure that LLMs' outputs align with specified ethical guidelines or desired behaviors~\cite{survey}.
+Unlike pre-training and fine-tuning, which focus on optimizing model performance, alignment tuning aims to optimize the model's behavior to conform to human values and norms~\cite{survey}.
+Alignment may harm the general abilities of LLMs to some extent, which is called \textit{alignment tax}~\cite{askell2021general}.
 
-The typical approach involves several steps:
+Three primary criteria to regulate the behavior of Large Language Models (LLMs) are: helpfulness, honesty, and harmlessness.
+These criteria have become standard in the literature and serve as benchmarks for aligning LLMs with desirable human-like behaviors.
+It's possible to adapt these criteria based on specific needs, such as substituting honesty with correctness~\cite{glaese2022improving}.
+Helpfulness refers to the model's ability to assist users effectively and efficiently, answering queries or solving tasks concisely.
+It should also engage in deeper interaction when necessary, asking relevant questions and demonstrating sensitivity and awareness.
+Honesty involves providing accurate information and being transparent about the model's uncertainty and limitations.
+This criterion is seen as more objective, potentially requiring less human intervention to achieve alignment compared to the other criteria.
+Harmlessness involves avoiding generating offensive or discriminatory language and being vigilant against being manipulated into harmful actions.
+The determination of what constitutes harm can vary significantly depending on cultural and individual differences and the context in which the model is used.
 
-\begin{enumerate}
-	\item \textbf{Data Curation:} {Collecting and curating datasets that embody the desired values and norms. This may involve filtering out harmful biases or enhancing the dataset with examples that promote positive values}.
+\textcite{survey} notes the subjectivity of these criteria, rooted in human judgment, making them challenging to incorporate directly as optimization objectives in LLM training.
+Nonetheless, various strategies, such as red teaming\footnote{red teaming might involve trying to induce biased or harmful outputs from the model, to test its resistance to producing undesirable content under adversarial conditions.}, are employed to meet these criteria by intentionally challenging LLMs to provoke harmful outputs and then refining them to prevent such behaviors.
 
-	\item \textbf{Reward Modeling:} {Developing a reward function that quantifies the alignment of model outputs with human values. This function is often learned from human feedback}.
+During the pre-training phase on large-scale corpus, it's not possible to take into account the subjective and qualitative evaluations of LLM outputs by humans.
+Human feedback is essential for alignment tuning, as it provides the necessary supervision to guide the model towards desirable behaviors.
 
-	\item \textbf{Fine-Tuning:} {Applying reinforcement learning or supervised learning techniques to adjust the model parameters based on the reward function. This is often done using techniques like Proximal Policy Optimization or other policy gradient methods.}
-\end{enumerate}
+Dominant strategies for generating human feedback data is human annotation ~\cite{ouyang2022training, glaese2022improving, ziegler2019fine}.
+This highlight the importance of labelers in the alignment tuning process, as they play a crucial role in providing feedback on the model's outputs.
+Ensuring that labelers have adequate qualifications is vital; despite stringent selection criteria, mismatches in intentions between researchers and labelers can still occur, potentially compromising feedback quality and LLM performance \cite{bender2021dangers}.
+To address this, the InstructGPT initiative includes a screening process to select labelers whose evaluations closely align with those of researchers~\cite{ouyang2022training}.
+Additionally, the use of "super raters" in some studies ensures the highest quality of feedback by selecting the most consistent labelers for critical tasks~\cite{glaese2022improving}.
+
+Three primary methods are used to collect human feedback and preference data:
+\begin{itemize}
+	\item \textbf{Ranking-based approach.} {
+		      Human labelers evaluate model outputs in a coarse-grained fashion, often choosing only the best output without considering finer details. This method could lead to biased or incomplete feedback due to the diversity of opinions among labelers and the neglect of unselected samples. To improve this, later studies introduced the Elo rating system to establish a preference ranking by comparing outputs, thereby providing a more nuanced training signal~\cite{glaese2022improving, ziegler2019fine}.
+	      }
+	\item \textbf{Question-based approach.} {
+		      This method involves labelers providing detailed feedback by answering specific questions designed to assess alignment criteria and additional constraints. For example, in the WebGPT project, labelers evaluate the usefulness of retrieved documents to answer given inputs, helping to filter and utilize relevant information~\cite{nakano2021webgpt}.
+	      }
+	\item \textbf{Rule-based approach.} {
+		      This approach involves the use of predefined rules to generate detailed feedback. For instance, Sparrow uses rules to test whether responses are helpful, correct, and harmless. Feedback is generated both by comparing responses and assessing rule violations. Additionally, GPT-4 uses zero-shot classifiers to automatically determine if outputs violate set rules~\cite{glaese2022improving, radford2023gpt4}.
+	      }
+\end{itemize}
+
+One approach of alignment tuning is to use a reward model to evaluate the quality of generated outputs.
+RLHF utilizes reinforcement learning (RL) techniques, such as Proximal Policy Optimization (PPO), to fine-tune LLMs based on human feedback, aiming to enhance model alignment on criteria like helpfulness, honesty, and harmlessness.
+This process involves several components and steps to effectively train and optimize LLMs.
+Key components of RLHF include a pre-trained language model (LM), a reward model (RM), and an RL algorithm (e.g., PPO)~\cite{survey}.
+The LM is initialized with parameters from existing LLMs, such as GPT-3 by OpenAI or Gopher by DeepMind.
+Reward model provides guidance signals reflecting human preferences, which could be a fine-tuned LM or newly trained LM using human preference data.
+RMs often differ in parameter scale from the LLM being aligned.
+Main steps in RLHF include supervised fine-tuning, reward model training, and RL fine-tuning~\cite{survey}.
+
+Supervised fine-tuning involves collecting a supervised dataset with prompts and desired outputs for initial fine-tuning.
+
+Reward model training trains the RM using human-annotated data where labelers rank outputs, guiding the RM to predict human preferences.
+Studies suggests using large reward models that align with the LLM’s scale for better performance judgment and combining multiple RMs focused on different alignment criteria for a nuanced reward signal.
+
+RL fine-tuning treats alignment as an RL problem where the LM is optimized against the RM using PPO, incorporating penalties like KL divergence to maintain closeness to the original model behavior.
+Practical strategies propose to deploy the RM on a separate server and use beam search decoding to manage computational demands and enhance output diversity.
+
+RLHF is a complex but promising approach to improving LLM alignment with human values, involving sophisticated training regimes and multiple feedback mechanisms to ensure the model's outputs are ethical and practical.
+
+That being said, RLHF is memory-intensive (it needs to train multiple LMs), and the PPO algorithm is rather complex and often sensitive to hyper-parameters.
+Thus, increasing studies are exploring alternative methods to align LLMs with human values using supervised fine-tuning without reinforcement learning.
+
+The main idea behind alignment tuning without reinforcement learning is to directly use high-quality alignment datasets.
+The alignment dataset may be created by LLMs aligned with human-written safety principles or by refining existing examples through editing operations.
+Additionally, reward models can be reused to select highly-rated responses from existing human feedback data, enriching the dataset's quality and relevance.
+Non-RL alignment methods employ supervised learning strategies similar to those used in original instruction tuning.
+These methods may also integrate auxiliary learning objectives, such as ranking responses or contrasting instruction-response pairs, to further enhance the alignment accuracy and performance of LLMs.
 
 \subsection{Quantization}
 \label{subsec:quantization}
@@ -710,8 +768,8 @@ Residual connection~\cite{he2016deep} and layer normalization~\cite{ba2016layer}
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.6\textwidth]{transformer_architecture}
-	\caption{The Transformer model architecture. Source: \textcite{vaswani2023attention}.}
+	\includegraphics[width=\textwidth]{transformer_architecture}
+	\caption{The full model architecture of the transformer. Source: \textcite{weng2018attention}.}
 	\label{fig:architecture}
 \end{figure}
 
