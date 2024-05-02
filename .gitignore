@@ -1,6 +1,12 @@
 out
 
 *.log
+*.toc
+*.aux
+*.bcf
+*.bbl
+*.blg
+
 
 #idea
 .idea
