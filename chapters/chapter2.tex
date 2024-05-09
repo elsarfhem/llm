@@ -5,7 +5,7 @@
 \label{ch:foundations-of-large-language-models}
 
 \section{Introduction}
-\label{sec:introduction}
+\label{sec:ch2-introduction}
 
 Large Language Models (LLMs) have revolutionized the field of Natural Language Processing (NLP) by achieving state-of-the-art performance on a wide range of tasks, such as text generation, text classification, and machine translation.
 These models are trained on vast amounts of text data to learn the underlying structure of the language and capture the relationships between words.
@@ -408,7 +408,7 @@ FLAN\footnote{Finetuned LAnguage Net, a 137B parameter pretrained language model
 	\label{fig:instruction-tuning-comparison}
 \end{figure}
 
-\textcite{chung2022scaling} have shown instruction-tuned (Figure~\ref{fig:instruction-finetuning}) PaLM\footnote{also called Flan-PaLM 540B-parameter model} enhance model performance on various tasks (i.e., MMLU, BBH, TyDiQA and MGSM) when the model size is at least 62B, though a much smaller size might suffice for some specific tasks (e.g., MMLU).
+\textcite{chung2022scaling} have shown instruction-tuned (Figure~\ref{fig:instruction-finetuning}) PaLM\footnote{Also called Flan-PaLM 540B-parameter model} enhance model performance on various tasks (i.e., MMLU, BBH, TyDiQA and MGSM) when the model size is at least 62B, though a much smaller size might suffice for some specific tasks (e.g., MMLU).
 
 \begin{figure}[h!]
 	\centering
@@ -484,7 +484,7 @@ A strategic approach involves multiple stages of tuning, starting with extensive
 
 Some additional strategies to improve the instruction tuning process include:
 \begin{itemize}
-	\item \textbf{Efficient training for multi-turn chat data.} {Given a multiturn chat\footnote{the conversation between a user and a bot} dataset, each conversation can be split into multiple context-response pairs for training: the model is fine-tuned to generate responses based on the corresponding context for all splits. To save computational resources, \textcite{chiang2023vicuna} propose a method that fine-tunes the model on the whole conversation, but relies on a loss mask that only computes the loss on the responses of the chatbot for training.
+	\item \textbf{Efficient training for multi-turn chat data.} {Given a multiturn chat\footnote{The conversation between a user and a bot} dataset, each conversation can be split into multiple context-response pairs for training: the model is fine-tuned to generate responses based on the corresponding context for all splits. To save computational resources, \textcite{chiang2023vicuna} propose a method that fine-tunes the model on the whole conversation, but relies on a loss mask that only computes the loss on the responses of the chatbot for training.
 	      }
 	\item \textbf{Filtering low-quality instructions using LLMs.} {Filtering out low-quality instructions through advanced LLMs helps maintain high training standards and reduces unnecessary computational expenses~\cite{wei2022fine}.}
 	\item \textbf{Establishing self-identification for LLM.} {In real world applications, it is important for LLMs to be able to identify themselves when asked. To achieve this, models like GPT-4 are trained to recognize and respond to self-identification instructions~\cite{radford2023gpt4}.
@@ -567,7 +567,7 @@ Harmlessness involves avoiding generating offensive or discriminatory language a
 The determination of what constitutes harm can vary significantly depending on cultural and individual differences and the context in which the model is used.
 
 \textcite{survey} notes the subjectivity of these criteria, rooted in human judgment, making them challenging to incorporate directly as optimization objectives in LLM training.
-Nonetheless, various strategies, such as red teaming\footnote{red teaming might involve trying to induce biased or harmful outputs from the model, to test its resistance to producing undesirable content under adversarial conditions.}, are employed to meet these criteria by intentionally challenging LLMs to provoke harmful outputs and then refining them to prevent such behaviors.
+Nonetheless, various strategies, such as red teaming\footnote{Red teaming might involve trying to induce biased or harmful outputs from the model, to test its resistance to producing undesirable content under adversarial conditions.}, are employed to meet these criteria by intentionally challenging LLMs to provoke harmful outputs and then refining them to prevent such behaviors.
 
 During the pre-training phase on large-scale corpus, it's not possible to take into account the subjective and qualitative evaluations of LLM outputs by humans.
 Human feedback is essential for alignment tuning, as it provides the necessary supervision to guide the model towards desirable behaviors.
