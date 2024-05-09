@@ -15,24 +15,24 @@ At their core, LLMs are designed to comprehend, learn, and generate coherent and
 
 Historically, the development of Language Models (LMs) has been rooted in the quest to understand and replicate human language and 4 main stages can be identified:
 \begin{enumerate}
-	\item \textbf{Statistical Language Models:} {These models were developed to capture the statistical properties of language, such as word frequencies and co-occurrences, to predict the likelihood of a given sequence of words based on the Markov assumption, which states that the probability of a word depends only on the previous $n$ words.
-		      If the context length $n$ is fixed, the model is called an $n$-gram model.\\
+	\item \textbf{Statistical Language Models:} {These models were developed to capture the statistical properties of language, such as word frequencies and co-occurrences, to predict the likelihood of a given sequence of words based on the Markov assumption, which states that the probability of a word depends only on the previous \textit{n} words.
+		      If the context length \textit{n} is fixed, the model is called an \textit{n}-gram model.\\
 		      However, these models are limited by the exponential number of transitions probabilities to be estimated, and the Markov assumption itself, which it may not always hold true in the complexity of natural languages.
 		      Language understanding often involves capturing dependencies over longer distances than what the Markov assumption allows for. Models that consider broader contexts, such as recurrent neural networks (RNNs) and transformers, have been developed to address these long-range dependencies in language processing tasks.}
 	\item \textbf{Neural Language Models:} {The advent of neural networks led to the development of language models that utilized neural architectures to capture the complex patterns and dependencies present in language.
 		      These models, such as recurrent neural networks (RNNs) and long short-term memory (LSTM) networks, were able to capture long-range dependencies and contextual information, enabling them to generate coherent and contextually relevant text.
-		      \textcite{nlm} introduced the concept of $distributed representation$ of words and build the word prediction function of the distributed word vectors.
+		      \textcite{nlm} introduced the concept of \textit{distributed representation} of words and build the word prediction function of the distributed word vectors.
 		      Later, word2vec (\textcite{word2vec, word2vec2}) introduced the word2vec model, which is a shallow, two-layer neural network that is trained to reconstruct linguistic contexts of words.
 		      These models were a significant leap forward in the development of language models, representing a shift from word sequencing to learning representation.}
 	\item \textbf{Pre-trained language models (PLM):} {The development of pre-trained language models (PLMs) marked a significant milestone in the evolution of language models.
 		      These models were trained on large corpora of data, in an unsupervised or self-supervised manner, before being fine-tuned on specific tasks. The idea is to pre-train a model on a diverse set of data and then transfer its knowledge to a narrower task by fine-tuning on a smaller, task-specific dataset.
-		      ELMo~\footnote{Embeddings from Language Models} (\textcite{elmo}) was one of the first PLMs, which used a bidirectional LSTM to generate word embeddings (instead of learning fixed word representations).
+		      ELMo~\footnote{Embeddings from Language Models} (\textcite{elmo}) was one of the first PLMs, which used a bidirectional LSTM to generate word embeddings instead of learning fixed word representations.
 		      \textcite{devlin2019bert} introduced BERT (Bidirectional Encoder Representations from Transformers), which is a transformer-based model that is pre-trained on a large corpus of text and then fine-tuned on specific tasks.
 		      BERT was a significant advancement in the field of natural language processing, as it demonstrated the potential of pre-trained language models to achieve state-of-the-art performance on a wide range of tasks.
-		      These studies introduced the $"pre-training and fine-tuning"$ paradigm, which has become a standard practice in the development of language models and inspired great number of models, such as GPT-2 (\textcite{radford2019language}), GPT-3 (\textcite{brown2020language}), T5 (\textcite{raffel2023exploring}), and many others.
+		      These studies introduced the \textit{"pre-training and fine-tuning"} paradigm, which has become a standard practice in the development of language models and inspired great number of models, such as GPT-2 (\textcite{radford2019language}), GPT-3 (\textcite{brown2020language}), T5 (\textcite{raffel2023exploring}), and many others.
 	      }
 	\item \textbf{Large Language Models (LLM):} {The emergence of large language models, characterized by their immense scale and complexity, has redefined the capabilities of language processing systems.
-		      Studies find that the performance of language models improves as the number of parameters ($e.g.$ model size) or data size increases, a phenomenon known as the scaling law in large language models.
+		      Studies find that the performance of language models improves as the number of parameters (e.g., model size) or data size increases, a phenomenon known as the scaling law in large language models.
 		      Many LLMs are built on the transformer architecture, which is designed to capture long-range dependencies and contextual information in language.
 		      The transformer architecture has become the foundation for many state-of-the-art language models and, unlike earlier models that were unidirectional (e.g., traditional RNNs), LLMs, especially those based on transformers, are bidirectional. They consider context from both preceding and following words, enhancing their understanding of language.
 		      LLMs find applications across various domains, including but not limited to:
@@ -43,7 +43,7 @@ Historically, the development of Language Models (LMs) has been rooted in the qu
 			      \item \textbf{Summarization:} Creating concise summaries of longer texts.
 			      \item \textbf{Sentiment Analysis:} Determining the sentiment expressed in a piece of text.
 		      \end{itemize}
-		      These large sized PLMs have been shown to outperform their smaller ($e.g.$, 330M-parameters vs 1.5B-parameters) and show surprising capabilities \footnote{Note that a LLM is not necessarily more capable than a small PLM, and emergent abilities may not occur in some LLMs.}, also called emergent abilities by \textcite{emergent2}.
+		      These large sized PLMs have been shown to outperform their smaller (e.g., 330M-parameters vs 1.5B-parameters) and show surprising capabilities \footnote{Note that a LLM is not necessarily more capable than a small PLM, and emergent abilities may not occur in some LLMs.}, also called emergent abilities by \textcite{emergent2}.
 		      \begin{displayquote}
 			      Emergence is when quantitative changes in a system result in qualitative changes in behavior (\textcite{emergent1}).
 		      \end{displayquote}
@@ -78,11 +78,11 @@ The scale of these models has enabled them to capture complex patterns in langua
 The potential of LLMs is vast, and their impact on the field of natural language processing is profound.
 The advent of ChatGPT (\textcite{chatgpt}) and GPT-4 (\textcite{gpt4}) has further expanded the capabilities of LLMs, leads to the rethinking of the possibilities of artificial general intelligence (AGI).
 Talking about NLP, LLMs can serve somewhat as a general-purpose language task solver.
-In the IR field, LLMs can be used to improve the performance of information retrieval systems, through AI chatbots ($i.e.$, ChatGPT), and New Bing \footnote{https://www.microsoft.com/it-it/bing?form=MA13FV}.
+In the IR field, LLMs can be used to improve the performance of information retrieval systems, through AI chatbots (i.e.,, ChatGPT), and New Bing \footnote{https://www.microsoft.com/it-it/bing?form=MA13FV}.
 In the CV field, LLMs can be used to improve the performance of computer vision systems, through multimodal models /footnote{
-Models designed to process and understand information from multiple modalities or sources ($e.g$, text, image, audio, video).
+Models designed to process and understand information from multiple modalities or sources (e.g., text, image, audio, video).
 Multimodal models aim to handle and integrate data from two or more of these modalities.
-} ($i.e.$, CLIP (\textcite{clip}) \footnote{Contrastive Language–Image Pre-training} and DALL-E (\textcite{dall-e})).
+} (i.e., CLIP (\textcite{clip}) \footnote{Contrastive Language–Image Pre-training} and DALL-E (\textcite{dall-e})).
 
 This work will mainly focus on model sizes larger than 10B parameters to explore their capabilities, limitations, and potential applications.
 It will delve into the emergent abilities of LLMs, such as in-context learning, instruction following, and step-by-step reasoning, and how these abilities can be leveraged to solve complex tasks.
