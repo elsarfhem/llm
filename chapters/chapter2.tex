@@ -1202,3 +1202,109 @@ Compared to attention operator in Transformers, Hyena has a lower computational 
 	\caption{The Hyena operator is defined as a recurrence of two efficient subquadratic primitives: an implicit long convolution h (i.e., Hyena filters parameterized by a feed-forward network) and multiplicative element-wise gating of the (projected) input. The depth of the recurrence specifies the size of the operator. Source: \textcite{poli2023hyena}.}
 	\label{fig:hyena}
 \end{figure}
+
+\section{Tuning and Optimization}
+\label{sec:tuning-optimization}
+
+Since LLMs consist of millions or billions of parameters, parameter tuning can be expensive and time-consuming.
+In this section, we discuss model adaptation of parameters and memory.
+
+\subsection{Parameter-efficient model adaptation}
+\label{subsec:parameter-efficient}
+
+In the existent literature, there are several methods to adapt the model parameters to improve the performance of LLMs~\cite{hu2021lora, li2021prefixtuning, lester2021power}.
+The goal of these methods is to reduce the number of parameters in the model while maintaining performance as much as possible.
+In the following sections, we discuss some of the most popular methods for parameter-efficient model adaptation, such as adapter tuning, prefix tuning, prompt tuning, and and LoRA (illustrated in Figure~\ref{fig:parameter-tuning}).
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=\textwidth]{parameter-tuning}
+	\caption{An illustration of four different parameter-efficient fine-tuning methods. MHA and FFN denote the multi-head
+		attention and feed-forward networks in the Transformer layer, respectively. Source: \textcite{survey}.}
+	\label{fig:parameter-tuning}
+\end{figure}
+
+\subsubsection{Adapter tuning}
+\label{subsubsec:adapter-tuning}
+
+Adapter tuning is a parameter-efficient technique for transferring a pre-trained model to multiple downstream tasks without re-training the entire model for each new task.
+This approach involves introducing small, trainable modules called "adapters" between the layers of a pre-trained network, allowing the original network's parameters to remain fixed while adapting the model to new tasks with a minimal increase in the total number of parameters.
+Adapter tuning is designed to address the inefficiency of fine-tuning large models where each new task typically requires re-training the entire model.
+Instead, adapter tuning uses a base pre-trained model and introduces small adapter layers that are trained for each specific task into the Transformer architecture~\cite{houlsby2019parameterefficient, hu2023llmadapters}, as shown in Figure~\ref{fig:adapter-architecture}.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.8\textwidth]{adapter-architecture}
+	\caption{On the left, the architecture of the adapter module and its integration with the Transformer. The adatper module is added twice to each Transformer layer.\\
+		On the right, the adapter module consists of a feed-forward network with a bottleneck layer and a residual connection. During adatper tuning, the green layers are trained on the downstream data, this includes the adapter, the layer normalization parameters, and the final classification layer (not shown in the figure). Source: \textcite{houlsby2019parameterefficient}.}
+	\label{fig:adapter-architecture}
+\end{figure}
+
+These adapter layers are typically much smaller than the main model layers, significantly reducing the number of new parameters that need to be trained.
+The main idea is that the adapter module first compresses the input representation to a lower-dimensional space (using a non linear transformation) and then expands it back to the original dimension, allowing the model to adapt to new tasks without changing the pre-trained parameters.
+This architecture is also called bottleneck architecture\footnote{
+	In neural network design, a bottleneck architecture refers to a specific configuration where the dimensionality of the input space is reduced to a lower dimension before being projected back to the original dimension or higher. This architecture is commonly employed in deep learning models to reduce the computational complexity, improve training efficiency, and sometimes to help in extracting more generalized features.
+}, and it can be represented with dimensional reduction usually achieved using a linear transformation $D : \R^d \rightarrow \R^m$ where $m<d$.
+This layer is represented by a weight matrix $W \in \R^{m \times d}$ and a bias vector $b \in \R^m$.
+
+\begin{equation}
+	y = \sigma (W_{d}x + b_d)
+	\label{eq:adapter-reduction}
+\end{equation}
+
+\noindent where $\sigma$ is a non-linear activation function, \textit{x} is the input vector, and \textit{y} is the output vector of reduced dimensionality.
+After processing through the reduced dimension, the representation is usually projected back to the original dimension or higher using another linear transformation $U : \R^m \rightarrow \R^d$ represented by $W_u \in \R^{d \times m}$ and $b_u \in \R^d$.
+
+\begin{equation}
+	z = \sigma (W_{u}y + b_u)
+	\label{eq:adapter-expansion}
+\end{equation}
+
+\noindent where \textit{z} is the output vector, which ideally represents the "reconstructed" version of the input after passing through the bottleneck.
+
+Alternatively, parallel adapter~\cite{he2022unified} can be also used in Transformer layers, where the adapter is added in parallel with the attention layer and the feed-forward layer accordingly.
+During fine-tuning, the adapter modules would be optimized according to the specific task goals, while the parameters of the original language model are frozen in this process.
+In this way, we can effectively reduce the number of trainable parameters during fine-tuning.
+
+Adapter tuning has been shown to achieve near state-of-the-art performance on various tasks with significantly fewer parameters compared to full fine-tuning.
+For example, on the GLUE benchmark, adapter tuning approaches the performance of full fine-tuning with only about 3.6\% of the parameters trained per task.
+
+\subsubsection{Prefix tuning}
+\label{subsubsec:prefix-tuning}
+
+Prefix-Tuning is introduced as an efficient alternative to traditional fine-tuning methods for deploying large pre-trained language models (PLMs) across various tasks.
+Traditional fine-tuning requires updating and storing a separate copy of the model for each task, which becomes computationally expensive as the size of the models increases (e.g., GPT-3's 175 billion parameters).
+Prefix-tuning addresses this by optimizing only a small set of parameters, referred to as a prefix, which significantly reduces the storage and computational overhead.
+The method involves prefixing a sequence of continuous, task-specific vectors to the input, allowing subsequent tokens in the Transformer model to attend to these prefixes as if they were part of the input sequence as shown in Figure~\ref{fig:prefix-tuning}.
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=0.6\textwidth]{prefix-tuning}
+	\caption{Illustration of the prefix-tuning method, which freezes the Transformer parameters and only optimizes the prefix (the red prefix blocks). Consequently, it only needs to store the prefix for each task, making prefix-tuning modular and space-efficient. Note that each vertical block denote transformer activations at one time step. Source: \textcite{li2021prefixtuning}.}
+	\label{fig:prefix-tuning}
+\end{figure}
+A novel approach to optimize prefix vectors involves using a re-parameterization technique, as described in the work by \textcite{li2021prefixtuning}.
+This method employs a multilayer perceptron (MLP) function to map a smaller matrix to the parameter matrix of the prefixes, rather than directly optimizing the prefixes themselves.
+This technique has proven effective for stabilizing the training process.
+Once optimization is complete, the mapping function is discarded, leaving only the refined prefix vectors, which are tailored to enhance performance on specific tasks.
+This approach leverages the inherent capabilities of the Transformer while only modifying a minimal set of parameters, making it modular and space-efficient.
+\textcite{li2021prefixtuning} provides detailed empirical evaluations demonstrating that prefix-tuning achieves comparable performance to full fine-tuning while only learning about 0.1\% of the parameters.
+Evaluations are performed on tasks like table-to-text generation and summarization using models such as GPT-2 and BART\@.
+Results indicate that prefix-tuning not only reduces parameter count significantly but also maintains competitive performance with traditional fine-tuning in full data settings and often outperforms it in low-data scenarios.
+The approach is particularly effective in handling tasks with unseen topics during training, showcasing better generalization capabilities~\cite{lewis2020bart}.
+
+\textcite{liu2022ptuning} introduces P-Tuning v2, a method that extends prompt tuning by applying continuous prompts across all layers of a language model, improving upon the conventional method where prompts are only used at the input layer.
+They address the limitations of traditional prompt tuning, which underperforms especially on complex sequence labeling tasks when model size is below 10 billion parameters~\cite{lester2021power}.
+P-Tuning v2 modifies the conventional prompt tuning by:
+\begin{itemize}
+	\item Utilizing continuous prompts at every layer of the model to increase tunable parameter count without significantly increasing overall parameter load.
+	\item Improving adaptability across both simple and complex tasks by modifying the interaction of prompts with model architecture~\cite{li2021prefixtuning, qin2021learning}.
+\end{itemize}
+P-Tuning v2 has been evaluated across a variety of model scales (from 330M to 10B parameters) and tasks including both classification and sequence labeling.
+The experiments demonstrate that P-Tuning v2 provides comparable results to full model fine-tuning while requiring only 0.1\%-3\% of the parameters to be tuned.
+\textcite{liu2022ptuning} concludes that P-Tuning v2 significantly narrows the performance gap between prompt tuning and full fine-tuning, offering a robust, scalable, and efficient alternative for adapting large pre-trained models to diverse NLU tasks.
+
+\subsubsection{Prompt tuning}
+\label{subsubsec:prompt-tuning}
+
+\subsubsection{LoRA}
+\label{subsubsec:lora}
