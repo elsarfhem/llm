@@ -12,7 +12,9 @@ These models are trained on vast amounts of text data to learn the underlying st
 
 In the following sections, we will explore the key concepts and techniques that underpin the development of LLMs, including pre-training strategies and major datasets used for training and evaluation, as well as the Transformer architecture, which forms the basis of many modern LLMs.
 
-Finally, we will discuss some model adaptation techniques that can be used to fine-tune LLMs for specific tasks or domains.
+After that, we will discuss some model adaptation techniques that can be used to fine-tune LLMs for specific tasks or domains.
+
+Finally, we will discuss tuning and quantization of LLMs, techniques used to reduce the model's size and computational complexity, making it more efficient for deployment on resource-constrained devices.
 
 \section{Pre-training}
 \label{sec:pre-training}
@@ -350,7 +352,6 @@ The adaptability and language-agnostic properties of Unigram tokenization make i
 
 The adaptation of Large Language Models (LLMs) is a critical aspect of their deployment in real-world applications, as it enables the models to be fine-tuned on specific tasks or domains after pre-training, enhancing their performance minimizing loss of  generalization capabilities.
 Adaptation can be achieved through various techniques, such as instruction tuning and alignment tuning, which allow LLMs to enhance (or unlock) theirs abilities and align their behaviours with human values or preferences~\cite{survey}.
-After that, we will discuss tuning and quantization of LLMs, techniques used to reduce the model's size and computational complexity, making it more efficient for deployment on resource-constrained devices.
 
 \begin{table}[htbp]
 	\centering
@@ -618,63 +619,6 @@ The alignment dataset may be created by LLMs aligned with human-written safety p
 Additionally, reward models can be reused to select highly-rated responses from existing human feedback data, enriching the dataset's quality and relevance.
 Non-RL alignment methods employ supervised learning strategies similar to those used in original instruction tuning.
 These methods may also integrate auxiliary learning objectives, such as ranking responses or contrasting instruction-response pairs, to further enhance the alignment accuracy and performance of LLMs.
-
-\subsection{Quantization}
-\label{subsec:quantization}
-
-Quantization techniques reduce memory and computational costs by representing weights and activations with lower-precision data types like 8-bit integers (int8).
-This enables loading larger models you normally wouldn’t be able to fit into memory, and speeding up inference.
-This process can lead to substantial reductions in both the storage requirements and the computational complexity of deploying LLMs, which is crucial for their application in resource-constrained environments.
-
-Quantization can be done in two ways: post-training quantization and quantization-aware training.
-Post-training quantization is done after the model has been trained, while quantization-aware training is done during training.
-Post-training quantization is easier to implement, but quantization-aware training can lead to better results.
-
-Main quantization techniques include: uniform quantization, non-uniform quantization, and mixed-precision quantization.
-Uniform quantization maps the floating-point values to a fixed set of integer values, while non-uniform quantization uses a non-linear mapping to better represent the distribution of the data.
-Mixed-precision quantization uses a combination of different precision data types to represent the weights and activations.
-
-Uniform quantization discretizes the values within a certain range into equal-sized intervals.
-Mathematically, it can be described as:
-
-\begin{equation}
-	\textbf{LinearQuant}(x, bitwidth) = \text{Clip}(\text{round}(\frac{x}{bitwidth}) \times bitwidth, minV, maxV)
-	\label{eq:uniform-quantization}
-\end{equation}
-
-\noindent where minV and maxV are the minimum and maximum scale range respectively~\cite{hubara2017quantized}.
-
-Non-uniform quantization, such as logarithmic quantization, allocates more fine-grained intervals to values that are more frequent or more sensitive to quantization errors.
-This method can be represented as:
-
-\begin{equation}
-	\textbf{LogQuant}(x, bitwidth)(x) = \text{Clip}(\text{AP2}(x), minV, maxV)
-	\label{eq:non-uniform-quantization}
-\end{equation}
-
-\noindent where AP2 is the approximate-power-of-2 function that maps the input to the nearest power of two as defined in \textcite{hubara2017quantized}.
-This approach is particularly effective for distributions with a high dynamic range~\cite{miyashita2016convolutional}.
-
-Mixed-precision quantization leverages the strengths of both uniform and non-uniform quantization by using different precision data types for different parts of the model.
-For example, weights can be quantized to 8-bit integers while activations are quantized to 16-bit integers.
-
-\begin{table}[htbp]
-	\centering
-	\begin{tabular}{ccc}
-		\toprule
-		Bit-width           & Storage Reduction & Accuracy Loss \\
-		\midrule
-		32 (Full Precision) & 0\%               & 0\%           \\
-		16                  & 50\%              & 1\%           \\
-		8                   & 75\%              & 2\%           \\
-		4                   & 87.5\%            & 5\%           \\
-		\bottomrule
-	\end{tabular}
-	\caption{Performance comparison of quantized LLM}
-	\label{tab:quant_perf}
-\end{table}
-
-As per Table~\ref{tab:quant_perf}, lower bit-widths generally result in more significant storage savings, but they can also lead to higher accuracy losses~\cite{jacob2017quantization}.
 
 \section{Architecture}
 \label{sec:architecture}
@@ -1276,7 +1220,7 @@ Prefix-Tuning is introduced as an efficient alternative to traditional fine-tuni
 Traditional fine-tuning requires updating and storing a separate copy of the model for each task, which becomes computationally expensive as the size of the models increases (e.g., GPT-3's 175 billion parameters).
 Prefix-tuning addresses this by optimizing only a small set of parameters, referred to as a prefix, which significantly reduces the storage and computational overhead.
 The method involves prefixing a sequence of continuous, task-specific vectors to the input, allowing subsequent tokens in the Transformer model to attend to these prefixes as if they were part of the input sequence as shown in Figure~\ref{fig:prefix-tuning}.
-\begin{figure}[h!]
+\begin{figure}[H]
 	\centering
 	\includegraphics[width=0.6\textwidth]{prefix-tuning}
 	\caption{Illustration of the prefix-tuning method, which freezes the Transformer parameters and only optimizes the prefix (the red prefix blocks). Consequently, it only needs to store the prefix for each task, making prefix-tuning modular and space-efficient. Note that each vertical block denote transformer activations at one time step. Source: \textcite{li2021prefixtuning}.}
@@ -1292,6 +1236,24 @@ Evaluations are performed on tasks like table-to-text generation and summarizati
 Results indicate that prefix-tuning not only reduces parameter count significantly but also maintains competitive performance with traditional fine-tuning in full data settings and often outperforms it in low-data scenarios.
 The approach is particularly effective in handling tasks with unseen topics during training, showcasing better generalization capabilities~\cite{lewis2020bart}.
 
+
+\subsubsection{Prompt tuning}
+\label{subsubsec:prompt-tuning}
+
+Prompt tuning primarily involves incorporating trainable vectors, called prompt tokens, at the input layer of a model.
+These tokens, based on discrete prompting techniques, augment the input text to assist models in performing specific tasks.
+In prompt tuning, these task-specific embeddings are combined with the original text embeddings and processed by language models.
+Specifically, the method known as P-tuning employs a flexible approach to integrate context, prompt, and target tokens.
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=0.8\textwidth]{prompt-tuning}
+	\caption{Illustration of the prompt tuning method, which only requires storing a small task-specific prompt for each task, and enables mixed-task inference using the original pretrained model. With model tuning, each copy of tuned models requires copy billions of parameters, while tuned prompt would only requires thousands parameters per task---a reduction of over five orders of magnitude. Source: \textcite{lester2021power}.}
+	\label{fig:prompt-tuning}
+\end{figure}
+This method is adaptable for tasks involving both understanding and generation of natural language and utilizes a bidirectional LSTM to learn representations of soft prompt tokens.
+During the training phase, only these prompt embeddings are updated based on task-specific requirements.
+The effectiveness of prompt tuning methods depends significantly on the computational power of the underlying language models, as they generally involve a limited number of trainable parameters at the input layer.
+
 \textcite{liu2022ptuning} introduces P-Tuning v2, a method that extends prompt tuning by applying continuous prompts across all layers of a language model, improving upon the conventional method where prompts are only used at the input layer.
 They address the limitations of traditional prompt tuning, which underperforms especially on complex sequence labeling tasks when model size is below 10 billion parameters~\cite{lester2021power}.
 P-Tuning v2 modifies the conventional prompt tuning by:
@@ -1303,8 +1265,113 @@ P-Tuning v2 has been evaluated across a variety of model scales (from 330M to 10
 The experiments demonstrate that P-Tuning v2 provides comparable results to full model fine-tuning while requiring only 0.1\%-3\% of the parameters to be tuned.
 \textcite{liu2022ptuning} concludes that P-Tuning v2 significantly narrows the performance gap between prompt tuning and full fine-tuning, offering a robust, scalable, and efficient alternative for adapting large pre-trained models to diverse NLU tasks.
 
-\subsubsection{Prompt tuning}
-\label{subsubsec:prompt-tuning}
-
 \subsubsection{LoRA}
 \label{subsubsec:lora}
+
+The technique called LoRA (Low-Rank Adaptation) is used for efficient fine-tuning of neural networks, particularly in the adaptation of dense layers to downstream tasks with a reduced number of trainable parameters.
+LoRA strategically freezes the original parameter matrix $W \in \R^{m \times n}$ and applies updates using a low-rank decomposition approach, which involves two smaller matrices $A \in \R^{m \times k}$ and $B \in \R^{n \times k}$ where $k$ is much smaller than $m$ or $n$.
+This method significantly reduces the memory and storage requirements by limiting the number of trainable parameters to those in $A$ and $B$, rather than the entire matrix $W$.
+
+The key advantage of LoRA is its ability to maintain a single large model while adapting it to various tasks using different sets of low-rank matrices for each task, enhancing storage efficiency and reducing computational costs.
+Advanced methods for determining the optimal rank have been proposed such as importance score-based allocation~\cite{zhang2023adalora} -- i.e., AdaLoRA -- and search-free optimal rank selection~\cite{valipour2023dylora} -- DyLoRA\@.
+These methods help to determine the optimal rank for the low-rank decomposition, ensuring that the model is adapted efficiently to the specific task requirements.
+
+In AdaLoRA\footnote{Adaptive Low-Rank Adaptation} the idea is that adding more trainable parameters to the critical weight matrices can lead to better model performance.
+In contrast, adding more parameters to those less important weight matrices yields very marginal gains or even hurt model performance.
+Given the parameter budget, i.e., the number of total trainable parameters, AdaLoRA always prefer to allocate more parameters to those important modules.
+Distributing the budget evenly to all weight matrices/layers, like LoRA and other methods (e.g., adapter and prefix
+tuning), often gives suboptimal performance~\cite{zhang2023adalora}.
+AdaLoRA operates by parameterizing the incremental updates in the form of singular value decomposition (SVD), allowing for selective pruning of updates based on their assessed importance.
+This selective pruning targets the singular values of unimportant updates, effectively reducing their parameter budget while avoiding the computational intensity of performing exact SVD calculations.
+SVD-based adaptation is represented as:
+
+\begin{equation}
+	W = W^{0} + \delta = W^{0} + P \Lambda Q
+	\label{eq:svd-adaptation}
+\end{equation}
+
+\noindent where $W^{0}$ is the original parameter matrix, $\delta$ is the update, $P$ and $Q$ are the left and right singular vectors, and $\Lambda$ is the singular value matrix.
+\textcite{zhang2023adalora} substantiates the effectiveness of AdaLoRA through extensive experiments across various NLP tasks, including question answering and natural language generation.
+These experiments demonstrate notable improvements in performance, particularly in low-budget settings, when compared to baseline methods such as full fine-tuning and other parameter-efficient techniques like LoRA and adapter tuning.
+Key benchmarks from the paper highlight AdaLoRA's superior performance on standard datasets like GLUE and SQuAD, where it consistently outperforms other approaches while utilizing fewer parameters.
+
+DyLoRA\footnote{Dynamic Search-Free Low Rank Adaptation} is a search-free method for determining the optimal rank for low-rank decomposition in neural networks.
+The method is based on the observation that the optimal rank for low-rank decomposition varies across different layers and tasks.
+The main advantages of DyLoRA over conventional LoRA include its ability to adapt to different rank sizes dynamically during inference, eliminating the need for exhaustive search and re-training across different rank sizes.
+This is achieved by training the low-rank modules (LoRA blocks) across a spectrum of ranks during the training phase, which allows the model to adjust to the best performing rank size at runtime without additional computational cost.
+This method is inspired by the nested dropout technique but tailored to the needs of dynamic rank adaptation.
+The implementation involves sampling a rank size during each training step and adjusting the adapter modules accordingly, which allows the model to learn to perform under various constraints of rank size efficiently.
+Main improvements of DyLoRA over LoRA include:
+
+\begin{enumerate}
+	\item Dynamic LoRA Blocks: DyLoRA modifies the standard LoRA blocks to be dynamic, allowing them to adjust their rank size during inference. This adaptation leads to more flexible models that can perform well across a broader range of tasks without the need for specific tuning for each task.
+
+	\item Search-Free Adaptation: By avoiding the exhaustive search for the optimal rank size, DyLoRA reduces the training and adaptation time significantly. The models can be trained once and used dynamically across different settings, making it highly efficient.
+
+	\item Performance: Experimental results show that DyLoRA matches or exceeds the performance of traditional LoRA with a static rank across various NLP tasks. This is demonstrated in tasks such as sentiment analysis, question answering, and natural language generation, indicating the robustness and versatility of DyLoRA.
+
+\end{enumerate}
+
+\subsubsection{Memory-efficient model adaptation}
+\label{subsubsec:memory-efficient}
+
+In addition to parameter-efficient model adaptation, memory-efficient techniques have been proposed to reduce the memory footprint of LLMs.
+These methods aim to reduce the memory requirements of LLMs during inference, making them more suitable for deployment in resource-constrained environments.
+In this section, we discuss some of the most popular method for memory-efficient model adaptation, i.e.\ model quantization.
+
+\subsubsection{Quantization}
+\label{subsubsec:quantization}
+
+Quantization techniques reduce memory and computational costs by representing weights and activations with lower-precision data types like 8-bit integers (int8).
+This enables loading larger models you normally wouldn’t be able to fit into memory, and speeding up inference.
+This process can lead to substantial reductions in both the storage requirements and the computational complexity of deploying LLMs, which is crucial for their application in resource-constrained environments.
+
+Quantization can be done in two ways: post-training quantization and quantization-aware training.
+Post-training quantization is done after the model has been trained, while quantization-aware training is done during training.
+Post-training quantization is easier to implement, but quantization-aware training can lead to better results.
+
+Main quantization techniques include: uniform quantization, non-uniform quantization, and mixed-precision quantization.
+Uniform quantization maps the floating-point values to a fixed set of integer values, while non-uniform quantization uses a non-linear mapping to better represent the distribution of the data.
+Mixed-precision quantization uses a combination of different precision data types to represent the weights and activations.
+
+Uniform quantization discretizes the values within a certain range into equal-sized intervals.
+Mathematically, it can be described as:
+
+\begin{equation}
+	\textbf{LinearQuant}(x, bitwidth) = \text{Clip}(\text{round}(\frac{x}{bitwidth}) \times bitwidth, minV, maxV)
+	\label{eq:uniform-quantization}
+\end{equation}
+
+\noindent where minV and maxV are the minimum and maximum scale range respectively~\cite{hubara2017quantized}.
+
+Non-uniform quantization, such as logarithmic quantization, allocates more fine-grained intervals to values that are more frequent or more sensitive to quantization errors.
+This method can be represented as:
+
+\begin{equation}
+	\textbf{LogQuant}(x, bitwidth)(x) = \text{Clip}(\text{AP2}(x), minV, maxV)
+	\label{eq:non-uniform-quantization}
+\end{equation}
+
+\noindent where AP2 is the approximate-power-of-2 function that maps the input to the nearest power of two as defined in \textcite{hubara2017quantized}.
+This approach is particularly effective for distributions with a high dynamic range~\cite{miyashita2016convolutional}.
+
+Mixed-precision quantization leverages the strengths of both uniform and non-uniform quantization by using different precision data types for different parts of the model.
+For example, weights can be quantized to 8-bit integers while activations are quantized to 16-bit integers.
+
+\begin{table}[htbp]
+	\centering
+	\begin{tabular}{ccc}
+		\toprule
+		Bit-width           & Storage Reduction & Accuracy Loss \\
+		\midrule
+		32 (Full Precision) & 0\%               & 0\%           \\
+		16                  & 50\%              & 1\%           \\
+		8                   & 75\%              & 2\%           \\
+		4                   & 87.5\%            & 5\%           \\
+		\bottomrule
+	\end{tabular}
+	\caption{Performance comparison of quantized LLM}
+	\label{tab:quant_perf}
+\end{table}
+
+As per Table~\ref{tab:quant_perf}, lower bit-widths generally result in more significant storage savings, but they can also lead to higher accuracy losses~\cite{jacob2017quantization}.
