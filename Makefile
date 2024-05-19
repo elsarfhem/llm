@@ -2,8 +2,8 @@ all: format
 	pdflatex -file-line-error -interaction=nonstopmode -synctex=1 -output-format=pdf -output-directory=/Users/amatarazzo/git-repos/llm/out main.tex
 	biber ./out/main
 	pdflatex -file-line-error -interaction=nonstopmode -synctex=1 -output-format=pdf -output-directory=/Users/amatarazzo/git-repos/llm/out main.tex
-	open ./out/main.pdf
-	find . -type f -name "*.bak*" -exec rm {} \;
+	$(MAKE) open
+	$(MAKE) clean
 
 format:
 	/opt/homebrew/opt/latexindent/bin/latexindent -w chapters/*.tex
@@ -11,6 +11,13 @@ format:
 	bibtex-tidy -m refs.bib
 
 clean:
+	find . -type f -name "*.bak*" -exec rm {} \;
+	find . -type f -name "*.log" -exec rm {} \;
+
+clean-all:
 	rm -f out/*
 	find . -type f -name "*.bak*" -exec rm {} \;
 	find . -type f -name "*.log" -exec rm {} \;
+
+open:
+	open ./out/main.pdf
