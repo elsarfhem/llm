@@ -2380,10 +2380,288 @@ J. W. Rae, S. Borgeaud, T. Cai, K. Millican, J. Hoff- mann, H. F. Song, J. Aslan
   note          = {arXiv preprint arXiv:2305.09137},
   url           = {https://arxiv.org/abs/2305.09137}
 }
-@inproceedings{wei2022finetuned,
-  title         = {Finetuned Language Models are Zero-Shot Learners},
-  author        = {Jason Wei and Maarten Bosma and Vincent Zhao and Kelvin Guu and Adams Wei Yu and Brian Lester and Nan Du and Andrew M. Dai and Quoc V Le},
+@online{liu2021pretrain,
+  author        = {Liu, Pengfei and Yuan, Weizhe and Fu, Jinlan and Jiang, Zhengbao and Hayashi, Hiroaki and Neubig, Graham},
+  title         = {Pre-train, Prompt, and Predict: A Systematic Survey of Prompting Methods in Natural Language Processing},
+  year          = {2021},
+  note          = {arXiv preprint arXiv:2107.13586},
+  url           = {https://arxiv.org/abs/2107.13586}
+}
+@article{wies2023learnability,
+  author        = {Wies, N. and Levine, Y. and Shashua, A.},
+  title         = {The Learnability of In-context Learning},
+  journal       = {CoRR},
+  volume        = {abs/2303.07895},
+  year          = {2023}
+}
+@article{akyurek2022what,
+  author        = {Aky{\"u}rek, E. and Schuurmans, D. and Andreas, J. and Ma, T. and Zhou, D.},
+  title         = {What Learning Algorithm Is In-context Learning? Investigations with Linear Models},
+  journal       = {CoRR},
+  volume        = {abs/2211.15661},
+  year          = {2022}
+}
+@article{pan2023what,
+  author        = {Pan, J. and Gao, T. and Chen, H. and Chen, D.},
+  title         = {What In-context Learning "Learns" In-context: Disentangling Task Recognition and Task Learning},
+  journal       = {CoRR},
+  volume        = {abs/2305.09731},
+  year          = {2023}
+}
+@inproceedings{min2022noisy,
+  title         = "Noisy Channel Language Model Prompting for Few-Shot Text Classification",
+  author        = "Min, Sewon  and Lewis, Mike  and Hajishirzi, Hannaneh  and Zettlemoyer, Luke",
+  editor        = "Muresan, Smaranda  and Nakov, Preslav  and Villavicencio, Aline",
+  booktitle     = "Proceedings of the 60th Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers)",
+  month         = may,
+  year          = "2022",
+  address       = "Dublin, Ireland",
+  publisher     = "Association for Computational Linguistics",
+  url           = "https://aclanthology.org/2022.acl-long.365",
+  doi           = "10.18653/v1/2022.acl-long.365",
+  pages         = "5316--5330",
+  abstract      = "We introduce a noisy channel approach for language model prompting in few-shot text classification. Instead of computing the likelihood of the label given the input (referred as direct models), channel models compute the conditional probability of the input given the label, and are thereby required to explain every word in the input. We use channel models for recently proposed few-shot learning methods with no or very limited updates to the language model parameters, via either in-context demonstration or prompt tuning. Our experiments show that, for both methods, channel models significantly outperform their direct counterparts, which we attribute to their stability, i.e., lower variance and higher worst-case accuracy. We also present extensive ablations that provide recommendations for when to use channel prompt tuning instead of other competitive models (e.g., direct head tuning): channel prompt tuning is preferred when the number of training examples is small, labels in the training data are imbalanced, or generalization to unseen labels is required."
+}
+@inproceedings{zhao2021calibrate,
+  title         = {Calibrate Before Use: Improving Few-shot Performance of Language Models},
+  author        = {Zhao, Zihao and Wallace, Eric and Feng, Shi and Klein, Dan and Singh, Sameer},
+  booktitle     = {Proceedings of the 38th International Conference on Machine Learning},
+  pages         = {12697--12706},
+  year          = {2021},
+  editor        = {Meila, Marina and Zhang, Tong},
+  volume        = {139},
+  series        = {Proceedings of Machine Learning Research},
+  month         = {18--24 Jul},
+  publisher     = {PMLR},
+  pdf           = {http://proceedings.mlr.press/v139/zhao21c/zhao21c.pdf},
+  url           = {https://proceedings.mlr.press/v139/zhao21c.html},
+  abstract      = {GPT-3 can perform numerous tasks when provided a natural language prompt that contains a few training examples. We show that this type of few-shot learning can be unstable: the choice of prompt format, training examples, and even the order of the examples can cause accuracy to vary from near chance to near state-of-the-art. We demonstrate that this instability arises from the bias of language models towards predicting certain answers, e.g., those that are placed near the end of the prompt or are common in the pre-training data. To mitigate this, we first estimate the model's bias towards each answer by asking for its prediction when given a training prompt and a content-free test input such as "N/A". We then fit calibration parameters that cause the prediction for this input to be uniform across answers. On a diverse set of tasks, this contextual calibration procedure substantially improves GPT-3 and GPT-2's accuracy (up to 30.0\% absolute) across different choices of the prompt, while also making learning considerably more stable.}
+}
+@inproceedings{shin2022effect,
+  title         = "On the Effect of Pretraining Corpora on In-context Learning by a Large-scale Language Model",
+  author        = "Shin, Seongjin  and Lee, Sang-Woo  and Ahn, Hwijeen  and Kim, Sungdong  and Kim, HyoungSeok  and Kim, Boseop  and Cho, Kyunghyun  and Lee, Gichang  and Park, Woomyoung  and Ha, Jung-Woo  and Sung, Nako",
+  editor        = "Carpuat, Marine  and de Marneffe, Marie-Catherine  and Meza Ruiz, Ivan Vladimir",
+  booktitle     = "Proceedings of the 2022 Conference of the North American Chapter of the Association for Computational Linguistics: Human Language Technologies",
+  month         = jul,
+  year          = "2022",
+  address       = "Seattle, United States",
+  publisher     = "Association for Computational Linguistics",
+  url           = "https://aclanthology.org/2022.naacl-main.380",
+  doi           = "10.18653/v1/2022.naacl-main.380",
+  pages         = "5168--5186",
+  abstract      = "Many recent studies on large-scale language models have reported successful in-context zero- and few-shot learning ability. However, the in-depth analysis of when in-context learning occurs is still lacking. For example, it is unknown how in-context learning performance changes as the training corpus varies. Here, we investigate the effects of the source and size of the pretraining corpus on in-context learning in HyperCLOVA, a Korean-centric GPT-3 model. From our in-depth investigation, we introduce the following observations: (1) in-context learning performance heavily depends on the corpus domain source, and the size of the pretraining corpus does not necessarily determine the emergence of in-context learning, (2) in-context learning ability can emerge when a language model is trained on a combination of multiple corpora, even when each corpus does not result in in-context learning on its own, (3) pretraining with a corpus related to a downstream task does not always guarantee the competitive in-context learning performance of the downstream task, especially in the few-shot setting, and (4) the relationship between language modeling (measured in perplexity) and in-context learning does not always correlate: e.g., low perplexity does not always imply high in-context few-shot learning performance."
+}
+@article{min2022rethinking,
+  author        = {Min, Sewon and Lyu, Xinxi and Holtzman, Ari and Artetxe, Mikel and Lewis, Mike and Hajishirzi, Hannaneh and Zettlemoyer, Luke},
+  title         = {Rethinking the Role of Demonstrations: What Makes In-context Learning Work?},
+  journal       = {CoRR},
+  volume        = {abs/2202.12837},
+  year          = {2022},
+  url           = {https://arxiv.org/abs/2202.12837}
+}
+@article{an2023how,
+  author        = {An, Shengnan and Lin, Zeqi and Fu, Qiang and Chen, Bei and Zheng, Nanning and Lou, Jian-Guang and Zhang, Dongmei},
+  title         = {How Do In-context Examples Affect Compositional Generalization?},
+  journal       = {CoRR},
+  volume        = {abs/2305.04835},
+  year          = {2023},
+  url           = {https://arxiv.org/abs/2305.04835}
+}
+@misc{yoo2022groundtruth,
+  title         = {Ground-Truth Labels Matter: A Deeper Look into Input-Label Demonstrations},
+  author        = {Kang Min Yoo and Junyeob Kim and Hyuhng Joon Kim and Hyunsoo Cho and Hwiyeol Jo and Sang-Woo Lee and Sang-goo Lee and Taeuk Kim},
+  year          = {2022},
+  eprint        = {2205.12685},
+  archiveprefix = {arXiv},
+  primaryclass  = {cs.CL}
+}
+@misc{wei2023larger,
+  title         = {Larger language models do in-context learning differently},
+  author        = {Jerry Wei and Jason Wei and Yi Tay and Dustin Tran and Albert Webson and Yifeng Lu and Xinyun Chen and Hanxiao Liu and Da Huang and Denny Zhou and Tengyu Ma},
+  year          = {2023},
+  eprint        = {2303.03846},
+  archiveprefix = {arXiv},
+  primaryclass  = {cs.CL}
+}
+@misc{chan2022data,
+  title         = {Data Distributional Properties Drive Emergent In-Context Learning in Transformers},
+  author        = {Stephanie C. Y. Chan and Adam Santoro and Andrew K. Lampinen and Jane X. Wang and Aaditya Singh and Pierre H. Richemond and Jay McClelland and Felix Hill},
+  year          = {2022},
+  eprint        = {2205.05055},
+  archiveprefix = {arXiv},
+  primaryclass  = {cs.LG}
+}
+@inproceedings{xie2022an,
+  title         = {An Explanation of In-context Learning as Implicit Bayesian Inference},
+  author        = {Sang Michael Xie and Aditi Raghunathan and Percy Liang and Tengyu Ma},
   booktitle     = {International Conference on Learning Representations},
   year          = {2022},
-  url           = {https://openreview.net/forum?id=gEZrGCozdqR}
+  url           = {https://openreview.net/forum?id=RdJVFCHjUMI}
+}
+@misc{garg2023transformers,
+  title         = {What Can Transformers Learn In-Context? A Case Study of Simple Function Classes},
+  author        = {Shivam Garg and Dimitris Tsipras and Percy Liang and Gregory Valiant},
+  year          = {2023},
+  eprint        = {2208.01066},
+  archiveprefix = {arXiv},
+  primaryclass  = {cs.CL}
+}
+@misc{li2023transformers,
+  title         = {Transformers as Algorithms: Generalization and Stability in In-context Learning},
+  author        = {Yingcong Li and M. Emrullah Ildiz and Dimitris Papailiopoulos and Samet Oymak},
+  year          = {2023},
+  eprint        = {2301.07067},
+  archiveprefix = {arXiv},
+  primaryclass  = {cs.LG}
+}
+@misc{hahn2023theory,
+  title         = {A Theory of Emergent In-Context Learning as Implicit Structure Induction},
+  author        = {Michael Hahn and Navin Goyal},
+  year          = {2023},
+  eprint        = {2303.07971},
+  archiveprefix = {arXiv},
+  primaryclass  = {cs.CL}
+}
+@misc{vonoswald2023transformers,
+  title         = {Transformers learn in-context by gradient descent},
+  author        = {Johannes von Oswald and Eyvind Niklasson and Ettore Randazzo and Jo\~{a}o Sacramento and Alexander Mordvintsev and Andrey Zhmoginov and Max Vladymyrov},
+  year          = {2023},
+  eprint        = {2212.07677},
+  archiveprefix = {arXiv},
+  primaryclass  = {cs.LG}
+}
+@misc{olsson2022incontext,
+  title         = {In-context Learning and Induction Heads},
+  author        = {Catherine Olsson and Nelson Elhage and Neel Nanda and Nicholas Joseph and Nova DasSarma and Tom Henighan and Ben Mann and Amanda Askell and Yuntao Bai and Anna Chen and Tom Conerly and Dawn Drain and Deep Ganguli and Zac Hatfield-Dodds and Danny Hernandez and Scott Johnston and Andy Jones and Jackson Kernion and Liane Lovitt and Kamal Ndousse and Dario Amodei and Tom Brown and Jack Clark and Jared Kaplan and Sam McCandlish and Chris Olah},
+  year          = {2022},
+  eprint        = {2209.11895},
+  archiveprefix = {arXiv},
+  primaryclass  = {cs.LG}
+}
+@misc{suzgun2022challenging,
+  title         = {Challenging BIG-Bench Tasks and Whether Chain-of-Thought Can Solve Them},
+  author        = {Mirac Suzgun and Nathan Scales and Nathanael Sch\"{a}rli and Sebastian Gehrmann and Yi Tay and Hyung Won Chung and Aakanksha Chowdhery and Quoc V. Le and Ed H. Chi and Denny Zhou and Jason Wei},
+  year          = {2022},
+  eprint        = {2210.09261},
+  archiveprefix = {arXiv},
+  primaryclass  = {cs.CL}
+}
+@misc{srivastava2023imitation,
+  title         = {Beyond the Imitation Game: Quantifying and extrapolating the capabilities of language models},
+  author        = {Aarohi Srivastava and Abhinav Rastogi and Abhishek Rao and Abu Awal Md Shoeb and Abubakar Abid and Adam Fisch and Adam R. Brown and Adam Santoro and Aditya Gupta and Adri\`{a} Garriga-Alonso and Agnieszka Kluska and Aitor Lewkowycz and Akshat Agarwal and Alethea Power and Alex Ray and Alex Warstadt and Alexander W. Kocurek and Ali Safaya and Ali Tazarv and Alice Xiang and Alicia Parrish and Allen Nie and Aman Hussain and Amanda Askell and Amanda Dsouza and Ambrose Slone and Ameet Rahane and Anantharaman S. Iyer and Anders Andreassen and Andrea Madotto and Andrea Santilli and Andreas Stuhlm\"{u}ller and Andrew Dai and Andrew La and Andrew Lampinen and Andy Zou and Angela Jiang and Angelica Chen and Anh Vuong and Animesh Gupta and Anna Gottardi and Antonio Norelli and Anu Venkatesh and Arash Gholamidavoodi and Arfa Tabassum and Arul Menezes and Arun Kirubarajan and Asher Mullokandov and Ashish Sabharwal and Austin Herrick and Avia Efrat and Aykut Erdem and Ayla Karaka\c{s} and B. Ryan Roberts and Bao Sheng Loe and Barret Zoph and Bart\l{}omiej Bojanowski and Batuhan \"{O}zyurt and Behnam Hedayatnia and Behnam Neyshabur and Benjamin Inden and Benno Stein and Berk Ekmekci and Bill Yuchen Lin and Blake Howald and Bryan Orinion and Cameron Diao and Cameron Dour and Catherine Stinson and Cedrick Argueta and C\'{e}sar Ferri Ram\'{\i}rez and Chandan Singh and Charles Rathkopf and Chenlin Meng and Chitta Baral and Chiyu Wu and Chris Callison-Burch and Chris Waites and Christian Voigt and Christopher D. Manning and Christopher Potts and Cindy Ramirez and Clara E. Rivera and Clemencia Siro and Colin Raffel and Courtney Ashcraft and Cristina Garbacea and Damien Sileo and Dan Garrette and Dan Hendrycks and Dan Kilman and Dan Roth and Daniel Freeman and Daniel Khashabi and Daniel Levy and Daniel Mosegu\'{\i} Gonz\'{a}lez and Danielle Perszyk and Danny Hernandez and Danqi Chen and Daphne Ippolito and Dar Gilboa and David Dohan and David Drakard and David Jurgens and Debajyoti Datta and Deep Ganguli and Denis Emelin and Denis Kleyko and Deniz Yuret and Derek Chen and Derek Tam and Dieuwke Hupkes and Diganta Misra and Dilyar Buzan and Dimitri Coelho Mollo and Diyi Yang and Dong-Ho Lee and Dylan Schrader and Ekaterina Shutova and Ekin Dogus Cubuk and Elad Segal and Eleanor Hagerman and Elizabeth Barnes and Elizabeth Donoway and Ellie Pavlick and Emanuele Rodola and Emma Lam and Eric Chu and Eric Tang and Erkut Erdem and Ernie Chang and Ethan A. Chi and Ethan Dyer and Ethan Jerzak and Ethan Kim and Eunice Engefu Manyasi and Evgenii Zheltonozhskii and Fanyue Xia and Fatemeh Siar and Fernando Mart\'{\i}nez-Plumed and Francesca Happ\'{e} and Francois Chollet and Frieda Rong and Gaurav Mishra and Genta Indra Winata and Gerard de Melo and Germ\'{a}n Kruszewski and Giambattista Parascandolo and Giorgio Mariani and Gloria Wang and Gonzalo Jaimovitch-L\'{o}pez and Gregor Betz and Guy Gur-Ari and Hana Galijasevic and Hannah Kim and Hannah Rashkin and Hannaneh Hajishirzi and Harsh Mehta and Hayden Bogar and Henry Shevlin and Hinrich Sch\"{u}tze and Hiromu Yakura and Hongming Zhang and Hugh Mee Wong and Ian Ng and Isaac Noble and Jaap Jumelet and Jack Geissinger and Jackson Kernion and Jacob Hilton and Jaehoon Lee and Jaime Fern\'{a}ndez Fisac and James B. Simon and James Koppel and James Zheng and James Zou and Jan Koco\'{n} and Jana Thompson and Janelle Wingfield and Jared Kaplan and Jarema Radom and Jascha Sohl-Dickstein and Jason Phang and Jason Wei and Jason Yosinski and Jekaterina Novikova and Jelle Bosscher and Jennifer Marsh and Jeremy Kim and Jeroen Taal and Jesse Engel and Jesujoba Alabi and Jiacheng Xu and Jiaming Song and Jillian Tang and Joan Waweru and John Burden and John Miller and John U. Balis and Jonathan Batchelder and Jonathan Berant and J\"{o}rg Frohberg and Jos Rozen and Jose Hernandez-Orallo and Joseph Boudeman and Joseph Guerr and Joseph Jones and Joshua B. Tenenbaum and Joshua S. Rule and Joyce Chua and Kamil Kanclerz and Karen Livescu and Karl Krauth and Karthik Gopalakrishnan and Katerina Ignatyeva and Katja Markert and Kaustubh D. Dhole and Kevin Gimpel and Kevin Omondi and Kory Mathewson and Kristen Chiafullo and Ksenia Shkaruta and Kumar Shridhar and Kyle McDonell and Kyle Richardson and Laria Reynolds and Leo Gao and Li Zhang and Liam Dugan and Lianhui Qin and Lidia Contreras-Ochando and Louis-Philippe Morency and Luca Moschella and Lucas Lam and Lucy Noble and Ludwig Schmidt and Luheng He and Luis Oliveros Col\'{o}n and Luke Metz and L\"{u}tfi Kerem \c{S}enel and Maarten Bosma and Maarten Sap and Maartje ter Hoeve and Maheen Farooqi and Manaal Faruqui and Mantas Mazeika and Marco Baturan and Marco Marelli and Marco Maru and Maria Jose Ram\'{\i}rez Quintana and Marie Tolkiehn and Mario Giulianelli and Martha Lewis and Martin Potthast and Matthew L. Leavitt and Matthias Hagen and M\'{a}ty\'{a}s Schubert and Medina Orduna Baitemirova and Melody Arnaud and Melvin McElrath and Michael A. Yee and Michael Cohen and Michael Gu and Michael Ivanitskiy and Michael Starritt and Michael Strube and Micha\l{} Sw\k{e}drowski and Michele Bevilacqua and Michihiro Yasunaga and Mihir Kale and Mike Cain and Mimee Xu and Mirac Suzgun and Mitch Walker and Mo Tiwari and Mohit Bansal and Moin Aminnaseri and Mor Geva and Mozhdeh Gheini and Mukund Varma T and Nanyun Peng and Nathan A. Chi and Nayeon Lee and Neta Gur-Ari Krakover and Nicholas Cameron and Nicholas Roberts and Nick Doiron and Nicole Martinez and Nikita Nangia and Niklas Deckers and Niklas Muennighoff and Nitish Shirish Keskar and Niveditha S. Iyer and Noah Constant and Noah Fiedel and Nuan Wen and Oliver Zhang and Omar Agha and Omar Elbaghdadi and Omer Levy and Owain Evans and Pablo Antonio Moreno Casares and Parth Doshi and Pascale Fung and Paul Pu Liang and Paul Vicol and Pegah Alipoormolabashi and Peiyuan Liao and Percy Liang and Peter Chang and Peter Eckersley and Phu Mon Htut and Pinyu Hwang and Piotr Mi\l{}kowski and Piyush Patil and Pouya Pezeshkpour and Priti Oli and Qiaozhu Mei and Qing Lyu and Qinlang Chen and Rabin Banjade and Rachel Etta Rudolph and Raefer Gabriel and Rahel Habacker and Ramon Risco and Rapha\"{e}l Milli\`{e}re and Rhythm Garg and Richard Barnes and Rif A. Saurous and Riku Arakawa and Robbe Raymaekers and Robert Frank and Rohan Sikand and Roman Novak and Roman Sitelew and Ronan LeBras and Rosanne Liu and Rowan Jacobs and Rui Zhang and Ruslan Salakhutdinov and Ryan Chi and Ryan Lee and Ryan Stovall and Ryan Teehan and Rylan Yang and Sahib Singh and Saif M. Mohammad and Sajant Anand and Sam Dillavou and Sam Shleifer and Sam Wiseman and Samuel Gruetter and Samuel R. Bowman and Samuel S. Schoenholz and Sanghyun Han and Sanjeev Kwatra and Sarah A. Rous and Sarik Ghazarian and Sayan Ghosh and Sean Casey and Sebastian Bischoff and Sebastian Gehrmann and Sebastian Schuster and Sepideh Sadeghi and Shadi Hamdan and Sharon Zhou and Shashank Srivastava and Sherry Shi and Shikhar Singh and Shima Asaadi and Shixiang Shane Gu and Shubh Pachchigar and Shubham Toshniwal and Shyam Upadhyay and Shyamolima and Debnath and Siamak Shakeri and Simon Thormeyer and Simone Melzi and Siva Reddy and Sneha Priscilla Makini and Soo-Hwan Lee and Spencer Torene and Sriharsha Hatwar and Stanislas Dehaene and Stefan Divic and Stefano Ermon and Stella Biderman and Stephanie Lin and Stephen Prasad and Steven T. Piantadosi and Stuart M. Shieber and Summer Misherghi and Svetlana Kiritchenko and Swaroop Mishra and Tal Linzen and Tal Schuster and Tao Li and Tao Yu and Tariq Ali and Tatsu Hashimoto and Te-Lin Wu and Th\'{e}o Desbordes and Theodore Rothschild and Thomas Phan and Tianle Wang and Tiberius Nkinyili and Timo Schick and Timofei Kornev and Titus Tunduny and Tobias Gerstenberg and Trenton Chang and Trishala Neeraj and Tushar Khot and Tyler Shultz and Uri Shaham and Vedant Misra and Vera Demberg and Victoria Nyamai and Vikas Raunak and Vinay Ramasesh and Vinay Uday Prabhu and Vishakh Padmakumar and Vivek Srikumar and William Fedus and William Saunders and William Zhang and Wout Vossen and Xiang Ren and Xiaoyu Tong and Xinran Zhao and Xinyi Wu and Xudong Shen and Yadollah Yaghoobzadeh and Yair Lakretz and Yangqiu Song and Yasaman Bahri and Yejin Choi and Yichi Yang and Yiding Hao and Yifu Chen and Yonatan Belinkov and Yu Hou and Yufang Hou and Yuntao Bai and Zachary Seid and Zhuoye Zhao and Zijian Wang and Zijie J. Wang and Zirui Wang and Ziyi Wu},
+  year          = {2023},
+  eprint        = {2206.04615},
+  archiveprefix = {arXiv},
+  primaryclass  = {cs.CL}
+}
+@misc{wu2023openicl,
+  title         = {OpenICL: An Open-Source Framework for In-context Learning},
+  author        = {Zhenyu Wu and YaoXiang Wang and Jiacheng Ye and Jiangtao Feng and Jingjing Xu and Yu Qiao and Zhiyong Wu},
+  year          = {2023},
+  eprint        = {2303.02913},
+  archiveprefix = {arXiv},
+  primaryclass  = {cs.CL}
+}
+@inproceedings{bar2022visual,
+  author        = {Bar, Amir and Gandelsman, Yossi and Darrell, Trevor and Globerson, Amir and Efros, Alexei},
+  title         = {Visual Prompting via Image Inpainting},
+  booktitle     = {Advances in Neural Information Processing Systems},
+  volume        = {35},
+  pages         = {25005--25017},
+  year          = {2022}
+}
+@inproceedings{wang2023images,
+  author        = {Wang, Xinlong and Wang, Wen and Cao, Yue and Shen, Chunhua and Huang, Tiejun},
+  title         = {Images Speak in Images: A Generalist Painter for In-Context Visual Learning},
+  booktitle     = {Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition},
+  pages         = {6830--6839},
+  year          = {2023},
+  month         = {June}
+}
+@article{wang2023seggpt,
+  author        = {Wang, Xinlong and Zhang, Xiaosong and Cao, Yue and Wang, Wen and Shen, Chunhua and Huang, Tiejun},
+  title         = {SegGPT: Segmenting Everything in Context},
+  journal       = {CoRR},
+  volume        = {abs/2304.03284},
+  year          = {2023},
+  eprint        = {2304.03284},
+  archiveprefix = {arXiv},
+  primaryclass  = {cs.CV}
+}
+@online{wang2023incontext,
+  author        = {Wang, Zhendong and Jiang, Yifan and Lu, Yadong and Shen, Yelong and He, Pengcheng and Chen, Weizhu and Wang, Zhangyang and Zhou, Mingyuan},
+  title         = {In-Context Learning Unlocked for Diffusion Models},
+  year          = {2023},
+  note          = {arXiv preprint arXiv:2305.01115},
+  url           = {https://arxiv.org/abs/2305.01115}
+}
+@article{tsimpoukelli2021frozen,
+  title         = {Frozen in Time: Temporal Contextualization for In-Context Learning},
+  author        = {Tsimpoukelli, Katerina and Karamanolakis, Giorgos and Katsamanis, Athanasios and Maragos, Petros},
+  journal       = {CoRR},
+  volume        = {abs/2109.14867},
+  year          = {2021},
+  eprint        = {2109.14867},
+  archiveprefix = {arXiv},
+  primaryclass  = {cs.CL}
+}
+@inproceedings{alayrac2022flamingo,
+  title         = {Flamingo: a Visual Language Model for Few-Shot Learning},
+  author        = {Jean-Baptiste Alayrac and Jeff Donahue and Pauline Luc and Antoine Miech and Iain Barr and Yana Hasson and Karel Lenc and Arthur Mensch and Katherine Millican and Malcolm Reynolds and Roman Ring and Eliza Rutherford and Serkan Cabi and Tengda Han and Zhitao Gong and Sina Samangooei and Marianne Monteiro and Jacob Menick and Sebastian Borgeaud and Andrew Brock and Aida Nematzadeh and Sahand Sharifzadeh and Mikolaj Binkowski and Ricardo Barreira and Oriol Vinyals and Andrew Zisserman and Karen Simonyan},
+  booktitle     = {Advances in Neural Information Processing Systems},
+  editor        = {Alice H. Oh and Alekh Agarwal and Danielle Belgrave and Kyunghyun Cho},
+  year          = {2022},
+  url           = {https://openreview.net/forum?id=EbMuimAbPbs}
+}
+@online{huang2023language,
+  author        = {Huang, Shaohan and Dong, Li and Wang, Wenhui and Hao, Yaru and Singhal, Saksham and Ma, Shuming and Lv, Tengchao and Cui, Lei and Mohammed, Owais Khan and Liu, Qiang and others},
+  title         = {Language Is Not All You Need: Aligning Perception with Language Models},
+  year          = {2023},
+  note          = {arXiv preprint arXiv:2302.14045},
+  url           = {https://arxiv.org/abs/2302.14045}
+}
+@online{hao2022language,
+  author        = {Hao, Yaru and Song, Haoyu and Dong, Li and Huang, Shaohan and Chi, Zewen and Wang, Wenhui and Ma, Shuming and Wei, Furu},
+  title         = {Language Models are General-Purpose Interfaces},
+  year          = {2022},
+  note          = {arXiv preprint arXiv:2206.06336},
+  url           = {https://arxiv.org/abs/2206.06336}
+}
+@article{magister2022teaching,
+  author        = {Magister, Alexander and Kuznetsova, Polina and Kuznetsov, Sergey},
+  title         = {Teaching Language Models to Learn in Context},
+  journal       = {CoRR},
+  volume        = {abs/2205.10625},
+  year          = {2022},
+  eprint        = {2205.10625},
+  archiveprefix = {arXiv},
+  primaryclass  = {cs.CL}
+}
+@misc{chen2024relation,
+  title         = {On the Relation between Sensitivity and Accuracy in In-context Learning},
+  author        = {Yanda Chen and Chen Zhao and Zhou Yu and Kathleen McKeown and He He},
+  year          = {2024},
+  eprint        = {2209.07661},
+  archiveprefix = {arXiv},
+  primaryclass  = {cs.CL}
+}
+@article{wang2023efficient,
+  title         = {Efficient prompting via dynamic in-context learning},
+  author        = {Wang, Chunshu and Jiang, Yuchen Eleanor and Cotterell, Ryan and Sachan, Mrinmaya},
+  journal       = {arXiv preprint arXiv:2305.11170},
+  year          = {2023}
+}
+@article{li2023contextual,
+  title         = {Contextual Prompting for In-Context Learning},
+  author        = {Li, Mukai and Gong, Shansan and Feng, Jiangtao and Xu, Yiheng and Zhang, Jun and Wu, Zhiyong and Kong, Lingpeng},
+  journal       = {arXiv preprint arXiv:2302.04931},
+  year          = {2023}
+}
+@misc{si2023prompting,
+  title         = {Prompting GPT-3 To Be Reliable},
+  author        = {Chenglei Si and Zhe Gan and Zhengyuan Yang and Shuohang Wang and Jianfeng Wang and Jordan Boyd-Graber and Lijuan Wang},
+  year          = {2023},
+  eprint        = {2210.09150},
+  archiveprefix = {arXiv},
+  primaryclass  = {cs.CL}
 }
