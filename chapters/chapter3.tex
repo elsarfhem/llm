@@ -294,11 +294,15 @@ Models such as Frozen and Flamingo have demonstrated the feasibility of multi-mo
 These models effectively perform ICL on multi-modal tasks when trained on large-scale multi-modal web corpora~\cite{tsimpoukelli2021frozen, alayrac2022flamingo}.
 Kosmos-1 and METALM further extend these capabilities by demonstrating strong performance across various vision-language tasks, underpinned by a semi-causal language modeling objective~\cite{huang2023language, hao2022language} .
 
+\subsection{ICL future research}
+\label{subsec:icl-future}
+
 Future research in ICL is expected to focus on several key areas, including the optimization of pretraining objectives, the distillation of ICL abilities, the enhancement of ICL robustness, the improvement of ICL efficiency and scalability, the updating of knowledge within LLMs, the augmentation of models, and the expansion of ICL into multi-modal domains~\cite{dong2023survey}.
 Optimizing pretraining objectives to better align with ICL requirements could enhance model capabilities for ICL applications.
 Introducing intermediate tuning phases and tailoring pretraining objectives to better align with ICL requirements could bridge this gap and enhance model capabilities for ICL applications~\cite{shin2022effect}.
 On important goal is to be able to distill ICL capabilities from larger models to smaller, more efficient models, potentially enabling the deployment of ICL in resource-constrained environments~\cite{magister2022teaching}.
 Another area of improvement is the robustness of ICL, which is highly susceptible to the format and permutation of demonstrations~\cite{zhao2021calibrate, lu2022fantastically}, without compromising accuracy or efficiency~\cite{chen2024relation}.
+
 A more theoretical understanding of ICL's mechanisms could lead to more robust implementations.
 Moreover the scalability of ICL is constrained by the input limitations of language models and the computational cost associated with large numbers of demonstrations.
 Innovative strategies like structured prompting~\cite{hao2022structured} and dynamic prompting~\cite{wang2023efficient} are being explored to address these challenges.
