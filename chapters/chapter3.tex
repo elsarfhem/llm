@@ -21,7 +21,7 @@ Finally, we will discuss the importance of planning for complex tasks and how it
 		\hline
 		\textbf{In-context Learning (ICL)}        & KATE~\cite{liu2022good}, EPR~\cite{rubin2022learning}, SG-ICL~\cite{kim2022self}, APE~\cite{zhou2023large}, Structured Prompting~\cite{hao2022structured}, GlobalE \& LocalE~\cite{lu2022fantastically}                                                                                                                                                                                                                                      & Demonstration selection (similar, k-NN) \newline Demonstration selection (dense retrieval; contrastive learning) \newline Demonstration selection (LLM as the demonstration generator) \newline Demonstration format (automatic generation \& selection) \newline Demonstration format (grouped context encoding; rescaled attention) \newline Demonstration order (entropy-based metric; probing set generation with LLM)                                                                                                                                                                                                                                                                                                                                                                                                                                                  \\
 		\hline
-		\textbf{Chain-of-thought Prompting (CoT)} & Complex CoT~\cite{fu2022complexity}, Auto-CoT~\cite{zhang2022automatic}, Selection-Inference~\cite{creswell2022selection}, Self-consistency~\cite{wang2022self}, DIVERSE~\cite{li2022advance}, Rationale-augmented ensembles~\cite{wang2022rationale}                                                                                                                                                                                        & Demonstration (complexity-based selection) \newline Demonstration (automatic generation) \newline Generation (alternate between selection and inference) \newline Generation (diverse paths; self-ensemble) \newline Generation (diverse paths; Verification (step-wise voting)) \newline Generation (rationale sampling)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   \\
+		\textbf{Chain-of-thought Prompting (CoT)} & Complex CoT~\cite{fu2022complexity}, Auto-CoT~\cite{zhang2022automatic}, Selection-Inference~\cite{creswell2022selection}, Self-consistency~\cite{wang2022self}, DIVERSE~\cite{li2022making}, Rationale-augmented ensembles~\cite{wang2022rationale}                                                                                                                                                                                         & Demonstration (complexity-based selection) \newline Demonstration (automatic generation) \newline Generation (alternate between selection and inference) \newline Generation (diverse paths; self-ensemble) \newline Generation (diverse paths; Verification (step-wise voting)) \newline Generation (rationale sampling)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   \\
 		\hline
 		\textbf{Planning}                         & Least-to-most prompting~\cite{zhou2022least}, DECOMP~\cite{khot2022decomposed}, PS~\cite{wang2023plan}, Faithful CoT~\cite{lyu2023faithful}, PAL~\cite{gao2022pal}, HuggingGPT~\cite{shen2023hugginggpt}, AdaPlanner~\cite{sun2023adaplanner}, TIP~\cite{lu2023multimodal}, RAP~\cite{hao2023reasoning}, ChatCoT~\cite{chen2023chatcot}, ReAct~\cite{yao2022react}, Reflexion~\cite{shinn2023reflexion}, Tree of Thoughts~\cite{yao2023tree} & Plan generation (text-based; problem decomposition) \newline Plan generation (text-based; problem decomposition) \newline Plan generation (text-based) \newline Plan generation (code-based) \newline Plan generation (code-based; Python) \newline Plan generation (code-based; models from HuggingFace) \newline Plan refinement (skill memory) \newline Feedback acquisition (visual perception) \newline Feedback acquisition (LLM as the world model; Plan refinement (Monte Carlo Tree Search)) \newline Feedback acquisition (tool); Plan refinement (conversation between LLM and tools) \newline Feedback acquisition (tool); Plan refinement (synergizing reasoning and acting) \newline Feedback acquisition (text-based self-reflection); Plan refinement (dynamic memory) \newline Feedback acquisition (vote comparison); Plan refinement (tree-based search) \\
 		\hline
@@ -83,7 +83,7 @@ where $I$ is a task description, $f(x_i, y_i)$ function that convert task demons
 														[{KATE~\cite{liu2022good}, \\
 																	EPR~\cite{rubin2022learning}, \\
 																	PPL~\cite{gonen2022demystifying}, \\
-																	SG-ICL~\cite{kim2022selfgenerated}, \\
+																	SG-ICL~\cite{kim2022self}, \\
 																	Self Adaptive~\cite{wu2022selfadaptive}, \\
 																	MI~\cite{sorensen2022information}, \\
 																	Q-Learning~\cite{zhang2022active}, \\
@@ -313,12 +313,130 @@ Finally, the expansion of ICL into multi-modal domains is expected to yield new 
 \section{Chain-of-Thought prompting}
 \label{sec:chain-of-thought}
 
+Chain-of-Thought (CoT) prompting is an enhanced strategy developed to augment the performance of large language models (LLMs) on complex reasoning tasks such as arithmetic, commonsense, and symbolic reasoning~\cite{wei2022chain, miao2021diverse, talmor2019commonsenseqa}.
+This method integrates intermediate reasoning steps within the prompts, thereby providing a more structured path towards the solution.
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=0.6\textwidth]{cot-reasoning}
+	\caption{Chain-of-Thought reasoning for GSM8K math word problem. The prompt is colored black and the reasoning path produced by the language model is colored teal. This reasoning path contains two reasoning steps. Source: \textcite{li2022making}}
+	\label{fig:cot-reasoning}
+\end{figure}
+To some extent, CoT can be considered a special case of ICL, as it involves the generation of prompts with a series of intermediate reasoning steps (Figure~\ref{fig:chain-of-thought}), but the ordering of demonstrations in this case has a s relatively minor impact on the performance of LLMs~\cite{wei2022chain}.
+
+\textcite{wei2022chain, wang2022self} have shown that language models, when large enough (i.e., \textgreater 100 billion parameters), can learn to perform complex reasoning tasks through CoT prompting without explicit task-specific~\cite{wei2022emergent}.
+
 \begin{figure}[h!]
 	\centering
 	\includegraphics[width=\textwidth]{icl-vs-cot}
 	\caption{A comparative illustration of in-context learning (ICL) and chain-of-thought (CoT) prompting. ICL prompts LLMs with a natural language description, several demonstrations, and a test query, while CoT prompting involves a series of intermediate reasoning steps in prompts. Source: \textcite{survey}}
 	\label{fig:chain-of-thought}
 \end{figure}
+
+CoT can be effectively combined with In-context Learning (ICL) in both few-shot and zero-shot settings:
+\begin{itemize}
+	\item \textbf{Few-shot CoT.} {In the few-shot scenario, CoT augments standard input-output pairs with intermediate reasoning steps.
+		      The design of CoT prompts is crucial; incorporating diverse and complex reasoning paths has been shown to significantly boost LLM performance.
+		      An automated approach, Auto-CoT, facilitates the generation of CoT sequences without manual effort by clustering and selecting representative questions~\cite{zhang2022automatic}.
+	      }
+	\item \textbf{Zero-shot CoT.} {Unlike its few-shot counterpart, zero-shot CoT does not rely on annotated demonstrations.
+		      Instead, it generates reasoning steps directly from a prompt, significantly improving performance when scaled to larger models.
+		      This approach was pioneered by models like Flan-T5, which demonstrated improved zero-shot performance through instruction tuning on CoT annotations~\cite{chung2022scaling}.
+	      }
+\end{itemize}
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=0.6\textwidth]{diverse}
+	\caption{The DIVERSE approach for CoT. Source: \textcite{li2022making}}
+	\label{fig:diverse}
+\end{figure}
+
+To apply these strategies effectively, it is essential to design CoT prompts that guide the model through the reasoning process.
+In \textcite{li2022making}, the authors have shown that using diverse CoTs (i.e., prompts with multiple reasoning paths for each problem) can significantly enhance the performance of LLMs on complex reasoning tasks.
+The proposed method, DIVERSE\footnote{\textbf{Di}verse \textbf{Ve}rifier on \textbf{R}easoning \textbf{S}t\textbf{e}p}, generates diverse CoTs by leveraging a self-ensemble approach that alternates between selection and inference.
+It has three main components: first, it generates diverse prompts to explore different reasoning paths for the same question; second, it uses a verifier to filter out incorrect answers based on a weighted voting scheme; and third, it verifies each reasoning step individually instead of the whole chain (Figure ~\ref{fig:diverse}).
+In the first step, the model generates multiple reasoning paths for each question, which are then used to generate diverse prompts following the idea that \textit{"All roads lead to Rome"}.
+As improvement of \textcite{wang2022self}, DIVERSE selects $M_1$ different prompts for each question, and $M_2$ reasoning paths for each prompt, resulting in $M_1 \times M_2$ diverse prompts.
+Then the verifier takes a question and a candidate reasoning path, and outputs the probability of the reasoning path leads to the correct answer.
+Different predictions are aggregated using a \textit{voting verifier} to obtain the final prediction:
+\begin{equation}
+	\hat{y} = \underset{y}{\text{arg max}} \sum_{i=1}^{M_1} \textbf{1}_{y = y_{i}} \cdot f(\textbf{x}_i, \textbf{z}_i, \textbf{y}_i)
+	\label{eq:diverse}
+\end{equation}
+where $\textbf{1}_{y = y_{i}}$ is an indicator function that equals 1 if $y = y_{i}$, and $f(\cdot)$ is the probability produced by the verifier.
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=0.8\textwidth]{cot-complex-chain}
+	\caption{\textbf{A}: Chain of thoughts (in blue) are intermediate reasoning steps towards a final answer. The input of CoT prompting is a stack of few (often 8) CoT cases before a test question. Then the language model will continue generating an output CoT for the test question. \textbf{B}: Chains of harder reasoning complexity are chains with more reasoning steps (9 steps in this case, v.s. only 2 steps in subfigure A) .Source: \textcite{fu2022complexity}}
+	\label{fig:cot-complex-chain}
+\end{figure}
+
+Another intuitive idea is that prompting with more complex reasoning steps (i.e., chains with more reasoning steps) are more likely to eliciting the reasoning ability of LLMs~\cite{fu2022complexity}, which can result in generating correct answers (Figure~\ref{fig:cot-complex-chain}).
+There are other complexity indicators than the number of reasoning steps, such as question lengths or the length of underlying formula for solving a given problem but improvements of the performance are consistent across various complexity indicators.
+Consequently, for datasets not annotated with reasoning steps, questions length can be used as a proxy for complexity to generate CoT prompts.
+In that way is possible to annotate only the identified few-shot instances, thus reducing the annotation cost~\cite{fu2022complexity}.
+To exclude complexity correlated factors, \textcite{fu2022complexity} proposed prompts evaluation:
+\begin{itemize}
+	\item \textbf{Simpler examples but the same total number of reasoning steps.} {For instance, comparing 24 cases that each require 3 reasoning steps with 8 cases that each require 9 reasoning steps, both resulting in a total of 72 steps.}
+	\item \textbf{Prompts of the longest lengths but not necessarily the most steps.} {This ensures that the length itself is not the only factor being assessed.}
+\end{itemize}
+It turned out that the complexity of reasoning steps is the most important factor for the performance of LLMs on complex reasoning tasks~\cite{fu2022complexity}.
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=0.2\textwidth]{cot-complexity}
+	\caption{Complexity-based Consistency for CoT. During decoding, it sample N reasoning chains from the language model (N = 5 here), and take the majority answer over the K (K = 3 here) most complex generated chains. Source: \textcite{fu2022complexity}}
+	\label{fig:complexity}
+\end{figure}
+Complexity based prompting can be further enhanced by using the output selection method called Complexity-based Consistency alleviating the possibility that model can take shortcuts during reasoning\footnote{Relying on spurious correlations that inevitably exist in the training data and are not related to the reasoning process as shown by \textcite{mudrakarta2018model, li2021why, sugawara2018makes}}.
+The method explicitly promote outputs with more complex reasoning chains at inference time, similarly to the self-consistency practice in \textcite{wang2022self}.
+A voting mechanism is used to select the final output among top K complex reasoning chains as shown in Figure~\ref{fig:complexity}.
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=\textwidth]{cot-zero}
+	\caption{Zero-Shot-CoT~\cite{kojima2023large} (using the "Let’s think step by step" prompt) and Manual-CoT\cite{wei2022chain} (using manually designed demonstrations one by one) with example inputs and outputs of an LLM. Source: \textcite{zhang2022automatic}}
+	\label{fig:zero-shot-cot}
+\end{figure}
+
+Previously mentioned methods rely on two major paradigms: Zero-Shot-CoT and Manual-CoT\@.
+Zero-Shot-CoT is a task-agnostic paradigm that generates reasoning steps directly from the prompt, eliminating the need for annotated CoT datasets~\cite{kojima2023large}, adding a single prompt like "Let’s think step by step" after the test question to facilitate the reasoning chains in LLMs.
+On the other hand, Manual-CoT uses manually designed demonstrations one by one, which can be expensive and time-consuming to create~\cite{wei2022chain}.
+Since this prompting paradigm is task-agnostic and does not need input-output demonstrations, it is called Zero-Shot-CoT (left of Figure~\ref{fig:zero-shot-cot}).
+With Zero-Shot-CoT, LLMs have shown to be decent zero-shot reasoners.
+
+The other paradigm is few-shot prompting with manual reasoning demonstrations one by one~\cite{wei2022chain}.
+Each demonstration has a question and a reasoning chain.
+A reasoning chain is composed of a rationale (a series of intermediate reasoning steps) and an expected answer.
+With all the demonstrations being manually designed, this paradigm is referred to as Manual-CoT (right of Figure~\ref{fig:zero-shot-cot}).
+
+To mitigate the effect of reasoning chain mistakes from Zero-Shot-CoT, \textcite{zhang2022automatic} proposed the use of Auto-CoT, a method that generates demonstrations automatically, since their diversity is crucial for the performance of LLMs.
+It consists of two main components: a clustering algorithm that groups similar questions together and a representative selection algorithm that selects the most representative questions from each cluster.
+The overall procedure is illustrated in Figure~\ref{fig:auto-cot}.
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=\textwidth]{auto-cot}
+	\caption{demonstrations (on the right) are automatically constructed one by one (total: k) using an LLM with the “Let’s think step by step” prompt. Source: \textcite{zhang2022automatic}}
+	\label{fig:auto-cot}
+\end{figure}
+Diversity-based clustering may mitigate misleading by similarity effects\footnote{The retrieved demonstration questions are similar to the test question and asking "how long will it take him to cook \underline{the rest}?" The reasoning chains generated by Zero-Shot-CoT produce answers regarding "the total of" instead of "the rest". Following the demonstrations, the component the retrieves the top-k similar questions -- called Retrieval-Q-CoT -- also fails by misunderstanding the meaning of "the rest".}, and the representative selection algorithm can select the most representative questions from each cluster, are used as demonstrations to generate reasoning chains for the test question.
+Auto-CoT has shown to be effective in generating diverse reasoning chains and improving the performance of LLMs on arithmetic and symbolic reasoning~\cite{zhang2022automatic}.
+
+\subsection{CoT performance and origins}
+\label{subsec:cot-performance}
+
+CoT is an emergent ability~\cite{wei2022emergent}, so it has positive effects only on the performance of LLMs (>10 billion parameters) but not on smaller models.
+Moreover CoT is only effective for tasks that requires step-by-step reasoning, such as arithmetic, commonsense, and symbolic reasoning~\cite{wei2022chain, miao2021diverse, talmor2019commonsenseqa}.
+Whereas, for other tasks CoT can be detrimental to the performance of LLMs respect to standard prompting~\cite{wang2022rationale}, e.g., MNLI-m/mm, SST-2, and QQP from GLUE\cite{wang2018glue}.
+It seems that the effectiveness of CoT is inversely proportional to the effectiveness of standard prompting~\cite{wei2022chain}.
+Main prompting components, e.g., symbols, patterns, and text, have an impact on CoT.
+It has been shown that pattern and text are essential for CoT performance, and removing them can lead to a significant drop in performance: text helps LLMs
+to generate useful patterns, and patterns aid LLMs to understand tasks and generate texts that help solve them~\cite{madaan2022text}.
+
+The origins of CoT ability is widely hypothesized to be elicited by training on code, since those models have shown to be more effective in reasoning tasks~\cite{fu2022gptroadmap, liang2022holistic}.
+Intuitively, code data is well organized with algorithmic logic and programming flow,which may be useful to improve the reasoning performance of LLMs. However, this hypothesis still lacks publicly reported evidence of ablation experiments (with and without training on code).
+We'll try to address this gap in the next chapter~\ref{ch:capabilities}, by conducting a series of experiments to evaluate the effectiveness of training on code data for reasoning tasks.
+In addition, instruction tuning seems not to be the main factor for CoT ability, since the performance of LLMs on CoT tasks is not significantly improved by instruction tuning~\cite{chung2022scaling}.
 
 
 
