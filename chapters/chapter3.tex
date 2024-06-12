@@ -438,9 +438,134 @@ Intuitively, code data is well organized with algorithmic logic and programming 
 We'll try to address this gap in the next chapter~\ref{ch:capabilities}, by conducting a series of experiments to evaluate the effectiveness of training on code data for reasoning tasks.
 In addition, instruction tuning seems not to be the main factor for CoT ability, since the performance of LLMs on CoT tasks is not significantly improved by instruction tuning~\cite{chung2022scaling}.
 
-
-
-
 \section{Planning for complex tasks}
 \label{sec:planning}
-\lipsum
+
+ICL and CoT are two simple yet general strategies to solving various tasks.
+However, they struggles with complex tasks that require long-term planning, such as mathematical word problems~\cite{qian2022limitations} and multi-hop question answering~\cite{bian2024chatgpt}.
+In particular, \textcite{bian2024chatgpt} have shown that ChatGPT's ability to handle commonsense knowledge across various domains.
+Commonsense knowledge\footnote{It includes knowledge about the spatial,
+	physical, social, temporal, and psychological aspects of the typical everyday life, as well as an awareness of social norms, beliefs, and values~\cite{liu2004conceptnet}.} is essential for NLP systems to understand and generate human-like language.
+Main categories are summarized in \textcite{bian2024chatgpt}:
+\begin{quote}
+	\textbf{General commonsense} refers to knowledge that is widely shared and assumed to be true by most people, such as the sun rises in the east and sets in the west.\\
+	\textbf{Physical commonsense} involves intuitive knowledge about the physical world, such as objects fall to the ground when dropped and water flows downhill.\\
+	\textbf{Social commonsense} involves knowledge about social norms, customs, and practices, such as it is polite to say "thank you" when
+	making requests.\\
+	\textbf{Science commonsense} involves knowledge about basic scientific principles, such as gravity pulls all objects on Earth to Earth’s center.\\
+	\textbf{Event commonsense} involves knowledge about the sequence of events and the causal relationships between them, such as if a glass is knocked over, the liquid inside will spill.\\
+	\textbf{Numerical commonsense} involves knowledge about numbers, such as human has two hands and ten fingers.\\
+	\textbf{Prototypical commonsense} involves knowledge about typical or prototypical examples of concepts, such as a swallow is a kind of bird, and a bird has wings.\\
+	\textbf{Temporal commonsense} involves knowledge about time, such as traveling abroad requires a longer time than taking a walk.
+\end{quote}
+A list of commonsense QA datasets commonly used in the evaluation of LLMs is shown in Table~\ref{tab:dataset_examples}.
+\begin{table}[h!]
+	\small
+	\centering
+	\begin{tabularx}{\textwidth}{|l|l|X|}
+		\hline
+		Dataset       & Domain       & Example (Bold texts are the answers)                                                                                                                                                                                                                                     \\
+		\hline
+		CommonsenseQA & General      & Choose your answer to the question: Where are you likely to find a hamburger? \textbf{A. fast food restaurant}, B. pizza, C. ground up dead cows, D. mouth, E. cow circus                                                                                                \\
+		\hline
+		OpenBookQA    & General      & Choose your answer to the question: If a person walks in the opposite direction of a compass arrow they are walking A. west, B. north, C. east, \textbf{D. south}                                                                                                        \\
+		\hline
+		WSC           & General      & Choose subsentence A or B that completes the sentence: The trophy doesn’t fit into the brown suitcase because A. the trophy is too small. \textbf{B. the suitcase is too small}.                                                                                         \\
+		\hline
+		PIQA          & Physical     & Choose one that is correct: A. \textbf{ice box will turn into a cooler if you add water to it}. B. ice box will turn into a cooler if you add soda to it.                                                                                                                \\
+		\hline
+		Social IQA    & Social       & Taylor taught math in the schools after studying to be a teacher. Choose the most suitable answer for the question: What does Taylor need to do before this? \textbf{A. get a certificate}, B. teach small children, C. work in a school                                 \\
+		\hline
+		ARC           & Science      & Choose your answer to the question: Which technology was developed most recently? \textbf{A. cellular telephone}, B. television, C. refrigerator, D. airplane                                                                                                            \\
+		\hline
+		QASC          & Science      & Choose your answer to the question: What is described in terms of temperature and water in the air? A. storms; \textbf{B. climate}; C. mass; D. seasonal; E. winter; F. density; G. length                                                                               \\
+		\hline
+		HellaSWAG     & Event        & Choose your answer to the question: We see a chair with a pillow on it. A. a man holding a cat does curling. B. a man holding a cat starts hitting objects on an item. C. a man holding a cat is wrapping a box. \textbf{D. a man holding a cat sits down on the chair}. \\
+		\hline
+		NumerSense    & Numerical    & a square is a shape with \textlangle mask\textrangle equally length sides. \textbf{(four)}                                                                                                                                                                               \\
+		\hline
+		ProtoQA       & Prototypical & Use simple words separated by commas to name something in your life that could cause you to lose weight. (\textbf{Eating less, exercising more, stress.})                                                                                                                \\
+		\hline
+		MC-TACO       & Temporal     & Select all feasible answers for the question: Carl Laemmle, head of Universal Studios, gave Einstein a tour of his studio and introduced him to Chaplin. At what time did Einstein return home? \textbf{A. 8:00 PM}; B. a second later; C. a hour later                  \\
+		\hline
+	\end{tabularx}
+	\caption{Examples from commonsense QA datasets. Source: \textcite{bian2024chatgpt}}
+	\label{tab:dataset_examples}
+\end{table}
+These datasets encompass domains like general, physical, social, science, event, numerical, prototypical, and temporal commonsense.
+Table~\ref{tab:commonsense-results} shows the accuracy of GPT-3, GPT-3.5, and ChatGPT on these datasets.
+\begin{table}[h!]
+	\centering
+	\small
+	\begin{tabular}{|l|c|c|c|c|}
+		\hline
+		Dataset       & GPT-3 & Instruct GPT & ChatGPT       & Human \\
+		\hline
+		CommonsenseQA & 38    & \textbf{81}  & 74            & 88.9  \\
+		OpenBookQA    & 22    & 65           & \textbf{73}   & 89.3  \\
+		WSC           & 46    & \textbf{78}  & \textbf{78}   & 92.1  \\
+		PIQA          & 48    & 77           & \textbf{78}   & 94.5  \\
+		Social IQA    & 36    & \textbf{71}  & 62            & 86.9  \\
+		ARC           & 27    & 88           & \textbf{94}   & --    \\
+		QASC          & 25    & \textbf{75}  & 74            & 93.0  \\
+		HellaSWAG     & 19    & 61           & \textbf{67}   & 95.7  \\
+		NumerSense    & 45    & 63           & \textbf{79}   & 89.7  \\
+		ProtoQA       & 67.3  & 84.6         & \textbf{94.2} & --    \\
+		MC-TACO       & 20    & \textbf{53}  & 52            & 75.8  \\
+		\hline
+	\end{tabular}
+	\caption{Evaluation results (accuracy) of large language models on commonsense QA datasets. Source: \textcite{bian2024chatgpt}}
+	\label{tab:commonsense-results}
+\end{table}
+The ability of models to leverage commonsense is probably improved by instruction tuning and human alignment, looking at the results of Instruct GPT and ChatGPT versus GPT-3 in Table~\ref{tab:commonsense-results}.)
+ChatGPT demonstrates strong capabilities in commonsense QA tasks but has limitations in identifying necessary knowledge.
+It has been proved evaluating answers generated by ChatGPT on questions from each commonsense QA dataset using the following prompt: "What knowledge is necessary for answering this question? \code{\{question\} \{answer choices(if applicable)\}}".
+It means that LLMs are inexperienced problem solvers that rely on memorizing a large amount of information that covers the answers.
+
+Even though we have seen surprising abilities of LLMs, \textcite{qian2022limitations} have shown additional limitations on certain basic symbolic manipulation tasks, such as copy, reverse and addition, particularly when dealing with repeating symbols\footnote{Copy example with repeating symbols \code{$\text{input:} \ldots 989894 \ldots \longrightarrow \text{output:} \ldots 9894 \ldots$}} and OOD\footnote{Out-of-distribution refers to prompting the model to execute an operation on numbers with more digits with respect to numbers used for training. It demonstrates the ability to generalize on unseen data.} data.
+To address these limitations, \textcite{qian2022limitations} have proposed a series of methods to improve the performance of LLMs on these tasks, such as positional markers, fine-grained computation steps, and combining LMs with callable programs for basic operations.
+Positional markers\footnote{LMs have implicit positional markers embedded in the architecture. Most Transformer-based LMs encode the positional information into positional vectors and add each of
+	them to the corresponding word vector. Explicit positional markers are added into input strings: \code{$\text{input:} \ldots 222 \ldots \longrightarrow \text{output:} \ldots \text{A} 2 \text{B} 2 \text{C} 2 \ldots$}.
+	Essentially, adding explicit positional markers breaks the repeating numbers into a non-repeating input sequence.} and fine-grained computation steps\footnote{For example, in k-digit addition, the model is allowed to break it down into k simple 1-digit addition and the model is allowed to generate k intermediate addition results to get the final answer.} provide some improvement with repeating symbols but not with OOD\@.
+It clearly indicates the limitation of Transformers and pre-trained language models in induction.
+Combining LMs with callable programs\footnote{A callable function \code{add(1,5)} can be invoked and return the result in text: \code{carry C: 0, result 6}} for basic operations shows potential but still relies on the LM's ability to locate tokens accurately.
+The LM with tutor\footnote{A tutor shows every single step visually and sometimes calls an already learned sub-module to complete a task. Instead of providing a training example: \code{copy: 1 1 1 2 2 2 result: 1 1 1 2 2 2} the tutor explicitly shows the model how to copy the input as follows: \code{rmov, end=F, cpy, rmov, end=F, cpy, \ldots , rmov, end=T.} where \code{rmov} is a function that moves the tape head to the right, \code{cpy} is a function that copies the current symbol, and \code{end=F} indicates that the end of the tape is not reached. One can relate the setting with a multiple tape Turing machine where state transition is conducted among the positions of tape heads and read/write operations. The Transformer is trained to learn such state transition, thus completing the programming of a Turing machine.} method demonstrates each step of the task, significantly improving accuracy and handling OOD scenarios effectively achieving 100\% accuracy on all tasks.
+
+Prompt-based planning has been proposed to break down complex tasks into simpler sub-tasks, and generate a plan of actions which can accomplish the task.
+The general framework of prompt-based planning is shown in Figure~\ref{fig:planning}.
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=0.8\textwidth]{planning}
+	\caption{The general framework of prompt-based planning. Source: \textcite{survey}}
+	\label{fig:planning}
+\end{figure}
+
+In this paradigm, there are three main components: the planner, the executor, and the environment\footnote{It's similar to Reinforcement Learning, where the planner is the agent, the executor is the policy, and the environment is the world, but the difference is that in RL they are tipically interleaved in the agent, while in prompt-based planning they are separated}.
+Specifically the planner, which is a LLM, generates a plan of actions to solve a task.
+The plan can be generated in various forms, .e.g., natural language, symbolic, or programmatic~\cite{gao2023pal, zhou2022least}.
+The task planner can be enhanced with the memory mechanism, which can store intermediate results and reuse them in the future.
+
+--add details from cite --
+
+Plan executor is responsible for executing the plan generated by the planner.
+It can be implemented as a separate LLM for textual tasks, or as a program executor for programmatic tasks~\cite{wang2023plan, gao2022pal}.
+
+Environment is the world where the task is executed, which can be set up as the LLm itself, or an external system, e.g., a simulator or a virtual world likeMinecraft~\cite{yao2023tree, wang2023voyager}.
+The environment provides feedback to the task planner about the result of the actions, which can be used to update the plan, either in form of natural language or from other multimodal signals~\cite{shinn2023reflexion, lu2023multimodal}
+
+-- just to add some text --
+
+For solving complex tasks, the planner needs to generate a plan that is long-term and multi-step, which requires the planner to have the ability to reason over long-term dependencies and to generate a plan that is coherent and consistent.
+It first need to understand the task and break it down into sub-tasks, then generate a plan that can accomplish the task by executing the sub-tasks in a proper order (see Section~\ref{subsec:plan-generation}).
+The plan should be generated in a way that is interpretable and executable by the executor, which acts according to the plan and interacts with the environment to accomplish the task (see Section~\ref{subsec:plan-execution}).
+The planner can further incorporate the feedback from the environment to update the plan and refine it to achieve better performance (see Section~\ref{subsec:plan-refinement}).
+
+\subsection{Plan generation}
+\label{subsec:plan-generation}
+
+\subsection{Plan execution}
+\label{subsec:plan-execution}
+
+\subsection{Plan refinement}
+\label{subsec:plan-refinement}
