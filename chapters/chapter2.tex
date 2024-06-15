@@ -479,7 +479,7 @@ A commonly used method is the examples-proportional mixing strategy~\cite{raffel
 Additionally, setting a maximum cap on the number of examples from any dataset helps maintain this balance~\cite{raffel2023exploring, wei2022fine}.
 
 To enhance the stability and effectiveness of instruction tuning, integrating pre-training data into the tuning process is beneficial, serving as regularization~\cite{wei2022fine}.
-Some models, such as GLM-130B and Galactica, start with a mix of pre-training and instruction-tuned data, effectively combining the strengths of both pre-training and instruction tuning~\cite{chowdhery2022palm, lewis2021paLM}.
+Some models, such as GLM-130B and Galactica, start with a mix of pre-training and instruction-tuned data, effectively combining the strengths of both pre-training and instruction tuning~\cite{chowdhery2022palm}.
 
 A strategic approach involves multiple stages of tuning, starting with extensive task-specific data and followed by less frequent types such as daily chat instructions, to avoid the forgetting of previously learned tasks~\cite{raffel2023exploring}.
 
@@ -533,7 +533,7 @@ The main effects of instruction tuning are:
 		      Instruction tuning significantly enhances LLMs, proving effective across models of various scales from 77M to 540B parameters. Smaller models subjected to instruction tuning can surpass larger models that haven't been fine-tuned, showcasing the technique's broad applicability and cost-effectiveness \cite{tamkin2021understanding, wei2022fine}. This approach not only boosts model performance as parameter scale increases but also demonstrates improvements across different architectures, objectives, and adaptation methods \cite{raffel2023exploring}.
 	      }
 	\item \textbf{Task Generalization.} {
-		      Instruction tuning endows LLMs with the capability to understand and execute tasks based on natural language instructions. This method is particularly effective in generalizing across both familiar and novel tasks, significantly enhancing performance without direct prior exposure \cite{chowdhery2022palm, tamkin2021understanding}. Notably, models like BLOOMZ-P3, fine-tuned on English-only tasks, demonstrate remarkable improvements in multilingual sentence completion, indicating robust cross-lingual transfer capabilities \cite{lewis2021paLM}.
+		      Instruction tuning endows LLMs with the capability to understand and execute tasks based on natural language instructions. This method is particularly effective in generalizing across both familiar and novel tasks, significantly enhancing performance without direct prior exposure \cite{chowdhery2022palm, tamkin2021understanding}. Notably, models like BLOOMZ-P3, fine-tuned on English-only tasks, demonstrate remarkable improvements in multilingual sentence completion, indicating robust cross-lingual transfer capabilities \cite{chowdhery2022palm}.
 	      }
 	\item \textbf{Domain Specialization.} {
 		      Despite their prowess in general NLP tasks, LLMs often lack the domain-specific knowledge required for fields like medicine, law, and finance. Instruction tuning facilitates the transformation of general-purpose LLMs into domain-specific experts. For example, Flan-PaLM has been adapted into Med-PaLM for medical applications, achieving expert-level performance in medical tasks \cite{raffel2023exploring}. Similar adaptations have been made in other domains, significantly enhancing LLMs' effectiveness in specialized applications \cite{wei2022fine}.
