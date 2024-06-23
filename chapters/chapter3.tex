@@ -648,9 +648,116 @@ The experiments with GPT-3 show that PS+ consistently outperforms Zero-shot-CoT 
 Self-consistency (SC)\footnote{It reduces randomness in LLM’s output by generating N reasoning results and determining the final answer by majority voting}\cite{wang2022self} improves performance by generating multiple reasoning paths and determining the final answer by majority voting.
 PS+ with SC outperforms PS+ without SC and Zero-shot-CoT with SC\@.
 
+\paragraph{Least-to-Most Prompting}
+\label{par:least-to-most}
+
+is a text-based prompting strategy that aims to improve the performance of LLMs on complex reasoning tasks proposed by \textcite{zhou2022least}.
+Least-to-most prompting consists of two stages:
+\begin{enumerate}
+	\item \textbf{Decomposition}: The prompt contains examples demonstrating problem decomposition, followed by the specific question to be decomposed.
+	\item \textbf{Sub-problem Solving}: The prompt consists of examples demonstrating sub-problem solving, previously answered subquestions and solutions, and the next question to be answered.
+\end{enumerate}
+Figure~\ref{fig:least-to-most} illustrates this approach.
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=\textwidth]{least-to-most}
+	\caption{Least-to-most prompting teaches language models how to solve a complex problem by decomposing it to a series of simpler subproblems. It consists of two sequential stages: (1) decomposition and (2) sequentially solving subproblems. The answer to the second subproblem is built on the answer to the first subproblem. The demonstration examples for each stage’s prompt are omitted in this illustration. Source: \textcite{zhou2022least}}
+	\label{fig:least-to-most}
+\end{figure}
+
+Least-to-most prompting significantly outperforms Chain-of-Thought prompting on the last-letter-concatenation task\footnote{In this task, each input is a list of words, and the corresponding output is the concatenation of the last letters of the words in the list. For example, "thinking, machine" outputs "ge", since the last letter of "thinking" is "g" and the last letter of "machine" is "e".}~\cite{wei2022chain}, especially on longer lists\footnote{When the testing lists are much longer than the lists in the prompt exemplars.}.
+Table~\ref{tab:symbolic} shows the accuracy comparison.
+
+\begin{table}[h!]
+	\centering
+	\begin{tabularx}{\textwidth}{Xcccccc}
+		\hline
+		\textbf{Method}    & \textbf{Length 4} & \textbf{Length 6} & \textbf{Length 8} & \textbf{Length 10} & \textbf{Length 12} \\
+		\hline
+		Standard Prompting & 0.0               & 0.0               & 0.0               & 0.0                & 0.0                \\
+		Chain-of-Thought   & 84.2              & 69.2              & 50.2              & 39.8               & 31.8               \\
+		Least-to-Most      & 94.0              & 88.4              & 83.0              & 76.4               & 74.0               \\
+		\hline
+	\end{tabularx}
+	\caption{Accuracies of different prompting methods on the last-letter-concatenation task. Source: \textcite{zhou2022least}}
+	\label{tab:symbolic}
+\end{table}
+
+Least-to-most prompting also achieves 99.7\% accuracy on the SCAN\footnote{it is probably the most popular benchmark for evaluating compositional generalization. It requires mapping natural language commands to action sequences~\cite{lake2018generalization}.} compositional generalization benchmark with only 14 exemplars, compared to 16\% with Chain-of-Thought prompting.
+Table~\ref{tab:compositional} shows the accuracy comparison.
+Least-to-most improves performance on GSM8K and DROP benchmarks, particularly for problems requiring multiple solving steps.
+Table~\ref{tab:math} shows the accuracy comparison.
+
+\begin{table}[h!]
+	\centering
+	\begin{tabularx}{\textwidth}{Xccc}
+		\hline
+		\textbf{Method}    & \textbf{Code-davinci-002} & \textbf{Text-davinci-002} & \textbf{Code-davinci-001} \\
+		\hline
+		Standard Prompting & 16.7                      & 6.0                       & 0.4                       \\
+		Chain-of-Thought   & 16.2                      & 0.0                       & 0.0                       \\
+		Least-to-Most      & 99.7                      & 76.0                      & 60.7                      \\
+		\hline
+	\end{tabularx}
+	\caption{Accuracies of different prompting methods on the SCAN benchmark. Source: \textcite{zhou2022least}}
+	\label{tab:compositional}
+\end{table}
+\begin{table}[h!]
+	\centering
+	\begin{tabularx}{\textwidth}{Xccc}
+		\hline
+		\textbf{Method}    & \textbf{Non-football (DROP)} & \textbf{Football (DROP)} & \textbf{GSM8K} \\
+		\hline
+		Zero-Shot          & 43.86                        & 51.77                    & 16.38          \\
+		Standard Prompting & 58.78                        & 62.73                    & 17.06          \\
+		Chain-of-Thought   & 74.77                        & 59.56                    & 60.87          \\
+		Least-to-Most      & 82.45                        & 73.42                    & 62.39          \\
+		\hline
+	\end{tabularx}
+	\caption{Accuracies of different prompting methods on GSM8K and DROP benchmarks. Source: \textcite{zhou2022least}}
+	\label{tab:math}
+\end{table}
+
+Least-to-most prompting effectively generalizes to more complex problems than those seen in the prompts.
+This approach can be combined with other prompting techniques, such as chain-of-thought and self-consistency, to further enhance performance.
+
+
 \paragraph{DECOMP}
 \label{par:decomp}
-\lipsum[1]
+is a text-based prompting strategy that decomposes complex tasks into simpler subtasks and generates a plan to solve the task, similar to Least-to-Most prompting.
+The core idea of Decomposed Prompting involves dividing a complex task into multiple simpler subtasks.
+Each subtask is addressed separately using LLMs, and their results are then combined to produce the final outcome.
+Tasks are decomposed based on their inherent structure.
+For instance, a question-answering task might be split into subtasks involving information retrieval, comprehension, and synthesis.
+By focusing on these individual components, the model can process each step more effectively.
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=0.8\textwidth]{decomp}
+	\caption{The DECOMP framework. Source: \textcite{khot2022decomposed}}
+	\label{fig:decomp}
+\end{figure}
+
+In DECOMP, the core is a decomposer LLM that tries to solve a complex task by generating a prompting program $P$ for it.
+Each step of $P$ directs a simpler sub-query to a function in an auxiliary set of sub-task functions F available to the system.
+Given a query $Q$ whose answer is $A$, the program $P$ is a sequence of the form $((f_1, Q_1, A_1), \ldots ,(f_k, Q_k, A_k))$
+where $A_k$ is the final answer predicted by $P$ and $Q_i$ is a sub-query directed to the sub-task function $f_i \in F$.
+$P$ is executed by a high-level imperative controller, which passes the inputs and outputs between the decomposer and sub-task handler until a stopping condition in $P$ is met and the final output obtained.
+Using a software engineering analogy, the decomposer defines the top-level program for the complex task using interfaces to simpler, sub-task functions.
+The sub-task handlers serve as modular, debuggable, and upgradable implementations of these simpler functions, akin to a software library.
+Specialized prompts are designed for each subtask, guiding the LLM to focus on specific aspects of the problem.
+This involves crafting precise and contextually relevant prompts that direct the model's attention to the desired task component.
+
+Extensive experiments demonstrate the efficacy of Decomposed Prompting.
+Key benchmarks and datasets were utilized to evaluate the performance gains achieved through this approach (Figure~\ref{fig:decomp-results}).
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=0.8\textwidth]{decomp-results}
+	\caption{On the left: Exact Match results on the k-th letter concatenation task (k=3) using space as delimiter with different number of words in the input. On the right: Exact Match results on reversing sequences. Incorporating CoT in DECOMP greatly increases the ability of the model to generalize to new sequence lengths Source: \textcite{khot2022decomposed}}
+	\label{fig:decomp-results}
+\end{figure}
 
 \paragraph{Program-Aided Language Models (PALMs)}
 \label{par:program-aided-language-models}
@@ -674,9 +781,10 @@ It generates programs that can be executed by a Python interpreter, and then use
 	\label{fig:pal-colored}
 \end{figure}
 \textsc{PaL} has been shown to outperform much larger LLMs using CoT (e.g., PaLM-540B) on mathematical word problems and symbolic reasoning tasks~\cite{gao2022pal} as shown in Table~\ref{tab:pal-math}.
-\begin{table}[ht]
+\begin{table}[h!]
 	\centering
-	\begin{tabularx}{\textwidth}{Xcccccccc}
+	\tiny
+	\begin{tabularx}{\textwidth}{XXXXXXXXXX}
 		\hline
 		\textbf{Model}                           & \textbf{GSM8K} & \textbf{GSM-HARD} & \textbf{SVAMP} & \textbf{ASDIV} & \textbf{SINGLEEQ} & \textbf{SINGLEOP} & \textbf{ADDSUB} & \textbf{MULTIARITH} \\ \hline
 		\textsc{Direct}\textsubscript{Codex}     & 19.7           & 5.0               & 69.9           & 74.0           & 86.8              & 93.1              & 90.9            & 44.0                \\
@@ -692,16 +800,17 @@ It generates programs that can be executed by a Python interpreter, and then use
 \end{table}
 \textsc{PaL} is even more effective respect to other LLMs when tested on GSM-HARD dataset -- a version of GSM8K contains larger numbers (i.e., up to 7 digits).
 Other interesting results come from symbolic reasoning tasks from BIG-Bench Hard: the \textsc{Colored Objects}\footnote{It requires answering questions about colored objcts on a surface} and the \textsc{Penguins}\footnote{It requires to answer a question about the attributes of the penguins on a table (e.g., "how many penguins are less than 8 years old?"). This task describes dynamics as well, since te penguins can be added or removed.} tasks as shown in Table~\ref{tab:pal-symbolic}.
-\begin{table}[ht]
+\begin{table}[h!]
 	\centering
-	\begin{tabularx}{\textwidth}{Xcccccc}
+	\small
+	\begin{tabularx}{\textwidth}{XXXXXXX}
 		\hline
-		\textbf{Model}                         & \textbf{COLORED OBJECT} & \textbf{PENGUINS} & \textbf{DATE} & \textbf{REPEAT COPY} & \textbf{OBJECT COUNTING} \\ \hline
-		\textsc{Direct}\textsubscript{Codex}   & 75.7                    & 71.1              & 49.9          & 81.3                 & 37.6                     \\
-		\textsc{CoT}\textsubscript{LAMDA-137B} & -                       & -                 & 26.8          & -                    & -                        \\
-		\textsc{CoT}\textsubscript{PaLM-540B}  & -                       & 65.1              & 65.3          & -                    & -                        \\
-		\textsc{CoT}\textsubscript{Codex}      & 86.3                    & 79.2              & 64.8          & 68.8                 & 73.0                     \\
-		\textsc{PAL}\textsubscript{Codex}      & \textbf{95.1}           & \textbf{93.3}     & \textbf{76.2} & \textbf{90.6}        & \textbf{96.7}            \\ \hline
+		\textbf{Model}                         & \textbf{COLORED                                                                 \newline OBJECT} & \textbf{PENGUINS} & \textbf{DATE} & \textbf{REPEAT \newline COPY} & \textbf{OBJECT COUNTING} \\ \hline
+		\textsc{Direct}\textsubscript{Codex}   & 75.7                                                                                             & 71.1              & 49.9          & 81.3                          & 37.6                     \\
+		\textsc{CoT}\textsubscript{LAMDA-137B} & -                                                                                                & -                 & 26.8          & -                             & -                        \\
+		\textsc{CoT}\textsubscript{PaLM-540B}  & -                                                                                                & 65.1              & 65.3          & -                             & -                        \\
+		\textsc{CoT}\textsubscript{Codex}      & 86.3                                                                                             & 79.2              & 64.8          & 68.8                          & 73.0                     \\
+		\textsc{PAL}\textsubscript{Codex}      & \textbf{95.1}                                                                                    & \textbf{93.3}     & \textbf{76.2} & \textbf{90.6}                 & \textbf{96.7}            \\ \hline
 	\end{tabularx}
 	\caption{Solve rate on three symbolic reasoning datasets and two algorithmic datasets. In all datasets, PAL achieves a much higher accuracy than chain-of-thought. Results with closed models LAMDA-137B and PaLM-540B are included if available to public \textcite{wei2022chain, suzgun2022challenging}. Source: \textcite{gao2022pal}.}
 	\label{tab:pal-symbolic}
@@ -709,9 +818,48 @@ Other interesting results come from symbolic reasoning tasks from BIG-Bench Hard
 \textcite{gao2022pal} have shown that that \textsc{PaL} is not limited to LMs of code, but it can work with LMs that were mainly trained for natural language, if they have a sufficiently high coding ability and benefits come from the synergy between the Python prompt and the interpreter.
 \textsc{PaL} avoids inaccuracy on arithmetic tasks and incorrect reasoning by offloading the calculations and some of the reasoning to a Python interpreter, which is correct by design giving the the right program.
 
-\paragraph{Least-to-Most Prompting}
-\label{par:least-to-most}
-\lipsum[1]
+\paragraph{SELF-PLANNING}
+\label{par:self-planning}
+
+is a code generation strategies using a planning-based approach.
+In this case the planning is executed prior to the actual code generation, and the plan is generated by the LLM itself.
+In the first stage, the planning phase, the LLM is prompted to abstract and decompose the intent to obtain a plan for guiding code generation using few-shot prompting.
+The prompt $C$ is designed as $k$ examples\footnote{Note that $k$ is a fairly low number.} concatenated together
+\begin{equation}
+	C \stackrel{\Delta}{=} \left\langle x^e_1 \cdot y^e_1 \right\rangle \bigparallel \left\langle x^e_2 \cdot y^e_2 \right\rangle \bigparallel \ldots \bigparallel \left\langle x^e_k \cdot y^e_k \right\rangle
+	\label{eq:self-planning-eq}
+\end{equation}
+where each example $\left\langle x^e_i \cdot y^e_i \right\rangle$ consists of the example intent $x^e_i$ and its associated plan $y^e_i$ to demonstrate the planning task.
+During inference, the test-time intent $x$ will be concatenated after the prompt, and $C \bigparallel x$ will be fed into the LLM $M$, which will attempt to do planning for the test-time intent.
+The output of the LLM is the test-time plan $y$ for the test-time intent $x$.
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=\textwidth]{self-planning}
+	\caption{Self-planning generation phases (i.e., planning phase and implementation phase). Source: \textcite{jiang2024selfplanning}}
+	\label{fig:self-planning}
+\end{figure}
+
+In the second stage, the implementation phase, the plan generated in the first stage is used to guide the code generation.
+The plan $y$ is concatenated with intent $x$ and fed into the LLM $M$ to generate the code $z$.
+The above two stages can be formalized as
+\begin{equation}
+	P(z|x, C) = \sum_{\hat{y}}{P(z|\hat{y}, x, C) \cdot P(\hat{y}|x, C)},\\
+	\propto P(z|y, x, C) \cdot P(y|x, C)
+	\label{eq:self-planning-all}
+\end{equation}
+where $\hat{y}$ is any of all possible plans, and $y$ denotes one of the plans generated by the LLM in the first stage.
+\textcite{jiang2024selfplanning} further simplify the above equation adopting the plan with the highest probability as $y$, thus the final equation becomes
+\begin{equation}
+	P(z|x, C) \stackrel{\Delta}{=} \underbrace{P(z|y, x, C)}_\text{Implementation phase} \cdot \underbrace{P(y|x, C)}_\text{Planning phase}
+	\label{eq:self-planning-final}
+\end{equation}
+
+Benchmarking against various LLMs pre-trained on code, such as CodeGeex (13B)~\cite{zheng2023codegeex}, CodeGen-Mono (16.1B)~\cite{nijkamp2022codegen}, and PaLM Coder (560B)~\cite{chung2022scaling}, reveals that SELF-PLANNING significantly enhances performance across public code generation datasets.
+This improvement is observed when comparing SELF-PLANNING with other prompting methods including Direct, Code Chain-of-Thought (CoT), and Few-shot approaches.
+Comparing the effectiveness of SELF-PLANNING relative to model size, it is evident that SELF-PLANNING impact is more pronounced with larger models.
+As the model size reaches 13B, the performance of LLMs in code generation tasks begins to exhibit emerging ability but self-planning ability is still relatively low.
+Experiments show that besides increasing model size, incorporating code training data and RLHF can also enhance the model’s self-planning capabilities.
 
 \subsubsection{Feedback and plan refinement}
 \label{subsubsec:feedback}
