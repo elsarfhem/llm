@@ -865,7 +865,20 @@ Experiments show that besides increasing model size, incorporating code training
 \label{subsubsec:feedback}
 
 Feedback is an essential component in the plan-based reasoning paradigm, as it allows the planner to refine the plan based on the feedback from the environment following the "\textit{planning-execution-refinement}" loop.
-The three main refinement approaches are summarized in the next paragraphs.
+Feedback sources are categorized into internal and external, based on their origin relative to the LLM-based planner.
+
+\textbf{Internal Feedback:} Here, the LLM itself acts as a source of feedback.
+One common method is to assess the effectiveness of generated plans through structured prompts.
+For instance, \textcite{hao2023reasoning} evaluates the success potential of various plans by estimating their likelihood of achieving the desired outcome, while Tree of Thoughts employs a comparative voting mechanism among different plans.
+Additionally, LLMs can refine their feedback using intermediate outcomes from plan execution, such as in Reflexion, where sparse outcomes like success or failure are translated into detailed, actionable feedback.
+This feedback is then preserved in the LLM’s long-term memory to enhance future planning.
+
+\textbf{External Feedback:} Beyond the LLM, external tools and environments contribute feedback as well.
+Tools such as code interpreters in programming tasks offer immediate error feedback, while models like stable diffusion in multimodal tasks provide visual feedback.
+Virtual environments like Minecraft offer a rich, interactive backdrop for feedback through immersive experiences.
+Moreover, projects like Generative Agents investigate the dynamics of multi-agent systems in simulated settings, where agents derive feedback from both environmental interactions and inter-agent communication.
+
+Regarding the plan refinement, the three main approaches are summarized in the next paragraphs.
 
 \paragraph{Reasoning.}
 \label{par:reasoning}
@@ -934,8 +947,81 @@ Finally, a planner will refine the plan using information from the descriptor an
 To improve the feasibility of generated plans conditioned on the current state, which is the second identified challenge, \textcite{wang2023describeexplainplanselect} use a learned goal-selector to choose the most accessible sub-task based on the proximity to each candidate sub-goal.
 Developing multi-task agents that can accomplish a vast and diverse suite of tasks in complex domains has been viewed as one of the key milestones towards generally capable artificial intelligence.
 
+\paragraph{Memorization}
+\label{par:memorization}
 
-\subsubsection{Plan refinement}
-\label{subsubsec:plan-refinement}
-\lipsum[1]
+Long-term memory is a crucial component in the planning process, allowing models to store and retrieve information from past experiences in addition to the short-term memory capabilities provided by in-context learning (ICL) in large language models (LLMs).
+Reflexion~\cite{shinn2023reflexion} introduces an innovative framework that enhances language agents through linguistic feedback rather than weight updates.
+Reflexion agents reflect verbally on task feedback, maintaining reflective text in an episodic memory buffer to improve decision-making in subsequent trials.
+This process mirrors how humans iteratively learn complex tasks by reflecting on previous failures to develop improved strategies for future attempts.
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=\textwidth]{reflexion}
+	\caption{Reflexion works on decision-making, programming, and reasoning tasks. Source: \textcite{shinn2023reflexion}}
+	\label{fig:reflexion}
+\end{figure}
+
+Reflexion can incorporate various types (scalar values or free-form language) and sources (external or internally simulated) of feedback signals, significantly improving performance over a baseline agent across diverse tasks such as sequential decision-making, coding, and language reasoning.
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=\textwidth]{reflexion-alg}
+	\caption{(a) Diagram of Reflexion. (b) Reflexion reinforcement algorithm. Source: \textcite{shinn2023reflexion}}
+	\label{fig:reflexion-alg}
+\end{figure}
+
+The Reflexion framework consists of four main components: the Actor, the Evaluator, the Self-Reflection model, and the memory.
+The Actor, built upon an LLM, is specifically prompted to generate necessary text and actions based on state observations.
+The Evaluator assesses the quality of the Actor's outputs by computing a reward score that reflects performance within the given task context.
+The Self-Reflection model, also instantiated as an LLM, generates verbal self-reflections to provide valuable feedback for future trials.
+Core components of the Reflexion process are the notion of short-term and long-term memory.
+At inference time, the Actor conditions its decisions on short and long-term memory, similar to the way that humans remember fine-grain recent details while also recalling distilled important experiences from long-term memory.
+In the RL setup, the trajectory history serves as the short-term memory while outputs from the Self-Reflection model are stored in long-term memory.
+These two memory components work together to provide context that is specific but also influenced by lessons learned over several trials, which is a key advantage of Reflexion agents over other LLM action choice works.
+Given a sparse reward signal, such as a binary success status (success/fail), the current trajectory, and its persistent memory \(mem\), the self-reflection model generates nuanced and specific feedback.
+This feedback, which is more informative than scalar rewards, is then stored in the agent’s memory \(mem\).
+For example, in a multi-step decision-making task, if the agent receives a failure signal, it can infer that a specific action \(a_i\) led to subsequent incorrect actions \(a_{i+1}\) and \(a_{i+2}\).
+The agent can then verbally state that it should have taken a different action, \(a_i\), which would have resulted in correct actions \(a_{i+1}\) and \(a_{i+2}\), and store this experience in its memory.
+In subsequent trials, the agent can leverage its past experiences to adapt its decision-making approach at time \(t\) by choosing action \(a_i\).
+This iterative process of trial, error, self-reflection, and persisting memory enables the agent to rapidly improve its decision-making ability in various environments by utilizing informative feedback signals.
+For instance, Reflexion achieves a 91\% pass@1 accuracy on the HumanEval coding benchmark, surpassing the previous state-of-the-art GPT-4, which achieves 80\%.
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=\textwidth]{generative-agent}
+	\caption{Generative agent architecture. Agents perceive their environment, and all perceptions are saved in a comprehensive record of the agent’s experiences called the memory stream. Based on their perceptions, the architecture retrieves relevant memories and uses those retrieved actions to determine an action. These retrieved memories are also used to form longer-term plans and create higher-level reflections, both of which are entered into the memory stream for future use. Source: \textcite{park2023generativeagentsinteractivesimulacra}}
+	\label{fig:generative-agents}
+\end{figure}
+
+Generative agents~\cite{park2023generativeagentsinteractivesimulacra} are another example of models that leverage memory to improve planning where a sandbox environment is populated with 25 agents that focus on the ability to create a small, interactive society of agents inspired by games such as The Sims.
+In particular, the generative agents leverage a memory stream mechanism for action planning and reflexion simulating human-like decision-behavior.
+The memory stream is a long-term memory module that records, in natural language, a comprehensive list of the agent’s experiences.
+The reflection and the planning components synthesize memories into higher-level inferences over time, enabling the agent to draw conclusions
+about itself and others, and translates those conclusions and the current environment into high-level action plans recursively as shown in Figure~\ref{fig:generative-agents}.
+
+Other studies~\cite{sun2023adaplanner, wang2023voyager} have also explored a use of memory called skill library mechanism to store successful plans, which can be reused and synthesized as complex plans for new tasks.
+AdaPlanner~\cite{sun2023adaplanner} uses skill memory as a repository, archiving past successful plans and their respective interactions with the environment.
+If the agent encounters a task resembling the skills stored in memory, these skills can serve as few-shot exemplars in the LLM agent’s prompt.
+This feature improves not only sample efficiency but also reliability for future planning.
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=\textwidth]{skill-library}
+	\caption{Adding and retrieving skills from the skill library in Voyager. Source: \textcite{sun2023adaplanner}}
+	\label{fig:skill-library}
+\end{figure}
+To implement the long term memory, \textcite{wang2023voyager, wang2021milvus} propose tools like vector databases, which can be used to store plans or feedback into high-dimensional vectors.\footnote{A vector database is a type of database engineered specifically for handling vector data, which are arrays of numbers or embeddings representing various types of data objects.
+	These databases are designed to efficiently store, manage, and perform operations on vectors, which are often used to represent images, text, or other complex data types in a form suitable for machine learning models and similarity search operations.
+	Vector databases excel in handling similarity searches, which involve finding vectors closest to a given vector.
+	They are optimized to store and query high-dimensional data efficiently.}
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=\textwidth]{memorybank}
+	\caption{Overview of MemoryBank. The memory storage stores past conversations, summarized events and user portraits, while the memory updating mechanism updates the memory storage. Memory retrieval recall relevant memory. Source: \textcite{zhong2023memorybankenhancinglargelanguage}}
+	\label{fig:memorybank}
+\end{figure}
+MemoryBank~\cite{zhong2023memorybankenhancinglargelanguage} incorporates a memory updating mechanism, inspired by the Ebbinghaus Forgetting Curve theory.\footnote{The Ebbinghaus Forgetting Curve is a psychological theory that describes how information is lost over time when there is no attempt to retain it.
+	It shows that humans tend to halve their memory of newly learned knowledge in a matter of days or weeks unless they consciously review the learned material.}
+This mechanism allows the model to forget less relevant information and retain more important information, based on time elapsed and the relative relevance of the information thereby offering a human-like memory management system.
+
 
