@@ -271,7 +271,7 @@ The ICL ability emerges when the training data have examples appearing in cluste
 Under the learning mechanism, the ICL ability is explained by ability of Transformers to encode effective learning algorithms to learn unseen linear functions according to demonstration samples, and encoded learning algorithms can achieve a comparable error to that from a least squares estimator~\cite{garg2023transformers}.
 Also \textcite{li2023transformers} showed the ability of Transformers to implement a proper function class through implicit empirical risk minimization for the demonstrations.
 From an information-theoretic perspective, \textcite{hahn2023theory} showed an error bound for ICL under linguistically motivated assumptions to explain how next-token prediction can bring about the ICL ability.
-Another series of works attempted to build connections between ICL and gradient descent and found that Transformer-based in-context learners can implement standard finetuning algorithms implicitly~\cite{akyurek2022what, vonoswald2023transformers, li2023transformers}.
+Another series of works attempted to build connections between ICL and gradient descent and found that Transformer-based in-context learners can implement standard fine-tuning algorithms implicitly~\cite{akyurek2022what, vonoswald2023transformers, li2023transformers}.
 Looking at functional components, \textcite{olsson2022incontext} found indirect evidence that "Induction heads"\footnote{attention heads that implement a simple algorithm to complete token sequences like $[A][B] \dots [A] \Rightarrow [B]$} might constitute the mechanism for the majority of all ICL in large transformer models.
 
 In-context learning (ICL) evaluation spans traditional tasks and newly proposed challenging tasks, as well as providing open-source tools for standardized evaluation.
@@ -279,7 +279,7 @@ ICL has been tested against established benchmarks such as SuperGLUE and SQuAD, 
 GPT-3, for example, exhibited comparable performance to state-of-the-art fine-tuning on some tasks within SuperGLUE but lagged in most natural language understanding tasks.
 Scaling the number of demonstration examples has shown potential but has yet to bridge the gap fully between ICL and traditional fine-tuning methods~\cite{brown2020language, hao2022structured}.
 
-To assess the capabilities of large language models (LLMs) beyond traditional finetuning, new benchmarks have been introduced.
+To assess the capabilities of large language models (LLMs) beyond traditional fine-tuning, new benchmarks have been introduced.
 The BIG-Bench and BIG-Bench Hard focus on tasks ranging from linguistics to social behaviors, with models outperforming human raters on many of these tasks~\cite{srivastava2023imitation, suzgun2022challenging}.
 OPT-IML Bench has been designed to evaluate the generalization capabilities of LLMs across various held-out categories, emphasizing the model's generalization capabilities~\cite{iyer2022opt}.
 OpenICL has been developed to provide a flexible and unified framework for ICL evaluation.
@@ -425,7 +425,7 @@ Auto-CoT has shown to be effective in generating diverse reasoning chains and im
 \subsection{CoT performance and origins}
 \label{subsec:cot-performance}
 
-CoT is an emergent ability~\cite{wei2022emergent}, so it has positive effects only on the performance of LLMs (>10 billion parameters) but not on smaller models.
+CoT is an emergent ability~\cite{wei2022emergent}, so it has positive effects only on the performance of LLMs (\textgreater 10 billion parameters) but not on smaller models.
 Moreover CoT is only effective for tasks that requires step-by-step reasoning, such as arithmetic, commonsense, and symbolic reasoning~\cite{wei2022chain, miao2021diverse, talmor2019commonsenseqa}.
 Whereas, for other tasks CoT can be detrimental to the performance of LLMs respect to standard prompting~\cite{wang2022rationale}, e.g., MNLI-m/mm, SST-2, and QQP from GLUE\cite{wang2018glue}.
 It seems that the effectiveness of CoT is inversely proportional to the effectiveness of standard prompting~\cite{wei2022chain}.
@@ -443,7 +443,7 @@ In addition, instruction tuning seems not to be the main factor for CoT ability,
 
 ICL and CoT are two simple yet general strategies to solving various tasks.
 However, they struggles with complex tasks that require long-term planning, such as mathematical word problems~\cite{qian2022limitations} and multi-hop question answering~\cite{bian2024chatgpt}.
-Commonse	nse knowledge\footnote{It includes knowledge about the spatial,
+Commonsense knowledge\footnote{It includes knowledge about the spatial,
 	physical, social, temporal, and psychological aspects of the typical everyday life, as well as an awareness of social norms, beliefs, and values~\cite{liu2004conceptnet}.} is essential for NLP systems to understand and generate human-like language.
 Main categories are summarized in \textcite{bian2024chatgpt}:
 \begin{quote}
@@ -469,7 +469,7 @@ A list of commonsense QA datasets commonly used in the evaluation of LLMs is sho
 		\hline
 		OpenBookQA    & General      & Choose your answer to the question: If a person walks in the opposite direction of a compass arrow they are walking A. west, B. north, C. east, \textbf{D. south}                                                                                                        \\
 		\hline
-		WSC           & General      & Choose subsentence A or B that completes the sentence: The trophy doesn’t fit into the brown suitcase because A. the trophy is too small. \textbf{B. the suitcase is too small}.                                                                                         \\
+		WSC           & General      & Choose sub-sentence A or B that completes the sentence: The trophy doesn't fit into the brown suitcase because A. the trophy is too small. \textbf{B. the suitcase is too small}.                                                                                         \\
 		\hline
 		PIQA          & Physical     & Choose one that is correct: A. \textbf{ice box will turn into a cooler if you add water to it}. B. ice box will turn into a cooler if you add soda to it.                                                                                                                \\
 		\hline
