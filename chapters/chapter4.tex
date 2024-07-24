@@ -5,29 +5,39 @@
 \label{ch:capabilities}
 
 \section{Introduction}
-\label{sec:ch3-introduction}
+\label{sec:ch4-introduction}
 
-In this chapter, we will discuss the capabilities of large language models, focusing on the abilities that they have been designed to have and the ones that they have been shown to have in practice.
-We will start by discussing the basic abilities that large language models have, such as language generation, knowledge utilization, and complex reasoning.
-We will then move on to more advanced abilities, such as human alignment and interaction with external tools.
+In this chapter, we investigate the origins of some skills demonstrated by large language models (LLMs), such as the Chain-of-Thought (CoT) reasoning.
+To start, we will briefly summarize the evidence presented in several experiments documented in scientific articles and papers.
+Subsequently, we will examine whether certain hypotheses are validated through tests conducted on publicly available models via platforms like LLMStudio or HuggingFace.
 
-\section{Basic abilities}
-\label{sec:basic-abilities}
+\section{What is eliciting the Chain-of-Thought reasoning?}
+\label{sec:what-is-eliciting-the-chain-of-thought-reasoning?}
 
-\subsection{Language generation}
-\label{subsec:language-generation}
+As we have seen in the previous chapters, LLMs have shown some remarkable abilities, such as language generation, the ability to perform Chain-of-Thought (CoT) reasoning, a form of reasoning that involves multiple steps, In-Context Learning, and more.
+The natural question that arises is: what is eliciting these abilities?
 
-\subsection{Knowledge utilization}
-\label{subsec:knowledge-utilization}
+Generally, the above abilities are attributed to the large size of the pre-training data.
+The language generation ability is a direct consequence of language modeling training objective.
+\textcite{liang2022holistic} concluded that the performance on tasks requiring knowledge of the world is directly proportional to the size of the pre-training data.
 
-\subsection{Complex reasoning}
-\label{subsec:complex-reasoning}
+The source of CoT reasoning ability is less clear and still elusive.
+There are some hypotheses that have been proposed to explain the origins of this skill.
+Scale is not a deciding factor: there are models that are large enough, like OPT\textsubscript{175B} and BLOOM\textsubscript{176B} that cannot do CoT\footnote{It means CoT performance are worse than direct prompting or fine-tuning on smaller models}, while smaller models like UL2\textsubscript{20B}~\cite{tay2023ul2unifyinglanguagelearning} or Codex\textsubscript{12B}~\cite{chen2021evaluating} can leverage on CoT\footnote{Notably, CoT prompting does not require any additional fine-tuning of the model.} to improve performance.
 
-\section{Advanced abilities}
-\label{sec:advanced-abilities}
+One of the most popular theories is that the CoT reasoning is related to code in the pre-training dataset.
+\begin{displayquote}
+	There is also a speculation that training on code data can greatly increase the chain-of-thought prompting abilities of LLMs, while it is still worth further investigation with more thorough verification~\cite{survey}.
+\end{displayquote}
+One evidence is that code-davinci-002, a model trained on code data, is consistently better on CoT than text-davinci-002 on language tasks.
+On the HELM evaluation, a massive-scale evaluation performed by \textcite{liang2022holistic}, the authors also found that models trained on/for code has strong language reasoning abilities.
+As an intuition, procedure-oriented programming is similar to solving tasks step by step, and object-oriented programming is similar to decomposing complex tasks into simpler ones.	
 
-\subsection{Human alignment}
-\label{subsec:human-alignment}
-
-\subsection{Interaction with external tools}
-\label{subsec:interaction-with-external-tools}
+Other hypotheses suggest a minor role of the instruction-tuning.
+\begin{displayquote}
+	Instruction tuning does not inject new abilities into the model -- all abilities are already there.
+	Instead, instruction tuning unlocks/elicit these abilities.
+	This is mostly because the instruction tuning data is orders or magnitudes less than the pre-training data~\cite{fu2022gptroadmap}.
+\end{displayquote}
+An evidence is the GPT-3 text-davinci-002 \footnote{The model is instruction-tuned with RL} leverages on CoT to improve performance, whereas the previous text-davinci-001 could not do CoT well.
+PaLM~\cite{chowdhery2022palm} itself shows that instruction-tuning can elicit CoT, since the first version was not instruction-tuned.
