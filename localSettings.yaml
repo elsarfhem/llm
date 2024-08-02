@@ -1,0 +1,5 @@
+verbatimEnvironments:
+  verbatim: 1
+  Verbatim: 1
+  lstlisting: 1
+  minted: 1

@@ -9,8 +9,8 @@ all: format
 	$(MAKE) clean
 
 format:
-	/opt/homebrew/opt/latexindent/bin/latexindent -w chapters/*.tex
-	/opt/homebrew/opt/latexindent/bin/latexindent -w main.tex
+	/opt/homebrew/opt/latexindent/bin/latexindent -l localSettings.yaml -w chapters/*.tex
+	/opt/homebrew/opt/latexindent/bin/latexindent -l localSettings.yaml -w main.tex
 	bibtex-tidy -m refs.bib
 
 clean:
