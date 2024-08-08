@@ -740,23 +740,7 @@ The answer is correct and the reasoning is coherent.
 \begin{displayquote}
 	\textbf{Prompt:}
 	\begin{Verbatim}[fontsize=\small,breaklines]
-def solution():
-
-    blue_ties_spent = 200
-    blue_cost_per_tie = 4824529 / (blue_ties_spent * 2)
-    red_ties_spent = blue_ties_spent * 2
-    red_cost_per_tie = blue_cost_per_tie + (blue_cost_per_tie * 0.5)
-    total_cost_blue_ties = blue_ties_spent * blue_cost_per_tie
-    total_cost_red_ties = red_ties_spent * red_cost_per_tie
-    result = total_cost_blue_ties + total_cost_red_ties
-    return result
-
-
-
-
-
-
-The solution is 4829138.0.
+John buys twice as many red ties as blue ties.  The red ties cost 50% more than blue ties.  He spent $200 on blue ties that cost $4824529 each. How much did he spend on ties?
 	\end{Verbatim}
 	\textbf{Answer:}
 	\begin{Verbatim}[fontsize=\small,breaklines]
@@ -797,4 +781,4 @@ def solution():
     return result
 	\end{Verbatim}
 \end{displayquote}
-The answer is correct and we obtained it executing the generated Python function.
+The answer is correct, and it's calculated by executing the Python code.
