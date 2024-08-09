@@ -14,8 +14,6 @@
 ]{biblatex}
 \addbibresource{refs.bib}
 \usepackage{hyperref}
-\usepackage{csquotes}
-\MakeOuterQuote{"}
 \usepackage{amsmath}
 \usepackage{capt-of}
 \usepackage{array}
@@ -33,7 +31,11 @@
 \usepackage{textcomp}
 \usepackage{xcolor}
 \usepackage{fancyvrb,fvextra}
+\usepackage{fancyhdr}
+\usepackage{csquotes}
+\usepackage{epigraph}
 
+\MakeOuterQuote{"}
 % Define caption styles
 \DeclareCaptionFont{captionfont}{\small\itshape}
 \DeclareCaptionFormat{customformat}{#1#2#3\hrulefill}
@@ -55,9 +57,7 @@
 	\vspace{10pt}
 	{\large Corso di Laurea in Ingegneria Informatica}\\
 	\vspace{140pt}
-	{\huge
-		Compare Large Language Models abilities \\
-		using different parameters}
+	{\huge Comparing Large Language Models abilities}
 	\vspace{130pt}
 
 	\noindent {\hspace{25pt} \small Relatore} \hfill {\small Candidato \hspace{30pt}}
@@ -69,6 +69,7 @@
 	{\small Anno Accademico: 2023/2024}
 
 	\date{}
+
 }
 \maketitle
 

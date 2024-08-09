@@ -1,11 +1,12 @@
 FILENAME=amatarazzo-llm-tesis
+VERSION=$(shell date +'%Y%m%d%H%M%S')
 
 all: format
+	echo $(VERSION) > ./version.tex
 	pdflatex -file-line-error -interaction=nonstopmode -synctex=1 -output-format=pdf -output-directory=/Users/amatarazzo/git-repos/llm/out main.tex
 	biber ./out/main
 	pdflatex -file-line-error -interaction=nonstopmode -synctex=1 -output-format=pdf -output-directory=/Users/amatarazzo/git-repos/llm/out main.tex
-	rm -f out/${FILENAME}-*.pdf
-	$(MAKE) rename
+	mv ./out/main.pdf ./out/$(FILENAME).pdf
 	$(MAKE) open
 	$(MAKE) clean
 
@@ -24,8 +25,4 @@ clean-all:
 	find . -type f -name "*.log" -exec rm {} \;
 
 open:
-	open ./out/$(FILENAME)-*.pdf
-
-rename:
-	$(eval VERSION := $(shell date +'%Y%m%d%H%M%S'))
-	mv ./out/main.pdf ./out/$(FILENAME)-$(VERSION).pdf
+	open ./out/$(FILENAME).pdf

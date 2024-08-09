@@ -8,7 +8,7 @@
 \label{sec:ch4-introduction}
 
 In this chapter, we investigate the origins of some skills demonstrated by large language models (LLMs), such as the Chain-of-Thought (CoT) reasoning.
-To start, we will briefly summarize the evidence presented in several experiments documented in scientific articles and papers.
+We will briefly summarize the evidence presented in several experiments documented in scientific articles and papers.
 Subsequently, we will examine whether certain hypotheses are validated through tests conducted on publicly available models via LMStudio software on HuggingFace.
 
 \section{What is eliciting the Chain-of-Thought reasoning?}
@@ -18,34 +18,34 @@ As we have seen in the previous chapters, LLMs have shown some remarkable abilit
 The natural question that arises is: what is eliciting these abilities?
 
 Generally, the above abilities are attributed to the large size of the pre-training data.
-The language generation ability is a direct consequence of language modeling training objective.
+The language generation ability is a direct consequence of language modelling training objectives.
 \textcite{liang2022holistic} concluded that the performance on tasks requiring knowledge of the world is directly proportional to the size of the pre-training data.
 
 The source of CoT reasoning ability is less clear and still elusive.
-There are some hypotheses that have been proposed to explain the origins of this skill.
+Some hypotheses have been proposed to explain the origins of this skill.
 Scale is not a deciding factor: there are models that are large enough, like OPT\textsubscript{175B} and BLOOM\textsubscript{176B} that cannot do CoT\footnote{It means CoT performance are worse than direct prompting or fine-tuning on smaller models}, while smaller models like UL2\textsubscript{20B}~\cite{tay2023ul2unifyinglanguagelearning} or Codex\textsubscript{12B}~\cite{chen2021evaluating} can leverage on CoT\footnote{Notably, CoT prompting does not require any additional fine-tuning of the model.} to improve performance.
 
 One of the most popular theories is that the CoT reasoning is related to code in the pre-training dataset.
 \begin{displayquote}
-	There is also a speculation that training on code data can greatly increase the chain-of-thought prompting abilities of LLMs, while it is still worth further investigation with more thorough verification~\cite{survey}.
+	There is also speculation that training on code data can greatly increase the chain-of-thought prompting abilities of LLMs, while it is still worth further investigation with more thorough verification~\cite{survey}.
 \end{displayquote}
-One evidence is that code-davinci-002, a model trained on code data, is consistently better on CoT than text-davinci-002 on language tasks.
-On the HELM evaluation, a massive-scale evaluation performed by \textcite{liang2022holistic}, the authors also found that models trained on/for code has strong language reasoning abilities.
+One piece of evidence is that code-davinci-002, a model trained on code data, is consistently better on CoT than text-davinci-002 on language tasks.
+On the HELM evaluation, a massive-scale evaluation performed by \textcite{liang2022holistic}, the authors also found that models trained on/for code have strong language reasoning abilities.
 As an intuition, procedure-oriented programming is similar to solving tasks step by step, and object-oriented programming is similar to decomposing complex tasks into simpler ones.
 
-Other hypotheses suggest a minor role of the instruction-tuning.
+Other hypotheses suggest a minor role in the instruction tuning.
 \begin{displayquote}
 	Instruction tuning does not inject new abilities into the model -- all abilities are already there.
-	Instead, instruction tuning unlocks/elicit these abilities.
+	Instead, instruction tuning unlocks/elicits these abilities.
 	This is mostly because the instruction tuning data is orders or magnitudes less than the pre-training data~\cite{fu2022gptroadmap}.
 \end{displayquote}
-An evidence is the GPT-3 text-davinci-002 \footnote{The model is instruction-tuned with RL} leverages on CoT to improve performance, whereas the previous text-davinci-001 could not do CoT well.
-PaLM~\cite{chowdhery2022palm} itself shows that instruction-tuning can elicit CoT, since the first version was not instruction-tuned.
+A piece of evidence is the GPT-3 text-davinci-002 \footnote{The model is instruction-tuned with RL} leverages on CoT to improve performance, whereas the previous text-davinci-001 could not do CoT well.
+PaLM~\cite{chowdhery2022palm} itself shows that instruction-tuning can elicit CoT since the first version was not instruction-tuned.
 
 \section{Empirical evidences}
 \label{sec:empirical-evidence}
 
-In this section, we will present some empirical evidences that supports the hypotheses discussed in the previous section.
+In this section, we will present some empirical evidence supporting the previous section's hypotheses.
 We have used the LMStudio\cite{lmstudio} software to test the hypotheses on publicly available models.
 The hardware used for the experiments is:
 \begin{itemize}
@@ -55,22 +55,29 @@ The hardware used for the experiments is:
 \end{itemize}
 
 The number of experiments we can conduct is limited due to machine resources and time constraints.
-As already mentioned, really large models require a lot of resources, and it's not possible to run most of them on a personal computer.
-Additionally, the models available on LMStudio are limited to the models available on HuggingFace, while other are closed-source and have not been publicly released.
+As mentioned, really large models require a lot of resources, and it's impossible to run most of them on a personal computer.
+Additionally, the models available on LMStudio are limited to the models available on HuggingFace, while others are closed-source and have not been publicly released.
 
 However, we can still test some hypotheses on smaller models.
-For example, comparing models with the same size we can exclude this factor from the equation, and we can focus on testing if CoT reasoning ability is related to code in the pre-training dataset.
+For example, when comparing models of the same size, we can exclude this factor from the equation and focus on testing whether CoT reasoning ability is related to code in the pre-training dataset.
 For this reason, we executed some experiments on LLaMA2\textsubscript{7B}~\cite{touvron2023llama2} and LLaMA3\textsubscript{7B}~\cite{llama3modelcard} models.
 
 As reported by authors, Llama 3 uses a standard, dense Transformer architecture~\cite{vaswani2023attention}.
 It does not deviate significantly from Llama~\cite{touvron2023llama} and Llama 2~\cite{touvron2023llama2} in terms of model architecture, so the performance gains are primarily driven by improvements in data quality and diversity as well as by increased training scale~\cite{llama3}.
-The training data of LLaMa2 model is composed of a mix of text and a small percentage of code data\footnote{It's roughly the 8\% of the total\cite{touvron2023llama2}}, where LLaMA3\footnote{Pre-training data mix summary: it contains roughly 50\% of tokens corresponding to general knowledge, 25\% of mathematical and reasoning tokens, 17\% code tokens, and 8\% multilingual tokens~\cite{llama3}.} has a high percentage of code in its mix.
+The training data of the LLaMa2 model is composed of a mix of text and a small percentage of code data\footnote{It's roughly the 8\% of the total\cite{touvron2023llama2}}, where LLaMA3\footnote{Pre-training data mix summary: it contains roughly 50\% of tokens corresponding to general knowledge, 25\% of mathematical and reasoning tokens, 17\% code tokens, and 8\% multilingual tokens~\cite{llama3}.} has a high percentage of code in its mix.
 
-The experiments have been conducted on the Chain-of-Thought reasoning tasks from the gsm8k and gsm-hard\footnote{The gsm-hard dataset is a harder version of the gsm8k dataset, where the questions are more complex and require more reasoning steps to solve. Reasoning steps in the solution are expressed as code, also known as Program of Thought prompting (PoT). PoT is suitable for problems which require highly symbolic reasoning skills\\
-	Example of a gsm-hard problem and PoT:
-	"Marcy makes homemade candles that she markets as 99\% guaranteed not to explode. 5\% of the more dangerous candles also have a defect that makes them smell like wet dog. If she makes 2691134 candles, how many of them will both smell like wet dog and explode?"\\
-	"Marcy makes homemade candles that she markets as 99\% guaranteed not to explode. 5\% of the more dangerous candles also have a defect that makes them smell like wet dog. If she makes 2691134 candles, how many of them will both smell like wet dog and explode?\\
-	\textit{candles\_total = 2691134\\ safe\_candles = 0.99 * candles\_total\\ wet\_dog\_candles = 0.05 * candles\_total\\ dangerous\_candles = candles\_total - safe\_candles\\ exploding\_dog\_candles = wet\_dog\_candles * 0.01\\ result = exploding\_dog\_candles\\ return result}"} datasets.
+The experiments have been conducted using the Chain-of-Thought on reasoning tasks from the gsm8k and gsm-hard\footnote{The gsm-hard dataset is a harder version of the gsm8k dataset, where the questions are more complex and require more reasoning steps to solve.}
+Reasoning steps in the gsm-hard datasets are expressed as code, so we applied the Program of Thought (PoT) approach~\cite{chen2022program}.
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=0.8\textwidth]{gmshardpot}
+	\caption{Example of a gsm-hard problem. The reasoning steps are expressed as code.}
+	\label{fig:pot-example}
+\end{figure}
+PoT is suitable for problems which require highly symbolic reasoning skills.
+The previous paragraph explored a similar approach (see Par.~\ref{par:program-aided-language-models}).
+An example of a gsm-hard problem, reasoning steps and solution is shown in the Picture~\ref{fig:pot-example}.
+
 
 \begin{table}[h!]
 	\centering
@@ -92,14 +99,14 @@ The experiments have been conducted on the Chain-of-Thought reasoning tasks from
 \end{table}
 
 The results from the execution of the experiments are shown in Table~\ref{tab:llama-comparison}.
-As hypothesized, LLaMA3 performs better than LLaMA2 and its CoT reasoning ability is better as the performance increase shows between the 0-shot and 5-shot settings.
-Since the models have the same size and a similar architecture, the improvement should be related to the higher percentage of code in the pre-training data.
-LLaMA2 shown really low or no ability to perform CoT reasoning as the improvement between the 0-shot and 5-shot settings is negligible.
-To further exclude the size factor, we also run the same experiments on LLaMA2\textsubscript{13B}.
+As hypothesized, LLaMA3 performs better than LLaMA2, and its CoT reasoning ability improves as performance increases between the 0-shot and 5-shot settings.
+Since the models are the same size and have similar architectures, the improvement should be related to the higher percentage of code in the pre-training data.
+LLaMA2 showed really low or no ability to perform CoT reasoning as the improvement between the 0-shot and 5-shot settings is negligible.
+We also run the same experiments on LLaMA2\textsubscript{13B} to further exclude the size factor.
 It confirms that the size is not a deciding factor for CoT reasoning, as LLaMA2\textsubscript{13B} has comparable performance to LLaMA2\textsubscript{7B}.
-For LLaMA3 and LLama3.1 models, we also tested the Program-of-Thoughts (PoT) reasoning ability on the gsm-hard dataset, since the dataset demonstrations are expressed as code and the model is stimulated to produce reasoning expressed as code.
+For the LLaMA3 and LLama3.1 models, we also tested the Program-of-Thoughts (PoT) reasoning ability on the gsm-hard dataset since the dataset demonstrations are expressed as code, and the model is stimulated to produce reasoning expressed as code.
 The code is extracted from the model's solution and executed to calculate the result.
-The performance are indicated in the table inside the parentheses and the success rate is extremely high, showing that demonstrating reasoning as code improve the code generation ability rather than the reasoning itself.
+The performance is indicated in the table inside the parentheses, and the success rate is extremely high. This shows that demonstrating reasoning as code improves the code generation ability rather than the reasoning itself.
 
 \subsection{Examples of generated text}
 \label{subsec:examples-of-generated-text}
