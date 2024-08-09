@@ -4,7 +4,8 @@ all: format
 	pdflatex -file-line-error -interaction=nonstopmode -synctex=1 -output-format=pdf -output-directory=/Users/amatarazzo/git-repos/llm/out main.tex
 	biber ./out/main
 	pdflatex -file-line-error -interaction=nonstopmode -synctex=1 -output-format=pdf -output-directory=/Users/amatarazzo/git-repos/llm/out main.tex
-	mv ./out/main.pdf ./out/$(FILENAME).pdf
+	rm -f out/${FILENAME}-*.pdf
+	$(MAKE) rename
 	$(MAKE) open
 	$(MAKE) clean
 
@@ -23,4 +24,8 @@ clean-all:
 	find . -type f -name "*.log" -exec rm {} \;
 
 open:
-	open ./out/$(FILENAME).pdf
+	open ./out/$(FILENAME)-*.pdf
+
+rename:
+	$(eval VERSION := $(shell date +'%Y%m%d%H%M%S'))
+	mv ./out/main.pdf ./out/$(FILENAME)-$(VERSION).pdf

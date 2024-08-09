@@ -9,7 +9,7 @@
 
 In this chapter, we investigate the origins of some skills demonstrated by large language models (LLMs), such as the Chain-of-Thought (CoT) reasoning.
 To start, we will briefly summarize the evidence presented in several experiments documented in scientific articles and papers.
-Subsequently, we will examine whether certain hypotheses are validated through tests conducted on publicly available models via platforms like LLMStudio or HuggingFace.
+Subsequently, we will examine whether certain hypotheses are validated through tests conducted on publicly available models via LMStudio software on HuggingFace.
 
 \section{What is eliciting the Chain-of-Thought reasoning?}
 \label{sec:what-is-eliciting-the-chain-of-thought-reasoning?}
@@ -56,14 +56,14 @@ The hardware used for the experiments is:
 
 The number of experiments we can conduct is limited due to machine resources and time constraints.
 As already mentioned, really large models require a lot of resources, and it's not possible to run most of them on a personal computer.
-Additionally, the models available on LLMStudio are limited to the models available on HuggingFace, while other are closed-source and have not been publicly released.
+Additionally, the models available on LMStudio are limited to the models available on HuggingFace, while other are closed-source and have not been publicly released.
 
 However, we can still test some hypotheses on smaller models.
 For example, comparing models with the same size we can exclude this factor from the equation, and we can focus on testing if CoT reasoning ability is related to code in the pre-training dataset.
 For this reason, we executed some experiments on LLaMA2\textsubscript{7B}~\cite{touvron2023llama2} and LLaMA3\textsubscript{7B}~\cite{llama3modelcard} models.
 
 As reported by authors, Llama 3 uses a standard, dense Transformer architecture~\cite{vaswani2023attention}.
-It does not deviate significantly from Llama and Llama 2~\cite{touvron2023llama2} in terms of model architecture, so the performance gains are primarily driven by improvements in data quality and diversity as well as by increased training scale.
+It does not deviate significantly from Llama~\cite{touvron2023llama} and Llama 2~\cite{touvron2023llama2} in terms of model architecture, so the performance gains are primarily driven by improvements in data quality and diversity as well as by increased training scale~\cite{llama3}.
 The training data of LLaMa2 model is composed of a mix of text and a small percentage of code data\footnote{It's roughly the 8\% of the total\cite{touvron2023llama2}}, where LLaMA3\footnote{Pre-training data mix summary: it contains roughly 50\% of tokens corresponding to general knowledge, 25\% of mathematical and reasoning tokens, 17\% code tokens, and 8\% multilingual tokens~\cite{llama3}.} has a high percentage of code in its mix.
 
 The experiments have been conducted on the Chain-of-Thought reasoning tasks from the gsm8k and gsm-hard\footnote{The gsm-hard dataset is a harder version of the gsm8k dataset, where the questions are more complex and require more reasoning steps to solve. Reasoning steps in the solution are expressed as code, also known as Program of Thought prompting (PoT). PoT is suitable for problems which require highly symbolic reasoning skills\\
