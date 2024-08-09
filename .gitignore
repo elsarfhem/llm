@@ -7,6 +7,9 @@ out/*
 *.bcf
 *.bbl
 *.blg
+*.out
+refs.bib.original
+main.run.xml
 
 
 #idea
