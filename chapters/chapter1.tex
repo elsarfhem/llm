@@ -47,7 +47,7 @@ Historically, the development of Language Models (LMs) has been rooted in the qu
 		      \begin{displayquote}
 			      Emergence is when quantitative changes in a system result in qualitative changes in behavior~\cite{anderson1972more}.
 		      \end{displayquote}
-		      These emergent abilities include, but are not limited to, the ability to perform tasks for which they were not explicitly trained, such as translation, summarisation, and question-answering, and to generalise to new tasks and domains, such as zero-shot learning \footnote{It refers to a machine learning scenario where a model makes predictions or performs tasks for classes or examples it has never seen during training}, few-shot learning \footnote{It involves training a model with a minimal number of examples per class, usually much fewer than what traditional machine learning models require}, and even one-shot learning \footnote{It is a specific case of few-shot learning where the model is trained with only one example per class} learning\footnote{A shot is an example or demonstration of what type of prompt and response you expect from a large language model. This term originates from training computer vision models on photographs, where one shot was one example or instance that the model used to classify an image \cite{feifei2006onedatacoltut}.}.
+		      These emergent abilities include, but are not limited to, the ability to perform tasks for which they were not explicitly trained, such as translation, summarisation, and question-answering, and to generalise to new tasks and domains, such as zero-shot learning \footnote{It refers to a machine learning scenario where a model makes predictions or performs tasks for classes or examples it has never seen during training}, few-shot learning \footnote{It involves training a model with a minimal number of examples per class, usually much fewer than what traditional machine learning models require}, and even one-shot\footnote{It is a specific case of few-shot learning where the model is trained with only one example per class} learning\footnote{A shot is an example or demonstration of what type of prompt and response you expect from a large language model. This term originates from training computer vision models on photographs, where one shot was one example or instance that the model used to classify an image \cite{feifei2006onedatacoltut}.}.
 		      Three typical examples of emergent abilities are:
 		      \begin{enumerate}
 			      \item \textbf{In-context learning:} {this ability has been formally observed in GPT-3, which is provided with a natural language instruction or task demonstrations; it can generate the expected output for test instances by completing the word sequence of the input text. Importantly, this can be achieved without requiring additional training or gradient updates \footnote{Recent study shows that in-context learning implicitly performs meta optimisation through the attention mechanism~\cite {dai2022why}}.
@@ -80,9 +80,9 @@ The advent of ChatGPT~\cite{adiwardana2020towards} and GPT-4~\cite{openai2024gpt
 
 Regarding NLP, LLMs can serve somewhat as general-purpose language task solvers.
 In the IR field, LLMs can be used to improve the performance of information retrieval systems through AI chatbots (i.e., ChatGPT) and New Bing \footnote{https://www.microsoft.com/it-it/bing?form=MA13FV}.
-In the CV field, LLMs can be used to improve the performance of computer vision systems through multimodal models /footnote{
-Models are designed to process and understand information from multiple modalities or sources (e.g., text, image, audio, video).
-Multimodal models aim to handle and integrate data from two or more modalities.
+In the CV field, LLMs can be used to improve the performance of computer vision systems through multimodal models \footnote{
+	Models are designed to process and understand information from multiple modalities or sources (e.g., text, image, audio, video).
+	Multimodal models aim to handle and integrate data from two or more modalities.
 } (i.e., CLIP\footnote{Contrastive Language–Image Pre-training}~\cite{radford2021learning} and DALL-E~\cite{ramesh2021zero}).
 
 This work will mainly focus on model sizes larger than 10B parameters to explore their capabilities, limitations, and potential applications.
@@ -103,7 +103,7 @@ Parameters are the internal variables the model learns during training, represen
 As the number of parameters increases, so does the model's capacity to encapsulate complex linguistic structures.
 
 One of the primary outcomes of adhering to the scaling law is the substantial improvement in performance across a spectrum of language-related tasks.
-From language generation to sentiment analysis, question-answering, and summarisation, larger models consistently outperform their smaller counterparts.
+From language generation to sentiment analysis, question-answering, and summarization, larger models consistently outperform their smaller counterparts.
 The increased capacity for learning intricate language features enables LLMs to excel in understanding and producing more human-like text.
 
 When writing, most of the LLMs are based on the transformer architecture, where multi-headed self-attention layers are stacked in a very deep neural network.
@@ -154,6 +154,7 @@ Two representative scaling laws for Transformer-based LLMs are the following~\ci
 Scaling boosts performance and addresses inherent limitations in smaller language models.
 Larger models excel in managing long-range dependencies, comprehending ambiguous language constructs, and displaying a nuanced understanding of context---capabilities that smaller models frequently find challenging.
 The eliciting of emergent abilities, such as Chain-of-Thought prompting and in-context learning, have shown a phase change in the first Scaling Law, where the performance increases linearly as the model size increases exponentially (Figure~\ref{fig:scaling-phase}).
+Scaling law is a crucial principle in the development of LLMs, guiding the allocation of resources and the design of models to maximise performance and capabilities.
 
 \begin{figure}[h!]
 	\centering
@@ -320,7 +321,7 @@ The prediction GPT-4's final loss was predicted by fitting a scaling law with an
 	\label{eq:gpt4-scaling-law}
 \end{equation}
 
-\noindent from models trained using the same methodology but using at most 10,000x less compute than GPT-4.
+\noindent from models trained using the same methodology but using at most 10,000\texttimes less compute than GPT-4.
 The fitted scaling law predicted GPT-4's final loss with high accuracy.
 In addition to predicting the final loss, a metric of capability was also predicted.
 One such metric is the pass rate on HumanEval dataset~\cite{chen2021evaluating}, which measures the ability to write Python functions of various complexity.
@@ -340,7 +341,7 @@ Despite its capabilities, GPT-4 has similar limitations to earlier GPT models: i
 
 Care should be taken when using the outputs of GPT-4, particularly in contexts where reliability is important.
 
-\subsection{Llama }
+\subsection{Llama}
 \label{subsec:llama}
 
 Llama~\footnote{Large Language Model Meta AI} is a language model developed by Meta AI, designed to be a versatile and efficient foundation for a wide range of natural language processing (NLP) tasks.
@@ -353,7 +354,7 @@ Main differences between Llama and original Transformer architecture~\cite{vaswa
 	\item \textbf{SwiGLU activation function\footnote{Inspired by PaLM model}} {Llama uses the SwiGLU\footnote{See Section \ref{subsubsec:activation-functions}} activation function by \textcite{shazeer2020glu}, which is a variant of the Gated Linear Unit (GLU) activation function.
 		      SwiGLU has been shown to improve the performance of large language models by enhancing the flow of information through the network.
 	      }
-	\item \textbf{Rotary Embeddinsgs\footnote{Inspired by GPTNeo model}} {Llama uses rotary embeddings by \textcite{su2021roformer}, which are a type of positional encoding that helps the model capture long-range dependencies in the input data.
+	\item \textbf{Rotary Embeddings\footnote{Inspired by GPTNeo model}} {Llama uses rotary embeddings by \textcite{su2021roformer}, which are a type of positional encoding that helps the model capture long-range dependencies in the input data.
 	      }
 \end{enumerate}
 
@@ -369,7 +370,7 @@ Main differences between Llama and original Transformer architecture~\cite{vaswa
 		65.2B  & 8192      & 64      & 80       & \(1.5 \times 10^{-4}\) & 4M         & 1.4T     \\
 		\bottomrule
 	\end{tabular}
-	\caption{Model sizes, architectures, and optimization hyper-parameters. Source: \protect\textcite{touvron2023llama}.}
+	\caption{Llama model sizes, architectures, and optimization hyper-parameters. Source: \textcite{touvron2023llama}.}
 	\label{tab:llama-model-params}
 \end{table}
 
@@ -400,10 +401,142 @@ Based on the Llama paper by \textcite{touvron2023llama}, even though Llama \text
 \end{table}
 
 The Llama models were trained exclusively on publicly available data, setting them apart from other models that rely on proprietary datasets~\footnote{Such as "Books --- 2TB" or "Social media conversations"}.
+The dataset is a mixture of several sources (webpages, books, scientific data and code) as reported in the Table~\ref{tab:llama-pretraining-data}.
+
+\begin{table}[h!]
+	\centering
+	\begin{tabularx}{\textwidth}{Xlccc}
+		\hline
+		\textbf{Dataset} & \textbf{Classification} & \textbf{Sampling prop.} & \textbf{Epochs} & \textbf{Disk size} \\
+		\hline
+		CommonCrawl      & Webpages                & 67.0\%                  & 1.10            & 3.3 TB             \\
+		C4               & Web                     & 15.0\%                  & 1.06            & 783 GB             \\
+		Github           & Code                    & 4.5\%                   & 0.64            & 328 GB             \\
+		Wikipedia        & Webpages                & 4.5\%                   & 2.45            & 83 GB              \\
+		Books            & Books                   & 4.5\%                   & 2.23            & 85 GB              \\
+		ArXiv            & Scientific Data         & 2.5\%                   & 1.06            & 92 GB              \\
+		StackExchange    & Conversation Data       & 2.0\%                   & 1.03            & 78 GB              \\
+		\hline
+	\end{tabularx}
+	\caption{Pre-training data. Data mixtures used for pre-training, for each subset the table reports the sampling proportion, number of epochs performed on the subset when training on 1.4T tokens, and disk size. The pre-training runs on 1T tokens have the same sampling proportion. Source: \textcite{touvron2023llama}.}
+	\label{tab:llama-pretraining-data}
+\end{table}
+
 Llama models were designed with efficiency in mind, both in training and inference, allowing even the 13B parameter model to run on a single GPU\@.
-We report a synthetic view of the Llama model family parameters in Table~\ref{tab:llama-model-params}.
+A synthetic view of the Llama model family parameters is reported in Table~\ref{tab:llama-model-params}.
+The optimizer used during the training is the same AdamW with the following hyper-parameters: $\beta_1=0.9, \beta_2=0.95, eps=10^{-5}$, a weight decay of 0.1, gradient clipping of 1.0, a cosine learning rate schedule and a warmup of 2000 steps.
 
 \textcite{touvron2023llama} acknowledges the presence of biases and toxicity in the models due to the nature of web data and evaluates these aspects using benchmarks from the responsible AI community.
+
+\subsubsection{Llama 2}
+\label{subsubsec:llama-2}
+
+Llama 2~\cite{touvron2023llama2} is a continuation of the Llama series, developed by Meta AI, released in scale from 7B to 70B parameters.
+The pre-training data of the LLaMa2 model is a new mix of data from publicly available sources, which does not include data from Meta's products or services.
+The training corpus is 40\% larger than the one used for Llama 1, and it is composed of a mix of text and a percentage of code data that is roughly 8\% of the total.
+The exact composition of the data mix is not disclosed but the code percentage is reported in the caption of the Table~\ref{tab:llama2-pretraining-data} extracted from the original paper~\cite{touvron2023llama2}.
+The pre-training selection focuses on address biases and toxicity recognised in the previous version of the model.
+
+\begin{table}[h!]
+	\centering
+	\begin{tabularx}{\textwidth}{XclcX}
+		\hline
+		\textbf{Language} & \textbf{Percent} & \textbf{Language} & \textbf{Percent} \\
+		\hline
+		en                & 89.70\%          & uk                & 0.07\%           \\
+		unknown           & 8.38\%           & ko                & 0.06\%           \\
+		de                & 0.17\%           & ca                & 0.04\%           \\
+		fr                & 0.16\%           & sr                & 0.04\%           \\
+		sv                & 0.15\%           & id                & 0.03\%           \\
+		zh                & 0.13\%           & cs                & 0.03\%           \\
+		es                & 0.13\%           & fi                & 0.03\%           \\
+		ru                & 0.13\%           & hu                & 0.03\%           \\
+		nl                & 0.12\%           & no                & 0.03\%           \\
+		it                & 0.11\%           & ro                & 0.03\%           \\
+		ja                & 0.10\%           & bg                & 0.02\%           \\
+		pl                & 0.09\%           & da                & 0.02\%           \\
+		pt                & 0.09\%           & sl                & 0.01\%           \\
+		vi                & 0.08\%           & hr                & 0.01\%           \\
+		\hline
+	\end{tabularx}
+	\caption{Language distribution in pretraining data with percentage $\geq$ 0.005\%. Most data is in English, meaning that LLaMA 2 will perform best for English-language use cases. The large unknown category is partially made up of programming code data.}
+	\label{tab:llama2-pretraining-data}
+\end{table}
+
+Most of the pretraining setting and model architecture from Llama 1 are adopted in Llama 2, including the standard transformer architecture, pre-normalization using RMSNorm, the SwiGLU activation function, and rotary positional embeddings.
+The optimizer used during the training is the same AdamW with the following hyper-parameters: $\beta_1=0.9, \beta_2=0.95, eps=10^{-5}$, a weight decay of 0.1, gradient clipping of 1.0, a cosine learning rate schedule and a warmup of 2000 steps.
+The primary architectural differences from Llama 1 include increased context length and grouped-query attention (GQA).
+
+\subsubsection{Code Llama}
+\label{subsubsec:code-llama}
+
+Code Llama~\cite{roziere2024codellamaopenfoundation} is a family of large language models for code generation based on Llama 2 providing infilling\footnote{With the terms infilling or code completion, we refer to the process of generating code snippets that complete a given code fragment.} capabilities, support
+for large input contexts, and zero-shot instruction following ability for programming tasks.
+It comes in three flavours: the vanilla model, the Python specialized model, and the instruction-following model with 7B, 13B, 34B, and 70B parameters each (see Figure~\ref{fig:code-llama}).
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=0.9\textwidth]{codellama-pipeline}
+	\caption{The Code Llama 70B specialization pipeline. The different stages of fine-tuning annotated with the number of tokens seen during training. Infilling-capable models are marked with the $\rightleftarrows$ symbol. Source: \protect\textcite{roziere2024codellamaopenfoundation}.}
+	\label{fig:code-llama}
+\end{figure}
+
+While most of the code generation models are trained on code only, Code Llama was fine-tuned starting from Llama 2, which was trained on general-purpose text and code data.
+The comparison in \textcite{roziere2024codellamaopenfoundation} shows that initializing from Llama 2 leads to better performance on code generation tasks than initializing from a code-only model for a given budget as shown in Figure~\ref{fig:code-llama-comparison}.
+Code Llama was fine-tuned on 500B extra tokens consisting mostly of code data (85\%).
+
+\begin{figure}[ht!]
+	\centering
+	\includegraphics[width=0.7\textwidth]{codellama-loss}
+	\caption{Comparison of Code Llama models versus an identical model trained from scratch. Source: \protect\textcite{roziere2024codellamaopenfoundation}.}
+	\label{fig:code-llama-comparison}
+\end{figure}
+
+\subsubsection{Llama 3}
+\label{subsubsec:llama-3}
+
+Llama 3~\cite{llama3} is a continuation of the Llama series, developed by Meta AI, with different model sizes: 8B, 70B, and 405B parameters.
+
+Llama 3 uses a standard, dense Transformer architecture.
+It does not deviate significantly from Llama and Llama 2 in terms of model architecture; therefore performance gains are primarily driven by improvements in data quality and diversity as well as by increased training scale.
+Compared to Llama 2, Llama 3 a few small changes in the model architecture:
+\begin{enumerate}
+	\item grouped query attention (GQA) with 8 key-value heads to improve inference speed and to reduce the size of key-value caches during decoding
+	\item an attention mask that prevents self-attention between different documents within the same sequence.
+	      This change has limited impact during in standard pre-training, but it's important in continued pre-training on very long sequences.
+	\item a vocabulary with 128K tokens.
+	      Compared to the Llama 2 tokenizer, the new tokenizer improves compression rates on a sample of English data from 3.17 to 3.94 characters per token.
+	\item the RoPE base frequency hyper-parameter increased to 500,000 to support longer contexts.
+\end{enumerate}
+Summary of the key hyper-parameters of Llama 3 is shown in Table~\ref{tab:llama3-hyperparameters}.
+
+\begin{table}[h!]
+	\centering
+	\caption{Overview of the key hyperparameters of Llama 3. We display settings for 8B, 70B, and 405B language models.}
+	\begin{tabularx}{\textwidth}{Xccc}
+		\textbf{}                      & \textbf{8B}               & \textbf{70B}              & \textbf{405B}             \\
+		\textbf{Layers}                & 32                        & 80                        & 126                       \\
+		\textbf{Model Dimension}       & 4096                      & 8192                      & 16384                     \\
+		\textbf{FFN Dimension}         & 14336                     & 28672                     & 53248                     \\
+		\textbf{Attention Heads}       & 32                        & 64                        & 128                       \\
+		\textbf{Key/Value Heads}       & 8                         & 8                         & 8                         \\
+		\textbf{Peak Learning Rate}    & $3 \times 10^{-4}$        & $1.5 \times 10^{-4}$      & $8 \times 10^{-5}$        \\
+		\textbf{Activation Function}   & SwiGLU                    & SwiGLU                    & SwiGLU                    \\
+		\textbf{Vocabulary Size}       & 128,000                   & 128,000                   & 128,000                   \\
+		\textbf{Positional Embeddings} & RoPE ($\theta = 500,000$) & RoPE ($\theta = 500,000$) & RoPE ($\theta = 500,000$) \\
+		\hline
+	\end{tabularx}
+	\caption{Overview of the key hyperparameters of Llama 3}
+	\label{tab:llama3-hyperparameters}
+\end{table}
+
+Compared to prior versions of Llama, authors improved both the quantity and quality of the data we use for pre-training and post-training.
+These improvements include the development of more careful pre-processing and curation pipelines for pre-training data and the development of more rigorous quality assurance and filtering approaches for post-training data.
+Pre-training corpus is composed of about 15T tokens, which is about 50\% larger than the one used for Llama 2.
+It contains roughly 50\% of tokens corresponding to general knowledge, 25\% of mathematical and reasoning tokens, 17\% code tokens, and 8\% multilingual tokens~\cite{llama3}.
+The resulting models have a rich set of capabilities.
+They can answer questions in at least eight languages, write high-quality code, solve complex reasoning problems, and use tools out-of-the-box or in a zero-shot way
+
 
 \subsection{Gemma}
 \label{subsec:gemma}
