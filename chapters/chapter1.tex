@@ -186,7 +186,7 @@ Some of the most prominent large language models (having a size larger than 10B)
 \label{subsec:bert}
 
 Introduced by Google in 2018, BERT~\cite{devlin2019bert} marked a significant evolution in LLMs by focusing on bidirectional context in text processing.
-BERT’s model architecture is a multi-layer bidirectional Transformer encoder based on the original transformer architecture introduced by \textcite{vaswani2023attention}.
+BERT's model architecture is a multi-layer bidirectional Transformer encoder based on the original transformer architecture introduced by \textcite{vaswani2023attention}.
 Unlike its predecessors, BERT analyses text in both directions (left-to-right and right-to-left), providing a more nuanced understanding of language context.
 This bi-directionality enables BERT to achieve state-of-the-art results in various NLP tasks, such as question answering, named entity recognition, and sentiment analysis.
 BERT's architecture and training methodology have influenced numerous subsequent models and research initiatives~\cite{devlin2019bert}.
@@ -313,7 +313,7 @@ GPT-4 development was enabled by deep learning infrastructure and optimization m
 This allowed making predictions about the expected performance of GPT-4 (based on small runs trained in similar ways) that were tested against the final run to increase confidence in our training.
 The primary reason is that extensive model-specific tuning is not feasible for very large training runs.
 
-The prediction GPT-4’s final loss was predicted by fitting a scaling law with an irreducible loss term (as in~\textcite{henighan2020scaling}):
+The prediction GPT-4's final loss was predicted by fitting a scaling law with an irreducible loss term (as in~\textcite{henighan2020scaling}):
 
 \begin{equation}
 	L(C) = aC^b + c
@@ -321,7 +321,7 @@ The prediction GPT-4’s final loss was predicted by fitting a scaling law with 
 \end{equation}
 
 \noindent from models trained using the same methodology but using at most 10,000x less compute than GPT-4.
-The fitted scaling law predicted GPT-4’s final loss with high accuracy.
+The fitted scaling law predicted GPT-4's final loss with high accuracy.
 In addition to predicting the final loss, a metric of capability was also predicted.
 One such metric is the pass rate on HumanEval dataset~\cite{chen2021evaluating}, which measures the ability to write Python functions of various complexity.
 The approximate power law relationship is
@@ -340,20 +340,20 @@ Despite its capabilities, GPT-4 has similar limitations to earlier GPT models: i
 
 Care should be taken when using the outputs of GPT-4, particularly in contexts where reliability is important.
 
-\subsection{LLaMA}
+\subsection{Llama }
 \label{subsec:llama}
 
-LLaMA~\footnote{Large Language Model Meta AI} is a language model developed by Meta AI, designed to be a versatile and efficient foundation for a wide range of natural language processing (NLP) tasks.
-LLaMA is built on a transformer architecture~\cite{vaswani2023attention}, similar to other large language models, with a range from 7B to 65B parameters.
-Main differences between LLaMA and original Transformer architecture~\cite{vaswani2023attention} are the following:
+Llama~\footnote{Large Language Model Meta AI} is a language model developed by Meta AI, designed to be a versatile and efficient foundation for a wide range of natural language processing (NLP) tasks.
+Llama is built on a transformer architecture~\cite{vaswani2023attention}, similar to other large language models, with a range from 7B to 65B parameters.
+Main differences between Llama and original Transformer architecture~\cite{vaswani2023attention} are the following:
 \begin{enumerate}
-	\item \textbf{Pre-normalization\footnote{Inspired by GTP-3 model}} {LLaMA uses pre-normalization\footnote{See Section \ref{subsubsec:normalization}}, which means that the normalization layer is placed before the self-attention and feed-forward layers.
+	\item \textbf{Pre-normalization\footnote{Inspired by GTP-3 model}} {Llama uses pre-normalization\footnote{See Section \ref{subsubsec:normalization}}, which means that the normalization layer is placed before the self-attention and feed-forward layers.
 		      Pre-normalization has been shown to improve training stability and convergence in large language models, making it a popular choice for many state-of-the-art models.
 	      }
-	\item \textbf{SwiGLU activation function\footnote{Inspired by PaLM model}} {LLaMA uses the SwiGLU\footnote{See Section \ref{subsubsec:activation-functions}} activation function by \textcite{shazeer2020glu}, which is a variant of the Gated Linear Unit (GLU) activation function.
+	\item \textbf{SwiGLU activation function\footnote{Inspired by PaLM model}} {Llama uses the SwiGLU\footnote{See Section \ref{subsubsec:activation-functions}} activation function by \textcite{shazeer2020glu}, which is a variant of the Gated Linear Unit (GLU) activation function.
 		      SwiGLU has been shown to improve the performance of large language models by enhancing the flow of information through the network.
 	      }
-	\item \textbf{Rotary Embeddinsgs\footnote{Inspired by GPTNeo model}} {LLaMA uses rotary embeddings by \textcite{su2021roformer}, which are a type of positional encoding that helps the model capture long-range dependencies in the input data.
+	\item \textbf{Rotary Embeddinsgs\footnote{Inspired by GPTNeo model}} {Llama uses rotary embeddings by \textcite{su2021roformer}, which are a type of positional encoding that helps the model capture long-range dependencies in the input data.
 	      }
 \end{enumerate}
 
@@ -373,7 +373,7 @@ Main differences between LLaMA and original Transformer architecture~\cite{vaswa
 	\label{tab:llama-model-params}
 \end{table}
 
-Based on the LLaMA paper by \textcite{touvron2023llama}, even though LLaMA-13B is smaller than many competitors, it outperforms GPT-3 on most benchmarks, and the 65B model is competitive with the best large language models available, such as Chinchilla and PaLM-540B, despite being x10 smaller (as shown in Table~\ref{tab:llama-zero-shot-performance}).
+Based on the Llama paper by \textcite{touvron2023llama}, even though Llama \textsubscript{13B} is smaller than many competitors, it outperforms GPT-3 on most benchmarks, and the 65B model is competitive with the best large language models available, such as Chinchilla and PaLM-540B, despite being x10 smaller (as shown in Table~\ref{tab:llama-zero-shot-performance}).
 
 \begin{table}[htbp]
 	\centering
@@ -389,19 +389,19 @@ Based on the LLaMA paper by \textcite{touvron2023llama}, even though LLaMA-13B i
 		PaLM-cont  & 62B    & 83.9  & 81.4 & -    & 80.6      & 77.0       & -     & -     & -    \\
 		PaLM       & 540B   & 88.0  & 82.3 & -    & 83.4      & 81.1       & 76.6  & 53.0  & 53.4 \\
 		\addlinespace
-		LLaMA      & 7B     & 76.5  & 79.8 & 48.9 & 76.1      & 70.1       & 72.8  & 47.6  & 57.2 \\
-		LLaMA      & 13B    & 78.1  & 80.1 & 50.4 & 79.2      & 73.0       & 74.8  & 52.7  & 56.4 \\
-		LLaMA      & 33B    & 83.1  & 82.3 & 50.4 & 82.8      & 76.0       & 80.0  & 57.8  & 58.6 \\
-		LLaMA      & 65B    & 85.3  & 82.8 & 52.3 & 84.2      & 77.0       & 78.9  & 56.0  & 60.2 \\
+		Llama      & 7B     & 76.5  & 79.8 & 48.9 & 76.1      & 70.1       & 72.8  & 47.6  & 57.2 \\
+		Llama      & 13B    & 78.1  & 80.1 & 50.4 & 79.2      & 73.0       & 74.8  & 52.7  & 56.4 \\
+		Llama      & 33B    & 83.1  & 82.3 & 50.4 & 82.8      & 76.0       & 80.0  & 57.8  & 58.6 \\
+		Llama      & 65B    & 85.3  & 82.8 & 52.3 & 84.2      & 77.0       & 78.9  & 56.0  & 60.2 \\
 		\bottomrule
 	\end{tabularx}
 	\caption{Zero-shot performance on Common Sense Reasoning tasks. Source: \protect\textcite{touvron2023llama}.}
 	\label{tab:llama-zero-shot-performance}
 \end{table}
 
-The LLaMA models were trained exclusively on publicly available data, setting them apart from other models that rely on proprietary datasets~\footnote{Such as "Books --- 2TB" or "Social media conversations"}.
-LLaMA models were designed with efficiency in mind, both in training and inference, allowing even the 13B parameter model to run on a single GPU\@.
-We report a synthetic view of the LLaMA model family parameters in Table~\ref{tab:llama-model-params}.
+The Llama models were trained exclusively on publicly available data, setting them apart from other models that rely on proprietary datasets~\footnote{Such as "Books --- 2TB" or "Social media conversations"}.
+Llama models were designed with efficiency in mind, both in training and inference, allowing even the 13B parameter model to run on a single GPU\@.
+We report a synthetic view of the Llama model family parameters in Table~\ref{tab:llama-model-params}.
 
 \textcite{touvron2023llama} acknowledges the presence of biases and toxicity in the models due to the nature of web data and evaluates these aspects using benchmarks from the responsible AI community.
 
@@ -423,7 +423,7 @@ The design philosophy targets efficient deployment across diverse hardware platf
 	\label{fig:gemma-comparison2}
 \end{figure}
 
-In comparative benchmarks, Gemma models have demonstrated capabilities that exceed those of larger parameter models, such as LLaMA-2 (13B), indicating a significant efficiency in parameter utilization.
+In comparative benchmarks, Gemma models have demonstrated capabilities that exceed those of larger parameter models, such as Llama 2 (13B), indicating a significant efficiency in parameter utilization.
 This is particularly evident in language understanding and reasoning tasks where Gemma models have been pitted against their contemporaries.
 
 One of the prominent strengths of Gemma models is their deployment efficiency, which democratizes access to state-of-the-art NLP tools.
@@ -584,8 +584,8 @@ Here's a more detailed look at these techniques:
 		Model                                  & Backbone           & Paras.  & PT Techniques & PT \newline Data Size                    & Evaluation \newline Task & Dataset                                               & O.S.\ Model & PT & IFT \\
 		\midrule
 		BloombergGPT~\cite{wu2023bloomberggpt} & BLOOM              & 50B     & PT, PE        & (G) 345B tokens \newline (F) 363B tokens & SA, TC                   & FPB, FiQA-SA, Headline                                & N           & N  & N   \\
-		FinMA~\cite{xie2023pixiu}              & LLaMA              & 7B, 30B & IFT, PE       & (G) 1T tokens                            & SA, TC, NER, QA          & FPB, FiQA-SA, Headline \newline FIN, FinQA, ConvFinQA & Y           & Y  & Y   \\
-		InvestLM~\cite{yang2023investlm}       & LLaMA              & 65B     & PEFT          & (G) 1.4T tokens                          & SA, TC, SMP              & StockNet, CIKM18, BigData22                           & Y           & N  & N   \\
+		FinMA~\cite{xie2023pixiu}              & Llama              & 7B, 30B & IFT, PE       & (G) 1T tokens                            & SA, TC, NER, QA          & FPB, FiQA-SA, Headline \newline FIN, FinQA, ConvFinQA & Y           & Y  & Y   \\
+		InvestLM~\cite{yang2023investlm}       & Llama              & 65B     & PEFT          & (G) 1.4T tokens                          & SA, TC, SMP              & StockNet, CIKM18, BigData22                           & Y           & N  & N   \\
 		FinGPT~\cite{wang2023fingpt}           & 6 open-source LLMs & 7B      & PEFT          & (G) 2T tokens                            & SA, TC, NER, RE          & FPB, FiQA-SA, Headline \newline FIN, FinRED           & Y           & Y  & Y   \\
 		\bottomrule
 	\end{tabularx}
@@ -620,7 +620,7 @@ Here's a more detailed look at these techniques:
 	      }
 \end{itemize}
 
-Within the four FinLLMs in Figure~\ref{tab:fin_llms}, FinMA~\cite{xie2023pixiu}, InvestLM~\cite{yang2023investlm}, and FinGPT~\cite{wang2023fingpt} are based on LLaMA or other open-source based models, while BloombergGPT~\cite{wu2023bloomberggpt} is a BLOOM-style closed-source model.
+Within the four FinLLMs in Figure~\ref{tab:fin_llms}, FinMA~\cite{xie2023pixiu}, InvestLM~\cite{yang2023investlm}, and FinGPT~\cite{wang2023fingpt} are based on Llama or other open-source based models, while BloombergGPT~\cite{wu2023bloomberggpt} is a BLOOM-style closed-source model.
 
 Regarding the evaluation tasks, the models are assessed on a range of financial NLP tasks, as shown below:
 
@@ -863,7 +863,7 @@ BloombergGPT's prowess was rigorously benchmarked against a suite of established
 The model exhibited a remarkable ability to outperform existing models on financial NLP tasks, a testament to the efficacy of its specialized training as shown in Table~\ref{tab:financial_tasks}, Table~\ref{tab:internal_aspect_sentiment}, and Table~\ref{tab:ner_ned_results}.
 BloombergGPT's performance on standard, general-purpose benchmarks was also evaluated, demonstrating its versatility and proficiency across a range of NLP tasks.
 
-Overall, while BloombergGPT falls behind the much larger PaLM\textsubscript{540B} (10x parameters) and BLOOM\textsubscript{176B} (3.5x parameters), it is the best-performing among similarly sized models.
+Overall, while BloombergGPT falls behind the much larger PaLM\textsubscript{540B} (10\texttimes parameters) and BLOOM\textsubscript{176B} (3.5x parameters), it is the best-performing among similarly sized models.
 In fact, its performance is closer to BLOOM\textsubscript{176B} than it is to either GPT-NeoX or OPT\textsubscript{66B}.
 
 In sum, according to benchmarks in \textcite{wu2023bloomberggpt}, developing finance-specific BloombergGPT did not come at the expense of its general-purpose abilities.

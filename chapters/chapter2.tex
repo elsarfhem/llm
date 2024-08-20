@@ -210,7 +210,7 @@ Based on their content types, we categorize these corpora into six groups: Books
 	\item \textbf{Books:} {
 		      BookCorpus~\cite{zhu2015aligning} and Gutenberg~\cite{projectgutenberg} are two prominent datasets that contain text from a wide range of books spanning various genres and topics. These datasets are valuable for training LLMs on literary text and assessing their performance on text generation tasks.\\
 		      BookCorpus is a dataset consisting of text from over 11,000 books (e.g., novels and biographies), while Gutenberg is a collection of over 70,000 free ebooks, including novels, essays, poetry, drama, history, science, philosophy, and other types of works, in the public domain.\\
-		      BookCorpus is commonly used in previous small-scale models (e.g., GPT~\cite{radford2018improving} and GPT-2~\cite{radford2019language}), while Gutenberg is used in more recent large-scale models (i.e., LLaMa~\cite{touvron2023llama}).\\
+		      BookCorpus is commonly used in previous small-scale models (e.g., GPT~\cite{radford2018improving} and GPT-2~\cite{radford2019language}), while Gutenberg is used in more recent large-scale models (i.e., Llama~\cite{touvron2023llama}).\\
 		      Book1 and Book2 used in GPT-3~\cite{brown2020language} are much larger than BookCorpus but have not been publicly released.
 	      }
 	\item \textbf{CommonCrawl:} {
@@ -274,7 +274,7 @@ The set of rules can be summarized as follows:
 		      \label{eq:equation_perplexity}
 	      \end{equation}
 	      where \(\log p_{\theta}(x_i | x_{<i})\) is the log-likelihood of the token \(x_i\) given the previous tokens \(x_{<i}\) in the sequence.
-	      Intuitively, it can be thought of as an evaluation of the model’s ability to predict uniformly among the set of specified tokens in a corpus\footnote{This means that the tokenization procedure has a direct impact on a model’s perplexity, which should always be taken into consideration when comparing different models.}~\cite{huggingface2023perplexity}.
+	      Intuitively, it can be thought of as an evaluation of the model's ability to predict uniformly among the set of specified tokens in a corpus\footnote{This means that the tokenization procedure has a direct impact on a model’s perplexity, which should always be taken into consideration when comparing different models.}~\cite{huggingface2023perplexity}.
 	      }
 	\item \textit{Statistic based filtering}. {Statistical features like punctuation distribution, symbol-to-word ratio, and sentence length can be used to filter out low-quality data.
 	      }
@@ -340,7 +340,7 @@ This is particularly advantageous for handling agglutinative languages, where wo
 Unigram tokenization is a statistical method that employs a unigram language model to probabilistically segment text into tokens.
 This technique, standing in contrast to the deterministic nature of Byte Pair Encoding, involves constructing a unigram model from a large initial vocabulary and iteratively refining it to maximize the likelihood of the observed corpus~\cite{kudo2018sentencepiece}.
 The essence of Unigram tokenization lies in its iterative pruning process, wherein less probable tokens are systematically eliminated from the vocabulary.
-To estimate the unigram language model, it adopts an Expectation–Maximization (EM) algorithm: at each iteration, it first finds the currently optimal tokenization of words based on the old language model and then re-estimates the probabilities of unigrams to update the language model.
+To estimate the unigram language model, it adopts an Expectation-Maximization (EM) algorithm: at each iteration, it first finds the currently optimal tokenization of words based on the old language model and then re-estimates the probabilities of unigrams to update the language model.
 During this procedure, dynamic programming algorithms (i.e., the Viterbi algorithm) are used to efficiently find the optimal decomposition way of a word given the language model\cite{survey}.
 This probabilistic approach is adept at handling the linguistic complexities and variations found across different languages and domains.
 It particularly excels in the context of language models that require a nuanced understanding of morphological structures and sub-word variations.
@@ -540,11 +540,12 @@ The main effects of instruction tuning are:
 	      }
 \end{itemize}
 
-In summary, instruction tuning is a powerful technique that significantly enhances LLMs' performance, generalization, and domain specialization. The effectiveness of instruction tuning is evident across models of various scales and architectures, demonstrating its versatility and broad applicability.
-Larger models, such as LLaMA (13B) compared to LLaMA (7B), generally perform better, suggesting that increased model size enhances the model’s ability to follow instructions and utilize knowledge more effectively.
+In summary, instruction tuning is a powerful technique that significantly enhances LLMs' performance, generalization, and domain specialization.
+The effectiveness of instruction tuning is evident across models of various scales and architectures, demonstrating its versatility and broad applicability.
+Larger models, such as Llama\textsubscript{13B} compared to Llama\textsubscript{7B}, generally perform better, suggesting that increased model size enhances the model's ability to follow instructions and utilize knowledge more effectively.
 This is particularly evident in QA settings, where larger models show markedly improved performance~\cite{survey}.
 
-Increasing the complexity and diversity of the Self-Instruct-52K dataset enhances LLaMA's performance in both chat and QA settings.
+Increasing the complexity and diversity of the Self-Instruct-52K dataset enhances Llama's performance in both chat and QA settings.
 For example, improving instruction complexity significantly boosts performance on QA tasks, which typically involve complex queries.
 Merely increasing the number of instructions or attempting to balance instruction difficulty does not necessarily yield better outcomes.
 In some cases, such as scaling up instruction numbers without focusing on quality, it can even degrade performance~\cite{survey}.
@@ -575,7 +576,7 @@ Human feedback is essential for alignment tuning, as it provides the necessary s
 
 Dominant strategies for generating human feedback data is human annotation ~\cite{ouyang2022training, glaese2022improving, ziegler2019fine}.
 This highlights the importance of labellers in the alignment tuning process, as they play a crucial role in providing feedback on the model's outputs.
-Ensuring that labellers have adequate qualifications is vital; despite stringent selection criteria, mismatches in intentions between researchers and labellers can still occur, potentially compromising feedback quality and LLM performance \cite{bender2021dangers}.
+Ensuring that labellers have adequate qualifications is vital; despite stringent selection criteria, mismatches in intentions between researchers and labellers can still occur, potentially compromising feedback quality and LLM performance~\cite{bender2021dangers}.
 To address this, the InstructGPT initiative includes a screening process to select labellers whose evaluations closely align with those of researchers~\cite{ouyang2022training}.
 Additionally, the use of "super raters" in some studies ensures the highest quality of feedback by selecting the most consistent labellers for critical tasks~\cite{glaese2022improving}.
 
@@ -604,7 +605,7 @@ The main steps in RLHF include supervised fine-tuning, reward model training, an
 Supervised fine-tuning involves collecting a supervised dataset with prompts and desired outputs for initial fine-tuning.
 
 Reward model training trains the RM using human-annotated data where labellers rank outputs, guiding the RM to predict human preferences.
-Studies suggest using large reward models that align with the LLM’s scale for better performance judgment and combining multiple RMs focused on different alignment criteria for a nuanced reward signal.
+Studies suggest using large reward models that align with the LLM's scale for better performance judgment and combining multiple RMs focused on different alignment criteria for a nuanced reward signal.
 
 RL fine-tuning treats alignment as an RL problem where the LM is optimized against the RM using PPO, incorporating penalties like KL divergence to maintain closeness to the original model behaviour.
 Practical strategies propose deploying the RM on a separate server and using beam search decoding to manage computational demands and enhance output diversity.
@@ -752,8 +753,8 @@ Different orders and configurations of the sub-layers, residual connection and l
 		Galactica~\cite{taylor2022galactica}   & Causal\newline decoder & 120B & Pre LayerNorm & Learned  & GeLU       & N    & 96  & 80  & 10240                  & 2048 \\
 		LaMDA~\cite{thoppilan2022lamda}        & Causal\newline decoder & 137B & -             & Relative & GeGLU      & -    & 64  & 128 & 8192                   & -    \\
 		Jurassic-1~\cite{lieber2021jurassic}   & Causal\newline decoder & 178B & Pre LayerNorm & Learned  & GeLU       & Y    & 76  & 96  & 13824                  & 2048 \\
-		LLaMA~\cite{touvron2023llama}          & Causal\newline decoder & 65B  & Pre RMSNorm   & RoPE     & SwiGLU     & Y    & 80  & 64  & 8192                   & 2048 \\
-		LLaMA 2~\cite{touvron2023llama2}       & Causal\newline decoder & 70B  & Pre RMSNorm   & RoPE     & SwiGLU     & Y    & 80  & 64  & 8192                   & 4096 \\
+		Llama ~\cite{touvron2023llama}         & Causal\newline decoder & 65B  & Pre RMSNorm   & RoPE     & SwiGLU     & Y    & 80  & 64  & 8192                   & 2048 \\
+		Llama 2~\cite{touvron2023llama2}       & Causal\newline decoder & 70B  & Pre RMSNorm   & RoPE     & SwiGLU     & Y    & 80  & 64  & 8192                   & 4096 \\
 		Falcon~\cite{penedo2023refinedweb}     & Causal\newline decoder & 40B  & Pre LayerNorm & RoPE     & GeLU       & N    & 60  & 64  & 8192                   & 2048 \\
 		GLM-130B~\cite{zeng2022glm130b}        & Prefix\newline decoder & 130B & Post DeepNorm & RoPE     & GeGLU      & Y    & 64  & 96  & 12288                  & 2048 \\
 		T5~\cite{raffel2023exploring}          & Encoder-decoder        & 11B  & Pre RMSNorm   & Relative & ReLU       & N    & 24  & 128 & 1024                   & 512  \\
@@ -1054,11 +1055,11 @@ It can significantly reduce the computational cost of the attention operation wi
 Palm~\cite{chowdhery2022palm} and Starcoder~\cite{li2023starcoder} are examples of LLMs that use the multi-query attention mechanism.
 A tradeoff between multi-query and multi-head attention grouped-query (GQA) has been explored in \textcite{ainslie2023gqa}.
 In GQA, heads are grouped together, and each group shares the same transformation matrices.
-This mechanism has been adopted and empirically tested in the LLaMA 2 model~\cite{touvron2023llama2}.
+This mechanism has been adopted and empirically tested in the Llama 2 model~\cite{touvron2023llama2}.
 
 Flash attention~\cite{dao2022flashattention} is an approach that proposes to optimize the speed and memory consumption of attention modules on the GPUs.
 Modern GPUs have different memory types, and Flash attention takes advantage of this by organizing the input block on the faster memory\footnote{SRAM has fast IO, while HBM is slower}.
-Updated version FlashAttention-2~\cite{liu2022fast} has been proposed to further improve the performance of the attention module on GPUs, partitioning of GPU thread blocks and warps, leading to around 2× speedup when compared to the original FlashAttention.
+Updated version FlashAttention-2~\cite{liu2022fast} has been proposed to further improve the performance of the attention module on GPUs, partitioning of GPU thread blocks and warps, leading to around 2\texttimes speedup when compared to the original FlashAttention.
 
 PagedAttention~\cite{vllm2023} is based on the observation that GPU memory is bottlenecked by cached attention keys and value tensors.
 These cached key and value tensors are often referred to as KV cache.
@@ -1119,7 +1120,7 @@ In \textcite{gu2022efficiently}, the authors found that S4 can be trained quickl
 Long Range Arena(LRA)~\cite{tay2021longrange} is a benchmark suite that evaluates the performance of LLMs on a range of tasks that require capturing long-range dependencies.
 It contains 6 tasks with lengths of 1K-16K steps, encompassing modalities and objectives that require similarity, structural, and visuospatial reasoning.
 Table~\ref{tab:LRA} shows the performance of S4 and 11 Transformer variants from \textcite{tay2021longrange}.
-Notably, S4 solves the Path-X task, an extremely challenging task that involves reasoning about LRDs over sequences of length 128 × 128 = 16384.
+Notably, S4 solves the Path-X task, an extremely challenging task that involves reasoning about LRDs over sequences of length 128 \texttimes 128 = 16384.
 All previous models have failed (i.e., random guessing) due to memory or computation bottlenecks or simply being unable to learn such long dependencies.
 \begin{table}[htbp]
 	\centering
