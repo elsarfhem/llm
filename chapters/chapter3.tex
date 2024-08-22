@@ -318,7 +318,7 @@ This method integrates intermediate reasoning steps within the prompts, thereby 
 \begin{figure}[h!]
 	\centering
 	\includegraphics[width=0.6\textwidth]{cot-reasoning}
-	\caption{Chain-of-Thought reasoning for GSM8K math word problem. The prompt is coloured black, and the reasoning path produced by the language model is coloured teal. This reasoning path contains two reasoning steps. Source: \textcite{li2022making}}
+	\caption{Chain-of-Thought reasoning for GSM8k math word problem. The prompt is coloured black, and the reasoning path produced by the language model is coloured teal. This reasoning path contains two reasoning steps. Source: \textcite{li2022making}}
 	\label{fig:cot-reasoning}
 \end{figure}
 To some extent, CoT can be considered a special case of ICL, as it involves the generation of prompts with a series of intermediate reasoning steps (Figure~\ref{fig:chain-of-thought}), but the ordering of demonstrations in this case has a s relatively minor impact on the performance of LLMs~\cite{wei2022chain}.
@@ -605,7 +605,7 @@ The PS+ variant of Plan-and-Solve is an extension of Plan-and-Solve that adds de
 	\centering
 	\begin{tabularx}{\textwidth}{Xcccccc}
 		\hline
-		\textbf{Method} & \textbf{MultiArith} & \textbf{GSM8K} & \textbf{AddSub} & \textbf{AQUA} & \textbf{SingleEq} & \textbf{SVAMP} \\
+		\textbf{Method} & \textbf{MultiArith} & \textbf{GSM8k} & \textbf{AddSub} & \textbf{AQUA} & \textbf{SingleEq} & \textbf{SVAMP} \\
 		\hline
 		Zero-shot-CoT   & 83.8                & 56.4           & 85.3            & 38.9          & 88.1              & 69.9           \\
 		PoT             & 92.2                & 57.0           & 85.1            & 43.9          & 91.7              & 70.8           \\
@@ -686,7 +686,7 @@ Table~\ref{tab:symbolic} shows the accuracy comparison.
 
 Least-to-most prompting also achieves 99.7\% accuracy on the SCAN\footnote{it is probably the most popular benchmark for evaluating compositional generalization. It requires mapping natural language commands to action sequences~\cite{lake2018generalization}.} compositional generalization benchmark with only 14 exemplars, compared to 16\% with Chain-of-Thought prompting.
 Table~\ref{tab:compositional} shows the accuracy comparison.
-Least-to-most improves performance on GSM8K and DROP benchmarks, particularly for problems requiring multiple solving steps.
+Least-to-most improves performance on GSM8k and DROP benchmarks, particularly for problems requiring multiple solving steps.
 Table~\ref{tab:math} shows the accuracy comparison.
 
 \begin{table}[h!]
@@ -707,7 +707,7 @@ Table~\ref{tab:math} shows the accuracy comparison.
 	\centering
 	\begin{tabularx}{\textwidth}{Xccc}
 		\hline
-		\textbf{Method}    & \textbf{Non-football (DROP)} & \textbf{Football (DROP)} & \textbf{GSM8K} \\
+		\textbf{Method}    & \textbf{Non-football (DROP)} & \textbf{Football (DROP)} & \textbf{GSM8k} \\
 		\hline
 		Zero-Shot          & 43.86                        & 51.77                    & 16.38          \\
 		Standard Prompting & 58.78                        & 62.73                    & 17.06          \\
@@ -715,7 +715,7 @@ Table~\ref{tab:math} shows the accuracy comparison.
 		Least-to-Most      & 82.45                        & 73.42                    & 62.39          \\
 		\hline
 	\end{tabularx}
-	\caption{Accuracies of different prompting methods on GSM8K and DROP benchmarks. Source: \textcite{zhou2022least}}
+	\caption{Accuracies of different prompting methods on GSM8k and DROP benchmarks. Source: \textcite{zhou2022least}}
 	\label{tab:math}
 \end{table}
 
@@ -771,7 +771,7 @@ It generates programs that can be executed by a Python interpreter and uses the 
 \begin{figure}[h!]
 	\centering
 	\includegraphics[width=0.8\textwidth]{pal-math}
-	\caption{Example prompt for the mathematical reasoning tasks from the GSM8K benchmark. Source: \textcite{gao2022pal}}
+	\caption{Example prompt for the mathematical reasoning tasks from the GSM8k benchmark. Source: \textcite{gao2022pal}}
 	\label{fig:pal-math}
 \end{figure}
 \begin{figure}[h!]
@@ -786,7 +786,7 @@ It generates programs that can be executed by a Python interpreter and uses the 
 	\tiny
 	\begin{tabularx}{\textwidth}{XXXXXXXXXX}
 		\hline
-		\textbf{Model}                           & \textbf{GSM8K} & \textbf{GSM-HARD} & \textbf{SVAMP} & \textbf{ASDIV} & \textbf{SINGLEEQ} & \textbf{SINGLEOP} & \textbf{ADDSUB} & \textbf{MULTIARITH} \\ \hline
+		\textbf{Model}                           & \textbf{GSM8k} & \textbf{GSM-HARD} & \textbf{SVAMP} & \textbf{ASDIV} & \textbf{SINGLEEQ} & \textbf{SINGLEOP} & \textbf{ADDSUB} & \textbf{MULTIARITH} \\ \hline
 		\textsc{Direct}\textsubscript{Codex}     & 19.7           & 5.0               & 69.9           & 74.0           & 86.8              & 93.1              & 90.9            & 44.0                \\
 		\textsc{CoT}\textsubscript{UL2-20B}      & 4.1            & -                 & 12.6           & 16.9           & -                 & -                 & 18.2            & 10.7                \\
 		\textsc{CoT}\textsubscript{LAMDA-137B}   & 17.1           & -                 & 39.9           & 49.0           & -                 & -                 & 52.9            & 51.8                \\
@@ -798,7 +798,7 @@ It generates programs that can be executed by a Python interpreter and uses the 
 	\caption{Problem solve rate (\%) on mathematical reasoning datasets. The highest number on each task is in \textbf{bold}. The results for DIRECT and PaLM-540B are from \textcite{wei2022chain}, the results for LAMDA and UL2 are from \textcite{wang2022self}, the results for Minerva are from \textcite{lewkowycz2022minerva}. PAL ran on each benchmark 3 times and reported the average. Source: \textcite{gao2022pal}.}
 	\label{tab:pal-math}
 \end{table}
-\textsc{PaL} is even more effective with respect to other LLMs when tested on the GSM-HARD dataset -- a version of GSM8K contains larger numbers (i.e., up to 7 digits).
+\textsc{PaL} is even more effective with respect to other LLMs when tested on the GSM-HARD dataset -- a version of GSM8k contains larger numbers (i.e., up to 7 digits).
 Other interesting results come from symbolic reasoning tasks from BIG-Bench Hard: the \textsc{Colored Objects}\footnote{It requires answering questions about coloured objects on a surface} and the \textsc{Penguins}\footnote{It requires to answer a question about the attributes of the penguins on a table (e.g., "how many penguins are less than 8 years old?"). This task describes dynamics as well since the penguins can be added or removed.} tasks as shown in Table~\ref{tab:pal-symbolic}.
 \begin{table}[h!]
 	\centering
