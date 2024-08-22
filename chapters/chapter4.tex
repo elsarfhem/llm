@@ -140,20 +140,20 @@ The system message is used to provide the model with the task to perform and to 
 In the 0-shot setting, the prompt is provided with no examples, and the CoT reasoning is originated by applying the "Let's think step by step" approach in the system's prompt as suggested by \textcite{kojima2023large}.\\
 
 The system prompt used for the 0-shot experiments is:
-\begin{verbatim}
+\begin{Verbatim}[fontsize=\small,breaklines]
 You are a maths teacher. Answer the following mathematical reasoning question.
 The solution is a single numerical value.
 Let's think step by step and then provide the solution on the last line in the following form: "The solution is <<value>>"
-\end{verbatim}
+\end{Verbatim}
 
 In the 5-shot prompting, the model is given five examples of the task and the structure is similar to what we see in the Figure~\ref{fig:prompt-format}.
 The main difference is that before the last user message, there are five pair of user and assistant messages, where the assistant provides the solution to the task.
 Assistant messages serve as examples for the model to learn from and they do not trigger the inference.
 The system prompt in this case can be simplified as:
-\begin{verbatim}
+\begin{Verbatim}[fontsize=\small,breaklines]
 You are a maths teacher. Answer the following mathematical reasoning question.
 Let's think step by step.
-\end{verbatim}
+\end{Verbatim}
 since the reasoning is guided by the assistant messages.
 
 \subsubsection*{Llama2 7B GSM8k 0-shot}
@@ -172,7 +172,7 @@ The answer is correct, but the reasoning is not present.
 \begin{displayquote}
 	\textbf{Prompt:}
 	\begin{Verbatim}[fontsize=\small,breaklines]
-Jeff’s work is 3 miles away.  He walks there and back each day he works.  How many miles does he walk if he has to work 5 times a week?\\
+Jeff’s work is 3 miles away.  He walks there and back each day he works.  How many miles does he walk if he has to work 5 times a week?
 	\end{Verbatim}
 	\textbf{Answer:}
 	\begin{Verbatim}[fontsize=\small,breaklines]
