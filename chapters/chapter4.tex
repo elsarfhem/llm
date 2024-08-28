@@ -61,7 +61,7 @@ For example, when comparing models of the same size, we can exclude this factor 
 Additionally, the models available on LMStudio are limited to the models available on HuggingFace, while others are closed-source and have not been publicly released.
 For this reason, we executed some experiments (see Table~\ref{tab:llama-comparison}) on Llama family models, which are publicly available on HuggingFace.
 
-As reported by authors, the architecture of the different models is quite similar.
+As reported by the authors, the architecture of the different models is quite similar.
 Indeed, Llama 3 uses a standard, dense Transformer architecture~\cite{vaswani2023attention} which does not deviate significantly from Llama~\cite{touvron2023llama} and Llama 2~\cite{touvron2023llama2} in terms of model architecture.
 This leads to the conclusion that the performance gains are primarily driven by improvements in data quality and diversity as well as by increased training scale~\cite{llama3}.
 
@@ -98,18 +98,18 @@ The results from the execution of the experiments are shown in Table~\ref{tab:ll
 \end{table}
 
 As expected, Llama 3 performs better than Llama 2, and its CoT reasoning ability improves as performance increases between the 0-shot and 5-shot settings.
-Since the models are the same size and have similar architectures, the improvement is related different models' pre-training data.
+Since the models are the same size and have similar architectures, the improvement is related to different models' pre-training data.
 One of the main differences between Llama 2 and Llama 3 is the percentage of code in the pre-training data, which is 8\% for Llama 2 and 17\% for Llama 3.
 It confirms that the code in the pre-training data can greatly increase the CoT reasoning ability of LLMs.
 We also run the same experiments on LLaMA2\textsubscript{13B} to further exclude the size factor.
-It confirms that the size is not a deciding factor for CoT reasoning, since both show the ability to perform CoT reasoning.
-Despite that Llama\textsubscript{13B} results shows that scaling up the model can improve the CoT reasoning ability.
+It confirms that size is not a deciding factor in CoT since both show the ability to perform CoT reasoning.
+Despite that, Llama\textsubscript{13B} results show that scaling up the model can the CoT ability.
 
 We also tested the Program-of-Thoughts (PoT) reasoning ability on the gsm-hard dataset since the dataset demonstrations are expressed as code, and the model is stimulated to produce reasoning expressed as code.
 The code is extracted from the model's solution and executed to calculate the result.
-The performance is indicated in the table inside the parentheses, and shows that also PoT increases with the percentage of code in the pre-training data.
+The performance is indicated in the table inside the parentheses, which shows that PoT also increases with the percentage of code in the pre-training data.
 We can note that all the models have a low success rate in the gsm-hard dataset, while the performance increases using PoT\@.
-The improvement between the 0-shot and 5-shot prompting increase with the percentage of code in the pre-training data.
+The improvement between the 0-shot and 5-shot prompting increases with the percentage of code in the pre-training data.
 This indicates that demonstrating reasoning as code improves the ability to generate code rather than the reasoning itself.
 
 \subsection{Prompting}
@@ -117,14 +117,14 @@ This indicates that demonstrating reasoning as code improves the ability to gene
 
 The prompt and the request parameters affect significantly the model's performance.
 This, plus the code that verifies the model's solution, can lead to different results with results presented in other papers.
-After some experimentation we reached satisfactory results with the following parameters and prompt format:
+After some experimentation, we reached satisfactory results with the following parameters and prompt format:
 \begin{itemize}
 	\item \textbf{Top-p sampling}: 0.9\footnote{A sampling strategy that selects the highest probability tokens whose cumulative probability exceeds a certain threshold.}.
 	\item \textbf{Temperature}: 0.7\footnote{A hyperparameter that controls the randomness of the model by scaling the logits before applying softmax.}.
 	\item \textbf{Max tokens}: 1024\footnote{The maximum number of tokens that the model can generate.}.
 \end{itemize}
 The context is set to the maximum length permitted by the model, and the prompt follows the OpenAI API request format\footnote{https://platform.openai.com/docs/api-reference/chat}.
-Each prompt has a list of messages, and each message has a role (e.g., user, assistant, system) and a content(see Figure~\ref{fig:prompt-format}).
+Each prompt has a list of messages, and each message has a role (e.g., user, assistant, system) and content (see Figure~\ref{fig:prompt-format}).
 The system message is used to provide the model with the task to perform and to instruct the model on how to provide the solution, providing guidelines and requirements.
 
 \begin{figure}[h!]
@@ -146,8 +146,8 @@ The solution is a single numerical value.
 Let's think step by step and then provide the solution on the last line in the following form: "The solution is <<value>>"
 \end{Verbatim}
 
-In the 5-shot prompting, the model is given five examples of the task and the structure is similar to what we see in the Figure~\ref{fig:prompt-format}.
-The main difference is that before the last user message, there are five pair of user and assistant messages, where the assistant provides the solution to the task.
+In the 5-shot prompting, the model is given five examples of the task, and the structure is similar to what we see in Figure~\ref{fig:prompt-format}.
+The main difference is that before the last user message, there are five pairs of user and assistant messages, in which the assistant provides the solution to the task.
 Assistant messages serve as examples for the model to learn from and they do not trigger the inference.
 The system prompt in this case can be simplified as:
 \begin{Verbatim}[fontsize=\small,breaklines]
