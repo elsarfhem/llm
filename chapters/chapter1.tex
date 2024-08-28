@@ -34,7 +34,7 @@ Historically, the development of Language Models (LMs) has been rooted in the qu
 	\item \textbf{Large Language Models (LLM):} {The emergence of large language models, characterised by their immense scale and complexity, has redefined the capabilities of language processing systems.
 		      Studies find that language models' performance improves as the number of parameters (e.g., model size) or data size increases, a phenomenon known as the scaling law in large language models.
 		      Many LLMs are built on the transformer architecture, designed to capture long-range dependencies and contextual information in language.
-		      The transformer architecture has become the foundation for many state-of-the-art language models. Unlike earlier models that were unidirectional (e.g., traditional RNNs), LLMs, especially those based on transformers, are bidirectional. They consider the context from preceding and following words, enhancing their language understanding.
+		      The transformer architecture has become the foundation for many state-of-the-art language models. Unlike earlier models that were unidirectional (e.g., traditional RNNs), LLMs, especially those based on transformers, are bidirectional. They consider the context of preceding and following words, enhancing their language understanding.
 		      LLMs find applications across various domains, including but not limited to:
 		      \begin{itemize}
 			      \item \textbf{Text Generation:} Producing coherent and contextually relevant text.
@@ -47,7 +47,7 @@ Historically, the development of Language Models (LMs) has been rooted in the qu
 		      \begin{displayquote}
 			      Emergence is when quantitative changes in a system result in qualitative changes in behavior~\cite{anderson1972more}.
 		      \end{displayquote}
-		      These emergent abilities include, but are not limited to, the ability to perform tasks for which they were not explicitly trained, such as translation, summarisation, and question-answering, and to generalise to new tasks and domains, such as zero-shot learning \footnote{It refers to a machine learning scenario where a model makes predictions or performs tasks for classes or examples it has never seen during training}, few-shot learning \footnote{It involves training a model with a minimal number of examples per class, usually much fewer than what traditional machine learning models require}, and even one-shot\footnote{It is a specific case of few-shot learning where the model is trained with only one example per class} learning\footnote{A shot is an example or demonstration of what type of prompt and response you expect from a large language model. This term originates from training computer vision models on photographs, where one shot was one example or instance that the model used to classify an image \cite{feifei2006onedatacoltut}.}.
+		      These emergent abilities include but are not limited to, the ability to perform tasks for which they were not explicitly trained, such as translation, summarisation, and question-answering, and to generalise to new tasks and domains, such as zero-shot learning \footnote{It refers to a machine learning scenario where a model makes predictions or performs tasks for classes or examples it has never seen during training}, few-shot learning \footnote{It involves training a model with a minimal number of examples per class, usually much fewer than what traditional machine learning models require}, and even one-shot\footnote{It is a specific case of few-shot learning where the model is trained with only one example per class} learning\footnote{A shot is an example or demonstration of what type of prompt and response you expect from a large language model. This term originates from training computer vision models on photographs, where one shot was one example or instance that the model used to classify an image \cite{feifei2006onedatacoltut}.}.
 		      Three typical examples of emergent abilities are:
 		      \begin{enumerate}
 			      \item \textbf{In-context learning:} {this ability has been formally observed in GPT-3, which is provided with a natural language instruction or task demonstrations; it can generate the expected output for test instances by completing the word sequence of the input text. Importantly, this can be achieved without requiring additional training or gradient updates \footnote{Recent study shows that in-context learning implicitly performs meta optimisation through the attention mechanism~\cite {dai2022why}}.
@@ -62,11 +62,11 @@ Historically, the development of Language Models (LMs) has been rooted in the qu
 			            }
 			      \item \textbf{Instruction following:}{
 				            Through the process called instruction tuning -- that we will see more in-depth in Section  \ref{subsec:instruction-tuning} -- LLMs exhibit strong performance on unseen tasks described through natural language instructions \cite{sanhetal2022multitask, ouyang2022training, wei2022fine}.
-				            This approach involves fine-tuning the model using diverse multitask datasets, each accompanied by detailed natural language descriptions. The result is an LLM that effectively interprets and follows task instructions for new and unseen tasks without relying on explicit examples, thereby showcasing enhanced generalisation capabilities.
-				            Experiments detailed in \textcite{wei2022fine} demonstrate that LaMDA-PT, fine-tuned with instructions, begins to outperform its untuned counterpart significantly when the model size reaches 68 billion parameters. However, this performance gain is not observed for 8 billion or smaller model sizes. Furthermore, recent research \cite{chung2022scaling} highlights that a model size of at least 62 billion parameters is necessary for PaLM to excel across various tasks in evaluation benchmarks like MMLU, BBH, TyDiQA, and MGSM. Nevertheless, it is noted that certain specific tasks, such as MMLU, might suffice with a much smaller model size, emphasising the nuanced relationship between model size and task performance.
+				            This approach involves fine-tuning the model using diverse multitask datasets, each accompanied by detailed natural language descriptions. The result is an LLM that effectively interprets and follows instructions for new and unseen tasks without relying on explicit examples.
+				            Experiments detailed in \textcite{wei2022fine} demonstrate that LaMDA-PT, fine-tuned with instructions, begins to outperform its untuned counterpart significantly when the model size reaches 68 billion parameters. However, this performance gain is not observed for 8 billion or smaller model sizes. Furthermore, \textcite{chung2022scaling} highlights that a model size of at least 62 billion parameters is necessary for PaLM to excel across various tasks in evaluation benchmarks like MMLU, BBH, TyDiQA, and MGSM. Nevertheless, it is noted that certain specific tasks, such as MMLU, might suffice with much smaller model size, emphasising the nuanced relationship between model size and task performance.
 			            }
 			      \item \textbf{Step-by-step reasoning:} { For small LMs, it is usually difficult to solve complex tasks that involve multiple reasoning steps (e.g., mathematical word problems).
-				            In contrast, the chain-of-thought (CoT) prompting strategy \cite{wei2022chain} empowers Large Language Models (LLMs) to surmount these challenges. By leveraging the CoT prompting mechanism, which involves intermediate reasoning steps to derive the final solution, LLMs exhibit proficiency in tasks requiring intricate cognitive processes. This capability is speculated to be honed through training on code by \textcite{wei2022chain}. Empirical findings in \textcite{wei2022chain} demonstrate that the employment of CoT prompting yields performance gains, particularly on arithmetic reasoning benchmarks when applied to variants of models like PaLM and LaMDA, especially with a model size surpassing 60B. The advantages of CoT prompting become more pronounced as the model size exceeds 100B. Furthermore, the effectiveness of CoT prompting exhibits variability across different tasks, with performance improvement observed in the order of GSM8k~\textgreater~MAWPS~\textgreater~SWAMP for PaLM~\cite{wei2022chain}.
+				            In contrast, the chain-of-thought (CoT) prompting strategy \cite{wei2022chain} empowers Large Language Models (LLMs) to surmount these challenges. By leveraging the CoT prompting mechanism, which involves intermediate reasoning steps to derive the final solution, LLMs exhibit proficiency in tasks requiring intricate cognitive processes. This capability is speculated to be honed through training on code by \textcite{wei2022chain}. Empirical findings in \textcite{wei2022chain} demonstrate that the employment of CoT prompting yields performance gains, particularly on arithmetic reasoning benchmarks, when applied to variants of models like PaLM and LaMDA, especially with a model size surpassing 60B. The advantages of CoT prompting become more pronounced as the model size exceeds 100B. Furthermore, the effectiveness of CoT prompting exhibits variability across different tasks, with performance improvement observed in the order of GSM8k~\textgreater~MAWPS~\textgreater~SWAMP for PaLM~\cite{wei2022chain}.
 			            }
 		      \end{enumerate}
 	      }
@@ -97,12 +97,12 @@ The Scaling Law in LLMs constitutes a fundamental principle underlining their de
 At its essence, the scaling law posits that as language models increase in size, their capabilities and performance on linguistic tasks exhibit disproportionately positive growth.
 This concept has become a guiding force in pushing the boundaries of language processing and understanding.
 
-As LLMs scale up in terms of parameters, encompassing tens or hundreds of billions, or even trillions, of parameters, they demonstrate an unprecedented ability to generalise from diverse datasets and generate contextually coherent text.
+As LLMs scale up in terms of parameters, encompassing tens or hundreds of billions, or even trillions, they demonstrate an unprecedented ability to generalise from diverse datasets and generate contextually coherent text.
 The essence of the scaling law lies in the direct correlation between the size of a language model and the number of parameters it encompasses.
 Parameters are the internal variables the model learns during training, representing the connections and weights defining its understanding of language.
 As the number of parameters increases, so does the model's capacity to encapsulate complex linguistic structures.
 
-One of the primary outcomes of adhering to the scaling law is the substantial improvement in performance across a spectrum of language-related tasks.
+One primary outcome of adhering to the scaling law is the substantial improvement in performance across a spectrum of language-related tasks.
 From language generation to sentiment analysis, question-answering, and summarization, larger models consistently outperform their smaller counterparts.
 The increased capacity for learning intricate language features enables LLMs to excel in understanding and producing more human-like text.
 
@@ -125,7 +125,7 @@ Two representative scaling laws for Transformer-based LLMs are the following~\ci
 			      \label{eq:km-scaling-law}
 		      \end{equation}
 
-		      where $L(N)$, $L(D)$, and $L(C)$ denote the cross-entropy loss of the model, the dataset, and the amount of training computed, respectively.
+		      \noindent where $L(N)$, $L(D)$, and $L(C)$ denote the cross-entropy loss of the model, the dataset, and the amount of training computed, respectively.
 		      The three laws were formulated by analysing the model's performance across a range of data sizes (from 22M to 23B tokens), model sizes (from 768M to 1.5B non-embedding parameters), and training compute, with certain assumptions (e.g., ensuring that the other two factors do not constrain the analysis of one factor).
 		      The findings demonstrated a robust interdependence among the three factors influencing model performance.
 	      }
@@ -154,7 +154,7 @@ Two representative scaling laws for Transformer-based LLMs are the following~\ci
 Scaling boosts performance and addresses inherent limitations in smaller language models.
 Larger models excel in managing long-range dependencies, comprehending ambiguous language constructs, and displaying a nuanced understanding of context---capabilities that smaller models frequently find challenging.
 The eliciting of emergent abilities, such as Chain-of-Thought prompting and in-context learning, have shown a phase change in the first Scaling Law, where the performance increases linearly as the model size increases exponentially (Figure~\ref{fig:scaling-phase}).
-Scaling law is a crucial principle in the development of LLMs, guiding the allocation of resources and the design of models to maximise performance and capabilities.
+Scaling law is a crucial principle in the development of LLMs. It guides the allocation of resources and the design of models to maximise performance and capabilities.
 
 \begin{figure}[h!]
 	\centering
@@ -165,7 +165,7 @@ Scaling law is a crucial principle in the development of LLMs, guiding the alloc
 
 Despite propelling the field of LLMs to new heights, the scaling law comes with computational challenges.
 Training huge models requires significant computational resources, encompassing processing power and memory.
-This presents practical obstacles, demanding innovations in hardware and distributed training techniques to exploit the potential of scaled-up language models fully.
+The computational budget is an upper bound limit, demanding innovations in hardware and distributed training techniques to exploit the potential of scaled-up language models fully.
 
 
 \section{Prominent Model Families}
@@ -225,12 +225,12 @@ This approach simplifies using a single model across diverse tasks, encouraging 
 \begin{figure}[h!]
 	\centering
 	\includegraphics[width=\textwidth]{t5}
-	\caption{A diagram of the T5 text-to-text framework. Every task -- including translation, question answering, and classification -- is cast as feeding the model text as input and training it to generate some target text. This allows the same model, loss function, hyperparameters, etc., to be used across diverse tasks. Source: \protect\textcite{raffel2023exploring}.}
+	\caption{A diagram of the T5 text-to-text framework. Every task -- including translation, question answering, and classification -- is cast as feeding the model text as input and training it to generate some target text. This approach allows the same model, loss function, hyperparameters, etc., to be used across diverse tasks. Source: \protect\textcite{raffel2023exploring}.}
 	\label{fig:t5-t2t}
 \end{figure}
 
 T5 demonstrated its prowess across a range of benchmarks, setting new standards in the field of NLP~\cite{raffel2023exploring}.
-It's built on the transformer model, similar to its predecessors, BERT and GPT. It leverages the effective self-attention mechanism for processing sequences of data.
+It's built on the transformer model, similar to its predecessors, BERT and GPT. It leverages the effective self-attention mechanism for processing data sequences.
 The model is designed to handle various tasks without needing task-specific architectural modifications.
 It uses a unified text-to-text framework, where tasks are converted into a format where the input and output are always text strings.
 T5 is pre-trained on a multitask mixture of unsupervised and supervised tasks, utilising a large-scale dataset known as "C4"~\footnote{Colossal Clean Crawled Corpus}.
@@ -245,7 +245,7 @@ As with other large language models, T5's outputs can sometimes include biases i
 \label{subsec:gpt-series}
 
 Developed by OpenAI, the GPT series has been at the forefront of LLM research.
-The original GPT model, introduced in 2018, laid the groundwork with its transformer-based architecture, which significantly improved upon previous models in understanding context and generating text.
+The original GPT model, introduced in 2018, laid the groundwork with its transformer-based architecture, significantly improving previous models' understanding of context and generating text.
 It was developed based on a generative, decoder-only Transformer architecture, and it adopted a hybrid approach of unsupervised pre-training and supervised fine-tuning.
 
 GPT-2~\cite{radford2019language}, released in 2019, expanded on this with 1.5 billion parameters and was trained with a large webpage dataset, WebText, demonstrating unprecedented text generation capabilities.
@@ -253,12 +253,12 @@ GPT-2~\cite{radford2019language}, released in 2019, expanded on this with 1.5 bi
 The subsequent GPT-3 model, unveiled in 2020, further pushed the boundaries with 175 billion parameters, showcasing remarkable abilities in generating human-like text, performing language translation, question-answering, and more without task-specific training.
 In the research paper on GPT-3~\cite{brown2020language}, the authors explained the concept known as in-context learning (ICL). This approach enables Large Language Models (LLMs) to function in few-shot or zero-shot scenarios.
 ICL empowers LLMs to comprehend tasks when they are described using natural language.
-This method aligns the pre-training and application phases of LLMs under a unified framework. During pre-training, the model predicts subsequent text sequences based on the prior context.
+This method aligns LLMs' pre-training and application phases under a unified framework. During pre-training, the model predicts subsequent text sequences based on the prior context.
 In contrast, during in-context learning, the model generates the appropriate solution to a task in the form of a text sequence using the provided task instructions and examples.
 
 The GPT series is based on the transformer architecture by \textcite{vaswani2023attention}.
 This architecture leverages self-attention mechanisms to process input data, which allows the model to weigh the importance of different words within the input context, enhancing its ability to understand and generate language.
-GPT models are characterized by their stacked transformer blocks consisting of multi-headed self-attention layers followed by fully connected feed-forward neural networks.
+GPT models are characterized by their stacked transformer blocks, which consist of multi-headed self-attention layers followed by fully connected feed-forward neural networks.
 The series has seen an exponential increase in the number of parameters: GPT with 110 million, GPT-2 with 1.5 billion, and GPT-3 with 175 billion parameters.
 
 GPT models exhibit a remarkable ability to generate coherent and contextually relevant text, simulating human-like writing styles.
@@ -299,19 +299,19 @@ Such models are an important area of study as they have the potential to be used
 		      &                                                                                                                                           \\
 		GPT-4 &
 		\begin{tabular}[t]{@{}m{10cm}@{}}
-			The image shows a package for a "Lightning Cable" adapter with three panels.                                                                      \\
+			The image shows a "Lightning Cable" adapter package with three panels.                                                                      \\
 			Panel 1: A smartphone with a VGA connector (a large, blue, 15-pin connector typically used for computer monitors) plugged into its charging port. \\
 			Panel 2: The package for the "Lightning Cable" adapter with a picture of a VGA connector on it.                                                   \\
 			Panel 3: A close-up of the VGA connector with a small Lightning connector (used for charging iPhones and other Apple devices) at the end.         \\
 			The humour in this image comes from the absurdity of plugging a large, outdated VGA connector into a small, modern smartphone charging port.
 		\end{tabular} \\
 	\end{tabular}
-	\caption{Example prompt demonstrating GPT-4's visual input capability. The prompt consists of a question about an image with multiple panels, which GPT-4 is able to answer}
+	\caption{Example prompt demonstrating GPT-4's visual input capability. The prompt consists of a question about an image with multiple panels.}
 \end{table}
 
-On the MMLU benchmark~\cite{hendrycks2021measuring}, an English-language suite of multiple-choice questions covering 57 subjects, GPT-4 not only outperforms existing models by a considerable margin in English but also demonstrates strong performance in other languages.
-GPT-4 development was enabled by deep learning infrastructure and optimization methods that behave predictably across a wide range of scales.
-This allowed making predictions about the expected performance of GPT-4 (based on small runs trained in similar ways) that were tested against the final run to increase confidence in our training.
+On the MMLU benchmark~\cite{hendrycks2021measuring}, an English-language suite of multiple-choice questions covering 57 subjects, GPT-4 outperforms existing models by a considerable margin in English and demonstrates strong performance in other languages.
+GPT-4 development was enabled by deep learning infrastructure and optimization methods that behave predictably across various scales.
+The approach allowed the authors to predict the expected performance of GPT-4 (based on small runs trained similarly), which was tested against the final run, to increase confidence in the training.
 The primary reason is that extensive model-specific tuning is not feasible for very large training runs.
 
 The prediction GPT-4's final loss was predicted by fitting a scaling law with an irreducible loss term (as in~\textcite{henighan2020scaling}):
@@ -334,7 +334,7 @@ The approximate power law relationship is
 
 \noindent where k and \(\alpha\) are positive constants, and P is a subset of problems in the dataset.
 
-GPT-4 accepts prompts consisting of both images and text, which lets the user specify any vision or language task in parallel to the text-only setting.
+GPT-4 accepts prompts consisting of images and text, which lets the user specify any vision or language task in parallel to the text-only setting.
 Specifically, the model generates text outputs, given inputs consisting of arbitrarily interlaced text and images.
 
 Despite its capabilities, GPT-4 has similar limitations to earlier GPT models: it is not fully reliable (e.g.\ can suffer from \enquote{hallucinations}), has a limited context window, and does not learn from experience.
@@ -349,7 +349,7 @@ Llama is built on a transformer architecture~\cite{vaswani2023attention}, simila
 Main differences between Llama and original Transformer architecture~\cite{vaswani2023attention} are the following:
 \begin{enumerate}
 	\item \textbf{Pre-normalization\footnote{Inspired by GTP-3 model}} {Llama uses pre-normalization\footnote{See Section \ref{subsubsec:normalization}}, which means that the normalization layer is placed before the self-attention and feed-forward layers.
-		      Pre-normalization has been shown to improve training stability and convergence in large language models, making it a popular choice for many state-of-the-art models.
+		      Pre-normalization has improved training stability and convergence in large language models, making it a popular choice for many state-of-the-art models.
 	      }
 	\item \textbf{SwiGLU activation function\footnote{Inspired by PaLM model}} {Llama uses the SwiGLU\footnote{See Section \ref{subsubsec:activation-functions}} activation function by \textcite{shazeer2020glu}, which is a variant of the Gated Linear Unit (GLU) activation function.
 		      SwiGLU has been shown to improve the performance of large language models by enhancing the flow of information through the network.
@@ -401,7 +401,7 @@ Based on the Llama paper by \textcite{touvron2023llama}, even though Llama \text
 \end{table}
 
 The Llama models were trained exclusively on publicly available data, setting them apart from other models that rely on proprietary datasets~\footnote{Such as "Books --- 2TB" or "Social media conversations"}.
-The dataset is a mixture of several sources (webpages, books, scientific data and code) as reported in the Table~\ref{tab:llama-pretraining-data}.
+The dataset is a mixture of several sources (webpages, books, scientific data and code) as reported in Table~\ref{tab:llama-pretraining-data}.
 
 \begin{table}[h!]
 	\centering
@@ -418,7 +418,7 @@ The dataset is a mixture of several sources (webpages, books, scientific data an
 		StackExchange    & Conversation Data       & 2.0\%                   & 1.03            & 78 GB              \\
 		\hline
 	\end{tabularx}
-	\caption{Pre-training data. Data mixtures used for pre-training, for each subset the table reports the sampling proportion, number of epochs performed on the subset when training on 1.4T tokens, and disk size. The pre-training runs on 1T tokens have the same sampling proportion. Source: \textcite{touvron2023llama}.}
+	\caption{Pre-training data. Data mixtures used for pre-training for each subset, the table reports the sampling proportion, number of epochs performed on the subset when training on 1.4T tokens, and disk size. The pre-training runs on 1T tokens have the same sampling proportion. Source: \textcite{touvron2023llama}.}
 	\label{tab:llama-pretraining-data}
 \end{table}
 
@@ -432,10 +432,10 @@ The optimizer used during the training is the same AdamW with the following hype
 \label{subsubsec:llama-2}
 
 Llama 2~\cite{touvron2023llama2} is a continuation of the Llama series, developed by Meta AI, released in scale from 7B to 70B parameters.
-The pre-training data of the Llama2 model is a new mix of data from publicly available sources, which does not include data from Meta's products or services.
+The pre-training data of the Llama2 model is a new mix of data from publicly available sources.
 The training corpus is 40\% larger than the one used for Llama 1, and it is composed of a mix of text and a percentage of code data that is roughly 8\% of the total.
-The exact composition of the data mix is not disclosed but the code percentage is reported in the caption of the Table~\ref{tab:llama2-pretraining-data} extracted from the original paper~\cite{touvron2023llama2}.
-The pre-training selection focuses on address biases and toxicity recognised in the previous version of the model.
+The exact composition of the data mix is not disclosed, but the code percentage is reported in the caption of the Table~\ref{tab:llama2-pretraining-data} extracted from the original paper~\cite{touvron2023llama2}.
+The pre-training selection focuses on addressing biases and toxicity recognised in the previous version of the model.
 
 \begin{table}[h!]
 	\centering
@@ -463,7 +463,7 @@ The pre-training selection focuses on address biases and toxicity recognised in 
 	\label{tab:llama2-pretraining-data}
 \end{table}
 
-Most of the pretraining setting and model architecture from Llama 1 are adopted in Llama 2, including the standard transformer architecture, pre-normalization using RMSNorm, the SwiGLU activation function, and rotary positional embeddings.
+Llama 2 adopts most of the pretraining settings and model architecture from Llama 1, including the standard transformer architecture, pre-normalization using RMSNorm, the SwiGLU activation function, and rotary positional embeddings.
 The optimizer used during the training is the same AdamW with the following hyper-parameters: $\beta_1=0.9, \beta_2=0.95, eps=10^{-5}$, a weight decay of 0.1, gradient clipping of 1.0, a cosine learning rate schedule and a warmup of 2000 steps.
 The primary architectural differences from Llama 1 include increased context length and grouped-query attention (GQA).
 
@@ -471,13 +471,13 @@ The primary architectural differences from Llama 1 include increased context len
 \label{subsubsec:code-llama}
 
 Code Llama~\cite{roziere2024codellamaopenfoundation} is a family of large language models for code generation based on Llama 2 providing infilling\footnote{With the terms infilling or code completion, we refer to the process of generating code snippets that complete a given code fragment.} capabilities, support
-for large input contexts, and zero-shot instruction following ability for programming tasks.
+for large input contexts and zero-shot instruction following ability for programming tasks.
 It comes in three flavours: the vanilla model, the Python specialized model, and the instruction-following model with 7B, 13B, 34B, and 70B parameters each (see Figure~\ref{fig:code-llama}).
 
 \begin{figure}[h!]
 	\centering
 	\includegraphics[width=0.9\textwidth]{codellama-pipeline}
-	\caption{The Code Llama 70B specialization pipeline. The different stages of fine-tuning annotated with the number of tokens seen during training. Infilling-capable models are marked with the $\rightleftarrows$ symbol. Source: \protect\textcite{roziere2024codellamaopenfoundation}.}
+	\caption{The Code Llama 70B specialization pipeline. The different fine-tuning stages are annotated with the number of tokens seen during training. Infilling-capable models are marked with the $\rightleftarrows$ symbol. Source: \protect\textcite{roziere2024codellamaopenfoundation}.}
 	\label{fig:code-llama}
 \end{figure}
 
@@ -499,16 +499,16 @@ Llama 3~\cite{llama3} is a continuation of the Llama series, developed by Meta A
 
 Llama 3 uses a standard, dense Transformer architecture.
 It does not deviate significantly from Llama and Llama 2 in terms of model architecture; therefore performance gains are primarily driven by improvements in data quality and diversity as well as by increased training scale.
-Compared to Llama 2, Llama 3 a few small changes in the model architecture:
+Compared to Llama 2, Llama 3 has a few small changes in the model architecture:
 \begin{enumerate}
 	\item grouped query attention (GQA) with 8 key-value heads to improve inference speed and to reduce the size of key-value caches during decoding
 	\item an attention mask that prevents self-attention between different documents within the same sequence.
-	      This change has limited impact during in standard pre-training, but it's important in continued pre-training on very long sequences.
+	      This change has limited impact during standard pre-training, but it's important in continued pre-training on very long sequences.
 	\item a vocabulary with 128K tokens.
 	      Compared to the Llama 2 tokenizer, the new tokenizer improves compression rates on a sample of English data from 3.17 to 3.94 characters per token.
 	\item the RoPE base frequency hyper-parameter increased to 500,000 to support longer contexts.
 \end{enumerate}
-Summary of the key hyper-parameters of Llama 3 is shown in Table~\ref{tab:llama3-hyperparameters}.
+A summary of the key hyper-parameters of Llama 3 is shown in Table~\ref{tab:llama3-hyperparameters}.
 
 \begin{table}[h!]
 	\centering
@@ -530,9 +530,9 @@ Summary of the key hyper-parameters of Llama 3 is shown in Table~\ref{tab:llama3
 	\label{tab:llama3-hyperparameters}
 \end{table}
 
-Compared to prior versions of Llama, authors improved both the quantity and quality of the data we use for pre-training and post-training.
-These improvements include the development of more careful pre-processing and curation pipelines for pre-training data and the development of more rigorous quality assurance and filtering approaches for post-training data.
-Pre-training corpus is composed of about 15T tokens, which is about 50\% larger than the one used for Llama 2.
+The authors improved the quantity and quality of the data we used for pre-training and post-training compared to prior versions of Llama.
+These improvements include developing more careful pre-processing and curation pipelines for pre-training data and more rigorous quality assurance and filtering approaches for post-training data.
+The pre-training corpus consists of about 15T tokens, which is about 50% larger than the one used for Llama 2.
 It contains roughly 50\% of tokens corresponding to general knowledge, 25\% of mathematical and reasoning tokens, 17\% code tokens, and 8\% multilingual tokens~\cite{llama3}.
 The resulting models have a rich set of capabilities.
 They can answer questions in at least eight languages, write high-quality code, solve complex reasoning problems, and use tools out-of-the-box or in a zero-shot way
@@ -557,9 +557,9 @@ The design philosophy targets efficient deployment across diverse hardware platf
 \end{figure}
 
 In comparative benchmarks, Gemma models have demonstrated capabilities that exceed those of larger parameter models, such as Llama 2 (13B), indicating a significant efficiency in parameter utilization.
-This is particularly evident in language understanding and reasoning tasks where Gemma models have been pitted against their contemporaries.
+Improvements are particularly evident in language understanding and reasoning tasks where Gemma models have been pitted against their contemporaries.
 
-One of the prominent strengths of Gemma models is their deployment efficiency, which democratizes access to state-of-the-art NLP tools.
+One prominent strength of Gemma models is their deployment efficiency, which democratizes access to state-of-the-art NLP tools.
 The models are designed to be run on common developer hardware, eschewing the need for specialized AI accelerators.
 
 \begin{figure}[ht!]
@@ -570,7 +570,7 @@ The models are designed to be run on common developer hardware, eschewing the ne
 \end{figure}
 
 Despite their efficiencies, the Gemma models are not without limitations.
-The reduced parameter count, while advantageous for accessibility and computational efficiency, may impact performance in complex NLP tasks that can benefit from larger models.
+While the reduced parameter count is advantageous for accessibility and computational efficiency, it may impact performance in complex NLP tasks that can benefit from larger models.
 Additionally, ethical considerations, such as bias in language models, remain an area of concern and active development.
 
 Google has emphasized the responsible development of AI, which is evident in Gemma's design.
@@ -586,7 +586,7 @@ The existing domain-specific models are developed by fine-tuning general-purpose
 These models serve as domain-specific problem solvers and are evaluated based on general competencies, such as fundamental complex reasoning, and more nuanced capabilities, like alignment with human intent, as well as their performance in areas specific to their application.
 To accurately measure their efficacy, specialized benchmarks are developed that cater to these distinct sectors.
 These tailored benchmarks are then employed in conjunction with broader assessments to provide a holistic and focused evaluation of the models' capabilities.
-The following sections highlight some of the key applications of LLMs and their impact on different sectors, from healthcare to finance, and from education to research.
+The following sections highlight some of LLMs' key applications and their impact on different sectors, from healthcare to finance and education to research.
 
 \subsection{LLMs in Healthcare}
 \label{subsec:llms-in-healthcare}
@@ -609,11 +609,11 @@ Central to these advancements are Large Language Models (LLMs), which have been 
 	      }
 
 	\item \textbf{Drug Discovery and Development:}{
-		      In the domain of pharmaceuticals, LLMs have expedited the drug discovery and development pipelines. By mining through vast chemical libraries and medical databases, these models facilitate the identification of potential drug candidates and repurposing existing drugs for new therapeutic uses~\cite{zhavoronkov2019deep}.
+		      In the domain of pharmaceuticals, LLMs have expedited the drug discovery and development pipelines. By mining through vast chemical libraries and medical databases, these models facilitate the identification of potential drug candidates and the repurposing of existing drugs for new therapeutic uses~\cite{zhavoronkov2019deep}.
 	      }
 
 	\item \textbf{Personalized Medicine:}{
-		      Personalized medicine, which tailors treatment to individual patient characteristics, has benefited from LLMs through the generation of patient-specific models that predict disease susceptibility and drug response. This personalization extends to creating tailored health interventions based on patient history and genetic information~\cite{hamburg2010path}.
+		      Personalized medicine, which tailors treatment to individual patient characteristics, has benefited from LLMs by generating patient-specific models that predict disease susceptibility and drug response. This personalization extends to creating tailored health interventions based on patient history and genetic information~\cite{hamburg2010path}.
 	      }
 
 	\item \textbf{Patient Engagement and Self-Management:}{
@@ -655,9 +655,9 @@ One of the most advanced LLMs for healthcare is Med-PaLM, a derivative of the Pa
 
 Despite these remarkable results, human evaluation reveals key gaps in Flan-PaLM responses and remains inferior to clinicians~\cite{singhal2022large}.
 To resolve this issue, researchers introduced "instruction tuning"\footnote{See Section \ref{subsec:instruction-tuning}} to align the Flan-PaLM model to the medical domain.
-Instruction tuning can thus be seen as a lightweight way (data-efficient, parameter-efficient, compute-efficient during both training and inference) of training a model to follow instructions in one or more domains.
-Instruction tuning adapted LLMs to better follow the specific type of instructions used in the family of medical datasets.
-The result was Med-PaLM, a model that significantly reduces the gap (or even compares favourably) to clinicians on several axes of evaluation, according to both clinicians and lay users.
+Thus, Instruction tuning can be seen as a lightweight way (data-efficient, parameter-efficient, compute-efficient during training and inference) of training a model to follow instructions in one or more domains.
+Instruction tuning adapted LLMs to follow better the specific type of instructions used in the family of medical datasets.
+The result was Med-PaLM, a model that significantly reduces the gap (or even compares favourably) to clinicians on several evaluation axes, according to clinicians and lay users.
 
 \begin{figure}[h!]
 	\centering
@@ -699,14 +699,14 @@ Here are some key applications of LLMs in the financial sector:
 	      {LLMs enhance fraud detection systems by analyzing transactional data and customer communication to identify patterns indicative of fraudulent activities, thereby bolstering the security of financial transactions~\cite{smith2019improving}.}
 \end{enumerate}
 
-Some of the models in Figure~\ref{fig:llm-finance} have not only augmented the accuracy and efficiency of financial analyses but also expedited the decision-making processes, enabling more timely and informed decisions.
+Some of the models in Figure~\ref{fig:llm-finance} have augmented the accuracy and efficiency of financial analyses and expedited the decision-making processes, enabling more timely and informed decisions.
 Additionally, their role in risk management is noteworthy, where their data processing and analytical prowess help identify potential risks and adherence issues more effectively than traditional methodologies~\cite{buehler2018deep}.
 
 Despite their potential, LLMs in finance face challenges, including data privacy concerns, the need for interpretability in model decisions, and the risk of perpetuating biases from training data.
 Ensuring these models adhere to ethical standards and regulatory compliance is paramount~\cite{jones2020ethical, buehler2018deep}.
 
 Let's delve deeper into the techniques used to adapt LLMs for the financial sector to enhance their performance on finance-specific tasks~\cite{lee2024survey}.
-These techniques are designed to enhance the models' understanding of financial language, data, and context, thereby improving their performance on finance-specific tasks.
+These techniques enhance the models' understanding of financial language, data, and context, improving their performance on finance-specific tasks.
 Here's a more detailed look at these techniques:
 
 \begin{table}[!h]
@@ -760,7 +760,7 @@ Regarding the evaluation tasks, the models are assessed on a range of financial 
 \begin{itemize}
 	\item \textbf{Sentiment Analysis (SA):} {This task involves analyzing the sentiment embedded within financial documents, such as market reports and news articles. The capability to accurately discern sentiment is crucial for applications such as market prediction and the formulation of trading strategies.}
 
-	\item \textbf{Named Entity Recognition (NER):} {Essential for extracting actionable insights from financial documents, this task focuses on the identification and categorization of salient financial entities, including but not limited to, company names, stock tickers, and monetary values.}
+	\item \textbf{Named Entity Recognition (NER):} {Essential for extracting actionable insights from financial documents, this task focuses on the identification and categorization of salient financial entities, including but not limited to company names, stock tickers, and monetary values.}
 
 	\item \textbf{Question Answering (QA):} {FinLLMs are tasked with providing cogent answers to queries based on an expansive financial corpus. This benchmark often requires the synthesis of information from dense financial reports or news events.}
 
@@ -776,8 +776,8 @@ To accurately measure the effectiveness of FinLLMs in performing these tasks, se
 	\item \textbf{FiQA - Financial Opinion Mining and Question Answering Challenge (FiQA-SA, FiQA-QA):} This dataset encompasses annotated financial news and social media texts for sentiment analysis alongside a collection of question-and-answer pairs for the evaluation of QA capabilities~\cite{maia2018www}.
 	\item \textbf{FIN: A Financial Document Dataset for NER:} {Designed for entity recognition, this dataset consists of financial news articles with annotated entities, testing the model's capacity to identify and classify financial terms \textcite{alvarado2015domain}.
 		      Another financial NER dataset is FiNER-139, consisting of 1.1M sentences from financial news articles, annotated with 139 eXtensive Business Reporting Language (XBRL) word-level tags \cite{loukas2022finer}. This dataset is designed for Entity Extraction and Numerical Reasoning tasks, predicting the XBRL tags (e.g., cash and cash equivalents) based on numeric input data within sentences (e.g., "24.8" million).}
-	\item \textbf{ConvFinQA:} {A conversational finance QA dataset challenging models to understand and respond within the context of financial dialogues, demonstrating an advanced application of FinLLMs in customer interaction \textcite{chen2022convfinqa}. It's an extension of FinQA, is a multi-turn conversational hybrid QA dataset consisting of 3,892 conversations with 14,115 questions.}
-	\item \textbf{StockNet:} {This dataset combines historical price data with relevant tweets to offer a comprehensive view of SMP tasks. It has been widely used to assess the impact of market sentiment on stock prices \cite{xu2018stock}.}
+	\item \textbf{ConvFinQA:} {A conversational finance QA dataset challenging models to understand and respond within the context of financial dialogues, demonstrating an advanced application of FinLLMs in customer interaction \textcite{chen2022convfinqa}. It's an extension of FinQA and is a multi-turn conversational hybrid QA dataset consisting of 3,892 conversations with 14,115 questions.}
+	\item \textbf{StockNet:} {This dataset combines historical price data with relevant tweets to comprehensively view SMP tasks. It has been widely used to assess the impact of market sentiment on stock prices \cite{xu2018stock}.}
 	\item \textbf{CIKM18:} {A dataset designed for SMP tasks, CIKM18 comprises stock price data and news headlines, challenging models to predict stock movements based on textual information \cite{wu2018hybrid}.}
 	\item \textbf{BigData22:} {A dataset for SMP tasks, BigData22 combines financial news articles with stock price data, evaluating models on their ability to predict stock movements based on textual information \textcite{soun2022accurate}.}
 	\item \textbf{Headline:} {A dataset of financial news headlines, used for text classification \cite{sinha2021impact}. This dataset comprises 11,412 news headlines, labelled with a binary classification across nine labels such as “price up” or “price down”.}
@@ -823,7 +823,7 @@ For example, in the sentiment analysis task, FinMA-30B and GPT-4 achieved simila
 		FinBert                         & \textbf{0.86}                      & 0.84                                & \textbf{0.97} & 0.95          \\
 		\bottomrule
 	\end{tabularx}
-	\caption{Results on the Phrasebank dataset. The sub-script (n) after an LLM name represents the number of shots. The best results are marked in bold and the second-best with underscored. The results of other LLMs like BloombergGPT are from the corresponding papers. ‘/’ indicates the metrics were not included in the original study. Source:\protect\textcite{li2023chatgpt}.}
+	\caption{Results on the Phrasebank dataset. The sub-script (n) following an LLM name represents the number of shots. The best results are marked in bold. The results of other LLMs, like BloombergGPT, are from the corresponding papers. ‘/’ indicates the metrics were not included in the original study. Source:\protect\textcite{li2023chatgpt}.}
 	\label{tab:finllm_comparison}
 \end{table}
 \begin{table}[!h]
@@ -889,7 +889,7 @@ For example, in the sentiment analysis task, FinMA-30B and GPT-4 achieved simila
 		CRF\textsubscript{FIN5}          & \textbf{82.70}     \\
 		\bottomrule
 	\end{tabularx}
-	\caption{Results of few-shot performance on the NER dataset. CRF\textsubscript{CoNLL} refers to CRF model that is trained on general CoNLL data, CRF\textsubscript{FIN5} refers to CRF model that is trained on FIN5 data. Source: \protect\textcite{li2023chatgpt}.}
+	\caption{Results of few-shot performance on the NER dataset. CRF\textsubscript{CoNLL} refers to the CRF model trained on general CoNLL data, and CRF\textsubscript{FIN5} refers to the CRF model trained on FIN5 data. Source: \protect\textcite{li2023chatgpt}.}
 	\label{tab:ner_few_shot_performance}
 \end{table}
 
@@ -914,7 +914,7 @@ For example, in the sentiment analysis task, FinMA-30B and GPT-4 achieved simila
 		General Crowd                   & 50.68          & 46.90              \\
 		\bottomrule
 	\end{tabularx}
-	\caption{Model performance (accuracy) on the question answering tasks. FinQANet here refers to the best-performing FinQANet version based on RoBERTa-Large~\cite{chen2022afinqa}. Few-shot and CoT learning cannot be executed on ConvFinQA due to the conservation nature of ConvFinQA.}
+	\caption{Model performance (accuracy) on the question answering tasks. FinQANet here refers to the best-performing FinQANet version based on RoBERTa-Large~\cite{chen2022afinqa}. Due to its conservation nature, few-shot and CoT learning cannot be executed on ConvFinQA.}
 	\label{tab:model_performance_qa}
 \end{table}
 
@@ -971,10 +971,10 @@ With its 50 billion parameters, is posited to be the apex of financial language 
 
 The core of BloombergGPT's training material involved 363 billion tokens of finance-specific data, accompanied by a general corpus of 345 billion tokens.
 The dataset's breadth is vast, incorporating textual data spanning web sources, news articles, financial reports, and proprietary content from Bloomberg terminals.
-This diversified data portfolio enables the model to navigate the financial lexicon and nuances expertly.
+This diversified data portfolio enables the model to expertly navigate the financial lexicon and nuances.
 
 \textcite{wu2023bloomberggpt} proffer insights into their methodological choices and their repercussions on model performance.
-The authors used parallel tokenizer training strategies because the Unigram tokenizer was found to be too inefficient to process the entire Pile dataset.
+The authors used parallel tokenizer training strategies because the Unigram tokenizer was found to be inefficient for processing the entire Pile dataset.
 So the dataset was split into domains, and each domain was further split into chunks.
 Every chunk was tokenized by a separate tokenizer, and then the tokenizer from each domain was merged hierarchically using a weighted average of the probabilities of corresponding tokens.
 The result was cut from a tokenizer with 7 million tokens to only 2\textsuperscript{17} tokens, dropping tokens with the smallest probabilities.
@@ -987,7 +987,7 @@ The model contains 70 layers of transformer decoder blocks defined as follows:
 	h_{\ell} & = h_{\ell} + \text{FFN}(\text{LN}(h_{\ell}))
 \end{align*}
 
-where SA is multi-head self-attention, LN is layer-normalization, and FFN is a feed-forward network with 1 hidden layer.
+\noindent where SA is multi-head self-attention, LN is layer-normalization, and FFN is a feed-forward network with 1 hidden layer.
 Inside FFN, the non-linear function is GELU~\cite{hendrycks2016gelu}.
 ALiBi positional encoding is applied through additive biases at the self-attention component of the transformer network~\cite{lescao2022milliongpuhours}. The input token embeddings are tied to the linear mapping before the final softmax.
 The model also has an additional layer of normalization after token embeddings.
@@ -1081,12 +1081,12 @@ In sum, according to benchmarks in \textcite{wu2023bloomberggpt}, developing fin
 \subsection{LLMs in Education}
 \label{subsec:llms-in-education}
 
-Education is a sector that has been significantly impacted by the advent of LLMs. LLMs can be leveraged to create educational content that is tailored to individual student needs, providing explanations, generating practice problems, and even offering feedback.
+The advent of LLMs has significantly impacted education. LLMs can be leveraged to create educational content tailored to individual student needs, providing explanations, generating practice problems, and even offering feedback.
 
 Integrating LLMs into educational frameworks offers a rich tapestry of potential enhancements to teaching and learning experiences.
 The transformative influence of such technology is particularly marked in tasks that can benefit from automation, such as grading and personalized feedback on student work.
-LLMs, through their nuanced understanding of language, can provide insightful assessments that highlight the strengths and weaknesses in student assignments, which may span essays, research papers, and various other forms of written submissions.
-An additional benefit is LLMs' capacity to detect plagiarism, which bolsters the integrity of academic evaluation by mitigating the risk of academic dishonesty.
+Through their nuanced understanding of language, LLMs can provide insightful assessments that highlight the strengths and weaknesses in student assignments, which may span essays, research papers, and various other forms of written submissions.
+An additional benefit is LLMs' capacity to detect plagiarism, bolsters academic evaluation's integrity by mitigating the risk of academic dishonesty.
 This ability to provide quick and precise feedback can afford educators more time to address individual student needs, leading to a more targeted and effective teaching approach.
 
 LLMs can achieve student-level performance on standardized tests~\cite{openai2024gpt4} in a variety of subjects of mathematics (e.g., physics, computer science) on both multiple-choice and free-response problems.
@@ -1096,7 +1096,7 @@ In the realm of intelligent tutoring systems, LLMs can be applied to simulate on
 These systems can engage in dialogue, answer student queries, and provide explanations, much like a human tutor would~\cite{malinka2023educationalimpact,susnjak2022chatgpt}.
 
 Furthermore, LLMs have the capacity to automate the grading process by evaluating open-ended responses in exams and assignments.
-This can free up time for educators to focus on more personalized teaching methods and direct student engagement.
+This approach can free up time for educators to focus on more personalized teaching methods and direct student engagement.
 
 The intersection of LLMs and education also extends to research, where these models can aid in summarizing literature, generating hypotheses, and even writing research proposals or papers, albeit with careful oversight to ensure academic integrity.
 
@@ -1108,13 +1108,13 @@ To tap into the full potential of LLMs in education, it is crucial to address ch
 \label{subsec:llms-in-law}
 
 
-The legal sector is another domain that has been significantly impacted by the advent of LLMs.
+The legal sector is another domain that the advent of LLMs has significantly impacted.
 A number of tasks in the legal field, such as legal document analysis~\cite{blairstanek2023gpt3statutory}), legal judgment prediction (\textcite{trautmann2022legalprompt}), and legal document writing (\textcite{choi2023chatgptlaw}, can be solved by LLMs with high accuracy and efficiency.
 
 \begin{figure}[!h]
 	\centering
 	\includegraphics[width=\textwidth]{statutory}
-	\caption{Prompts used in \protect\textcite{blairstanek2023gpt3statutory} to pose SARA test cases to GPT-3. The top boxes, in orange, contain statutes (optional). Example cases are in blue; in zero-shot, there are no example cases. At the bottom, in green, are test cases. The text highlighted in yellow is generated by GPT-3. If GPT-3’s first response is unclear, the second prompt with "Therefore the answer is" is used, following \protect\textcite{kojima2023large}. Source: \protect\textcite{trautmann2022legalprompt}.}
+	\caption{Prompts used in \protect\textcite{blairstanek2023gpt3statutory} to pose SARA test cases to GPT-3. The top boxes, in orange, contain statutes (optional). Example cases are in blue; in zero-shot, no example cases exist. At the bottom, in green, are test cases. The text highlighted in yellow is generated by GPT-3. If GPT-3’s first response is unclear, the second prompt with "Therefore the answer is" is used, following \protect\textcite{kojima2023large}. Source: \protect\textcite{trautmann2022legalprompt}.}
 	\label{fig:legal_prompting}
 \end{figure}
 
@@ -1140,7 +1140,7 @@ The model surpasses previous benchmarks yet still exhibits considerable room for
 \end{table}
 
 \textcite{choi2023chatgptlaw} explored ChatGPT's ability to write law school exams at the University of Minnesota Law School, encompassing multiple choice and essay questions across four courses.
-ChatGPT generated answers for exams in Constitutional Law, Employee Benefits, Taxation, and Torts, with varying question formats across these subjects.
+ChatGPT generated answers for Constitutional Law, Employee Benefits, Taxation, and Torts exams, with varying question formats across these subjects.
 These answers were blindly graded in line with the standard grading process.
 ChatGPT managed to pass all four classes, averaging a C+ grade, demonstrating better performance on essay questions compared to multiple-choice, with notable strengths in organizing and composing essays (Table~\ref{tab:mc_comparison}).
 
@@ -1157,24 +1157,24 @@ To further improve the performance of LLMs in the law domain, specially designed
 
 LLMs in scientific research can be employed across various stages of the research process, from literature review to hypothesis generation, brainstorming, data analysis, manuscript drafting, proofreading, and peer review.
 Empirical evidence underscores the aptitude of LLMs in managing tasks dense with scientific knowledge, such as those presented by PubMedQA~\cite{jin2019pubmedqa} and BioASQ~\cite{krithara2022bioasq}.
-This is particularly true for LLMs pre-trained on scientific corpora, including, but not limited to, Galactica~\cite{taylor2022galactica} and Minerva~\cite{lewkowycz2022minerva}.
+It is particularly true for LLMs pre-trained on scientific corpora, including, but not limited to, Galactica~\cite{taylor2022galactica} and Minerva~\cite{lewkowycz2022minerva}.
 
-Due to their advanced general capabilities and extensive scientific acumen, LLMs are poised to play an integral role as supportive tools throughout the entirety of the scientific research process~\cite{zhang2023smallstep}.
+Due to their advanced general capabilities and extensive scientific acumen, LLMs are poised to play an integral role as supportive tools throughout the scientific research process~\cite{zhang2023smallstep}.
 During the initial stages of research, such as brainstorming, LLMs can assist in generating novel research ideas and hypotheses, thereby fostering creativity and innovation\footnote{Temperature is a parameter of OpenAI ChatGPT, GPT-3 and GPT-4 models that govern the randomness and thus the creativity of the responses.}.
 
 In the literature review phase, LLMs can perform exhaustive reviews, encapsulating the state of advancement within specific scientific disciplines~\cite{haman2023usingchatgpt, aydin2022openaichatgpt} providing explanations for scientific texts and mathematics with follow-up questions.
 
 Progressing to the phase of research ideation, LLMs have displayed potential in formulating compelling scientific hypotheses~\cite{park2023chatgpt}.
 In \textcite{park2023chatgpt}, the authors demonstrate the ability of GPT-4 to generate hypotheses in the field of materials science, showcasing the model's capacity to propose novel research directions.
-They find the hypotheses generated by GPT-4 to be on par with those proposed by human experts, highlighting the model's potential to contribute to the scientific research process.
+They find the hypotheses generated by GPT-4 to be on par with those proposed by human experts, highlighting the model's potential to contribute to scientific research.
 
-In the subsequent stage of data analysis, LLMs can be harnessed for automating the examination of data attributes, including exploratory data analysis, visualization, and the extraction of analytical inferences~\cite{cheng2023gpt4dataanalyst}.
+In the subsequent data analysis stage, LLMs can be harnessed for automating the examination of data attributes, including exploratory data analysis, visualization, and the extraction of analytical inferences~\cite{cheng2023gpt4dataanalyst}.
 In \textcite{hassan2023chatgptdatascientist}, the authors demonstrate the utility of GPT-4 in automating data analysis tasks, such as data cleaning, feature engineering, and model selection, thereby streamlining the data science workflow.
 
 Regarding proofreading, LLMs can enhance the quality of scientific manuscripts by identifying grammatical errors, improving readability, and ensuring adherence to academic conventions.
 In addition, LLMs can go beyond helping users check grammar and can further generate reports about document statistics, vocabulary statistics, etc, change the language of a piece to make it suitable for people of any age, and even adapt it into a story~\cite{kim2022replacegrammarly}.
 While ChatGPT has some usability issues when it comes to proofreading, such as being over 10 times slower than DeepL and lacking in the ability to highlight suggestions or provide alternative options for specific words or phrases~\cite{maximov2023englishgrammar}, it should be noted that grammar-checking is just the tip of the iceberg.
-ChatGPT can also be valuable in improving language, restructuring text, and other aspects of writing.
+ChatGPT can also be valuable in improving language, text restructuring, and other writing aspects.
 
 Furthermore, in the manuscript drafting phase, the utility of LLMs extends to aiding scientific writing endeavors~\cite{alkaissi2023artificialhallucinations, azaria2023chatgptexperts}, offering a multitude of services such as condensing existing materials and refining the written prose~\cite{buruk2023academicwriting}.
 As explained in \textcite{buruk2023academicwriting} and \textcite{alkaissi2023artificialhallucinations}, LLMs can assist in generating abstracts, introductions, and conclusions, thereby enhancing the overall quality of scientific manuscripts.
@@ -1186,7 +1186,7 @@ Here, studies have probed LLMs for human-like traits, encompassing self-percepti
 \textcite{kosinski2023theoryofmind} employs classic false-belief tasks\footnote{A false-belief task is a psychological test used to assess an individual's ability to understand that others can have beliefs about the world that are different from their own and that these beliefs can be incorrect. This ability is a crucial component of the Theory of Mind (ToM), which is the capacity to attribute mental states—beliefs, intents, desires, emotions, knowledge, etc.—to oneself and others and to understand that others have beliefs, desires, and intentions that are different from one's own.
 
 	The classic example of a false-belief task is the Sally-Anne test, used primarily with children. The test involves two dolls, Sally and Anne. Sally has a basket, while Anne has a box. In the presence of Sally, a marble is placed in Sally's basket. Sally then leaves the room, and while she's away, Anne takes the marble from Sally's basket and puts it in her box. The child is then asked where Sally will look for the marble when she returns. The correct answer is Sally's basket, where she left the marble. A child who can correctly predict where Sally will look for the marble demonstrates an understanding that Sally holds a false belief about the location of the marble.
-	Successfully completing a false-belief task indicates that the individual can understand that others can hold beliefs that are false and that these beliefs can influence their actions, a critical step in the development of social cognition and empathy.}, revealing a marked improvement in ToM capabilities in more recent versions of GPT-3.
+	Successfully completing a false-belief task indicates that the individual can understand that others can hold false beliefs and that these beliefs can influence their actions, a critical step in the development of social cognition and empathy.}, revealing a marked improvement in ToM capabilities in more recent versions of GPT-3.
 Specifically, the davinci-002 version solved 70\% of ToM tasks, while the davinci-003 version achieved a 93\% success rate, demonstrating performances akin to seven- and nine-year-old children, respectively.
 Notably, GPT-3.5's performance in ToM assessments parallels that of nine-year-olds, suggesting nascent ToM capabilities in LLMs.
 The study hypothesizes that ToM-like abilities might emerge spontaneously in AI without explicit programming, especially in LLMs trained in human language.
