@@ -33,13 +33,13 @@ Moreover, emerging approaches aim to enhance LLMs' contextual awareness and ethi
 \subsection{Pre-training strategies}
 \label{subsec:pre-training-strategies}
 
-Several pre-training strategies, including unsupervised, supervised, and semi-supervised pre-training, have been used to train large language models.
+Several pre-training strategies have been used to train large language models, including unsupervised, supervised, and semi-supervised pre-training.
 Let's explore each of these strategies in more detail.
 
 \subsubsection{Unsupervised pre-training}
 \label{subsubsec:unsupervised-pre-training}
 
-Unsupervised pre-training is a pre-training strategy that involves training a model on a large corpus of text data without any labels or annotations.\\
+Unsupervised pre-training is a pre-training strategy involving training a model on a large corpus of text data without labels or annotations.\\
 The model is trained to predict the next word, given the previous words in the sequence~\cite{brown2020language}.
 This is done using a technique called Autoregressive Language Modeling (ALM), where the model is trained to predict the probability distribution over the next word in the sequence given the previous words in the sequence in a unidirectional manner.\\
 Models like GPT-3 and its variants use this autoregressive language modelling objective to pre-train over large text corpora and learn the relationships between words in the language.\\
@@ -56,20 +56,20 @@ BERT and its variants, on the other hand, employ a masked language model (MLM) o
 
 Supervised pre-training is a pre-training strategy that involves training a model on a large corpus of text data with labels or annotations.
 This paradigm contrasts with unsupervised pre-training, where models learn from raw text without explicit labels.
-The supervised approach enables models to learn representations that are more closely aligned with the end tasks, potentially enhancing their performance and efficiency~\cite{gururangan2020don}.
+The supervised approach enables models to learn representations more closely aligned with the end tasks, potentially enhancing their performance and efficiency~\cite{gururangan2020don}.
 
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=\textwidth]{supervised}
-	\caption{Using only the very limited labelled data points available, a supervised model may learn a decision boundary that will generalize poorly and be prone to misclassifying new examples. Source: \textcite{bergmann2023semi}.}
+	\caption{Using only the minimal labelled data points available, a supervised model may learn a decision boundary that will generalize poorly and be prone to misclassifying new examples. Source: \textcite{bergmann2023semi}.}
 	\label{fig:supervised}
 \end{figure}
 
 In supervised pre-training, LLMs are exposed to a vast array of labelled data across various domains.
 This training regime involves teaching the model to predict the correct output given an input under the supervision of known input-output pairs.
-This approach not only helps in learning general language representations but also imbues the model with domain-specific knowledge, which is particularly beneficial when the subsequent fine-tuning task is closely related to the pre-training data~\cite{phang2019sentence}.
+This approach helps in learning general language representations and imbues the model with domain-specific knowledge, which is particularly beneficial when the subsequent fine-tuning task is closely related to the pre-training data~\cite{phang2019sentence}.
 
-One significant advantage of supervised pre-training is its potential to reduce the amount of labelled data required for fine-tuning over specific tasks.
+One significant advantage of supervised pre-training is its potential to reduce the labelled data required for fine-tuning over specific tasks.
 By learning robust representations during pre-training, LLMs can achieve high performance on downstream tasks even with relatively smaller datasets, a concept known as transfer learning~\cite{ruder2019transfer}.
 Moreover, supervised pre-training can lead to improvements in model generalization, making LLMs more adept at handling unseen data or tasks that diverge from their initial training corpus.\\
 
@@ -110,15 +110,15 @@ Label propagation (Figure~\ref{fig:label_propagation}) is a common technique in 
 	\label{fig:label_propagation}
 \end{figure}
 
-Active learning is another inductive learning method that involves iteratively selecting the most informative data points for labeling and optimizing the model's performance with minimal labeled data.
+Active learning is another inductive learning method that involves iteratively selecting the most informative data points for labelling and optimizing the model's performance with minimal labelled data.
 This approach is more general than transductive learning and underpins most supervised learning algorithms.
-The objective here is to infer a function that can generalize well across unseen samples, not just the examples provided during the training phase.
+The objective is to infer a function that can generalize well across unseen samples, not just the examples provided during the training phase.
 Inductive learning is fundamental to numerous machine learning algorithms, from linear regression to deep neural networks, where the model learns an underlying function that maps input data to output predictions, with the hope that this function will perform accurately on data not present in the training set~\cite{mitchell1997machine}.
 
 The semi-supervised approach is predicated on certain assumptions about the underlying structure and distribution of the data, which facilitate the effective integration of unlabeled data into the learning process.
 \begin{itemize}
-	\item \textbf{Cluster Assumption:} {The cluster assumption posits that data points within the same cluster are more likely to share a label. This assumption underpins the idea that data points in high-density regions of the input space belong to the same class, while low-density regions denote boundaries between classes~\cite{chapelle2009semi}. This principle guides the model to generalize from labeled data points to nearby unlabeled ones within the same cluster.}
-	\item \textbf{Continuity Assumption:} {Also known as the smoothness assumption, this posits that if two points in the input space are close to each other, then their corresponding outputs are also likely to be similar~\cite{zhou2004learning}. In practical terms, this means that if two data points are close in the feature space, they are likely to share the same label.}
+	\item \textbf{Cluster Assumption:} {The cluster assumption posits that data points within the same cluster are more likely to share a label. This assumption underpins the idea that data points in high-density regions of the input space belong to the same class, while low-density regions denote boundaries between classes~\cite{chapelle2009semi}. This principle guides the model in generalizing from labelled data points to nearby unlabeled ones within the same cluster.}
+	\item \textbf{Continuity Assumption:} {Also known as the smoothness assumption, this posits that if two points in the input space are close to each other, then their corresponding outputs are also likely to be similar~\cite{zhou2004learning}. In practical terms, if two data points are close in the feature space, they will likely share the same label.}
 	\item \textbf{Manifold Assumption:} {The manifold assumption suggests that high-dimensional data lie on a low-dimensional manifold. This assumption implies that the data points are situated on a manifold of much lower dimensionality embedded within the higher-dimensional space, and learning can be simplified if this manifold structure is discovered and exploited~\cite{belkin2006manifold}. The manifold assumption often complements the cluster and continuity assumptions, providing a geometric interpretation of the data's distribution.}
 	\item \textbf{Low-Density Separation Assumption:} {This assumption posits that the decision boundary between different classes should lie in regions of low data density~\cite{chapelle2009semi}. Essentially, there is expected to be a natural separation or gap between classes, and the learning algorithm should prefer hypotheses that place the decision boundary in regions with few data points.}
 \end{itemize}
@@ -126,8 +126,8 @@ The semi-supervised approach is predicated on certain assumptions about the unde
 \subsection{Data source}
 \label{subsec:data-source}
 
-Large Language Models (LLMs) exhibit a strong dependency on extensive, high-calibre data for pre-training, with their efficacy closely tied to the nature and preprocessing of the utilized corpora.
-The main sources of data for training and evaluating LLMs can be broadly categorized into general and specialized datasets, each serving distinct purposes in enhancing the models' capabilities~\cite{survey}.\\
+Large Language Models (LLMs) strongly depend on extensive, high-calibre data for pre-training, with their efficacy closely tied to the nature and preprocessing of the utilized corpora.
+The primary sources of data for training and evaluating LLMs can be broadly categorized into general and specialized datasets, each serving distinct purposes in enhancing the models' capabilities~\cite{survey}.\\
 
 \begin{figure}[h]
 	\centering
@@ -163,7 +163,7 @@ Next, we introduce three kinds of specialized data.
 	\item \textbf{Scientific literature:} {
 		      Scientific literature, encompassing research papers, patents, and technical documents, provides a rich source of domain-specific text data essential for training LLMs on scientific text generation and reasoning tasks~\cite{survey, taylor2022galactica, lewkowycz2022minerva}.
 		      Existing efforts to build the scientific corpus for training LLMs mainly collect arXiv papers, scientific textbooks, math web pages, and other related scientific resources.
-		      Data in scientific fields are complex, commonly including mathematical symbols and protein sequences, so specific tokenization and preprocessing techniques are required to transform these different data formats into a unified form that can be processed by language models.
+		      Data in scientific fields are complex, commonly including mathematical symbols and protein sequences, so specific tokenization and preprocessing techniques are required to transform these different data formats into a unified form that language models can process.
 	      }
 	\item \textbf{Code:} {
 		      Code, encompassing source code snippets and software documentation, is a valuable source of structured text data, essential for training LLMs on code generation and code completion tasks~\cite{survey, nijkamp2022codegen}.
@@ -260,7 +260,7 @@ Existing works mainly adopt two strategies for quality filtering: classifier-bas
 
 The former approach involves training a classifier to distinguish between high-quality and low-quality data, using well-curated data (e.g., Wikipedia pages) as positive examples and noisy data (e.g., spam or irrelevant content) as negative examples.
 \textcite{rae2021scaling, du2022glam} find that classifier-based filtering may remove high-quality data in dialect, colloquial, and sociolectal\footnote{In sociolinguistics, a sociolect is a form of language or a set of lexical items used by a socioeconomic class, profession, age group, or other social group. Sociolects involve both passive acquisition of particular communicative practices through association with a local community, as well as active learning and choice among speech or writing forms to demonstrate identification with particular groups. Source: \textcite{wikipedia}} languages, which potentially leads to bias in the pre-training data and diminishes the corpus diversity.\\
-Heuristic-based filtering, on the other hand, involves setting predefined rules to identify and remove noisy data~\cite{workshop2023bloom, rae2021scaling}.
+On the other hand, heuristic-based filtering involves setting predefined rules to identify and remove noisy data~\cite{workshop2023bloom, rae2021scaling}.
 The set of rules can be summarized as follows:
 \begin{itemize}
 	\item \textit{Language based filtering}. {Remove data that is not in the target language.}
@@ -284,7 +284,7 @@ The set of rules can be summarized as follows:
 \textbf{Deduplication.}
 The next step in data preprocessing is deduplication, where duplicate data are removed to reduce redundancy and improve the diversity of the training data.
 Moreover, \textcite{hernandez2022scaling} found that duplication may cause instability in the training process, leading to overfitting and poor generalization performance.
-Therefore, deduplication is essential to ensure that the model is exposed to a diverse range of text data during training.
+Therefore, deduplication is essential to ensure the model is exposed to diverse text data during training.
 
 It can be done at various granularities, such as at the document, paragraph, or sentence level.
 Low-quality sentences containing repeated words or phrases can be removed to improve the data quality.
@@ -297,12 +297,12 @@ Privacy reduction is another important step in data preprocessing, especially wh
 Since data is often collected from the web and contains user-generated content, the risk of privacy breaching is high~\cite{carlini2021extracting}.
 This step involves anonymizing or obfuscating sensitive data to protect individuals' privacy.
 Common techniques for privacy reduction include masking personally identifiable information (PII), such as names, addresses, and phone numbers, and replacing them with generic placeholders or tokens~\cite{laurencon2022bigscience}.\\
-Privacy attacks on LLMs can be attributed to the presence of duplicated PII data in the pre-training, which can be used to extract the original PII data~\cite{lee2022deduplicating}.
+Privacy attacks on LLMs can be attributed to duplicated PII data in the pre-training, which can be used to extract the original PII data~\cite{lee2022deduplicating}.
 Therefore, de-duplication can also reduce privacy risks to some extent.
 
 \textbf{Tokenization.}
 Tokenization is a crucial step in data preprocessing, where the text data is converted into tokens that can be processed by the model.
-The choice of tokenization method can have a significant impact on the model's performance, as different tokenization strategies can affect the model's ability to capture the underlying structure of the language.
+The choice of tokenization method can significantly impact the model's performance, as different tokenization strategies can affect the model's ability to capture the underlying structure of the language.
 
 Common tokenization techniques include word-based tokenization, subword-based tokenization, and character-based tokenization.
 Word-based tokenization splits the text into individual words, while subword-based tokenization breaks down the text into subword units, such as prefixes, suffixes, and roots.
@@ -310,47 +310,47 @@ Character-based tokenization, on the other hand, tokenizes the text into individ
 Word-based tokenization is the predominant method used in traditional NLP research~\cite{lafferty2001conditional}.
 
 However, word-based tokenization can be problematic for languages with complex morphology or limited vocabulary, as it may result in a large vocabulary size and sparse data representation.
-In some other languages, like Chinese, Japanese, and Korean, word-based tokenization is not suitable because these languages do not have explicit word boundaries\footnote{It means that it can yield different segmentation results for the same input.}.
+In some other languages, like Chinese, Japanese, and Korean, word-based tokenization is unsuitable because these languages do not have explicit word boundaries\footnote{It can yield different segmentation results for the same input.}.
 Thus, several neural network-based models employed subword-based tokenization, such as Byte Pair Encoding (BPE)~\cite{sennrich2016neural}, Unigram~\cite{kudo2018sentencepiece}, and WordPiece~\cite{wu2016google}, to address these challenges.
 
 Byte Pair Encoding (BPE) is a type of data compression technique that has been effectively adapted for natural language processing tasks, particularly in the domain of tokenization for large language models (LLMs).
 The BPE algorithm operates by iteratively merging the most frequent pair of bytes (or characters in the context of text) in a given dataset into a single, new byte (or character). It repeats this process until a specified number of merges has been reached or another stopping criterion has been met.
 The application of BPE in the field of NLP was popularized by \textcite{sennrich2016neural} in the context of neural machine translation.
-They demonstrated that using BPE allowed for efficient handling of rare and unknown words, which are commonplace in languages with rich morphology or in specialized vocabularies, such as scientific texts or code.
-By splitting words into subword units, BPE provides a balance between the granularity of characters and the semantic units of full words, enabling models to represent a wide vocabulary with a limited set of tokens.
+They demonstrated that using BPE allowed for efficient handling of rare and unknown words, commonplace in languages with rich morphology or specialized vocabularies, such as scientific texts or code.
+By splitting words into subword units, BPE balances the granularity of characters and the semantic units of full words, enabling models to represent a wide vocabulary with a limited set of tokens.
 BPE has been fundamental in the architecture of influential language models, such as OpenAI's GPT series, BART and LLaMA\@.
 
-WordPiece tokenization is a tokenization method that segments text into subword units, allowing for a balance between the flexibility of character-based models and the efficiency of word-based models.
+WordPiece tokenization is a tokenization method that segments text into subword units, balancing the flexibility of character-based models and the efficiency of word-based models.
 Originating from speech processing~\cite{wu2016google}, this method has found significant application in natural language processing, particularly within neural network-based models such as BERT and its variants.
 In WordPiece tokenization, a base vocabulary is first constructed with individual characters, and then more frequent and meaningful sub-word units are incrementally added.
 This construction process is guided by a criterion that maximises the language model likelihood on a training corpus, thus ensuring that the resulting tokens are optimal representations of the given data.
 The WordPiece algorithm iteratively merges the most frequently co-occurring pairs of tokens to form new sub-word units until a specified vocabulary size is reached.
-This tokenization strategy has shown effectiveness in reducing out-of-vocabulary issues, as the model can use smaller sub-word units when encountering unfamiliar words.
+This tokenization strategy has effectively reduced out-of-vocabulary issues, as the model can use smaller sub-word units when encountering unfamiliar words.
 Moreover, by capturing sub-word regularities, WordPiece facilitates learning meaningful representations for morphologically rich languages within large language models.
 This is particularly advantageous for handling agglutinative languages, where words often comprise a series of affixed morphemes\footnote{
-	Agglutinative languages are a type of morphological linguistic classification in which words are formed through the linear addition of discrete units, each of which carries a specific grammatical meaning. These discrete units are known as morphemes, which are the smallest grammatical units in a language. In agglutinative languages, morphemes are concatenated so that each morpheme represents a single grammatical function, such as tense, number, case, or aspect.
+	Agglutinative languages are a type of morphological linguistic classification in which words are formed by adding discrete units, each carrying a specific grammatical meaning. These discrete units are known as morphemes, which are the smallest grammatical units in a language. In agglutinative languages, morphemes are concatenated so that each morpheme represents a single grammatical function, such as tense, number, case, or aspect.
 	For example, in Turkish -- an agglutinative language -- a single word can be made up of a base or root word with several affixes attached to it to modify its meaning. These affixes remain relatively invariant; they don’t undergo significant changes in form when they’re combined with other morphemes. Here’s an illustrative example from Turkish:\\
 	"ev" means "house"\\
 	"evler" means "houses" (plural)\\
 	"evlerim" means "my houses" (possessive plural)\\
-	Each suffix attached to "ev" is a separate morpheme that changes the meaning of the word, indicating plurality and possession without ambiguity.
+	Each suffix attached to "ev" is a separate morpheme that changes the word's meaning, indicating plurality and possession without ambiguity.
 	This is in contrast to fusional languages, where a single affix can represent multiple grammatical categories, or isolating languages, where words generally do not change form at all, and grammatical relations are indicated by word order or separate words.
 }.
 
-Unigram tokenization is a statistical method that employs a unigram language model to probabilistically segment text into tokens.
+Unigram tokenization is a statistical method that employs a unigram language model to segment text into tokens probabilistically.
 This technique, standing in contrast to the deterministic nature of Byte Pair Encoding, involves constructing a unigram model from a large initial vocabulary and iteratively refining it to maximize the likelihood of the observed corpus~\cite{kudo2018sentencepiece}.
 The essence of Unigram tokenization lies in its iterative pruning process, wherein less probable tokens are systematically eliminated from the vocabulary.
 To estimate the unigram language model, it adopts an Expectation-Maximization (EM) algorithm: at each iteration, it first finds the currently optimal tokenization of words based on the old language model and then re-estimates the probabilities of unigrams to update the language model.
 During this procedure, dynamic programming algorithms (i.e., the Viterbi algorithm) are used to efficiently find the optimal decomposition way of a word given the language model\cite{survey}.
 This probabilistic approach is adept at handling the linguistic complexities and variations found across different languages and domains.
 It particularly excels in the context of language models that require a nuanced understanding of morphological structures and sub-word variations.
-Unigram tokenization has been pivotal in developing the SentencePiece~\cite{kudo2018sentencepiece} tokenization library, which is renowned for its application in T5 and mBART\@.
+Unigram tokenization has been pivotal in developing the SentencePiece~\cite{kudo2018sentencepiece} tokenization library, renowned for its application in T5 and mBART\@.
 The adaptability and language-agnostic properties of Unigram tokenization make it a preferred choice for LLMs tasked with processing multilingual data~\cite{kudo2018sentencepiece}.
 
 \section{Adaptation of Large Language Models}
 \label{sec:adaptation-of-llms}
 
-The adaptation of Large Language Models (LLMs) is a critical aspect of their deployment in real-world applications, as it enables the models to be fine-tuned on specific tasks or domains after pre-training, enhancing their performance minimizing loss of  generalization capabilities.
+The adaptation of Large Language Models (LLMs) is a critical aspect of their deployment in real-world applications. It enables the models to be fine-tuned on specific tasks or domains after pre-training, enhancing their performance by minimizing the loss of generalization capabilities.
 Adaptation can be achieved through various techniques, such as instruction tuning and alignment tuning, which allow LLMs to enhance (or unlock) their abilities and align their behaviours with human values or preferences~\cite{survey}.
 
 \begin{table}[htbp]
@@ -388,7 +388,7 @@ Adaptation can be achieved through various techniques, such as instruction tunin
 \label{subsec:instruction-tuning}
 
 Instruction tuning is a technique that leverages natural language instructions to fine-tune pre-trained LLMs~\cite{wei2022fine}, which is highly related to supervised fine-tuning~\cite{ouyang2022training} and multi-task prompted training~\cite{sanhetal2022multitask}.
-Instruction tuning enhances LLMs by refining their ability to follow and comprehend natural language instructions.
+Instruction tuning enhances LLMs' ability to follow and comprehend natural language instructions.
 Unlike traditional fine-tuning, which adapts models to specific tasks, instruction tuning employs a more generalized approach that broadens the model's utility across a variety of tasks through an "instruction-following" paradigm (Figure~\ref{fig:instruction-tuning}).
 
 \begin{figure}[h!]
@@ -421,7 +421,7 @@ FLAN\footnote{Finetuned LAnguage Net, a 137B parameter pre-trained language mode
 Instruction tuning has been widely applied also in other models like Instruct-GPT~\cite{ouyang2022training} and GPT-4~\cite{radford2023gpt4}.
 Other experiments in \textcite{wei2022fine} have shown that instruction tuning of LaMDA-PT started to significantly improve performance on zero-shot tasks when the model size is at least 68B\@.
 
-Let's have a look at the construction of instruction-formatted instances, which are essential for instruction tuning.
+Let's look at the construction of instruction-formatted instances essential for instruction tuning.
 Generally, an instruction-formatted instance consists of a task description (called an \textit{instruction}) and a set of input-output examples, optionally followed by a small number of demonstrations.
 There are three main approaches to constructing instruction-formatted instances: formatting task datasets, formatting daily dialogues, and formatting synthetic data as represented in Figure~\ref{fig:instruction-formatted-instances}.
 
@@ -432,11 +432,11 @@ There are three main approaches to constructing instruction-formatted instances:
 	\label{fig:instruction-formatted-instances}
 \end{figure}
 
-Historically, datasets encompassing various tasks like text summarization, classification, and translation were used to create multi-task training datasets~\cite{tang2022mvp,liu2019multi,aghajanyan2021muppet}.
+Historically, datasets encompassing tasks like text summarization, classification, and translation were used to create multi-task training datasets~\cite{tang2022mvp,liu2019multi,aghajanyan2021muppet}.
 These datasets have become crucial for instruction tuning, particularly when formatted with natural language descriptions that clarify the task objectives of the LLMs. This augmentation helps the models understand and execute the tasks more effectively~\cite{sanhetal2022multitask,ouyang2022training,wei2022fine, wang2022super}.
 For instance, each example in a question-answering dataset might be supplemented with a directive like "Please answer this question" which guides the LLM in its response generation.
 The effectiveness of such instruction tuning is evident as LLMs demonstrate improved generalization to unfamiliar tasks when trained with these enriched datasets~\cite{wei2022fine}.
-The importance of these instructions is underscored by the observed decline in performance when task descriptions are omitted from training.
+The decline in performance observed when task descriptions are omitted from training underscores the importance of these instructions.
 
 PromptSource~\cite{bach2022promptsource}, a crowd-sourcing platform, has been proposed to aid in the creation, sharing, and verification of task descriptions for datasets.
 This platform enhances the utility of instruction tuning by ensuring a wide variety of well-defined task descriptions.
@@ -446,9 +446,9 @@ Talking about formatting daily chat data, Instruct-GPT has been fine-tuned using
 This approach helps to harness the model's capability to follow instructions effectively.
 To further enhance task diversity and real-life applicability, human labellers are employed to create instructions for various tasks, including open-ended generation, open-question answering, brainstorming, and casual chatting.
 Another set of labellers then provides responses to these instructions, which are used as training outputs.
-This method not only enriches the training data but also aligns the model's responses more closely with human-like conversational patterns.
+This method enriches the training data and aligns the model's responses more closely with human-like conversational patterns.
 InstructGPT also employs these real-world tasks formatted in natural language for alignment tuning (see Section~\ref{subsec:alignment-tuning}).
-GPT-4 extends this approach by specifically designing potentially high-risk instructions and guiding the model to reject these instructions through supervised fine-tuning for safety concerns.
+GPT-4 extends this approach by designing potentially high-risk instructions and guiding the model to reject these instructions through supervised fine-tuning for safety concerns.
 Recent efforts have also focused on collecting user chat requests as input data, with models like ChatGPT or GPT-4 generating the responses.
 A notable dataset in this realm is the conversational data from ShareGPT, which provides a rich source of real-world interactions for training and refining the performance of LLMs.
 
@@ -456,21 +456,21 @@ Semi-automated methods~\cite{wang2022selfinstruct} for generating synthetic data
 One such method is the Self-Instruct approach, which efficiently utilizes a relatively small initial dataset.
 With the Self-Instruct method, only about 100 examples are required to start the data augmentation process (Figure~\ref{fig:instruction-formatted-instances}c).
 From this initial task pool, a few instances are selected randomly and used as demonstrations for an LLM. The model is then prompted to generate new task descriptions and corresponding input-output pairs.
-This process not only expands the dataset but also ensures a variety of training examples by incorporating a diversity and quality check before adding the newly synthesized instances back into the task pool.
-This synthetic approach to data generation is portrayed as both cost-effective and efficient, providing a scalable solution for enriching training datasets for LLMs. It leverages LLMs' generative capabilities to create diverse and relevant training materials, thereby enhancing the training process without the usual resource-intensive demands of manual data creation.
-Instruction tuning not only improves zero-shot learning but also establishes new benchmarks in few-shot learning scenarios.
+This process expands the dataset and ensures a variety of training examples by incorporating a diversity and quality check before adding the newly synthesized instances back into the task pool.
+This synthetic approach to data generation is portrayed as both cost-effective and efficient, providing a scalable solution for enriching LLM training datasets. It leverages LLMs' generative capabilities to create diverse and relevant training materials, thereby enhancing the training process without the usual resource-intensive demands of manual data creation.
+Instruction tuning improves zero-shot learning and establishes new benchmarks in few-shot learning scenarios.
 The improvement is attributed to the instruction tuning across diverse datasets, which likely provides a richer context for model adaptation~\cite{wei2022fine}.
-The idea is that by using supervision to teach a model to perform tasks described via instructions, the model will learn to follow instructions and do so even for unseen tasks.
+By using supervision to teach a model to perform tasks described via instructions, the model will learn to follow instructions and do so even for unseen tasks.
 
 Two essential factors for the instance construction are:
 \begin{itemize}
 	\item \textbf{Scaling the instructions.} {Increasing the number of tasks within training data can significantly improve the generalization ability of LLMs, as evidenced by~\textcite{wei2022fine, sanh2021distilbert, chowdhery2022palm}. The performance of LLMs typically increases with the number of tasks but plateaus after reaching a saturation point~\cite{raffel2023exploring, chowdhery2022palm}. It is suggested that beyond a certain threshold, additional tasks do not contribute to performance gains~\cite{raffel2023exploring}. The diversity in task descriptions, including length, structure, and creativity variations, is beneficial~\cite{wei2022fine}. However, increasing the number of instances per task might lead to overfitting if the numbers are excessively high~\cite{chowdhery2022palm, chen2023maybe}.}
 	\item \textbf{Formatting design.} {
-		      The way instructions are formatted also plays a crucial role in the generalization performance of LLMs~\cite{chowdhery2022palm}. Task descriptions, supplemented by optional demonstrations, form the core through which LLMs grasp the tasks~\cite{chowdhery2022palm}. Utilizing a suitable number of exemplars as demonstrations can notably enhance performance and reduce the model's sensitivity to instruction nuances~\cite{sanh2021distilbert, raffel2023exploring}. However, including additional elements like prohibitions, reasons, or suggestions within instructions may not effectively impact or might even negatively affect LLM performance~\cite{chowdhery2022palm, mishra2022crosstask}. Recently, some studies suggest incorporating chain-of-thought (CoT) examples in datasets that require step-by-step reasoning, which has proven effective across various reasoning tasks~\cite{raffel2023exploring, iyer2022opt}.
+		      The way instructions are formatted also plays a crucial role in the generalization performance of LLMs~\cite{chowdhery2022palm}. Task descriptions, supplemented by optional demonstrations, form the core through which LLMs grasp the tasks~\cite{chowdhery2022palm}. Utilizing a suitable number of exemplars as demonstrations can notably enhance performance and reduce the model's sensitivity to instruction nuances~\cite{sanh2021distilbert, raffel2023exploring}. However, including additional elements like prohibitions, reasons, or suggestions within instructions may not effectively impact or even negatively affect LLM performance~\cite{chowdhery2022palm, mishra2022crosstask}. Recently, some studies suggest incorporating chain-of-thought (CoT) examples in datasets that require step-by-step reasoning, which has proven effective across various reasoning tasks~\cite{raffel2023exploring, iyer2022opt}.
 	      }
 \end{itemize}
 
-Instruction tuning is often more efficient since only a moderate number of instances are needed for training.
+Instruction tuning is often more efficient since only a few instances are needed for training.
 Since instruction tuning can be considered as a supervised training process, its optimization is different from pre-training in several aspects~\cite{chung2022scaling}, such as the training objective (i.e., sequence-to-sequence loss) and optimization
 configuration (e.g., smaller batch size and learning rate), which require special attention in practice.
 
@@ -481,17 +481,17 @@ Additionally, setting a maximum cap on the number of examples from any dataset h
 To enhance the stability and effectiveness of instruction tuning, integrating pre-training data into the tuning process is beneficial, serving as regularization~\cite{wei2022fine}.
 Some models, such as GLM-130B and Galactica, start with a mix of pre-training and instruction-tuned data, effectively combining the strengths of both pre-training and instruction tuning~\cite{chowdhery2022palm}.
 
-A strategic approach involves multiple stages of tuning, starting with extensive task-specific data and followed by less frequent types, such as daily chat instructions, to avoid forgetting previously learned tasks~\cite{raffel2023exploring}.
+A strategic approach involves multiple tuning stages, starting with extensive task-specific data and followed by less frequent types, such as daily chat instructions, to avoid forgetting previously learned tasks~\cite{raffel2023exploring}.
 
 Some additional strategies to improve the instruction tuning process include:
 \begin{itemize}
-	\item \textbf{Efficient training for multi-turn chat data.} {Given a multiturn chat\footnote{The conversation between a user and a bot} dataset, each conversation can be split into multiple context-response pairs for training: the model is fine-tuned to generate responses based on the corresponding context for all splits. To save computational resources, \textcite{chiang2023vicuna} propose a method that fine-tunes the model on the whole conversation but relies on a loss mask that only computes the loss on the responses of the chatbot for training.
+	\item \textbf{Efficient training for multi-turn chat data.} {Given a multiturn chat\footnote{The conversation between a user and a bot} dataset, each conversation can be split into multiple context-response pairs for training: the model is fine-tuned to generate responses based on the corresponding context for all splits. To save computational resources, \textcite{chiang2023vicuna} propose a method that fine-tunes the model on the whole conversation but relies on a loss mask that only computes the loss on the chatbot's responses for training.
 	      }
 	\item \textbf{Filtering low-quality instructions using LLMs.} {Filtering out low-quality instructions through advanced LLMs helps maintain high training standards and reduces unnecessary computational expenses~\cite{wei2022fine}.}
 	\item \textbf{Establishing self-identification for LLM.} {In real-world applications, it is important for LLMs to be able to identify themselves when asked. To achieve this, models like GPT-4 are trained to recognize and respond to self-identification instructions~\cite{radford2023gpt4}.
 	      }
 	\item \textbf{Concatenate multiple examples to approach max length.} {
-		      To handle variable-length sequences during training, it is common practice to introduce padding tokens to ensure uniform sequence lengths. However, this approach can lead to inefficient use of the model's capacity, as the padding tokens do not contribute to the learning process. By concatenating multiple examples to approach the maximum sequence length, the model can process more information in each training step, thereby enhancing the training efficiency and performance~\cite{krell2021efficient}.
+		      To handle variable-length sequences during training, it is common practice to introduce padding tokens to ensure uniform sequence lengths. However, this approach can lead to inefficient use of the model's capacity, as the padding tokens do not contribute to the learning process. By concatenating multiple examples to approach the maximum sequence length, the model can process more information in each training step, enhancing the training efficiency and performance~\cite{krell2021efficient}.
 	      }
 	\item \textbf{Evaluate the quality of instructions.}{
 		      \textcite{cao2023instruction} introduced \textsc{InstructMining} to autonomously select premium instruction-following data for finetuning LLMs by employing a combination of data mining techniques and performance evaluation strategies.
@@ -510,7 +510,7 @@ Some additional strategies to improve the instruction tuning process include:
 		      \textcite{cao2023instruction} also accounts for the double descent phenomenon observed in model training, where increasing the dataset size initially improves performance up to a point, after which performance declines before potentially improving again as more data is added. This observation guides the selection process to focus on an optimal point that balances data quality and quantity, improving model performance efficiently.
 	      }
 	\item \textbf{Rewriting instructions into more complex ones.} {
-	      \textcite{xu2023wizardlm} introduces an innovative method, termed "Evol-Instruct", which significantly enhances the instruction-following capabilities and overall performance of large language models (LLMs). It is a systematic approach for automatically generating complex instruction data using LLMs instead of human input. This method involves iterative evolution and refinement of initial, simpler instructions into more complex and diverse variants. These evolved instructions are then used to fine-tune LLMs, specifically targeting their ability to effectively understand and execute more complex tasks. Starting with a basic set of instructions, Evol-Instruct employs a two-pronged strategy -- In-Depth Evolving and In-Breadth Evolving.
+	      \textcite{xu2023wizardlm} introduces a method termed "Evol-Instruct", which significantly enhances the instruction-following capabilities and overall performance of large language models (LLMs). It is a systematic approach for automatically generating complex instruction data using LLMs instead of human input. This method involves iterative evolution and refinement of initial, simple instructions into more complex and diverse variants. These evolved instructions are then used to fine-tune LLMs, specifically targeting their ability to effectively understand and execute more complex tasks. Starting with a basic set of instructions, Evol-Instruct employs a two-pronged strategy -- In-Depth Evolving and In-Breadth Evolving.
 
 	      /textbf{In-Depth Evolving} enhances the complexity and depth of instructions by adding constraints, increasing reasoning demands, or introducing more detailed contexts.
 	      /textbf{In-Breadth Evolving} expands the variety and coverage of topics and skills addressed by the instructions, aiming to fill gaps in the LLM’s training data and increase its general robustness across different types of tasks.
@@ -519,7 +519,7 @@ Some additional strategies to improve the instruction tuning process include:
 	      The process repeats several cycles, allowing the system to gradually refine the instruction set to maximize complexity and utility while ensuring the instructions remain understandable and executable by the LLM.
 	      By training with the complex instructions generated by Evol-Instruct, LLMs like the WizardLM demonstrate significant improvements in several key areas:
 	      \begin{itemize}
-		      \item Enhanced Generalization: The model becomes capable of handling a wider variety of tasks beyond the scope of its original training data.
+		      \item Enhanced Generalization: The model can handle a wider variety of tasks beyond the scope of its original training data.
 		      \item Improved Complexity Handling: The LLM performs better in understanding and executing tasks requiring higher levels of reasoning or multiple steps to complete.
 		      \item Competitive Performance: Compared to models like OpenAI's ChatGPT and other contemporary LLMs, WizardLM trained with Evol-Instruct data exhibits competitive or superior performance, especially on complex instruction-following tasks.
 	      \end{itemize}
@@ -530,7 +530,7 @@ Some additional strategies to improve the instruction tuning process include:
 The main effects of instruction tuning are:
 \begin{itemize}
 	\item \textbf{Performance Improvement.} {
-		      Instruction tuning significantly enhances LLMs, proving effective across models of various scales from 77M to 540B parameters. Smaller models subjected to instruction tuning can surpass larger models that haven't been fine-tuned, showcasing the technique's broad applicability and cost-effectiveness \cite{tamkin2021understanding, wei2022fine}. This approach not only boosts model performance as parameter scale increases but also demonstrates improvements across different architectures, objectives, and adaptation methods \cite{raffel2023exploring}.
+		      Instruction tuning significantly enhances LLMs, proving effective across models of various scales from 77M to 540B parameters. Smaller models subjected to instruction tuning can surpass larger models that haven't been fine-tuned, showcasing the technique's broad applicability and cost-effectiveness \cite{tamkin2021understanding, wei2022fine}. This approach boosts model performance as parameter scale increases and demonstrates improvements across different architectures, objectives, and adaptation methods \cite{raffel2023exploring}.
 	      }
 	\item \textbf{Task Generalization.} {
 		      Instruction tuning endows LLMs with the capability to understand and execute tasks based on natural language instructions. This method is particularly effective in generalizing across both familiar and novel tasks, significantly enhancing performance without direct prior exposure \cite{chowdhery2022palm, tamkin2021understanding}. Notably, models like BLOOMZ-P3, fine-tuned on English-only tasks, demonstrate remarkable improvements in multilingual sentence completion, indicating robust cross-lingual transfer capabilities \cite{chowdhery2022palm}.
@@ -541,7 +541,7 @@ The main effects of instruction tuning are:
 \end{itemize}
 
 In summary, instruction tuning is a powerful technique that significantly enhances LLMs' performance, generalization, and domain specialization.
-The effectiveness of instruction tuning is evident across models of various scales and architectures, demonstrating its versatility and broad applicability.
+Instruction tuning's effectiveness is evident across models of various scales and architectures, demonstrating its versatility and broad applicability.
 Larger models, such as Llama\textsubscript{13B} compared to Llama\textsubscript{7B}, generally perform better, suggesting that increased model size enhances the model's ability to follow instructions and utilize knowledge more effectively.
 This is particularly evident in QA settings, where larger models show markedly improved performance~\cite{survey}.
 
@@ -553,8 +553,8 @@ In some cases, such as scaling up instruction numbers without focusing on qualit
 \subsection{Alignment Tuning}
 \label{subsec:alignment-tuning}
 
-LLMs may sometimes generate outputs that are inconsistent with human values or preferences (e.g., fabricating false information, pursuing inaccurate objectives, and producing harmful, misleading, or biased content)~\cite{ouyang2022training, kenton2021alignment}.
-To avoid such undesirable outcomes, alignment tuning is employed to ensure that LLMs' outputs align with specified ethical guidelines or desired behaviors~\cite{survey}.
+LLMs may sometimes generate outputs inconsistent with human values or preferences (e.g., fabricating false information, pursuing inaccurate objectives, and producing harmful, misleading, or biased content)~\cite{ouyang2022training, kenton2021alignment}.
+To avoid such undesirable outcomes, alignment tuning ensures that LLMs' outputs align with specified ethical guidelines or desired behaviors~\cite{survey}.
 Unlike pre-training and fine-tuning, which focus on optimizing model performance, alignment tuning aims to optimize the model's behaviour to conform to human values and norms~\cite{survey}.
 Alignment may harm the general abilities of LLMs to some extent, which is called \textit{alignment tax}~\cite{askell2021general}.
 
@@ -566,19 +566,19 @@ It should also engage in deeper interaction when necessary, asking relevant ques
 Honesty involves providing accurate information and transparency about the model's uncertainty and limitations.
 This criterion is seen as more objective, potentially requiring less human intervention to achieve alignment than the other criteria.
 Harmlessness involves avoiding generating offensive or discriminatory language and being vigilant against being manipulated into harmful actions.
-The determination of what constitutes harm can vary significantly depending on cultural and individual differences and the context in which the model is used.
+Determining what constitutes harm can vary significantly depending on cultural and individual differences and the context in which the model is used.
 
 \textcite{survey} notes the subjectivity of these criteria, rooted in human judgment, making them challenging to incorporate directly as optimization objectives in LLM training.
 Nonetheless, various strategies, such as red teaming\footnote{Red teaming might involve trying to induce biased or harmful outputs from the model, to test its resistance to producing undesirable content under adversarial conditions.}, are employed to meet these criteria by intentionally challenging LLMs to provoke harmful outputs and then refining them to prevent such behaviours.
 
-During the pre-training phase on a large-scale corpus, it's not possible to take into account the subjective and qualitative evaluations of LLM outputs by humans.
+During the pre-training phase on a large-scale corpus, the subjective and qualitative evaluations of LLM outputs by humans cannot be taken into account.
 Human feedback is essential for alignment tuning, as it provides the necessary supervision to guide the model towards desirable behaviours.
 
 Dominant strategies for generating human feedback data is human annotation ~\cite{ouyang2022training, glaese2022improving, ziegler2019fine}.
 This highlights the importance of labellers in the alignment tuning process, as they play a crucial role in providing feedback on the model's outputs.
 Ensuring that labellers have adequate qualifications is vital; despite stringent selection criteria, mismatches in intentions between researchers and labellers can still occur, potentially compromising feedback quality and LLM performance~\cite{bender2021dangers}.
 To address this, the InstructGPT initiative includes a screening process to select labellers whose evaluations closely align with those of researchers~\cite{ouyang2022training}.
-Additionally, the use of "super raters" in some studies ensures the highest quality of feedback by selecting the most consistent labellers for critical tasks~\cite{glaese2022improving}.
+In some studies, using "super raters" ensures the highest quality of feedback by selecting the most consistent labellers for critical tasks~\cite{glaese2022improving}.
 
 Three primary methods are used to collect human feedback and preference data:
 \begin{itemize}
@@ -593,7 +593,7 @@ Three primary methods are used to collect human feedback and preference data:
 	      }
 \end{itemize}
 
-One approach of alignment tuning is to use a reward model to evaluate the quality of generated outputs.
+One approach to alignment tuning is to use a reward model to evaluate the quality of generated outputs.
 RLHF utilizes reinforcement learning (RL) techniques, such as Proximal Policy Optimization (PPO), to fine-tune LLMs based on human feedback, aiming to enhance model alignment on criteria like helpfulness, honesty, and harmlessness.
 This process involves several components and steps to effectively train and optimize LLMs.
 Key components of RLHF include a pre-trained language model (LM), a reward model (RM), and an RL algorithm (e.g., PPO)~\cite{survey}.
@@ -612,11 +612,11 @@ Practical strategies propose deploying the RM on a separate server and using bea
 
 RLHF is a complex but promising approach to improving LLM alignment with human values. It involves sophisticated training regimes and multiple feedback mechanisms to ensure the model's outputs are ethical and practical.
 
-That being said, RLHF is memory-intensive (it needs to train multiple LMs), and the PPO algorithm is rather complex and often sensitive to hyperparameters.
+That being said, RLHF is memory-intensive (it needs to train multiple LMs), and the PPO algorithm is somewhat complex and often sensitive to hyperparameters.
 Thus, increasing studies are exploring alternative methods to align LLMs with human values using supervised fine-tuning without reinforcement learning.
 
-The main idea behind alignment tuning without reinforcement learning is to directly use high-quality alignment datasets.
-The alignment dataset may be created by LLMs aligned with human-written safety principles or by refining existing examples through editing operations.
+The main idea behind alignment tuning without reinforcement learning is to use high-quality alignment datasets directly.
+LLMs aligned with human-written safety principles or refining existing examples through editing operations may create the alignment dataset.
 Additionally, reward models can be reused to select highly rated responses from existing human feedback data, enriching the dataset's quality and relevance.
 Non-RL alignment methods employ supervised learning strategies similar to those used in original instruction tuning.
 These methods may also integrate auxiliary learning objectives, such as ranking responses or contrasting instruction-response pairs, to further enhance LLMs' alignment accuracy and performance.
@@ -627,7 +627,7 @@ These methods may also integrate auxiliary learning objectives, such as ranking 
 The architecture of Large Language Models (LLMs) plays a pivotal role in determining their performance, efficiency, and scalability.
 
 Generally speaking, we can identify some key components that define different LLM architectures: the encoder and the decoder.
-The encoder is an essential component in LLMs. Its role is to process input sequences and map them to a higher-dimensional space, capturing the contextual information in the data.
+The encoder is an essential component in LLMs. It processes input sequences and maps them to a higher-dimensional space, capturing the contextual information in the data.
 The structure of an encoder in LLMs typically involves a stack of identical layers, each comprising two main sub-layers: a multi-head self-attention\footnote{See Section~\ref{subsubsec:attention-mechanisms} for more details on self-attention mechanisms.} mechanism and a position-wise fully connected feed-forward network~\cite{vaswani2023attention}.
 
 On the other hand, the decoder is responsible for generating output sequences based on the encoded representations.
@@ -635,7 +635,7 @@ The decoder in models such as GPT-3~\cite{brown2020language} and its successors 
 A key feature of decoders in LLMs is causality, which ensures that the prediction for the current token can only attend to previous tokens, not future ones.
 This is implemented through masked attention mechanisms in the transformer's decoder layers~\cite{vaswani2023attention}.
 
-For example, in a translation task, the encoder processes the source sentence and produces a set of vectors representing its content, while the decoder uses cross-attention to decide which words (or phrases) in the source sentence are most relevant for predicting the next word in the target language.
+For example, in a translation task, the encoder processes the source sentence and produces a set of vectors representing its content. At the same time, the decoder uses cross-attention to decide which words (or phrases) in the source sentence are most relevant for predicting the next word in the target language.
 In code generation, decoders can create syntactically correct code snippets given comments or docstrings as input, as demonstrated by Codex~\cite{chen2021evaluating}.\\
 
 Based on the components and the way they are connected, LLMs can be categorized into three main types: encoder-only\footnote{
@@ -666,8 +666,8 @@ The vanilla version of the Transformer architecture introduced by \textcite{vasw
 The encoder transforms an input sequence into a set of representations that capture its semantic and syntactic properties.
 
 On the other hand, the decoder is tasked with generating an output sequence from the encoded representations.
-It predicts each token by conditioning on the previously generated tokens and the encoded input, a process that has seen significant improvements with the integration of cross-attention modules.
-By segregating the understanding (encoding) and generation (decoding) processes, the Encoder-Decoder architecture enables a flexible approach to diverse language tasks.
+It predicts each token by conditioning on the previously generated tokens and the encoded input, a process that has significantly improved with the integration of cross-attention modules.
+The encoder-decoder architecture enables a flexible approach to diverse language tasks by segregating the understanding (encoding) and generation (decoding) processes.
 
 So far, there are only a small number of models that use the encoder-decoder architecture (Figure~\ref{fig:llms-architectures}), such as BART~\cite{lewis2020bart} and T5~\cite{raffel2023exploring}.
 
@@ -681,30 +681,30 @@ So far, there are only a small number of models that use the encoder-decoder arc
 \subsection{Casual decoder}
 \label{subsec:casual-decoder}
 
-In a causal decoder, each token is predicted based on the tokens that precede it, ensuring that the generation process is unidirectional and prevents the model from using future tokens in the prediction process~\cite{vaswani2023attention}.
+A causal decoder predicts each token based on the preceding tokens. This ensures that the generation process is unidirectional and prevents the model from using future tokens in the prediction process~\cite{vaswani2023attention}.
 This mechanism is akin to how humans produce language, one word at a time, building upon what has already been said without access to future words.
 
 The architecture typically employs self-attention mechanisms where the attention distribution is masked to prevent tokens from attending to subsequent positions in the sequence (i.e., unidirectional attention mask).
-This form of masking is instrumental in preserving the autoregressive property within the transformer-based models~\cite{radford2019language}.
+This masking is instrumental in preserving the autoregressive property within the transformer-based models~\cite{radford2019language}.
 
 The GPT series\footnote{GPT-3~\cite{brown2020language} showed amazing in-context learning capability, whereas GPT-1~\cite{radford2018improving} and GPT-2~\cite{radford2019language} didn't. It seems that scaling plays an important role in increasing the model capacity of this model architecture} of language models by OpenAI are prominent examples that utilize causal decoder architectures, where the ability to generate coherent and contextually relevant text has been demonstrated effectively~\cite{brown2020language}.
 
-The causal decoder architecture is particularly well-suited for tasks that require sequential generation, such as text completion, language modelling, and text generation.
+The causal decoder architecture is well-suited for tasks requiring sequential generation, such as text completion, language modelling, and text generation.
 It has been widely adopted as the architecture of choice for many large-scale language models, such as OPT~\cite{zhang2022opt}, BLOOM~\cite{workshop2023bloom}, and Gopher~\cite{rae2021scaling}.
 
 \subsection{Prefix decoder}
 \label{subsec:prefix-decoder}
 
-The prefix decoder architecture\footnote{Also called non-causal decoder~\cite{zhang2022examining}} enables partial conditioning of generated sequences, revising the masking mechanism of causal decoders, to enable performing bidirectional attention over the prefix tokens~\cite{dong2019unified} and unidirectional attention only on generated tokens.
+The prefix decoder architecture\footnote{Also called non-causal decoder~\cite{zhang2022examining}} enables partial conditioning of generated sequences, revising the masking mechanism of causal decoders, to allow performing bidirectional attention over the prefix tokens~\cite{dong2019unified} and unidirectional attention only on generated tokens.
 
-In other words, this architecture allows the model to generate tokens based on both the input prefix and the target prefix, which can be useful for tasks that require generating sequences with specific prefixes or constraints.
+In other words, this architecture allows the model to generate tokens based on both the input prefix and the target prefix, which can be helpful in tasks that require generating sequences with specific prefixes or constraints.
 In practice, a prefix decoder is implemented by feeding a fixed sequence of tokens \footnote{Also known as the prefix} into the decoder alongside the tokens generated so far.
 The model then extends the prefix by generating subsequent tokens that logically follow the context provided by the prefix.
 
 Unlike the causal decoder, which strictly adheres to a unidirectional generation pattern, the prefix decoder allows for a predefined context or prefix to guide the generative process~\cite{li2021prefixtuning}.
-This is particularly useful in tasks such as machine translation, where the prefix can be a part of the translation that is already known or hypothesized, but the flexibility provided by the prefix decoder makes it suitable for a range of applications, from controlled text generation to task-oriented dialogue systems, where maintaining context and coherence is crucial~\cite{li2022ptuning}.
+This is particularly useful in tasks such as machine translation, where the prefix can be a part of the already known or hypothesized translation. Still, the flexibility provided by the prefix decoder makes it suitable for a range of applications, from controlled text generation to task-oriented dialogue systems, where maintaining context and coherence is crucial~\cite{li2022ptuning}.
 
-This architecture has been utilized in various language models to improve control over text generation and to enhance the models' ability to handle specific formats or styles~\cite{raffel2023exploring}.
+This architecture has been utilized in various language models to improve text generation control and enhance the models' ability to handle specific formats or styles~\cite{raffel2023exploring}.
 
 \subsection{Transformer Architecture}
 \label{subsec:transformer-architecture}
@@ -774,7 +774,7 @@ The configuration of the four major parts of the Transformer architecture includ
 \label{subsubsec:normalization}
 Normalization methods are crucial for stabilizing the training process and improving the convergence of LLMs.
 In the vanilla Transformer~\cite{vaswani2023attention} architecture, LayerNorm~\cite{ba2016layer} is the most commonly used normalization method, which normalizes the hidden states across the feature dimension.
-Before LayerNorm was introduced, BatchNorm~\cite{ioffe2015batch} was widely used in convolutional neural networks, but it was found to be less effective in sequence models due to the varying batch sizes and sequence lengths.
+Before LayerNorm was introduced, BatchNorm~\cite{ioffe2015batch} was widely used in convolutional neural networks. Still, it was found to be less effective in sequence models due to the varying batch sizes and sequence lengths.
 LayerNorm addresses this issue by normalizing the hidden states across the feature dimension, making it more suitable for sequence models.
 Specifically, LayerNorm normalizes the hidden states using the mean and the variance of the summed inputs within each layer.
 
@@ -783,7 +783,7 @@ RMSNorm normalizes the hidden states by dividing them by the root mean square of
 ChinchiLLa~\cite{hoffmann2022training} and Gopher~\cite{rae2021scaling} are examples of LLMs that use RMSNorm as the normalization method.
 
 DeepNorm~\cite{wang2022deepnet} is a novel normalization method that combines LayerNorm with a learnable scaling factor to stabilize the training process of deep Transformer models.
-With DeepNorm, Transformer models can be scaled up to hundreds of layers without the need for additional normalization layers, making it an effective method for training large-scale LLMs~\cite{wang2022deepnet}.
+With DeepNorm, Transformer models can be scaled up to hundreds of layers without additional normalization layers, making it an effective method for training large-scale LLMs~\cite{wang2022deepnet}.
 It has been used in models such as GLM-130B~\cite{zeng2022glm130b}.
 
 \begin{table}[htbp]
@@ -822,18 +822,18 @@ It has been used in models such as GLM-130B~\cite{zeng2022glm130b}.
 	\label{fig:prepostln}
 \end{figure}
 
-The position of the normalization layer (Figure~\ref{fig:prepostln}) in the Transformer architecture can have a significant impact on the model's performance and convergence.
+The position of the normalization layer (Figure~\ref{fig:prepostln}) in the Transformer architecture can significantly impact the model's performance and convergence.
 The three main configurations proposed in different studies are pre-LN\footnote{Pre-Layer Normalization}, post-LN\footnote{Post-Layer Normalization}, and Sandwich-LN\@.
 
 In the pre-LN configuration, the normalization layer is placed inside the residual blocks, while in the post-LN configuration, it is placed after them.
-In \textcite{ding2021cogview}, the normalization layer is placed both before and after the residual blocks, which is referred to as the Sandwich-LN configuration.
+In \textcite{ding2021cogview}, the normalization layer is placed before and after the residual blocks, referred to as the Sandwich-LN configuration.
 
 Post-LN is used in the vanilla Transformer architecture~\cite{vaswani2023attention}, where the normalization layer is placed between the residual blocks.
 This sequence allows the model to first process the input through a sublayer, such as a Multi-Head Attention (MHA) or Feed-Forward Network (FFN), and then apply normalization to the output of the sublayer combined with the residual connection.
 In particular, to train the model from scratch, any gradient-based optimization approach requires a learning rate warm-up stage to stabilize the training process~\cite{vaswani2023attention}.
 Existing works found that training of Transformer models with post-norm tends to be unstable due to large gradients near the output layer~\cite{xiong2020layer}.
 
-Pre-LN~\cite{baevski2019adaptive} is another configuration where the normalization layer is placed inside the residual blocks and makes it possible to remove the warm-up stage, requiring significantly less training time and hyper-parameter tuning on a wide range of applications.
+Pre-LN~\cite{baevski2019adaptive} is another configuration where the normalization layer is placed inside the residual blocks. It makes it possible to remove the warm-up stage, requiring significantly less training time and hyper-parameter tuning on a wide range of applications.
 The Transformers with pre-LN have shown to be more stable during training but have worse performance~\cite{liu2020understanding}.
 
 Sandwich-LN~\cite{ding2021cogview} is a configuration that combines the advantages of both pre-LN and post-LN by placing the normalization layer both before and after the residual blocks.
@@ -854,11 +854,11 @@ ReLU\footnote{Rectified Linear Unit}~\cite{nair2010rectified} is a simple and wi
 \end{equation}
 
 One of the first activation functions to be used in deep learning, ReLU has been shown to be effective in training deep neural networks by preventing the vanishing gradient problem~\cite{glorot2011deep}.
-This non-linear activation function introduces sparsity in the network's activations, which, due to its simplicity and efficiency, can lead to faster training and better performance.
+This non-linear activation function introduces sparsity in the network's activations, which can lead to faster training and better performance due to its simplicity and efficiency.
 However, ReLU can suffer from the dying ReLU problem, where neurons can become inactive and stop learning if the input is negative~\cite{maas2013rectifier}.
 
-GeLU~\cite{hendrycks2016gaussian} is a Gaussian Error Linear Unit activation function that is used to model uncertainties in neural networks.
-It was introduced to improve upon ReLU by taking into account the stochastic regularisation techniques.
+GeLU~\cite{hendrycks2016gaussian} is a Gaussian Error Linear Unit activation function used to model uncertainties in neural networks.
+It was introduced to improve upon ReLU by considering the stochastic regularisation techniques.
 The smoothness of the GELU function can be advantageous in deep neural networks with many layers, as it can help prevent the problem of "dying ReLU" and improve the flow of gradients through the network.
 The GELU activation function is mathematically described as follows:
 
@@ -882,13 +882,13 @@ Alternatively, the GELU function can be expressed as a scaled version of the sig
 	\label{eq:geluapprox2}
 \end{equation}
 
-The GELU function allows the input to control its own gate, deciding whether to pass through or be dampened.
+The GELU function allows the input to control its gate, deciding whether to pass through or be dampened.
 When x is large, GELU approximates to x, acting like a linear unit.
 When x is close to zero or negative, it squashes the output, making it closer to zero.
-In other words, the GELU function would produce outputs that are smoothed around zero rather than sharply cut off as with ReLU\@.
-The GELU activation function is used in many deep learning models, including GPT-3 and BERT\@.
+In other words, the GELU function would produce outputs smoothed around zero rather than sharply cut off as with ReLU\@.
+Many deep learning models use The GELU activation function, including GPT-3 and BERT\@.
 
-The Swish~\cite{ramachandran2017searching} activation function is a smooth, non-monotonic function that was developed to overcome some limitations of ReLU and was found to perform better in deeper models.
+The Swish~\cite{ramachandran2017searching} activation function is a smooth, non-monotonic function developed to overcome some limitations of ReLU and was found to perform better in deeper models.
 It is defined as
 
 \begin{equation}
@@ -897,7 +897,7 @@ It is defined as
 \end{equation}
 
 \noindent where x is the input to the activation function and sigmoid is the logistic function \(\sigma(x) = \frac{1}{1+e^{-x}}\).
-The Swish function allows small and negative values to pass through, which can be beneficial for gradient flow in deep models.
+The Swish function allows small and negative values to pass through, which can benefit gradient flow in deep models.
 It has been empirically demonstrated to work well for deeper models and is computationally efficient.
 
 SwiGLU~\cite{shazeer2020glu} is a variant of the Swish activation function that combines the Swish function with the Gated Linear Unit (GLU) function.
@@ -910,10 +910,10 @@ The SwiGLU activation function is defined as
 
 \noindent Here, x is the input to the neuron, W and V are weight matrices, b and c are bias vectors, and $\beta$ is a constant.
 The $\otimes$ symbol denotes element-wise multiplication, while Swish is the activation function described in Equation~\ref{eq:swish}.
-This function allows the network to learn which parts of the input should be retained (gated) for further layers, combining the advantages of non-saturating functions and dynamic gating mechanisms.
+This function allows the network to learn which input parts should be retained (gated) for further layers, combining the advantages of non-saturating functions and dynamic gating mechanisms.
 
 GeGLU~\cite{shazeer2020glu} is another variant of the GLU activation function that combines the GeLU function with the Gated Linear Unit (GLU) function.
-The GeGLU activation is formulated as:
+The GeGLU activation is formulated as follows:
 
 \begin{equation}
 	\text{GeGLU}\left(x, W, V, b, c\right) = \text{GeLU}\left(xW + b\right) \otimes \left(xV + c\right)
@@ -927,8 +927,8 @@ The output of this multiplication is then passed through a second matrix V and a
 \subsubsection{Position Embeddings}
 \label{subsubsec:position-embeddings}
 
-Position embeddings are a crucial component of the Transformer architecture that allows the model to capture the sequential order of tokens in the input sequence.
-There are several types of position embeddings used in LLMs, including absolute, relative, RoPE, and Alibi embeddings.
+Position embeddings are a crucial component of the Transformer architecture. They allow the model to capture the sequential order of tokens in the input sequence.
+Several types of position embeddings are used in LLMs, including absolute, relative, RoPE, and Alibi embeddings.
 
 Absolute position embeddings~\cite{vaswani2023attention} were proposed in the original Transformer model.
 The absolute positional embeddings are added to the input embeddings at the bottoms of the encoder and the decoder.
@@ -947,7 +947,7 @@ This technique allows the model to use the order of words to understand meaning 
 Relative position embeddings~\cite{shaw2018self} are an alternative to absolute position embeddings that capture the relative distance between tokens in the input sequence.
 This allows the model to learn more flexible and adaptive representations of the input sequence, which can improve performance on tasks that require capturing long-range dependencies and complex relationships between tokens.
 Relative position embeddings are incorporated into the self-attention mechanism of Transformer models.
-Instead of considering only the absolute position of tokens, the attention scores are adjusted based on the relative distances between them.
+Instead of considering only the absolute position of tokens, the attention scores are adjusted based on their relative distances.
 The formulation for the attention mechanism with relative position embeddings is given by:
 
 \begin{equation}
@@ -1032,7 +1032,7 @@ The multi-head attention mechanism allows the model to jointly attend to informa
 
 We can categorize the attention mechanisms into full attention, sparse attention, multi-query/grouped-query attention, Flash attention, and Paged attention.
 The Full attention mechanism is the standard attention mechanism used in the vanilla Transformer architecture~\cite{vaswani2023attention}, where each token attends to all other tokens in the sequence.
-It adopts the scaled dot-product we already discussed in Equation~\ref{eq:dot-scaled-attention}.
+It adopts the scaled dot-product we discussed in Equation~\ref{eq:dot-scaled-attention}.
 This mechanism is computationally expensive and has a quadratic complexity regarding the number of tokens, which can limit the model's scalability to longer sequences.
 To address this issue, several studies have proposed alternative attention mechanisms.
 
@@ -1049,8 +1049,8 @@ This mechanism reduces the computational complexity of the attention operation a
 Various sparse attention mechanisms have been proposed in the literature, such as \textcite{peng2021random}, \textcite{zaheer2020big} and \textcite{child2019generating}.
 It a useful in tasks involving very long documents or sequences, such as document classification and genomic sequence analysis.
 
-The multi-query/grouped-query attention mechanism~\cite{shazeer2019fast} is an extension of the standard attention mechanism, where the keys and values are shared across all of the different attention "heads", greatly reducing the size of these tensors and hence the memory bandwidth requirements of incremental decoding.
-This mechanism is particularly useful in tasks that require processing large amounts of data, such as machine translation and summarization.
+The multi-query/grouped-query attention mechanism~\cite{shazeer2019fast} is an extension of the standard attention mechanism, where the keys and values are shared across all of the different attention "heads", significantly reducing the size of these tensors and hence the memory bandwidth requirements of incremental decoding.
+This mechanism is handy in tasks requiring large amounts of data, such as machine translation and summarization.
 It can significantly reduce the computational cost of the attention operation with small sacrifices in model quality.
 Palm~\cite{chowdhery2022palm} and Starcoder~\cite{li2023starcoder} are examples of LLMs that use the multi-query attention mechanism.
 A tradeoff between multi-query and multi-head attention grouped-query (GQA) has been explored in \textcite{ainslie2023gqa}.
@@ -1063,7 +1063,7 @@ Updated version FlashAttention-2~\cite{liu2022fast} has been proposed to further
 
 PagedAttention~\cite{vllm2023} is based on the observation that GPU memory is bottlenecked by cached attention keys and value tensors.
 These cached key and value tensors are often referred to as KV cache.
-Depending on the sequence length, the KV cache is large and highly dynamic.
+The KV cache is large and highly dynamic depending on the sequence length.
 Authors find that existent systems waste 60\%-80\% of the memory due to fragmentation and over-reservation.
 PagedAttention proposed techniques inspired by virtual memory management\footnote{Paging} to manage the KV cache, partition sequences to sub-sequences allocating corresponding KV caches into non-contiguous physical blocks as shown in Figure~\ref{fig:paging}.
 
@@ -1084,7 +1084,7 @@ Paging increases the GPU memory utilization and enables efficient memory sharing
 \end{figure}
 
 To put all these discussions together, \textcite{survey} summarize the suggestions from existing literature for detailed configuration.
-For stronger generalization and training stability, it is suggested that the pre-RMSNorm be chosen for layer normalization and SwiGLU or GeGLU as the activation function.
+For stronger generalization and training stability, the pre-RMSNorm should be chosen for layer normalization and SwiGLU or GeGLU as the activation function.
 In addition, LN may not be used immediately after embedding layers, which is likely to incur performance degradation.
 As for position embeddings, RoPE or ALiBi is a better choice since it performs better on long sequences.
 
@@ -1098,8 +1098,8 @@ To address this performance issue, several studies proposed alternative architec
 Parameterized state space models are a class of models that use a parameterized state space to represent the hidden states of the model.
 However, this method has prohibitive computation and memory requirements, rendering it infeasible as a general sequence modelling solution.
 To address this issue, S4~\cite{gu2022efficiently} proposed a novel parameterized state space model that uses a fixed-size state space to represent the hidden states of the model.
-This approach significantly reduces the computational and memory requirements of the model while maintaining high performance on a range of tasks.
-In \textcite{gu2022efficiently}, the authors found that S4 can be trained quickly and efficiently efficiently compared to Transformer variants designed for long-range sequence modelling as shown in Table~\ref{tab:ssm_efficiency}.
+This approach significantly reduces the model's computational and memory requirements while maintaining high performance on a range of tasks.
+In \textcite{gu2022efficiently}, the authors found that S4 can be trained quickly and efficiently compared to Transformer variants designed for long-range sequence modelling as shown in Table~\ref{tab:ssm_efficiency}.
 
 \begin{table}[htbp]
 	\centering
@@ -1118,10 +1118,10 @@ In \textcite{gu2022efficiently}, the authors found that S4 can be trained quickl
 \end{table}
 
 Long Range Arena(LRA)~\cite{tay2021longrange} is a benchmark suite that evaluates the performance of LLMs on a range of tasks that require capturing long-range dependencies.
-It contains 6 tasks with lengths of 1K-16K steps, encompassing modalities and objectives that require similarity, structural, and visuospatial reasoning.
+It contains six tasks with lengths of 1K-16K steps, encompassing modalities and objectives that require similarity, structural, and visuospatial reasoning.
 Table~\ref{tab:LRA} shows the performance of S4 and 11 Transformer variants from \textcite{tay2021longrange}.
 Notably, S4 solves the Path-X task, an extremely challenging task that involves reasoning about LRDs over sequences of length 128 \texttimes 128 = 16384.
-All previous models have failed (i.e., random guessing) due to memory or computation bottlenecks or simply being unable to learn such long dependencies.
+All previous models have failed (i.e., random guessing) due to memory or computation bottlenecks or inability to learn such long dependencies.
 \begin{table}[htbp]
 	\centering
 	\begin{tabularx}{\textwidth}{Xccccccccc}
@@ -1136,7 +1136,7 @@ All previous models have failed (i.e., random guessing) due to memory or computa
 	\caption{(Long Range Arena) Accuracy on the full suite of LRA tasks. (Top) Original Transformer variants in LRA. Source: \textcite{gu2022efficiently}.}
 	\label{tab:LRA}
 \end{table}
-Other benchmarks in \textcite{gu2022efficiently} show that S4 looks promising for long-range sequence modelling, achieving state-of-the-art performance on a range of tasks that require capturing long-range dependencies.
+Other benchmarks in \textcite{gu2022efficiently} show that S4 looks promising for long-range sequence modelling, achieving state-of-the-art performance on tasks requiring capturing long-range dependencies.
 
 Long convolutions are a class of models that use convolutional layers to capture long-range dependencies in the input sequence. \textcite{poli2023hyena} proposed an operation-efficient architecture called Hyena defined by two recurring sub-quadratic operators: a long convolution and an element-wise multiplicative gating (Figure~\ref{fig:hyena}).
 Compared to the attention operators in Transformers, Hyena has a lower computational complexity and memory footprint, making it more efficient for long-range sequence modelling.
@@ -1157,7 +1157,7 @@ In this section, we discuss model adaptation of parameters and memory.
 \subsection{Parameter-efficient model adaptation}
 \label{subsec:parameter-efficient}
 
-In the existing literature, there are several methods to adapt the model parameters to improve the performance of LLMs~\cite{hu2021lora, li2021prefixtuning, lester2021power}.
+In the existing literature, several methods exist to adapt the model parameters to improve the performance of LLMs~\cite{hu2021lora, li2021prefixtuning, lester2021power}.
 These methods aim to reduce the number of parameters in the model while maintaining performance as much as possible.
 In the following sections, we discuss some of the most popular methods for parameter-efficient model adaptation, such as adapter tuning, prefix tuning, prompt tuning, and LoRA (illustrated in Figure~\ref{fig:parameter-tuning}).
 
@@ -1218,24 +1218,24 @@ For example, on the GLUE benchmark, adapter tuning approaches the performance of
 \label{subsubsec:prefix-tuning}
 
 Prefix-tuning is introduced as an efficient alternative to traditional fine-tuning methods for deploying large pre-trained language models (PLMs) across various tasks.
-Traditional fine-tuning requires updating and storing a separate copy of the model for each task, which becomes computationally expensive as the size of the models increases (e.g., GPT-3's 175 billion parameters).
+Traditional fine-tuning requires updating and storing a separate copy of the model for each task, which becomes computationally expensive as the models' size increases (e.g., GPT-3's 175 billion parameters).
 Prefix-tuning addresses this by optimizing only a small set of parameters, referred to as a prefix, significantly reducing the storage and computational overhead.
-The method involves prefixing a sequence of continuous, task-specific vectors to the input, allowing subsequent tokens in the Transformer model to attend to these prefixes as if they were part of the input sequence as shown in Figure~\ref{fig:prefix-tuning}.
+The method involves prefixing a sequence of continuous, task-specific vectors to the input, allowing subsequent tokens in the Transformer model to attend to these prefixes as if they were part of the input sequence, as shown in Figure~\ref{fig:prefix-tuning}.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.6\textwidth]{prefix-tuning}
 	\caption{Illustration of the prefix-tuning method, which freezes the Transformer parameters and only optimizes the prefix (the red prefix blocks). Consequently, it only needs to store the prefix for each task, making prefix-tuning modular and space-efficient. Note that each vertical block denotes transformer activations at a one-time step. Source: \textcite{li2021prefixtuning}.}
 	\label{fig:prefix-tuning}
 \end{figure}
-A novel approach to optimize prefix vectors involves using a re-parameterization technique, as described in the work by \textcite{li2021prefixtuning}.
+An approach to optimize prefix vectors involves using a re-parameterization technique, as described in the work by \textcite{li2021prefixtuning}.
 This method employs a multilayer perceptron (MLP) function to map a smaller matrix to the parameter matrix of the prefixes rather than directly optimizing the prefixes themselves.
 This technique has proven effective for stabilizing the training process.
 Once optimization is complete, the mapping function is discarded, leaving only the refined prefix vectors tailored to enhance performance on specific tasks.
 This approach leverages the inherent capabilities of the Transformer while only modifying a minimal set of parameters, making it modular and space-efficient.
 \textcite{li2021prefixtuning} provides detailed empirical evaluations demonstrating that prefix-tuning achieves comparable performance to full fine-tuning while only learning about 0.1\% of the parameters.
 Evaluations are performed on tasks like table-to-text generation and summarization using models such as GPT-2 and BART\@.
-Results indicate that prefix-tuning not only reduces parameter count significantly but also maintains competitive performance with traditional fine-tuning in full-data settings and often outperforms it in low-data scenarios.
-The approach is particularly effective in handling tasks with unseen topics during training, showcasing better generalization capabilities~\cite{lewis2020bart}.
+Results indicate that prefix-tuning reduces parameter count significantly and maintains competitive performance with traditional fine-tuning in full-data settings and often outperforms it in low-data scenarios.
+The approach effectively handles tasks with unseen topics during training, showcasing better generalization capabilities~\cite{lewis2020bart}.
 
 
 \subsubsection{Prompt tuning}
@@ -1248,15 +1248,15 @@ Specifically, the method known as P-tuning employs a flexible approach to integr
 \begin{figure}[h!]
 	\centering
 	\includegraphics[width=0.8\textwidth]{prompt-tuning}
-	\caption{Illustration of the prompt tuning method, which only requires storing a small task-specific prompt for each task and enables mixed-task inference using the original pre-trained model. With model tuning, each copy of tuned models requires a copy of billions of parameters, while a tuned prompt would only require thousands of parameters per task---a reduction of over five orders of magnitude. Source: \textcite{lester2021power}.}
+	\caption{Illustration of the prompt tuning method, which only requires storing a small task-specific prompt for each task and enables mixed-task inference using the original pre-trained model. With model tuning, each copy of tuned models requires a copy of billions of parameters. In contrast, a tuned prompt would only require thousands of parameters per task---a reduction of over five orders of magnitude. Source: \textcite{lester2021power}.}
 	\label{fig:prompt-tuning}
 \end{figure}
-This method is adaptable for tasks involving both understanding and generation of natural language and utilizes a bidirectional LSTM to learn representations of soft prompt tokens.
+This method is adaptable for tasks involving understanding and generating natural language and utilizes a bidirectional LSTM to learn representations of soft prompt tokens.
 Only these prompt embeddings are updated based on task-specific requirements during the training phase.
 The effectiveness of prompt tuning methods depends significantly on the computational power of the underlying language models, as they generally involve a limited number of trainable parameters at the input layer.
 
 \textcite{liu2022ptuning} introduces P-Tuning v2, a method that extends prompt tuning by applying continuous prompts across all layers of a language model, improving upon the conventional method where prompts are only used at the input layer.
-They address the limitations of traditional prompt tuning, which underperforms especially on complex sequence labelling tasks when model size is below 10 billion parameters~\cite{lester2021power}.
+They address the limitations of traditional prompt tuning, which underperforms significantly on complex sequence labelling tasks when model size is below 10 billion parameters~\cite{lester2021power}.
 P-Tuning v2 modifies the conventional prompt tuning by:
 \begin{itemize}
 	\item Utilizing continuous prompts at every layer of the model to increase tunable parameter count without significantly increasing overall parameter load.
@@ -1269,17 +1269,17 @@ The experiments demonstrate that P-Tuning v2 provides comparable results to full
 \subsubsection{LoRA}
 \label{subsubsec:lora}
 
-The technique called LoRA (Low-Rank Adaptation) is used for efficient fine-tuning of neural networks, particularly in adapting dense layers to downstream tasks with a reduced number of trainable parameters.
+The technique called LoRA (Low-Rank Adaptation) is used for efficient fine-tuning neural networks, particularly in adapting dense layers to downstream tasks with fewer trainable parameters.
 LoRA strategically freezes the original parameter matrix $W \in \R^{m \times n}$ and applies updates using a low-rank decomposition approach, which involves two smaller matrices $A \in \R^{m \times k}$ and $B \in \R^{n \times k}$ where $k$ is much smaller than $m$ or $n$.
-This method significantly reduces the memory and storage requirements by limiting the number of trainable parameters to those in $A$ and $B$ rather than the entire matrix $W$.
+This method significantly reduces the memory and storage requirements by limiting the trainable parameters to those in $A$ and $B$ rather than the entire matrix $W$.
 
-The key advantage of LoRA is its ability to maintain a single large model while adapting it to various tasks using different sets of low-rank matrices for each task, enhancing storage efficiency and reducing computational costs.
+The main advantage of LoRA is its ability to maintain a single large model while adapting it to various tasks using different sets of low-rank matrices for each task, enhancing storage efficiency and reducing computational costs.
 Advanced methods for determining the optimal rank have been proposed, such as importance score-based allocation~\cite{zhang2023adalora} -- i.e., AdaLoRA -- and search-free optimal rank selection~\cite{valipour2023dylora} -- DyLoRA\@.
 These methods help determine the optimal rank for the low-rank decomposition, ensuring the model is adapted efficiently to the specific task requirements.
 
 In AdaLoRA\footnote{Adaptive Low-Rank Adaptation}, the idea is that adding more trainable parameters to the critical weight matrices can lead to better model performance.
 In contrast, adding more parameters to those less important weight matrices yields very marginal gains or even hurt model performance.
-Given the parameter budget, i.e., the number of total trainable parameters, AdaLoRA always prefers allocating more parameters to those important modules.
+Given the parameter budget, i.e., the number of total trainable parameters, AdaLoRA always prefers allocating more parameters to those essential modules.
 Distributing the budget evenly to all weight matrices/layers, like LoRA and other methods (e.g., adapter and prefix
 tuning), often gives suboptimal performance~\cite{zhang2023adalora}.
 AdaLoRA operates by parameterizing the incremental updates in the form of singular value decomposition (SVD), allowing for selective pruning of updates based on their assessed importance.
@@ -1293,7 +1293,7 @@ SVD-based adaptation is represented as:
 
 \noindent where $W^{0}$ is the original parameter matrix, $\delta$ is the update, $P$ and $Q$ are the left and right singular vectors, and $\Lambda$ is the singular value matrix.
 \textcite{zhang2023adalora} substantiates the effectiveness of AdaLoRA through extensive experiments across various NLP tasks, including question-answering and natural language generation.
-These experiments demonstrate notable improvements in performance, particularly in low-budget settings, when compared to baseline methods such as full fine-tuning and other parameter-efficient techniques like LoRA and adapter tuning.
+These experiments demonstrate notable performance improvements, particularly in low-budget settings, compared to baseline methods such as full fine-tuning and other parameter-efficient techniques like LoRA and adapter tuning.
 Key benchmarks from the paper highlight AdaLoRA's superior performance on standard datasets like GLUE and SQuAD. It consistently outperforms other approaches while utilizing fewer parameters.
 
 DyLoRA\footnote{Dynamic Search-Free Low-Rank Adaptation} is a search-free method for determining the optimal rank for low-rank decomposition in neural networks.
@@ -1301,13 +1301,13 @@ The method is based on the observation that the optimal rank for low-rank decomp
 The main advantages of DyLoRA over conventional LoRA include its ability to dynamically adapt to different rank sizes during inference, eliminating the need for exhaustive search and re-training across different rank sizes.
 This is achieved by training the low-rank modules (LoRA blocks) across a spectrum of ranks during the training phase, which allows the model to adjust to the best-performing rank size at runtime without additional computational cost.
 This method is inspired by the nested dropout technique but tailored to the needs of dynamic rank adaptation.
-The implementation involves sampling a rank-size during each training step and adjusting the adapter modules accordingly, which allows the model to learn to perform efficiently under various rank size constraints.
+The implementation involves sampling a rank size during each training step and adjusting the adapter modules accordingly, which allows the model to learn to perform efficiently under various rank size constraints.
 The main improvements of DyLoRA over LoRA include:
 
 \begin{enumerate}
-	\item Dynamic LoRA Blocks: DyLoRA modifies the standard LoRA blocks to be dynamic, allowing them to adjust their rank size during inference. This adaptation leads to more flexible models that can perform well across a broader range of tasks without the need for specific tuning for each task.
+	\item Dynamic LoRA Blocks: DyLoRA modifies the standard LoRA blocks to be dynamic, allowing them to adjust their rank size during inference. This adaptation leads to more flexible models that can perform well across a broader range of tasks without specific tuning for each task.
 
-	\item Search-Free Adaptation: By avoiding the exhaustive search for the optimal rank size, DyLoRA reduces the training and adaptation time significantly. The models can be trained once and used dynamically across different settings, making it highly efficient.
+	\item Search-Free Adaptation: By avoiding the exhaustive search for the optimal rank size, DyLoRA reduces the training and adaptation time significantly. The model can be trained once and used dynamically across different settings, making it highly efficient.
 
 	\item Performance: Experimental results show that DyLoRA matches or exceeds the performance of traditional LoRA with a static rank across various NLP tasks. This is demonstrated in tasks such as sentiment analysis, question answering, and natural language generation, indicating the robustness and versatility of DyLoRA.
 
@@ -1323,8 +1323,8 @@ This section discusses some of the most popular methods for memory-efficient mod
 \subsubsection{Quantization}
 \label{subsubsec:quantization}
 
-Quantization techniques reduce memory and computational costs by representing weights and activations with lower-precision data types like 8-bit integers (int8).
-This enables loading larger models that would normally be too large to fit into memory and speeds up inference.
+Quantization techniques reduce memory and computational costs by representing weights and activations with lower-precision data types, such as 8-bit integers (int8).
+This enables loading larger models that would typically be too large to fit into memory and speeds up inference.
 This process can substantially reduce the storage requirements and the computational complexity of deploying LLMs, which is crucial for their application in resource-constrained environments.
 
 Quantization can be done in two ways: post-training quantization and quantization-aware training.
@@ -1332,7 +1332,7 @@ Post-training quantization is done after the model has been trained, while quant
 Post-training quantization is easier to implement, but quantization-aware training can lead to better results.
 
 Main quantization techniques include uniform quantization, non-uniform quantization, and mixed-precision quantization.
-Uniform quantization maps the floating-point values to a fixed set of integer values, while non-uniform quantization uses non-linear mapping to better represent the distribution of the data.
+Uniform quantization maps the floating-point values to a fixed set of integer values, while non-uniform quantization uses non-linear mapping to better represent the data distribution.
 Mixed-precision quantization uses a combination of different precision data types to represent the weights and activations.
 
 Uniform quantization discretizes the values within a certain range into equal-sized intervals.
@@ -1345,7 +1345,7 @@ Mathematically, it can be described as:
 
 \noindent where minV and maxV are the minimum and maximum scale range respectively~\cite{hubara2017quantized}.
 
-Non-uniform quantization, such as logarithmic quantization, allocates more fine-grained intervals to values that are more frequent or more sensitive to quantization errors.
+Non-uniform quantization, such as logarithmic quantization, allocates more fine-grained intervals to values that are more frequent or sensitive to quantization errors.
 This method can be represented as:
 
 \begin{equation}
