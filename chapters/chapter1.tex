@@ -153,7 +153,9 @@ Two representative scaling laws for Transformer-based LLMs are the following~\ci
 
 Scaling boosts performance and addresses inherent limitations in smaller language models.
 Larger models excel in managing long-range dependencies, comprehending ambiguous language constructs, and displaying a nuanced understanding of context---capabilities that smaller models frequently find challenging.
-The eliciting of emergent abilities, such as Chain-of-Thought prompting and in-context learning, have shown a phase change in the first Scaling Law, where the performance increases linearly as the model size increases exponentially (Figure~\ref{fig:scaling-phase})\footnote{The discussion about emergent abilities is far from being closed, and the community is still debating whether we are observing true emergent abilities or just some phenomena that can be explained by the model's ability to retrieve information from the training data and to learn distributional patterns.}.
+The eliciting of emergent abilities, such as Chain-of-Thought prompting and in-context learning, have shown a phase change in the first Scaling Law, where the performance increases linearly as the model size increases exponentially (Figure~\ref{fig:scaling-phase}).
+Emergency is still a debated topic, where some argue that emergency is dependent on the metrics used to evaluate the model's performance\cite{schaeffer2023emergentabilitieslargelanguage}, \footnote{Choosing a different metric it's possible to show that increasing the model size, leads to an improvement in correct sequences prediction in addition problems. Looking at this metrics, the add ability is not emergent, but gradual and predictable.}, while others still think that even when you have one-step predictions or use continuous metrics, you still have discontinuities, and as the model size increases, the performance increases in a jump-like manner.
+
 At its core, the scaling law is a guiding principle in the development of LLMs, directing the allocation of resources and the design of models to maximise performance and capabilities.
 
 \begin{figure}[h!]

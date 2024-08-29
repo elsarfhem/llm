@@ -42,13 +42,14 @@ In-context learning is a special prompting technique, initially introduced by \t
 ICT consists of the task description and/or a few examples of the task as demonstrations combined in a specific order to form natural language prompts with specifically designed templates~\cite{brown2020language}.
 Finally, the test instance is appended to the prompt to form the input for LLMs to generate the output.
 
-LLMs can learn to perform a new task without explicit gradient update based on task demonstrations.
+LLMs can improve the performance to execute a new task without explicit gradient update based on task demonstrations.
 Formally, the in-context learning task can be defined as follows:
 \begin{equation}
 	LLM(I, \underbrace{f(x_1, y_1), \dots, f(x_k, y_k)}_\text{demonstrations}, \underbrace{f(x_{k+1}}_\text{input}, \underbrace{\uline{~~~}}_\text{answer})) \rightarrow \hat{y}_{k+1}
 	\label{eq:ict}
 \end{equation}
-where $I$ is a task description, $f(x_i, y_i)$ function that converts task demonstration to natural language, $x_{k+1}$ is a new input query, $\hat{y}_{k+1}$ is the prediction of the output generated. The actual answer $y_{k+1}$ is left as a blank to be predicted by the LLM\@.
+where $I$ is a task description, $f(x_i, y_i)$ function that converts task demonstration to natural language, $x_{k+1}$ is a new input query, $\hat{y}_{k+1}$ is the prediction of the output generated.
+The actual answer $y_{k+1}$ is left as a blank to be predicted by the LLM\@.
 
 \begin{figure}[h!]
 	\centering
@@ -143,21 +144,20 @@ The three main aspects are a direct consequence of what is defined in Equation~\
 Different training strategies enhance ICL capabilities, improving performance across various tasks without specific task optimization during the pre-training phase (see Figure~\ref{fig:icl-taxonomy} under the Training branch).
 Main approaches include Supervised In-context Training, such as MetaICL\footnote{Meta-training for InContext Learning} and Symbol Tuning, and Self-supervised In-context Training, such as Self-supervised ICL and PICL~\cite{dong2023survey}.
 
-MetaICL~\cite{min2022metaicl} proposed to continually train LLMs on a wide range of tasks\footnote{Classification, question answering,
-	natural language inference, paraphrase detection and more} with demonstration examples.
+MetaICL~\cite{min2022metaicl} proposed to continually train LLMs on a wide range of tasks\footnote{Classification, question answering, natural language inference, paraphrase detection and more} with demonstration examples.
 This approach is related to other works that use multi-task learning for better zero-shot performance at test time~\cite{min2022metaicl}.
-However, MetaICL is distinct as it allows learning new tasks from k examples alone, without relying on task reformatting (e.g., reducing everything to question answering)
-or task-specific templates (e.g., converting different tasks to a language modelling problem).
+However, MetaICL is distinct as it allows learning new tasks from k examples alone, without relying on task reformatting (e.g., reducing everything to question answering) or task-specific templates (e.g., converting different tasks to a language modelling problem).
 MetaICL is based on the core idea of in-context learning by conditioning on training examples (i.e., explicitly training on an in-context learning objective).
 
 Symbol Tuning~\cite{wei2023symbol} instead fine-tunes language models on in-context input-label pairs, substituting natural language labels (e.g., "positive/negative sentiment") with arbitrary symbols (e.g., "foo/bar").
 As a result, symbol tuning demonstrates an enhanced capacity to utilize in-context information for overriding prior semantic knowledge.
 Compared to MetaICL, which constructs several demonstration examples for each task, instruction tuning mainly considers an explanation of the task and is easier to scale up.
 
-Self-supervised ICL leverages raw corpora to generate input/output pairs as training data. PICL also utilizes raw corpora but employs a simple language modelling objective, promoting task inference and execution based on context.
+Self-supervised ICL leverages raw corpora to generate input/output pairs as training data.
+PICL also utilizes raw corpora but employs a simple language modelling objective, promoting task inference and execution based on context.
 PICL has shown to be more effective in zero-shot settings and task generalization~\cite{dong2023survey}.
 
-Effective demonstration design is crucial, involving selecting and ordering examples or using instruction induction and reasoning steps (as shown in Figure~\ref{fig:icl-taxonomy} under the Inference/ Demonstration Designing branch).
+Effective demonstration design is crucial, involving selecting and ordering examples or using instruction induction and reasoning steps (as shown in Figure~\ref{fig:icl-taxonomy} under the Inference/Demonstration Designing branch).
 The selection aims to choose good examples for ICL using unsupervised\footnote{Based on pre-defined metrics} or supervised methods.
 For example, KATE~\cite{liu2022good} and EPR~\cite{rubin2022learning} select demonstrations based on similarity.
 Ordering the selected demonstrations is also an important aspect of demonstration design.
@@ -169,7 +169,7 @@ A common representation of demonstrations is concatenating examples $(x_1, y_1),
 However, this approach may not be optimal for all tasks, i.e.\ when the task is complex or requires multiple steps such as math word problems and common-sense reasoning.
 In those cases, learning the mapping from $x_i$ to $y_i$ with only $k$ demonstrations is challenging.
 Template engineering has been studied in \textcite{liu2021pretrain, liu2022good} to generate task-specific templates.
-Some researchers have proposed designing a better demonstration format by describing tasks with instructions I and adding intermediate reasoning steps between examples $(x_i, y_i)$.
+Some researchers have proposed designing a better demonstration format by describing tasks with instructions and adding intermediate reasoning steps between examples $(x_i, y_i)$.
 Instructions depend heavily on human input, but they can be generated automatically as shown in \textcite{honovich2022instruction} given several demonstration examples.
 \textcite{zhou2023large} proposed APE for automatic instruction generation and selection.
 To further improve the quality of the automatically generated instructions, \textcite{wang2022selfinstruct} proposed Self-Instruct, which can eliminate its own generations.
@@ -177,7 +177,7 @@ To further improve the quality of the automatically generated instructions, \tex
 Adding intermediate reasoning steps between examples introduced in \textcite{wang2023large} is also called Chain-of-Thought prompting.
 We will delve into Chain-of-Thought prompting in the next Section~\ref{sec:chain-of-thought}.
 
-At the inference stage, ICL operates without explicit updates, focusing on task recognition and learning through demonstrations.
+ICL operates at inference stage -- without explicit gradient updates -- focusing on task recognition and learning through demonstrations.
 Task recognition utilizes pre-trained knowledge to solve tasks identified in the demonstrations.
 A Probably Approximately Correct (PAC)~\cite{wies2023learnability} framework has been proposed to evaluate ICL’s learnability, suggesting that LLMs can recognize tasks from minimal inputs.
 
@@ -202,9 +202,11 @@ Different model scales exhibit distinct capabilities; smaller models are adept a
 	\label{tab:scoring-functions}
 \end{table}
 
-The last piece of ICL is the scoring function, which decides how to transform the LLMs' predictions into an estimation of the likelihood of a specific answer.
+Despite its promises, ICL performance is known to be highly sensitive to input examples.
+Thus, a focal piece of ICL is the example selection based on scoring functions, which decides how to transform the LLMs' predictions into an estimation of the likelihood of a specific answer.
 A direct estimation method adopts the conditional probability of candidate answers and selects the higher probability as the final answer~\cite{brown2020language}.
-However, this method poses some restrictions on the template design. For example, the answer tokens should be placed at the end of the input sequences.
+However, this method poses some restrictions on the template design.
+For example, the answer tokens should be placed at the end of the input sequences.
 Perplexity (PPL) is another commonly used metric that computes the PPL of the entire input sequence:
 \begin{equation}
 	S_j = \{C,s(x,y_i,I)\}
@@ -255,7 +257,8 @@ Furthermore, instruction tuning can enhance the ICL ability of LLMs to perform t
 \end{table}
 
 Several factors correlate relatively strongly to ICL performance, as shown in Table~\ref{tab:icl-factors}.
-ICL ability may arise by putting multiple corpora together in the pre-training stage, and the domain source is more important than the corpus size~\cite{shin2022effect}. In contrast, pre-train on corpora related to downstream tasks and models with lower perplexity does not always perform better in ICL~\cite{shin2022effect}.
+ICL ability may arise by putting multiple corpora together in the pre-training stage, and the domain source is more important than the corpus size~\cite{shin2022effect}.
+In contrast, pre-train on corpora related to downstream tasks and models with lower perplexity does not always perform better in ICL~\cite{shin2022effect}.
 \textcite{wei2022emergent} suggested that a pre-trained model suddenly acquires some emergent ICL abilities when it achieves a large scale of pretraining steps or model parameters, and \textcite{brown2020language} showed that the ICL ability grows as the parameters of LLMs increase from 0.1 billion to 175 billion.
 At the inference stage, the properties of the demonstrations influence the ICL performance, such as the label space exposure, the format of input-label pairing, the ordering of demonstration samples, and the complexity of demonstrations~\cite{min2022rethinking, an2023how, lu2022fantastically}.
 There are contrasting results on the impact of input-label mapping related to ICL~\cite{min2022rethinking, yoo2022groundtruth}.
@@ -300,7 +303,7 @@ Kosmos-1 and METALM extend these capabilities by demonstrating strong performanc
 Future research in ICL is expected to focus on several key areas, including the optimization of pretraining objectives, the distillation of ICL abilities, the enhancement of ICL robustness, the improvement of ICL efficiency and scalability, the updating of knowledge within LLMs, the augmentation of models, and the expansion of ICL into multi-modal domains~\cite{dong2023survey}.
 Optimizing pretraining objectives to better align with ICL requirements could enhance model capabilities for ICL applications.
 Introducing intermediate tuning phases and tailoring pretraining objectives to better align with ICL requirements could bridge this gap and enhance model capabilities for ICL applications~\cite{shin2022effect}.
-An important goal is to distil ICL capabilities from larger models to smaller, more efficient ones, potentially enabling the deployment of ICL in resource-constrained environments~\cite{magister2022teaching}.
+An important goal is to distill ICL capabilities from larger models to smaller, more efficient ones, potentially enabling the deployment of ICL in resource-constrained environments~\cite{magister2022teaching}.
 Another area of improvement is the robustness of ICL, which is highly susceptible to the format and permutation of demonstrations~\cite{zhao2021calibrate, lu2022fantastically}, without compromising accuracy or efficiency~\cite{chen2024relation}.
 
 A more theoretical understanding of ICL's mechanisms could lead to more robust implementations.
@@ -321,7 +324,7 @@ This method integrates intermediate reasoning steps within the prompts, providin
 	\caption{Chain-of-Thought reasoning for GSM8k math word problem. The prompt is coloured black, and the reasoning path produced by the language model is coloured teal. This reasoning path contains two reasoning steps. Source: \textcite{li2022making}}
 	\label{fig:cot-reasoning}
 \end{figure}
-To some extent, CoT can be considered a special case of ICL, as it involves the generation of prompts with a series of intermediate reasoning steps (Figure~\ref{fig:chain-of-thought}). Still, the ordering of demonstrations, in this case, has a s relatively minor impact on the performance of LLMs~\cite{wei2022chain}.
+To some extent, CoT can be considered a special case of ICL, as it involves the generation of prompts with a series of intermediate reasoning steps (Figure~\ref{fig:chain-of-thought}). Still, the ordering of demonstrations, in this case, has a relatively minor impact on the performance of LLMs~\cite{wei2022chain}.
 
 \textcite{wei2022chain, wang2022self} have shown that language models, when large enough (i.e., \textgreater 100 billion parameters), can learn to perform complex reasoning tasks through CoT prompting without explicit task-specific~\cite{wei2022emergent}.
 
@@ -425,13 +428,13 @@ Auto-CoT has shown to be effective in generating diverse reasoning chains and im
 \subsection{CoT performance and origins}
 \label{subsec:cot-performance}
 
-CoT is an emergent ability~\cite{wei2022emergent}, so it has positive effects only on the performance of LLMs (\textgreater 10 billion parameters) but not on smaller models.
+CoT is considered by many as an emergent ability~\cite{wei2022emergent}, a capability that suddenly appears and greatly enhances the performance of LLMs when they reach a certain scale.
 Moreover, CoT is only effective for tasks that require step-by-step reasoning, such as arithmetic, commonsense, and symbolic reasoning~\cite{wei2022chain, miao2021diverse, talmor2019commonsenseqa}.
 Whereas, for other tasks, CoT can be detrimental to the performance of LLMs with respect to standard prompting~\cite{wang2022rationale}, e.g., MNLI-m/mm, SST-2, and QQP from GLUE\cite{wang2018glue}.
 It seems that the effectiveness of CoT is inversely proportional to the effectiveness of standard prompting~\cite{wei2022chain}.
-Main prompting components, e.g., symbols, patterns, and text, impact CoT.
-It has been shown that pattern and text are essential for CoT performance, and removing them can lead to a significant drop in performance: text helps LLMs
-to generate valuable patterns, and patterns aid LLMs to understand tasks and generate texts that help solve them~\cite{madaan2022text}.
+
+Main prompting components, e.g., symbols, patterns, and text, impact CoT\@.
+It has been shown that pattern and text are essential for CoT performance, and removing them can lead to a significant drop in performance: text helps LLMs to generate valuable patterns, and patterns aid LLMs to understand tasks and generate texts that help solve them~\cite{madaan2022text}.
 
 The origins of CoT ability are widely hypothesized to be elicited by training on code since those models have shown to be more effective in reasoning tasks~\cite{fu2022gptroadmap, liang2022holistic}.
 Intuitively, code data is well organized with algorithmic logic and programming flow, which may be helpful in improving the reasoning performance of LLMs. However, this hypothesis still lacks publicly reported evidence of ablation experiments (with and without training on code).
