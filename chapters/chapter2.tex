@@ -136,7 +136,9 @@ The primary sources of data for training and evaluating LLMs can be broadly cate
 	\label{fig:data_sources}
 \end{figure}
 
-\textbf{General Data:} This category typically encompasses web content, literary works, and conversational texts, prized for their voluminous, varied, and accessible nature, thereby bolstering LLMs' language modelling and generalization prowess. Including general data, such as web pages and books, offers a rich lexicon spanning various themes, essential for the comprehensive training of LLMs. As shown in Figure~\ref{fig:data_sources}, general-purpose data are among the most commonly used general data sources for training LLMs.\\
+\textbf{General Data:} This category typically encompasses web content, literary works, and conversational texts, prized for their voluminous, varied, and accessible nature, thereby bolstering LLMs' language modelling and generalization prowess.
+Including general data, such as web pages and books, offers a rich lexicon spanning various themes, essential for the comprehensive training of LLMs.
+As shown in Figure~\ref{fig:data_sources}, general-purpose data are among the most commonly used general data sources for training LLMs.\\
 Three important general data sources are:
 \begin{itemize}
 	\item \textbf{Webpages:} {Web content, extracted from the internet, is a valuable source of diverse and up-to-date text data, encompassing news articles, blog posts, and forum discussions. This data is instrumental in training LLMs to gain different linguistic knowledge and enhance generalization capabilities~\cite{brown2020language, raffel2023exploring}.
@@ -350,8 +352,11 @@ The adaptability and language-agnostic properties of Unigram tokenization make i
 \section{Adaptation of Large Language Models}
 \label{sec:adaptation-of-llms}
 
-The adaptation of Large Language Models (LLMs) is a critical aspect of their deployment in real-world applications. It enables the models to be fine-tuned on specific tasks or domains after pre-training, enhancing their performance by minimizing the loss of generalization capabilities.
-Adaptation can be achieved through various techniques, such as instruction tuning and alignment tuning, which allow LLMs to enhance (or unlock) their abilities and align their behaviours with human values or preferences~\cite{survey}.
+The adaptation of Large Language Models (LLMs) is a critical aspect of their deployment in real-world applications.
+It enables the models to be fine-tuned on specific tasks or domains after pre-training, enhancing their performance by minimizing the loss of generalization capabilities.
+Adaptation can be achieved through various techniques, such as instruction tuning and alignment tuning, which allow LLMs to enhance (or unlock) their abilities\footnote{
+	Some experiments on fine tuning general LLMs on specific tasks (e.g., planning) haven't shown significant improvements, leading to the conclusion that fine tuning is just a way convert the task into a memory-based approximate retrieval problem rather than a way to improve or unlock the model's reasoning capabilities. Sometimes, in common sense domains, or with enough fine tuning, the reasoning part may also be obviated by having seen a case that pretty much corresponds to the problem that needs to be solved~\cite{subbarao2024canlanguagemodelsreasonplan}.
+} and align their behaviours with human values or preferences~\cite{survey}.
 
 \begin{table}[htbp]
 	\centering
@@ -457,7 +462,8 @@ One such method is the Self-Instruct approach, which efficiently utilizes a rela
 With the Self-Instruct method, only about 100 examples are required to start the data augmentation process (Figure~\ref{fig:instruction-formatted-instances}c).
 From this initial task pool, a few instances are selected randomly and used as demonstrations for an LLM. The model is then prompted to generate new task descriptions and corresponding input-output pairs.
 This process expands the dataset and ensures a variety of training examples by incorporating a diversity and quality check before adding the newly synthesized instances back into the task pool.
-This synthetic approach to data generation is portrayed as both cost-effective and efficient, providing a scalable solution for enriching LLM training datasets. It leverages LLMs' generative capabilities to create diverse and relevant training materials, thereby enhancing the training process without the usual resource-intensive demands of manual data creation.
+This synthetic approach to data generation is portrayed as both cost-effective and efficient, providing a scalable solution for enriching LLM training datasets.
+It leverages LLMs' generative capabilities to create diverse and relevant training materials, thereby enhancing the training process without the usual resource-intensive demands of manual data creation.
 Instruction tuning improves zero-shot learning and establishes new benchmarks in few-shot learning scenarios.
 The improvement is attributed to the instruction tuning across diverse datasets, which likely provides a richer context for model adaptation~\cite{wei2022fine}.
 By using supervision to teach a model to perform tasks described via instructions, the model will learn to follow instructions and do so even for unseen tasks.
@@ -635,7 +641,8 @@ The decoder in models such as GPT-3~\cite{brown2020language} and its successors 
 A key feature of decoders in LLMs is causality, which ensures that the prediction for the current token can only attend to previous tokens, not future ones.
 This is implemented through masked attention mechanisms in the transformer's decoder layers~\cite{vaswani2023attention}.
 
-For example, in a translation task, the encoder processes the source sentence and produces a set of vectors representing its content. At the same time, the decoder uses cross-attention to decide which words (or phrases) in the source sentence are most relevant for predicting the next word in the target language.
+For example, in a translation task, the encoder processes the source sentence and produces a set of vectors representing its content.
+At the same time, the decoder uses cross-attention to decide which words (or phrases) in the source sentence are most relevant for predicting the next word in the target language.
 In code generation, decoders can create syntactically correct code snippets given comments or docstrings as input, as demonstrated by Codex~\cite{chen2021evaluating}.\\
 
 Based on the components and the way they are connected, LLMs can be categorized into three main types: encoder-only\footnote{
@@ -681,7 +688,8 @@ So far, there are only a small number of models that use the encoder-decoder arc
 \subsection{Casual decoder}
 \label{subsec:casual-decoder}
 
-A causal decoder predicts each token based on the preceding tokens. This ensures that the generation process is unidirectional and prevents the model from using future tokens in the prediction process~\cite{vaswani2023attention}.
+A causal decoder predicts each token based on the preceding tokens.
+This ensures that the generation process is unidirectional and prevents the model from using future tokens in the prediction process~\cite{vaswani2023attention}.
 This mechanism is akin to how humans produce language, one word at a time, building upon what has already been said without access to future words.
 
 The architecture typically employs self-attention mechanisms where the attention distribution is masked to prevent tokens from attending to subsequent positions in the sequence (i.e., unidirectional attention mask).
@@ -702,7 +710,8 @@ In practice, a prefix decoder is implemented by feeding a fixed sequence of toke
 The model then extends the prefix by generating subsequent tokens that logically follow the context provided by the prefix.
 
 Unlike the causal decoder, which strictly adheres to a unidirectional generation pattern, the prefix decoder allows for a predefined context or prefix to guide the generative process~\cite{li2021prefixtuning}.
-This is particularly useful in tasks such as machine translation, where the prefix can be a part of the already known or hypothesized translation. Still, the flexibility provided by the prefix decoder makes it suitable for a range of applications, from controlled text generation to task-oriented dialogue systems, where maintaining context and coherence is crucial~\cite{li2022ptuning}.
+This is particularly useful in tasks such as machine translation, where the prefix can be a part of the already known or hypothesized translation.
+Still, the flexibility provided by the prefix decoder makes it suitable for a range of applications, from controlled text generation to task-oriented dialogue systems, where maintaining context and coherence is crucial~\cite{li2022ptuning}.
 
 This architecture has been utilized in various language models to improve text generation control and enhance the models' ability to handle specific formats or styles~\cite{raffel2023exploring}.
 
@@ -774,7 +783,8 @@ The configuration of the four major parts of the Transformer architecture includ
 \label{subsubsec:normalization}
 Normalization methods are crucial for stabilizing the training process and improving the convergence of LLMs.
 In the vanilla Transformer~\cite{vaswani2023attention} architecture, LayerNorm~\cite{ba2016layer} is the most commonly used normalization method, which normalizes the hidden states across the feature dimension.
-Before LayerNorm was introduced, BatchNorm~\cite{ioffe2015batch} was widely used in convolutional neural networks. Still, it was found to be less effective in sequence models due to the varying batch sizes and sequence lengths.
+Before LayerNorm was introduced, BatchNorm~\cite{ioffe2015batch} was widely used in convolutional neural networks.
+Still, it was found to be less effective in sequence models due to the varying batch sizes and sequence lengths.
 LayerNorm addresses this issue by normalizing the hidden states across the feature dimension, making it more suitable for sequence models.
 Specifically, LayerNorm normalizes the hidden states using the mean and the variance of the summed inputs within each layer.
 
@@ -833,7 +843,8 @@ This sequence allows the model to first process the input through a sublayer, su
 In particular, to train the model from scratch, any gradient-based optimization approach requires a learning rate warm-up stage to stabilize the training process~\cite{vaswani2023attention}.
 Existing works found that training of Transformer models with post-norm tends to be unstable due to large gradients near the output layer~\cite{xiong2020layer}.
 
-Pre-LN~\cite{baevski2019adaptive} is another configuration where the normalization layer is placed inside the residual blocks. It makes it possible to remove the warm-up stage, requiring significantly less training time and hyper-parameter tuning on a wide range of applications.
+Pre-LN~\cite{baevski2019adaptive} is another configuration where the normalization layer is placed inside the residual blocks.
+It makes it possible to remove the warm-up stage, requiring significantly less training time and hyper-parameter tuning on a wide range of applications.
 The Transformers with pre-LN have shown to be more stable during training but have worse performance~\cite{liu2020understanding}.
 
 Sandwich-LN~\cite{ding2021cogview} is a configuration that combines the advantages of both pre-LN and post-LN by placing the normalization layer both before and after the residual blocks.
@@ -927,7 +938,8 @@ The output of this multiplication is then passed through a second matrix V and a
 \subsubsection{Position Embeddings}
 \label{subsubsec:position-embeddings}
 
-Position embeddings are a crucial component of the Transformer architecture. They allow the model to capture the sequential order of tokens in the input sequence.
+Position embeddings are a crucial component of the Transformer architecture.
+They allow the model to capture the sequential order of tokens in the input sequence.
 Several types of position embeddings are used in LLMs, including absolute, relative, RoPE, and Alibi embeddings.
 
 Absolute position embeddings~\cite{vaswani2023attention} were proposed in the original Transformer model.
@@ -995,7 +1007,8 @@ In \textcite{press2022train}, the authors found that ALiBi has better extrapolat
 \subsubsection{Attention Mechanisms}
 \label{subsubsec:attention-mechanisms}
 
-Attention mechanisms are a key component of the Transformer architecture. They allow the model to capture long-range dependencies and complex relationships between tokens in the input sequence.
+Attention mechanisms are a key component of the Transformer architecture.
+They allow the model to capture long-range dependencies and complex relationships between tokens in the input sequence.
 
 An attention function can be described as mapping a query and a set of key-value pairs to an output, where the query, keys, values, and output are all vectors.
 The output is computed as a weighted sum of the values, where the weight assigned to each value is computed by a compatibility function of the query with the corresponding key.
@@ -1173,7 +1186,8 @@ In the following sections, we discuss some of the most popular methods for param
 \label{subsubsec:adapter-tuning}
 
 Adapter tuning is a parameter-efficient technique for transferring a pre-trained model to multiple downstream tasks without re-training the entire model for each new task.
-This approach involves introducing small, trainable modules called "adapters" between the layers of a pre-trained network. This allows the original network's parameters to remain fixed while adapting the model to new tasks with a minimal increase in the total number of parameters.
+This approach involves introducing small, trainable modules called "adapters" between the layers of a pre-trained network.
+This allows the original network's parameters to remain fixed while adapting the model to new tasks with a minimal increase in the total number of parameters.
 Adapter tuning is designed to address the inefficiency of fine-tuning large models where each new task typically requires re-training the entire model.
 Instead, adapter tuning uses a base pre-trained model and introduces small adapter layers that are trained for each specific task into the Transformer architecture~\cite{houlsby2019parameterefficient, hu2023llmadapters}, as shown in Figure~\ref{fig:adapter-architecture}.
 
