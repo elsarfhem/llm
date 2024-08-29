@@ -153,8 +153,8 @@ Two representative scaling laws for Transformer-based LLMs are the following~\ci
 
 Scaling boosts performance and addresses inherent limitations in smaller language models.
 Larger models excel in managing long-range dependencies, comprehending ambiguous language constructs, and displaying a nuanced understanding of context---capabilities that smaller models frequently find challenging.
-The eliciting of emergent abilities, such as Chain-of-Thought prompting and in-context learning, have shown a phase change in the first Scaling Law, where the performance increases linearly as the model size increases exponentially (Figure~\ref{fig:scaling-phase}).
-Scaling law is a crucial principle in the development of LLMs. It guides the allocation of resources and the design of models to maximise performance and capabilities.
+The eliciting of emergent abilities, such as Chain-of-Thought prompting and in-context learning, have shown a phase change in the first Scaling Law, where the performance increases linearly as the model size increases exponentially (Figure~\ref{fig:scaling-phase})\footnote{The discussion about emergent abilities is far from being closed, and the community is still debating whether we are observing true emergent abilities or just some phenomena that can be explained by the model's ability to retrieve information from the training data and to learn distributional patterns.}.
+At its core, the scaling law is a guiding principle in the development of LLMs, directing the allocation of resources and the design of models to maximise performance and capabilities.
 
 \begin{figure}[h!]
 	\centering
@@ -166,7 +166,6 @@ Scaling law is a crucial principle in the development of LLMs. It guides the all
 Despite propelling the field of LLMs to new heights, the scaling law comes with computational challenges.
 Training huge models requires significant computational resources, encompassing processing power and memory.
 The computational budget is an upper bound limit, demanding innovations in hardware and distributed training techniques to exploit the potential of scaled-up language models fully.
-
 
 \section{Prominent Model Families}
 \label{sec:promiment-model-families}
