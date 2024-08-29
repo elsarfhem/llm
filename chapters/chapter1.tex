@@ -159,7 +159,7 @@ Scaling law is a crucial principle in the development of LLMs. It guides the all
 \begin{figure}[h!]
 	\centering
 	\includegraphics[width=0.7\textwidth]{scaling-phase}
-	\caption{Left: scaling law. Model performance increases linearly as the model size increases exponentially. Right: emergent abilities show a phase change at a certain scale where the performance suddenly increases. Source: \protect\textcite{yaofu2023emergent}.}
+	\caption{Left: scaling law. Model performance increases linearly as the model size increases exponentially. Right: emergent abilities show a phase change at a certain scale where the performance suddenly increases. Source: \textcite{yaofu2023emergent}.}
 	\label{fig:scaling-phase}
 \end{figure}
 
@@ -179,7 +179,7 @@ Some of the most prominent large language models (having a size larger than 10B)
 \begin{figure}[h!]
 	\centering
 	\includegraphics[width=\textwidth]{public_llm}
-	\caption{A diagram showing the evolution of publicly available LLMs. Source: \protect\textcite{survey}.}
+	\caption{A diagram showing the evolution of publicly available LLMs. Source: \textcite{survey}.}
 	\label{fig:llm-evolution}
 \end{figure}
 
@@ -196,7 +196,7 @@ BERT's architecture and training methodology have influenced numerous subsequent
 	\centering
 	\includegraphics[width=0.5\textwidth]{bert}
 	\caption{BERT Architecture: The bottom layer contains the embedding representations \(E_1, E_2, \ldots E_N\), which encode input tokens and serve as the input to the transformer layers (Trm).
-		Each transformer bidirectionally processes the input embeddings, and the final output is used for downstream tasks. Source: \protect\textcite{devlin2019bert}.}
+		Each transformer bidirectionally processes the input embeddings, and the final output is used for downstream tasks. Source: \textcite{devlin2019bert}.}
 	\label{fig:bert-arch}
 \end{figure}
 
@@ -225,7 +225,7 @@ This approach simplifies using a single model across diverse tasks, encouraging 
 \begin{figure}[h!]
 	\centering
 	\includegraphics[width=\textwidth]{t5}
-	\caption{A diagram of the T5 text-to-text framework. Every task -- including translation, question answering, and classification -- is cast as feeding the model text as input and training it to generate some target text. This approach allows the same model, loss function, hyperparameters, etc., to be used across diverse tasks. Source: \protect\textcite{raffel2023exploring}.}
+	\caption{A diagram of the T5 text-to-text framework. Every task -- including translation, question answering, and classification -- is cast as feeding the model text as input and training it to generate some target text. This approach allows the same model, loss function, hyperparameters, etc., to be used across diverse tasks. Source: \textcite{raffel2023exploring}.}
 	\label{fig:t5-t2t}
 \end{figure}
 
@@ -294,16 +294,17 @@ Such models are an important area of study as they have the potential to be used
 	\centering
 	\label{tab:gpt4_example}
 	\begin{tabular}{@{}m{2cm}@{}m{10cm}@{}}
-		User  & What is funny about this image? Describe it panel by panel.                                                                               \\
-		      & \includegraphics[width=10cm]{gpt4}                                                                                                        \\
-		      &                                                                                                                                           \\
+		User  & What is funny about this image? Describe it panel by panel.                                                                                                                                                                                                                                                                                                                                         \\
+		      & \includegraphics[width=10cm]{gpt4}                                                                                                                                                                                                                                                                                                                                                                  \\
+		      &                                                                                                                                                                                                                                                                                                                                                                                                     \\
 		GPT-4 &
 		\begin{tabular}[t]{@{}m{10cm}@{}}
-			The image shows a "Lightning Cable" adapter package with three panels.                                                                      \\
-			Panel 1: A smartphone with a VGA connector (a large, blue, 15-pin connector typically used for computer monitors) plugged into its charging port. \\
-			Panel 2: The package for the "Lightning Cable" adapter with a picture of a VGA connector on it.                                                   \\
-			Panel 3: A close-up of the VGA connector with a small Lightning connector (used for charging iPhones and other Apple devices) at the end.         \\
-			The humour in this image comes from the absurdity of plugging a large, outdated VGA connector into a small, modern smartphone charging port.
+			The image shows a "Lightning Cable" adapter package with three panels.                                                                                                                                                                                                                                                                                                                                      \\
+			Panel 1: A smartphone with a VGA connector (a large, blue, 15-pin connector typically used for computer monitors) plugged into its charging port.                                                                                                                                                                                                                                                           \\
+			Panel 2: The package for the "Lightning Cable" adapter with a picture of a VGA connector on it.                                                                                                                                                                                                                                                                                                             \\
+			Panel 3: A close-up of the VGA connector with a small Lightning connector (used for charging iPhones and other Apple devices) at the end.                                                                                                                                                                                                                                                                   \\
+			The humour in this image comes from the absurdity of plugging a large, outdated VGA connector into a small, modern smartphone charging port.                                                                                                                                                                                                                                                                \\
+			The model can grasp the context of the image and provide a detailed description of each panel, highlighting the humour in the visual juxtaposition of old and new technology\footnote{There are literal websites that explain jokes, and why something is funny. So, we truly don’t know whether LLM's explanation of the joke is coming from the trueunderstanding of language or from those retrievals.}. \\
 		\end{tabular} \\
 	\end{tabular}
 	\caption{Example prompt demonstrating GPT-4's visual input capability. The prompt consists of a question about an image with multiple panels.}
@@ -336,9 +337,7 @@ The approximate power law relationship is
 
 GPT-4 accepts prompts consisting of images and text, which lets the user specify any vision or language task in parallel to the text-only setting.
 Specifically, the model generates text outputs, given inputs consisting of arbitrarily interlaced text and images.
-
 Despite its capabilities, GPT-4 has similar limitations to earlier GPT models: it is not fully reliable (e.g.\ can suffer from \enquote{hallucinations}), has a limited context window, and does not learn from experience.
-
 Care should be taken when using the outputs of GPT-4, particularly in contexts where reliability is important.
 
 \subsection{Llama}
@@ -396,7 +395,7 @@ Based on the Llama paper by \textcite{touvron2023llama}, even though Llama \text
 		Llama      & 65B    & 85.3  & 82.8 & 52.3 & 84.2      & 77.0       & 78.9  & 56.0  & 60.2 \\
 		\bottomrule
 	\end{tabularx}
-	\caption{Zero-shot performance on Common Sense Reasoning tasks. Source: \protect\textcite{touvron2023llama}.}
+	\caption{Zero-shot performance on Common Sense Reasoning tasks. Source: \textcite{touvron2023llama}.}
 	\label{tab:llama-zero-shot-performance}
 \end{table}
 
@@ -477,7 +476,7 @@ It comes in three flavours: the vanilla model, the Python specialized model, and
 \begin{figure}[h!]
 	\centering
 	\includegraphics[width=0.9\textwidth]{codellama-pipeline}
-	\caption{The Code Llama 70B specialization pipeline. The different fine-tuning stages are annotated with the number of tokens seen during training. Infilling-capable models are marked with the $\rightleftarrows$ symbol. Source: \protect\textcite{roziere2024codellamaopenfoundation}.}
+	\caption{The Code Llama 70B specialization pipeline. The different fine-tuning stages are annotated with the number of tokens seen during training. Infilling-capable models are marked with the $\rightleftarrows$ symbol. Source: \textcite{roziere2024codellamaopenfoundation}.}
 	\label{fig:code-llama}
 \end{figure}
 
@@ -488,7 +487,7 @@ Code Llama was fine-tuned on 500B extra tokens consisting mostly of code data (8
 \begin{figure}[ht!]
 	\centering
 	\includegraphics[width=0.7\textwidth]{codellama-loss}
-	\caption{Comparison of Code Llama models versus an identical model trained from scratch. Source: \protect\textcite{roziere2024codellamaopenfoundation}.}
+	\caption{Comparison of Code Llama models versus an identical model trained from scratch. Source: \textcite{roziere2024codellamaopenfoundation}.}
 	\label{fig:code-llama-comparison}
 \end{figure}
 
@@ -552,7 +551,7 @@ The design philosophy targets efficient deployment across diverse hardware platf
 \begin{figure}[ht!]
 	\centering
 	\includegraphics[width=0.9\textwidth]{gemma_comparison2}
-	\caption{Gemma models exhibit superior performance in language understanding and reasoning tasks compared to larger models. Source: \protect\textcite{gemmateam2024gemma}.}
+	\caption{Gemma models exhibit superior performance in language understanding and reasoning tasks compared to larger models. Source: \textcite{gemmateam2024gemma}.}
 	\label{fig:gemma-comparison2}
 \end{figure}
 
@@ -565,7 +564,7 @@ The models are designed to be run on common developer hardware, eschewing the ne
 \begin{figure}[ht!]
 	\centering
 	\includegraphics[width=\textwidth]{gemma_comparison}
-	\caption{Gemma models are designed to be lightweight and efficient, making them accessible to a wide range of developers and applications. Source: \protect\textcite{gemma_google_ai}.}
+	\caption{Gemma models are designed to be lightweight and efficient, making them accessible to a wide range of developers and applications. Source: \textcite{gemma_google_ai}.}
 	\label{fig:gemma-comparison}
 \end{figure}
 
@@ -582,7 +581,7 @@ Moreover, Google's release includes a Responsible Generative AI Toolkit to aid d
 \label{sec:applications-of-large-language-models}
 
 Specialized Large Language Models (LLMs) are model checkpoints refined for particular fields or tasks, such as healthcare and finance.
-The existing domain-specific models are developed by fine-tuning general-purpose LLMs on specialized datasets~\cite{luo2022biogpt,bolton2023biomedlm, taylor2022galactica}) by adapting a very large general-purpose model to domain-specific tasks (\textcite{singhal2022large, liang2022holistic}) or mixing both approaches (\textcite{wu2023bloomberggpt}.
+The existing domain-specific models are developed by pre-training on specialized datasets~\cite{luo2022biogpt,bolton2023biomedlm, taylor2022galactica}), by adapting a very large general-purpose model to domain-specific tasks~\cite{singhal2022large, liang2022holistic}, or mixing both approaches~\cite{wu2023bloomberggpt}.
 These models serve as domain-specific problem solvers and are evaluated based on general competencies, such as fundamental complex reasoning, and more nuanced capabilities, like alignment with human intent, as well as their performance in areas specific to their application.
 To accurately measure their efficacy, specialized benchmarks are developed that cater to these distinct sectors.
 These tailored benchmarks are then employed in conjunction with broader assessments to provide a holistic and focused evaluation of the models' capabilities.
@@ -649,7 +648,7 @@ One of the most advanced LLMs for healthcare is Med-PaLM, a derivative of the Pa
 		GPT-Neo (2.7 B)              & 33.3                      \\
 		\bottomrule
 	\end{tabular}
-	\caption{Performance comparison of different models on the MedQA (USMLE) benchmark. Source: \protect\textcite{singhal2022large}.}
+	\caption{Performance comparison of different models on the MedQA (USMLE) benchmark. Source: \textcite{singhal2022large}.}
 	\label{tab:medqa_performance}
 \end{table}
 
@@ -662,7 +661,7 @@ The result was Med-PaLM, a model that significantly reduces the gap (or even com
 \begin{figure}[h!]
 	\centering
 	\includegraphics[width=\textwidth]{flan-palm}
-	\caption{Large Language Models (LLMs) have revolutionized healthcare by enhancing diagnostic accuracy, clinical decision support, and patient engagement. Source: \protect\textcite{singhal2022large}.}
+	\caption{Large Language Models (LLMs) have revolutionized healthcare by enhancing diagnostic accuracy, clinical decision support, and patient engagement. Source: \textcite{singhal2022large}.}
 	\label{fig:llm-healthcare}
 \end{figure}
 
@@ -676,7 +675,7 @@ An overview of the evolution of selected PLM/LLM releases from the general domai
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=\textwidth]{FinLLMs}
-	\caption{Timeline showing the evolution of selected PLM/LLM releases from the general domain to the financial domain. Source: \protect\textcite{lee2024survey}.}
+	\caption{Timeline showing the evolution of selected PLM/LLM releases from the general domain to the financial domain. Source: \textcite{lee2024survey}.}
 	\label{fig:llm-finance}
 \end{figure}
 
@@ -780,7 +779,7 @@ To accurately measure the effectiveness of FinLLMs in performing these tasks, se
 	\item \textbf{StockNet:} {This dataset combines historical price data with relevant tweets to comprehensively view SMP tasks. It has been widely used to assess the impact of market sentiment on stock prices \cite{xu2018stock}.}
 	\item \textbf{CIKM18:} {A dataset designed for SMP tasks, CIKM18 comprises stock price data and news headlines, challenging models to predict stock movements based on textual information \cite{wu2018hybrid}.}
 	\item \textbf{BigData22:} {A dataset for SMP tasks, BigData22 combines financial news articles with stock price data, evaluating models on their ability to predict stock movements based on textual information \textcite{soun2022accurate}.}
-	\item \textbf{Headline:} {A dataset of financial news headlines, used for text classification \cite{sinha2021impact}. This dataset comprises 11,412 news headlines, labelled with a binary classification across nine labels such as “price up” or “price down”.}
+	\item \textbf{Headline:} {A dataset of financial news headlines, used for text classification \cite{sinha2021impact}. This dataset comprises 11,412 news headlines, labelled with a binary classification across nine labels such as "price up" or "price down".}
 	\item \textbf{ECT-Sum:} {A dataset for text summarization tasks, ECT-Sum consists of consists of 2,425 document-summary pairs, containing Earnings Call Transcripts (ECTs) and bullet-point summarizations from Reuters \cite{mukherjee2022ectsum}.}
 \end{itemize}
 
@@ -800,8 +799,8 @@ These datasets are instrumental in assessing the models' performance, guiding th
 	\item \textbf{Market Forecasting (MF):} This task extends beyond stock movement prediction, focusing on broader market trend forecasting~\footnote{Market price, volatility, and risk} using datasets that combine sentiment analysis, event detection, and multimodal cues\footnote{Like StockEmotions~\cite{lee2023stockemotions}), EDT (\textcite{zhou2021trade}), MAEC (\textcite{li2020maec}) and MONOPOLY (\textcite{mathur2022monopoly}}.
 \end{itemize}
 
-Recent studies have shown that they outperform fine-tuned models on some tasks.
-But, they still fail in some other cases~\cite{li2023chatgpt}.
+Recent studies have shown that general purpose model can outperform fine-tuned models on some tasks.
+Still, they fail in some other cases carefully analyzed in \textcite{li2023chatgpt}.
 Some interesting results are shown in Table~\ref{tab:finllm_comparison}, Table~\ref{tab:fiqa_results}, Table~\ref{tab:headline_classification}, Table~\ref{tab:ner_few_shot_performance}.
 For example, in the sentiment analysis task, FinMA-30B and GPT-4 achieved similar results (87\% on F1) with a 5-shot prompting, while FLANG-ELECTRA achieved the best results (92\% on F1)~\textcite{lee2024survey}, while GPT-4 could be the first choice for Sentiment Analysis and Relation Extraction tasks.
 
@@ -823,7 +822,7 @@ For example, in the sentiment analysis task, FinMA-30B and GPT-4 achieved simila
 		FinBert                         & \textbf{0.86}                      & 0.84                                & \textbf{0.97} & 0.95          \\
 		\bottomrule
 	\end{tabularx}
-	\caption{Results on the Phrasebank dataset. The sub-script (n) following an LLM name represents the number of shots. The best results are marked in bold. The results of other LLMs, like BloombergGPT, are from the corresponding papers. ‘/’ indicates the metrics were not included in the original study. Source:\protect\textcite{li2023chatgpt}.}
+	\caption{Results on the Phrasebank dataset. The sub-script (n) following an LLM name represents the number of shots. The best results are marked in bold. The results of other LLMs, like BloombergGPT, are from the corresponding papers. ‘/’ indicates the metrics were not included in the original study. Source:\textcite{li2023chatgpt}.}
 	\label{tab:finllm_comparison}
 \end{table}
 \begin{table}[!h]
@@ -846,7 +845,7 @@ For example, in the sentiment analysis task, FinMA-30B and GPT-4 achieved simila
 		RoBERTa-large                   & Fine-tune         & 87.09                \\
 		\bottomrule
 	\end{tabularx}
-	\caption{Results for the sentiment analysis task on the FiQA dataset. Source: \protect\textcite{li2023chatgpt}.}
+	\caption{Results for the sentiment analysis task on the FiQA dataset. Source: \textcite{li2023chatgpt}.}
 	\label{tab:fiqa_results}
 \end{table}
 
@@ -867,7 +866,7 @@ For example, in the sentiment analysis task, FinMA-30B and GPT-4 achieved simila
 		BERT                            & \textbf{95.36}       \\
 		\bottomrule
 	\end{tabularx}
-	\caption{Results on the headline classification task. Source: \protect\textcite{li2023chatgpt}.}
+	\caption{Results on the headline classification task. Source: \textcite{li2023chatgpt}.}
 	\label{tab:headline_classification}
 \end{table}
 
@@ -889,7 +888,7 @@ For example, in the sentiment analysis task, FinMA-30B and GPT-4 achieved simila
 		CRF\textsubscript{FIN5}          & \textbf{82.70}     \\
 		\bottomrule
 	\end{tabularx}
-	\caption{Results of few-shot performance on the NER dataset. CRF\textsubscript{CoNLL} refers to the CRF model trained on general CoNLL data, and CRF\textsubscript{FIN5} refers to the CRF model trained on FIN5 data. Source: \protect\textcite{li2023chatgpt}.}
+	\caption{Results of few-shot performance on the NER dataset. CRF\textsubscript{CoNLL} refers to the CRF model trained on general CoNLL data, and CRF\textsubscript{FIN5} refers to the CRF model trained on FIN5 data. Source: \textcite{li2023chatgpt}.}
 	\label{tab:ner_few_shot_performance}
 \end{table}
 
@@ -965,7 +964,7 @@ With its 50 billion parameters, is posited to be the apex of financial language 
 		\textbf{TOTAL}      & \textbf{226,631} & \textbf{1,531} & \textbf{34,701} & \textbf{4.89} & \textbf{7,089} & \textbf{100.00\%} \\
 		\bottomrule
 	\end{tabularx}
-	\caption{Breakdown of the full training set used to train BLOOMBERGGPT. The statistics provided are the average number of characters per document ("C/D"), the average number of characters per token ("C/T"), and the percentage of the overall tokens ("T\%"). Source: \protect\textcite{wu2023bloomberggpt}.}
+	\caption{Breakdown of the full training set used to train BLOOMBERGGPT. The statistics provided are the average number of characters per document ("C/D"), the average number of characters per token ("C/T"), and the percentage of the overall tokens ("T\%"). Source: \textcite{wu2023bloomberggpt}.}
 	\label{tab:training_set}
 \end{table}
 
@@ -1017,7 +1016,7 @@ In sum, according to benchmarks in \textcite{wu2023bloomberggpt}, developing fin
 		All Tasks (WR)  & \textbf{0.93}         & 0.27              & 0.33                            & 0.47                               \\
 		\bottomrule
 	\end{tabularx}
-	\caption{Results on financial domain tasks. Source: \protect\textcite{wu2023bloomberggpt}.}
+	\caption{Results on financial domain tasks. Source: \textcite{wu2023bloomberggpt}.}
 	\label{tab:financial_tasks}
 \end{table}
 
@@ -1037,7 +1036,7 @@ In sum, according to benchmarks in \textcite{wu2023bloomberggpt}, developing fin
 		All Tasks (WR)      & \textbf{1.00}         & 0.00              & 0.67                            & 0.33                               \\
 		\bottomrule
 	\end{tabularx}
-	\caption{Results on internal aspect-specific sentiment analysis datasets. BLOOMBERGGPT far outperforms all other models on sentiment analysis tasks. Source: \protect\textcite{wu2023bloomberggpt}.}
+	\caption{Results on internal aspect-specific sentiment analysis datasets. BLOOMBERGGPT far outperforms all other models on sentiment analysis tasks. Source: \textcite{wu2023bloomberggpt}.}
 	\label{tab:internal_aspect_sentiment}
 \end{table}
 
@@ -1074,14 +1073,15 @@ In sum, according to benchmarks in \textcite{wu2023bloomberggpt}, developing fin
 		All Tasks (WR)  & 0.95                  & 0.00              & 0.67                            & 0.38                               \\
 		\bottomrule
 	\end{tabularx}
-	\caption{Results on internal NER and NED datasets. On NER, while the much larger BLOOM176b model outperforms all other models, results from all models are relatively close, with BLOOMBERGGPT outperforming the other two models. On NER+NED, BLOOMBERGGPT outperforms all other models by a large margin. Source: \protect\textcite{wu2023bloomberggpt}.}
+	\caption{Results on internal NER and NED datasets. On NER, while the much larger BLOOM176b model outperforms all other models, results from all models are relatively close, with BLOOMBERGGPT outperforming the other two models. On NER+NED, BLOOMBERGGPT outperforms all other models by a large margin. Source: \textcite{wu2023bloomberggpt}.}
 	\label{tab:ner_ned_results}
 \end{table}
 
 \subsection{LLMs in Education}
 \label{subsec:llms-in-education}
 
-The advent of LLMs has significantly impacted education. LLMs can be leveraged to create educational content tailored to individual student needs, providing explanations, generating practice problems, and even offering feedback.
+The advent of LLMs has significantly impacted education.
+LLMs can be leveraged to create educational content tailored to individual student needs, providing explanations, generating practice problems, and even offering feedback.
 
 Integrating LLMs into educational frameworks offers a rich tapestry of potential enhancements to teaching and learning experiences.
 The transformative influence of such technology is particularly marked in tasks that can benefit from automation, such as grading and personalized feedback on student work.
@@ -1114,7 +1114,7 @@ A number of tasks in the legal field, such as legal document analysis~\cite{blai
 \begin{figure}[!h]
 	\centering
 	\includegraphics[width=\textwidth]{statutory}
-	\caption{Prompts used in \protect\textcite{blairstanek2023gpt3statutory} to pose SARA test cases to GPT-3. The top boxes, in orange, contain statutes (optional). Example cases are in blue; in zero-shot, no example cases exist. At the bottom, in green, are test cases. The text highlighted in yellow is generated by GPT-3. If GPT-3’s first response is unclear, the second prompt with "Therefore the answer is" is used, following \protect\textcite{kojima2023large}. Source: \protect\textcite{trautmann2022legalprompt}.}
+	\caption{Prompts used in \textcite{blairstanek2023gpt3statutory} to pose SARA test cases to GPT-3. The top boxes, in orange, contain statutes (optional). Example cases are in blue; in zero-shot, no example cases exist. At the bottom, in green, are test cases. The text highlighted in yellow is generated by GPT-3. If GPT-3’s first response is unclear, the second prompt with "Therefore the answer is" is used, following \textcite{kojima2023large}. Source: \textcite{trautmann2022legalprompt}.}
 	\label{fig:legal_prompting}
 \end{figure}
 
@@ -1135,7 +1135,7 @@ The model surpasses previous benchmarks yet still exhibits considerable room for
 		Rank Order & 20/25              & 21/60    & 6/10  & 47/95 \\
 		\bottomrule
 	\end{tabularx}
-	\caption{Comparison of Multiple Choice Methods. Source: \protect\textcite{choi2023chatgptlaw}.}
+	\caption{Comparison of Multiple Choice Methods. Source: \textcite{choi2023chatgptlaw}.}
 	\label{tab:mc_comparison}
 \end{table}
 
@@ -1159,14 +1159,18 @@ LLMs in scientific research can be employed across various stages of the researc
 Empirical evidence underscores the aptitude of LLMs in managing tasks dense with scientific knowledge, such as those presented by PubMedQA~\cite{jin2019pubmedqa} and BioASQ~\cite{krithara2022bioasq}.
 It is particularly true for LLMs pre-trained on scientific corpora, including, but not limited to, Galactica~\cite{taylor2022galactica} and Minerva~\cite{lewkowycz2022minerva}.
 
-Due to their advanced general capabilities and extensive scientific acumen, LLMs are poised to play an integral role as supportive tools throughout the scientific research process~\cite{zhang2023smallstep}.
-During the initial stages of research, such as brainstorming, LLMs can assist in generating novel research ideas and hypotheses, thereby fostering creativity and innovation\footnote{Temperature is a parameter of OpenAI ChatGPT, GPT-3 and GPT-4 models that govern the randomness and thus the creativity of the responses.}.
+Due to their capabilities, LLMs are poised to play an integral role as supportive tools throughout the scientific research process~\cite{zhang2023smallstep}.
+During the initial stages of research, such as brainstorming, LLMs can assist in generating novel research ideas and hypotheses, thereby fostering creativity and innovation\footnote{Randomness and creativity of a model can be tuned using specific parameters. For example temperature is a OpenAI ChatGPT, GPT-3 and GPT-4 models parameter that govern the randomness and thus the creativity of the responses.}.
 
 In the literature review phase, LLMs can perform exhaustive reviews, encapsulating the state of advancement within specific scientific disciplines~\cite{haman2023usingchatgpt, aydin2022openaichatgpt} providing explanations for scientific texts and mathematics with follow-up questions.
 
 Progressing to the phase of research ideation, LLMs have displayed potential in formulating compelling scientific hypotheses~\cite{park2023chatgpt}.
-In \textcite{park2023chatgpt}, the authors demonstrate the ability of GPT-4 to generate hypotheses in the field of materials science, showcasing the model's capacity to propose novel research directions.
-They find the hypotheses generated by GPT-4 to be on par with those proposed by human experts, highlighting the model's potential to contribute to scientific research.
+In \textcite{park2023chatgpt}, the authors shows the ability of GPT-4 to generate hypotheses in the field of materials science, showcasing the model's capacity to propose research directions.
+Through examining conversations, it was evident that GPT-4 generates richer and more specific information than the prompts provided, disproving the mirroring hypothesis.
+While checking for verbatim copying was more challenging, GPT-4 does seem to reflect current academic trends to an uncanny degree.
+However, it also combines disciplines and innovates concepts, leading to both errors and genuine creative insights.
+The authors compared the process to how cosmic rays can drive biological evolution through mutations: radiations break DNA strands and cause cancer and deaths, but can also drive mutations and evolution of the biosphere.
+Given the highlighted limitation, LLMs can be used to generate hypotheses for further human evaluation and refinement.
 
 In the subsequent data analysis stage, LLMs can be harnessed for automating the examination of data attributes, including exploratory data analysis, visualization, and the extraction of analytical inferences~\cite{cheng2023gpt4dataanalyst}.
 In \textcite{hassan2023chatgptdatascientist}, the authors demonstrate the utility of GPT-4 in automating data analysis tasks, such as data cleaning, feature engineering, and model selection, thereby streamlining the data science workflow.
@@ -1187,7 +1191,7 @@ Here, studies have probed LLMs for human-like traits, encompassing self-percepti
 
 	The classic example of a false-belief task is the Sally-Anne test, used primarily with children. The test involves two dolls, Sally and Anne. Sally has a basket, while Anne has a box. In the presence of Sally, a marble is placed in Sally's basket. Sally then leaves the room, and while she's away, Anne takes the marble from Sally's basket and puts it in her box. The child is then asked where Sally will look for the marble when she returns. The correct answer is Sally's basket, where she left the marble. A child who can correctly predict where Sally will look for the marble demonstrates an understanding that Sally holds a false belief about the location of the marble.
 	Successfully completing a false-belief task indicates that the individual can understand that others can hold false beliefs and that these beliefs can influence their actions, a critical step in the development of social cognition and empathy.}, revealing a marked improvement in ToM capabilities in more recent versions of GPT-3.
-Specifically, the davinci-002 version solved 70\% of ToM tasks, while the davinci-003 version achieved a 93\% success rate, demonstrating performances akin to seven- and nine-year-old children, respectively.
+Specifically, the davinci-002 version solved 70\% of ToM tasks, while the davinci-003 version achieved a 93\% success rate, demonstrating performances akin to seven and nine-year-old children, respectively.
 Notably, GPT-3.5's performance in ToM assessments parallels that of nine-year-olds, suggesting nascent ToM capabilities in LLMs.
 The study hypothesizes that ToM-like abilities might emerge spontaneously in AI without explicit programming, especially in LLMs trained in human language.
 In the context of AI, particularly in LLMs like GPT-3, the ability to perform well on false-belief tasks suggests a sophisticated level of language understanding and a rudimentary form of Theory of Mind, albeit not conscious or sentient like in humans.
