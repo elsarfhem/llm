@@ -29,7 +29,35 @@ One of the most popular theories is that the CoT reasoning is related to code in
 \begin{displayquote}
 	There is also speculation that training on code data can greatly increase the chain-of-thought prompting abilities of LLMs, while it is still worth further investigation with more thorough verification~\cite{survey}.
 \end{displayquote}
-One piece of evidence is that code-davinci-002, a model trained on code data, is consistently better on CoT than text-davinci-002 on language tasks~\cite{ye2023comprehensivecapabilityanalysisgpt3}.
+One piece of evidence is that code-davinci-002, a model trained on code data, is consistently better on CoT than text-davinci-002 on language tasks~\cite{ye2023comprehensivecapabilityanalysisgpt3} as shown in Table~\ref{tab:davinci-comparison}.
+
+\begin{table}[ht]
+	\centering
+	\begin{tabularx}{\textwidth}{Xccccccc}
+		\toprule
+		\textbf{Model}   & \multicolumn{2}{c}{\textbf{NumWord}} & \multicolumn{2}{c}{\textbf{SwapAnt}} & \multicolumn{2}{c}{\textbf{All}}                                                                 \\
+		                 & \textbf{ori}                         & \textbf{trans}                       & \textbf{ori}                     & \textbf{trans} & \textbf{ori} & \textbf{trans} & \textbf{all} \\
+		\midrule
+		\multicolumn{8}{c}{\textbf{0-shot}}                                                                                                                                                               \\
+		\midrule
+		code-davinci-002 & 0.00±0.00                            & 4.67±8.08                            & 26.00±45.03                      & 8.00±13.86     & 70.00±3.07   &                &              \\
+		text-davinci-002 & 68.41±6.24                           & 66.67±35.79                          & 95.57±5.18                       & 36.29±18.66    & 72.73±2.55   &                &              \\
+		\midrule
+		\multicolumn{8}{c}{\textbf{1-shot}}                                                                                                                                                               \\
+		\midrule
+		code-davinci-002 & 69.00±5.29                           & 97.33±3.06                           & \textbf{89.67±5.51}              & 80.33±10.60    & 76.13±3.63   &                &              \\
+		text-davinci-002 & 72.31±7.04                           & 98.59±1.65                           & 64.14±14.24                      & 78.69±1.93     & 69.57±8.35   &                &              \\
+		\midrule
+		\multicolumn{8}{c}{\textbf{3-shot}}                                                                                                                                                               \\
+		\midrule
+		code-davinci-002 & \textbf{73.00±1.00}                  & \textbf{100.00±0.00}                 & 80.67±4.51                       & 84.48±0.18     &              &                &              \\
+		text-davinci-002 & 73.14±2.60                           & 96.10±6.53                           & 66.45±5.80                       & 85.86±9.69     & 72.70±3.57   &                &              \\
+		\bottomrule
+	\end{tabularx}
+	\caption{Results of code-davinci-002 and text-davinci-002 on MRPC dataset. The results highlight the superiority of code-davinci-002 on CoT.}
+	\label{tab:davinci-comparison}
+\end{table}
+
 On the HELM evaluation, a massive-scale evaluation performed by \textcite{liang2022holistic}, the authors also found that models trained on/for code have strong language reasoning abilities.
 As an intuition, procedure-oriented programming is similar to solving tasks step by step, and object-oriented programming is similar to decomposing complex tasks into simpler ones.
 
@@ -56,11 +84,10 @@ The hardware used for the experiments is:
 
 The number of experiments we can conduct is limited due to machine resources and time constraints.
 As mentioned, really large models require a lot of resources, and it's impossible to run most of them on a personal computer.
-However, we can still test some hypotheses on smaller models.
-For example, when comparing models of the same size, we can exclude this factor from the equation and focus on testing whether CoT reasoning ability is related to code in the pre-training dataset.
+Moreover the assumption is that the ability to perform CoT is not related to the model size, but rather to the pre-training data.
+However, when comparing models of the same size, we can exclude this factor from the equation and focus on testing whether CoT reasoning ability is related to code in the pre-training dataset.
 Additionally, the models available on LMStudio are limited to the models available on HuggingFace, while others are closed-source and have not been publicly released.
-For this reason, we executed some experiments (see Table~\ref{tab:llama-comparison}) on Llama family models, which are publicly available on HuggingFace.
-
+For this reason, we focused the experiments (see Table~\ref{tab:llama-comparison}) on Llama family models, which are publicly available on HuggingFace.
 As reported by the authors, the architecture of the different models is quite similar.
 Indeed, Llama 3 uses a standard, dense Transformer architecture~\cite{vaswani2023attention} which does not deviate significantly from Llama~\cite{touvron2023llama} and Llama 2~\cite{touvron2023llama2} in terms of model architecture.
 This leads to the conclusion that the performance gains are primarily driven by improvements in data quality and diversity as well as by increased training scale~\cite{llama3}.
@@ -71,7 +98,7 @@ The fine-tuned Llama 2 model, Code Llama\cite{roziere2024codellamaopenfoundation
 Lastly, the Llama 3 and 3.1 model~\cite{llama3} has 17\% of code in its pre-training mix\footnote{See Section~\ref{subsubsec:llama-3} for more details}.
 
 The experiments have been conducted using the Chain-of-Thought on reasoning tasks from the GSM8k and gsm-hard\footnote{The gsm-hard is obtained by replacing the numbers in the questions of GSM8k with larger numbers that are less common.}
-Reasoning steps in the gsm-hard datasets are expressed as code, so we applied the Program of Thought (PoT) approach~\cite{chen2022program}.
+Reasoning steps in the gsm-hard datasets are expressed as code, so we also tested the Program of Thought (PoT) approach~\cite{chen2022program}.
 \begin{figure}[h!]
 	\centering
 	\includegraphics[width=\textwidth]{gmshardpot}
@@ -99,18 +126,21 @@ The results from the execution of the experiments are shown in Table~\ref{tab:ll
 
 As expected, Llama 3 performs better than Llama 2, and its CoT reasoning ability improves as performance increases between the 0-shot and 5-shot settings.
 Since the models are the same size and have similar architectures, the improvement is related to different models' pre-training data.
-One of the main differences between Llama 2 and Llama 3 is the percentage of code in the pre-training data, which is 8\% for Llama 2 and 17\% for Llama 3.
+Main difference between Llama 2 and Llama 3 is the percentage of code in the pre-training data, which is 8\% for Llama 2 and 17\% for Llama 3.
 It confirms that the code in the pre-training data can greatly increase the CoT reasoning ability of LLMs.
 We also run the same experiments on LLaMA2\textsubscript{13B} to further exclude the size factor.
 It confirms that size is not a deciding factor in CoT since both show the ability to perform CoT reasoning.
-Despite that, Llama\textsubscript{13B} results show that scaling up the model can the CoT ability.
+Despite that, Llama\textsubscript{13B} results show that scaling up the model can improve the CoT ability but it's not a deciding factor.
+As hypothesized, in general the improvement between the 0-shot and 5-shot on GSM8k consistently increases with the percentage of code in the pre-training data among all the models.
 
 We also tested the Program-of-Thoughts (PoT) reasoning ability on the gsm-hard dataset since the dataset demonstrations are expressed as code, and the model is stimulated to produce reasoning expressed as code.
-The code is extracted from the model's solution and executed to calculate the result.
+The code was extracted from the model's solution and executed by a Python interpreter to calculate the result.
 The performance is indicated in the table inside the parentheses, which shows that PoT also increases with the percentage of code in the pre-training data.
 We can note that all the models have a low success rate in the gsm-hard dataset, while the performance increases using PoT\@.
-The improvement between the 0-shot and 5-shot prompting increases with the percentage of code in the pre-training data.
-This indicates that demonstrating reasoning as code improves the ability to generate code rather than the reasoning itself.
+The fact that the models' performance drops in the 0-shot gsm-hard dataset, which is simply using larger numbers, suggests that the LLMs cannot reason if they cannot figure out the underlying algorithm, rather they learn the distribution in the pre-training data.
+Also, the CoT reasoning ability is accepted that doesn’t generalize well after a point as we can see in the results of the 5-shot gsm-hard dataset.
+The increment using PoT is more significant than the one using the model's solution, which suggests that demonstrating reasoning as code improves the ability to generate code rather than the reasoning itself.
+It could be explained by the fact that models are trained on GitHub, an high quality code dataset, so they can retrieve the pieces of code.
 
 \subsection{Prompting}
 \label{subsec:prompting}
