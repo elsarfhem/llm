@@ -50,7 +50,7 @@ Historically, the development of Language Models (LMs) has been rooted in the qu
 		      These emergent abilities include but are not limited to, the ability to perform tasks for which they were not explicitly trained, such as translation, summarisation, and question-answering, and to generalise to new tasks and domains, such as zero-shot learning \footnote{It refers to a machine learning scenario where a model makes predictions or performs tasks for classes or examples it has never seen during training}, few-shot learning \footnote{It involves training a model with a minimal number of examples per class, usually much fewer than what traditional machine learning models require}, and even one-shot\footnote{It is a specific case of few-shot learning where the model is trained with only one example per class} learning\footnote{A shot is an example or demonstration of what type of prompt and response you expect from a large language model. This term originates from training computer vision models on photographs, where one shot was one example or instance that the model used to classify an image \cite{feifei2006onedatacoltut}.}.
 		      Three typical examples of emergent abilities are:
 		      \begin{enumerate}
-			      \item \textbf{In-context learning:} {this ability has been formally observed in GPT-3, which is provided with a natural language instruction or task demonstrations; it can generate the expected output for test instances by completing the word sequence of the input text. Importantly, this can be achieved without requiring additional training or gradient updates \footnote{Recent study shows that in-context learning implicitly performs meta optimisation through the attention mechanism~\cite {dai2022why}}.
+			      \item \textbf{In-context learning:} {this ability has been formally observed in GPT-3, which is provided with a natural language instruction or task demonstrations; it can generate the expected output for test instances by completing the word sequence of the input text. Importantly, this can be achieved without requiring additional training or gradient updates \footnote{\textcite{dai2022why} shows that in-context learning implicitly performs meta optimisation through the attention mechanism}.
 				            \begin{quote}
 					            \textbf{Language Translation:} \\
 					            \textit{Input:} {\enquote{Translate the following English text to French: `The quick brown fox jumps over the lazy dog.'}} \\
@@ -154,7 +154,7 @@ Two representative scaling laws for Transformer-based LLMs are the following~\ci
 Scaling boosts performance and addresses inherent limitations in smaller language models.
 Larger models excel in managing long-range dependencies, comprehending ambiguous language constructs, and displaying a nuanced understanding of context---capabilities that smaller models frequently find challenging.
 The eliciting of emergent abilities, such as Chain-of-Thought prompting and in-context learning, have shown a phase change in the first Scaling Law, where the performance increases linearly as the model size increases exponentially (Figure~\ref{fig:scaling-phase}).
-Emergency is still a debated topic: \textcite{schaeffer2023emergentabilitieslargelanguage} shows that different metrics can reveal continuous improvement in LLM performance, challenging the concept of emergent abilities\footnote{Choosing a different metric it's possible to show that increasing the model size, leads to an improvement in correct sequences prediction in addition problems. Looking at this metrics, the add ability is not emergent, but gradual and predictable.}, while others argue that the unpredictability of when and which metrics show abrupt improvement still supports the idea of emergence.
+Emergency is still a debated topic: \textcite{schaeffer2023emergentabilitieslargelanguage} shows that different metrics can reveal continuous improvement in LLM performance, challenging the concept of emergent abilities\footnote{Choosing a different metric it's possible to show that increasing the model size, leads to an improvement in correct sequences prediction in addition problems. Looking at these metrics, the "add" ability is not emergent but gradual and predictable.}, while others argue that the unpredictability of when and which metrics show abrupt improvement still supports the idea of emergence.
 While the study provides valuable insights, researchers agree that discontinuities and jump-like improvements in model performance still exist as model size increases.
 
 At its core, the scaling law is a guiding principle in the development of LLMs, directing the allocation of resources and the design of models to maximise performance and capabilities.
@@ -440,7 +440,7 @@ The pre-training selection focuses on addressing biases and toxicity recognised 
 
 \begin{table}[h!]
 	\centering
-	\begin{tabularx}{\textwidth}{XclcX}
+	\begin{tabularx}{0.5\textwidth}{XclcX}
 		\hline
 		\textbf{Language} & \textbf{Percent} & \textbf{Language} & \textbf{Percent} \\
 		\hline
