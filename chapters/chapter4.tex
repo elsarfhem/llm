@@ -7,29 +7,29 @@
 \section{Introduction}
 \label{sec:ch4-introduction}
 
-In this chapter, we investigate the origins of some skills demonstrated by large language models (LLMs), such as the Chain-of-Thought (CoT) reasoning.
+In this chapter, we investigate the origins of some skills demonstrated by large language models (LLMs), such as the Chain-of-Thought (CoT).
 We will briefly summarize the evidence presented in several experiments documented in scientific articles and papers.
 Subsequently, we will examine whether certain hypotheses are validated through tests conducted on publicly available models via LMStudio software on HuggingFace.
 
-\section{What is eliciting the Chain-of-Thought reasoning?}
-\label{sec:what-is-eliciting-the-chain-of-thought-reasoning?}
+\section{What is eliciting the Chain-of-Thought?}
+\label{sec:what-is-eliciting-the-chain-of-thought?}
 
-As we have seen in the previous chapters, LLMs have shown some remarkable abilities, such as language generation, the ability to perform Chain-of-Thought (CoT) reasoning, a form of reasoning that involves multiple steps, In-Context Learning, and more.
-The natural question that arises is: what is eliciting these abilities?
+As we have seen in the previous chapters, LLMs have shown some remarkable abilities, such as language generation, the ability to perform Chain-of-Thought (CoT), a form of "reasoning" that involves multiple steps, In-Context Learning, and more.
+Even though LLMs' reasoning ability is controversial, we focus our attention on a different question: what is eliciting these abilities?
 
 Generally, the above abilities are attributed to the large size of the pre-training data.
 The language generation ability is a direct consequence of language modelling training objectives.
 \textcite{liang2022holistic} concluded that the performance on tasks requiring knowledge of the world is directly proportional to the size of the pre-training data.
 
-The source of CoT reasoning ability is less clear and still elusive.
+The source of CoT ability is less clear and still elusive.
 Some hypotheses have been proposed to explain the origins of this skill.
-Scale is not a deciding factor: there are models that are large enough, like OPT\textsubscript{175B} and BLOOM\textsubscript{176B} that cannot do CoT\footnote{It means CoT performance are worse than direct prompting or fine-tuning on smaller models}, while smaller models like UL2\textsubscript{20B}~\cite{tay2023ul2unifyinglanguagelearning} or Codex\textsubscript{12B}~\cite{chen2021evaluating} can leverage on CoT\footnote{Notably, CoT prompting does not require any additional fine-tuning of the model.} to improve performance.
+Scale is not a deciding factor: some models are large enough, like OPT\textsubscript{175B} and BLOOM\textsubscript{176B}, that cannot do CoT\footnote{It means CoT performance is worse than direct prompting or fine-tuning on smaller models}, while smaller models like UL2\textsubscript{20B}~\cite{tay2023ul2unifyinglanguagelearning} or Codex\textsubscript{12B}~\cite{chen2021evaluating} can leverage on CoT\footnote{Notably, CoT prompting does not require any additional fine-tuning of the model.} to improve performance.
 
 One of the most popular theories is that the CoT reasoning is related to code in the pre-training dataset.
 \begin{displayquote}
 	There is also speculation that training on code data can greatly increase the chain-of-thought prompting abilities of LLMs, while it is still worth further investigation with more thorough verification~\cite{survey}.
 \end{displayquote}
-One piece of evidence is that code-davinci-002, a model trained on code data, is consistently better on CoT than text-davinci-002 on language tasks.
+One piece of evidence is that code-davinci-002, a model trained on code data, is consistently better on CoT than text-davinci-002 on language tasks~\cite{ye2023comprehensivecapabilityanalysisgpt3}.
 On the HELM evaluation, a massive-scale evaluation performed by \textcite{liang2022holistic}, the authors also found that models trained on/for code have strong language reasoning abilities.
 As an intuition, procedure-oriented programming is similar to solving tasks step by step, and object-oriented programming is similar to decomposing complex tasks into simpler ones.
 
