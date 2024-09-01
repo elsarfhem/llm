@@ -41,7 +41,12 @@ In-context learning is a special prompting technique, initially introduced by \t
 \end{figure}
 ICT consists of the task description and/or a few examples of the task as demonstrations combined in a specific order to form natural language prompts with specifically designed templates~\cite{brown2020language}.
 Finally, the test instance is appended to the prompt to form the input for LLMs to generate the output.
-
+\begin{figure}
+	\centering
+	\includegraphics[width=0.6\textwidth]{icl-example2}
+	\caption{Two examples of in-context learning, where a language model (LM) is given a list of training examples (black) and a test input (green) and asked to make a prediction (orange) by predicting the next tokens/words to fill in the blank. Source: \textcite{stanford2023understandingincontext}}
+	\label{fig:icl-example2}
+\end{figure}
 LLMs can improve the performance to execute a new task without explicit gradient update based on task demonstrations.
 Formally, the in-context learning task can be defined as follows:
 \begin{equation}
@@ -271,6 +276,7 @@ The reasons for the ICL ability have been investigated from different perspectiv
 Focusing on the pretraining data distribution, \textcite{chan2022data} showed that the ICL ability is driven by data distributional properties.
 The ICL ability emerges when the training data have examples appearing in clusters and have enough rare classes.
 \textcite{xie2022an} explained ICL as implicit Bayesian inference and constructed a synthetic dataset to prove that the ICL ability emerges when the pretraining distribution follows a mixture of hidden Markov models.
+To predict the next token during pretraining, the LM must infer ("locate") the latent concept\footnote{A latent variable that contains various document-level statistics. For example, a "news topics" concept describes a distribution of words (news and their topics), a format (the way that news articles are written), a relation between news and topics, and other semantic and syntactic relationships between words. In general, concepts may be a combination of many latent variables that specify different aspects of the semantics and syntax of a document} for the document using evidence from the previous sentences.
 Under the learning mechanism, the ICL ability is explained by the ability of Transformers to encode effective learning algorithms to learn unseen linear functions according to demonstration samples, and encoded learning algorithms can achieve a comparable error to that from the least squares estimator~\cite{garg2023transformers}.
 Also \textcite{li2023transformers} showed the ability of Transformers to implement a proper function class through implicit empirical risk minimization for the demonstrations.
 From an information-theoretic perspective, \textcite{hahn2023theory} showed an error bound for ICL under linguistically motivated assumptions to explain how next-token prediction can bring about the ICL ability.

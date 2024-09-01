@@ -43,22 +43,31 @@ Historically, the development of Language Models (LMs) has been rooted in the qu
 			      \item \textbf{Summarization:} Creating concise summaries of longer texts.
 			      \item \textbf{Sentiment Analysis:} Determining the sentiment expressed in a text.
 		      \end{itemize}
+
+		      \begin{quote}
+			      \textbf{Language Translation:} \\
+			      \textit{Input:} {\enquote{Translate the following English text to French: `The quick brown fox jumps over the lazy dog.'}} \\
+			      \textit{Output:} {\enquote{Le renard brun rapide saute par-dessus le chien paresseux.}}\\
+			      \textbf{Arithmetic Tasks:} \\
+			      \textit{Input:} {\enquote{What is the sum of 42 and 63?}} \\
+			      \textit{Output:} {\enquote{The sum of 42 and 63 is 105.}}
+		      \end{quote}
+
 		      These large-sized PLMs have been shown to outperform their smaller (e.g., 330M-parameters vs 1.5B-parameters) and show surprising capabilities \footnote{Note that a LLM is not necessarily more capable than a small PLM, and emergent abilities may not occur in some LLMs.}, also called emergent abilities by \textcite{wei2022emergent}.
 		      \begin{displayquote}
 			      Emergence is when quantitative changes in a system result in qualitative changes in behavior~\cite{anderson1972more}.
 		      \end{displayquote}
 		      These emergent abilities include but are not limited to, the ability to perform tasks for which they were not explicitly trained, such as translation, summarisation, and question-answering, and to generalise to new tasks and domains, such as zero-shot learning \footnote{It refers to a machine learning scenario where a model makes predictions or performs tasks for classes or examples it has never seen during training}, few-shot learning \footnote{It involves training a model with a minimal number of examples per class, usually much fewer than what traditional machine learning models require}, and even one-shot\footnote{It is a specific case of few-shot learning where the model is trained with only one example per class} learning\footnote{A shot is an example or demonstration of what type of prompt and response you expect from a large language model. This term originates from training computer vision models on photographs, where one shot was one example or instance that the model used to classify an image \cite{feifei2006onedatacoltut}.}.
+		      \begin{figure}
+			      \centering
+			      \includegraphics[width=0.7\textwidth]{icl-example2}
+			      \caption{Two examples of in-context learning, where a language model (LM) is given a list of training examples (black) and a test input (green) and asked to make a prediction (orange) by predicting the next tokens/words to fill in the blank. Source: \textcite{stanford2023understandingincontext}.}
+			      \label{fig:icl-example}
+		      \end{figure}
 		      Three typical examples of emergent abilities are:
 		      \begin{enumerate}
-			      \item \textbf{In-context learning:} {this ability has been formally observed in GPT-3, which is provided with a natural language instruction or task demonstrations; it can generate the expected output for test instances by completing the word sequence of the input text. Importantly, this can be achieved without requiring additional training or gradient updates \footnote{\textcite{dai2022why} shows that in-context learning implicitly performs meta optimisation through the attention mechanism}.
-				            \begin{quote}
-					            \textbf{Language Translation:} \\
-					            \textit{Input:} {\enquote{Translate the following English text to French: `The quick brown fox jumps over the lazy dog.'}} \\
-					            \textit{Output:} {\enquote{Le renard brun rapide saute par-dessus le chien paresseux.}}\\
-					            \textbf{Arithmetic Tasks:} \\
-					            \textit{Input:} {\enquote{What is the sum of 42 and 63?}} \\
-					            \textit{Output:} {\enquote{The sum of 42 and 63 is 105.}}
-				            \end{quote}
+			      \item \textbf{In-context learning:} {this ability has been formally observed in GPT-3, which is provided with a natural language instruction or task demonstrations; it can generate the expected output for test instances by completing the word sequence of the input text (as shown in Figure~\ref{fig:icl-example}). Importantly, this can be achieved without requiring additional training or gradient updates \footnote{\textcite{dai2022why} shows that in-context learning implicitly performs meta optimisation through the attention mechanism}.
+				            The surprising fact is that the LM isn’t trained to learn from examples. Because of this, there’s seemingly a mismatch between pretraining (what it’s trained to do, which is next token prediction) and in-context learning (what we’re asking it to do).
 			            }
 			      \item \textbf{Instruction following:}{
 				            Through the process called instruction tuning -- that we will see more in-depth in Section  \ref{subsec:instruction-tuning} -- LLMs exhibit strong performance on unseen tasks described through natural language instructions \cite{sanhetal2022multitask, ouyang2022training, wei2022fine}.
@@ -296,20 +305,22 @@ Such models are an important area of study as they have the potential to be used
 	\centering
 	\label{tab:gpt4_example}
 	\begin{tabular}{@{}m{2cm}@{}m{10cm}@{}}
-		User  & What is funny about this image? Describe it panel by panel.                                                                                                                                                                                                                                                                                                                                         \\
-		      & \includegraphics[width=10cm]{gpt4}                                                                                                                                                                                                                                                                                                                                                                  \\
-		      &                                                                                                                                                                                                                                                                                                                                                                                                     \\
+		User  & What is funny about this image? Describe it panel by panel.                                                                               \\
+		      & \includegraphics[width=10cm]{gpt4}                                                                                                        \\
+		      &                                                                                                                                           \\
 		GPT-4 &
 		\begin{tabular}[t]{@{}m{10cm}@{}}
-			The image shows a "Lightning Cable" adapter package with three panels.                                                                                                                                                                                                                                                                                                                                      \\
-			Panel 1: A smartphone with a VGA connector (a large, blue, 15-pin connector typically used for computer monitors) plugged into its charging port.                                                                                                                                                                                                                                                           \\
-			Panel 2: The package for the "Lightning Cable" adapter with a picture of a VGA connector on it.                                                                                                                                                                                                                                                                                                             \\
-			Panel 3: A close-up of the VGA connector with a small Lightning connector (used for charging iPhones and other Apple devices) at the end.                                                                                                                                                                                                                                                                   \\
-			The humour in this image comes from the absurdity of plugging a large, outdated VGA connector into a small, modern smartphone charging port.                                                                                                                                                                                                                                                                \\
-			The model can grasp the context of the image and provide a detailed description of each panel, highlighting the humour in the visual juxtaposition of old and new technology\footnote{There are literal websites that explain jokes, and why something is funny. So, we truly don’t know whether LLM's explanation of the joke is coming from the trueunderstanding of language or from those retrievals.}. \\
+			The image shows a "Lightning Cable" adapter package with three panels.                                                                            \\
+			Panel 1: A smartphone with a VGA connector (a large, blue, 15-pin connector typically used for computer monitors) plugged into its charging port. \\
+			Panel 2: The package for the "Lightning Cable" adapter with a picture of a VGA connector on it.                                                   \\
+			Panel 3: A close-up of the VGA connector with a small Lightning connector (used for charging iPhones and other Apple devices) at the end.         \\
+			The humour in this image comes from the absurdity of plugging a large, outdated VGA connector into a small, modern smartphone charging port.      \\
 		\end{tabular} \\
 	\end{tabular}
-	\caption{Example prompt demonstrating GPT-4's visual input capability. The prompt consists of a question about an image with multiple panels.}
+	\caption{
+		Example prompt demonstrating GPT-4's visual input capability. The prompt consists of a question about an image with multiple panels.\\
+		The model can grasp the context of the image and provide a detailed description of each panel, highlighting the humour in the visual juxtaposition of old and new technology. There are literal websites that explain jokes, and why something is funny. So, it's not possible to know whether LLM's explanation of the joke is coming from the true understanding of language or from those retrievals.
+	}
 \end{table}
 
 On the MMLU benchmark~\cite{hendrycks2021measuring}, an English-language suite of multiple-choice questions covering 57 subjects, GPT-4 outperforms existing models by a considerable margin in English and demonstrates strong performance in other languages.
@@ -361,17 +372,34 @@ Main differences between Llama and original Transformer architecture~\cite{vaswa
 
 \begin{table}[ht]
 	\centering
-	\begin{tabular}{@{}ccccccc@{}}
+	\begin{tabular}{@{}ccccccccc@{}}
 		\toprule
-		params & dimension & n heads & n layers & learning rate          & batch size & n tokens \\
+		Model       & params & dimension & \# heads & \# layers & learning rate          & batch size & \# tokens & context \\
 		\midrule
-		6.7B   & 4096      & 32      & 32       & \(3.0 \times 10^{-4}\) & 4M         & 1.0T     \\
-		13.0B  & 5120      & 40      & 40       & \(3.0 \times 10^{-4}\) & 4M         & 1.0T     \\
-		32.5B  & 6656      & 52      & 60       & \(1.5 \times 10^{-4}\) & 4M         & 1.4T     \\
-		65.2B  & 8192      & 64      & 80       & \(1.5 \times 10^{-4}\) & 4M         & 1.4T     \\
+		LLaMA       & 6.7B   & 4096      & 32       & 32        & \(3.0 \times 10^{-4}\) & 4M         & 1.0T      & 2k      \\
+		LLaMA       & 13.0B  & 5120      & 40       & 40        & \(3.0 \times 10^{-4}\) & 4M         & 1.0T      & 2k      \\
+		LLaMA       & 32.5B  & 6656      & 52       & 60        & \(1.5 \times 10^{-4}\) & 4M         & 1.4T      & 2k      \\
+		LLaMA       & 65.2B  & 8192      & 64       & 80        & \(1.5 \times 10^{-4}\) & 4M         & 1.4T      & 2k      \\
+		CodeLlama 2 & 7B     & 4096      & 32       & 32        & $2.0 \times 10^{-4}$   & 4M         & 1.8T      & 16k     \\
+		LLaMA 2     & 7B     & 4096      & 32       & 32        & $2.0 \times 10^{-4}$   & 4M         & 1.8T      & 4k      \\
+		LLaMA 2     & 13B    & 5120      & 40       & 40        & $2.0 \times 10^{-4}$   & 4M         & 1.8T      & 4k      \\
+		LLaMA 2     & 70B    & 8192      & 64       & 80        & $1.5 \times 10^{-4}$   & 4M         & 1.8T      & 4k      \\
+		LLaMA 3     & 8B     & 4096      & 32       & 32        & $2.5 \times 10^{-4}$   & 4M         & 15T       & 8k      \\
+		LLaMA 3     & 70B    & 8192      & 64       & 80        & $1.0 \times 10^{-4}$   & 4M         & 15T       & 8k      \\
+		LLaMA 3.1   & 8B     & 4096      & 32       & 32        & $3.0 \times 10^{-4}$   & 4M         & 15T       & 128k    \\
+		LLaMA 3.1   & 70B    & 8192      & 64       & 80        & $1.5 \times 10^{-4}$   & 4M         & 15T       & 128k    \\
+		LLaMA 3.1   & 504B   & 16384     & 128      & 126       & $8.0 \times 10^{-5}$   & 4M         & 15T       & 128k    \\
 		\bottomrule
 	\end{tabular}
-	\caption{Llama model sizes, architectures, and optimization hyper-parameters. Source: \textcite{touvron2023llama}.}
+	\caption{Llama models sizes, architectures, and optimization hyper-parameters.
+		Params: This column represents the total number of parameters in billions.
+		Dimension: The dimension of the model's hidden layers.
+		\# heads: The number of attention heads in the model.
+		\# layers: The number of transformer layers in the model.
+		Learning rate: The learning rate used during training.
+		Batch size: The batch size used during training.
+		\# tokens: The total number of tokens in the training dataset.
+		Source: \textcite{touvron2023llama}.}
 	\label{tab:llama-model-params}
 \end{table}
 
