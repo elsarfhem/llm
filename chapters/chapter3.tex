@@ -39,7 +39,7 @@ In-context learning is a special prompting technique, initially introduced by \t
 	\caption{In-context learning contrasted with traditional fine-tuning. Source: \textcite{brown2020language}}
 	\label{fig:in-context-learning}
 \end{figure}
-ICT consists of the task description and/or a few examples of the task as demonstrations combined in a specific order to form natural language prompts with specifically designed templates~\cite{brown2020language}.
+ICL consists of the task description and/or a few examples of the task as demonstrations combined in a specific order to form natural language prompts with specifically designed templates~\cite{brown2020language}.
 Finally, the test instance is appended to the prompt to form the input for LLMs to generate the output.
 \begin{figure}
 	\centering
@@ -170,8 +170,8 @@ Ordering the selected demonstrations is also an important aspect of demonstratio
 To address this problem, studies have proposed several training-free methods for ordering demonstrations.
 \textcite{liu2022good} sorted examples based on similarity, while GlobalE\&LocalE~\cite{lu2022fantastically} orders demonstrations based on global and local entropy.
 
-A common representation of demonstrations is concatenating examples $(x_1, y_1), \cdots, (x_k, y_k)$ with a template T directly.
-However, this approach may not be optimal for all tasks, i.e.\ when the task is complex or requires multiple steps such as math word problems and common-sense reasoning.
+A common representation of demonstrations is concatenating examples $(x_1, y_1), \cdots, (x_k, y_k)$ with a template $T$ directly.
+However, this approach may not be optimal for all tasks (i.e., when the task is complex or requires multiple steps such as math word problems and common-sense reasoning).
 In those cases, learning the mapping from $x_i$ to $y_i$ with only $k$ demonstrations is challenging.
 Template engineering has been studied in \textcite{liu2021pretrain, liu2022good} to generate task-specific templates.
 Some researchers have proposed designing a better demonstration format by describing tasks with instructions and adding intermediate reasoning steps between examples $(x_i, y_i)$.
@@ -270,13 +270,18 @@ There are contrasting results on the impact of input-label mapping related to IC
 An interesting finding is that, when a model is large enough, it will show an emergent ability to learn input-label mappings, even if the labels are flipped\footnote{Flipped-label ICL uses flipped targets, forcing the model to override semantic priors to follow the in-context exemplars. For example, in the sentiment analysis task, the label "Positive" becomes "Negative" in ICL context and viceversa} or semantically-unrelated\footnote{The labels are semantically unrelated to the task(e.g., for sentiment analysis, it uses "foo/bar" instead of "negative/positive")}~\cite{wei2023larger}.
 Some general validated factors for the ICL demonstrations are that they should be diverse, simple, and similar to the test example in terms of the structure~\cite{an2023how}.
 \textcite{lu2022fantastically} indicated that the demonstration sample order is also an important factor.
-\textcite{liu2022good} found that the demonstration samples with closer embeddings to the query samples usually perform better than those with farther embeddings.
+\textcite{liu2022good} found that the demonstration samples with closer embeddings\footnote{Using Classify Token (CLS) embeddings of a pre-trained RoBERTa to measure the proximity of two sentences with the Euclidean distance. The CLS token is extensively used to capture the context and semantics of the input (e.g., the sentiment in  sentiment analysis; category in classification tasks; etc.).} to the query samples usually perform better than those with farther embeddings\footnote{Retrieving the input k nearest neighbourhoods ordered by ascending similarity measure}.
 
 The reasons for the ICL ability have been investigated from different perspectives.
 Focusing on the pretraining data distribution, \textcite{chan2022data} showed that the ICL ability is driven by data distributional properties.
 The ICL ability emerges when the training data have examples appearing in clusters and have enough rare classes.
-\textcite{xie2022an} explained ICL as implicit Bayesian inference and constructed a synthetic dataset to prove that the ICL ability emerges when the pretraining distribution follows a mixture of hidden Markov models.
+\textcite{xie2022an} explained ICL as implicit Bayesian inference\footnote{
+Bayesian inference is a method of statistical inference in which Bayes' theorem is used to update the probability for a hypothesis as more evidence or information becomes available. Fundamentally, Bayesian inference uses prior knowledge, in the form of a prior distribution in order to estimate posterior probabilities.
+$P(H||E)=frac{P(E|H) \cdot P(H)}{P(E)})$, where $P(H)$ is the prior probability of hypothesis $H$, $P(E|H)$ is the likelihood of evidence $E$ given hypothesis $H$, $P(E)$ is the marginal likelihood of evidence, and $P(H|E)$ is the posterior probability of hypothesis $H$ given evidence $E$~\cite{wikipedia2023bayesianinference}.
+} and constructed a synthetic dataset to prove that the ICL ability emerges when the pretraining distribution follows a mixture of hidden Markov models.
+The hypotheses is that LM learn to do Bayesian inference during pre-training.
 To predict the next token during pretraining, the LM must infer ("locate") the latent concept\footnote{A latent variable that contains various document-level statistics. For example, a "news topics" concept describes a distribution of words (news and their topics), a format (the way that news articles are written), a relation between news and topics, and other semantic and syntactic relationships between words. In general, concepts may be a combination of many latent variables that specify different aspects of the semantics and syntax of a document} for the document using evidence from the previous sentences.
+Later, if the LM infers also the latent concept prompt (provided by the demonstrations), then the in-context learning ability occurs.
 Under the learning mechanism, the ICL ability is explained by the ability of Transformers to encode effective learning algorithms to learn unseen linear functions according to demonstration samples, and encoded learning algorithms can achieve a comparable error to that from the least squares estimator~\cite{garg2023transformers}.
 Also \textcite{li2023transformers} showed the ability of Transformers to implement a proper function class through implicit empirical risk minimization for the demonstrations.
 From an information-theoretic perspective, \textcite{hahn2023theory} showed an error bound for ICL under linguistically motivated assumptions to explain how next-token prediction can bring about the ICL ability.

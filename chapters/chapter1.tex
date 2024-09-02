@@ -44,15 +44,6 @@ Historically, the development of Language Models (LMs) has been rooted in the qu
 			      \item \textbf{Sentiment Analysis:} Determining the sentiment expressed in a text.
 		      \end{itemize}
 
-		      \begin{quote}
-			      \textbf{Language Translation:} \\
-			      \textit{Input:} {\enquote{Translate the following English text to French: `The quick brown fox jumps over the lazy dog.'}} \\
-			      \textit{Output:} {\enquote{Le renard brun rapide saute par-dessus le chien paresseux.}}\\
-			      \textbf{Arithmetic Tasks:} \\
-			      \textit{Input:} {\enquote{What is the sum of 42 and 63?}} \\
-			      \textit{Output:} {\enquote{The sum of 42 and 63 is 105.}}
-		      \end{quote}
-
 		      These large-sized PLMs have been shown to outperform their smaller (e.g., 330M-parameters vs 1.5B-parameters) and show surprising capabilities \footnote{Note that a LLM is not necessarily more capable than a small PLM, and emergent abilities may not occur in some LLMs.}, also called emergent abilities by \textcite{wei2022emergent}.
 		      \begin{displayquote}
 			      Emergence is when quantitative changes in a system result in qualitative changes in behavior~\cite{anderson1972more}.
@@ -75,7 +66,8 @@ Historically, the development of Language Models (LMs) has been rooted in the qu
 				            Experiments detailed in \textcite{wei2022fine} demonstrate that LaMDA-PT, fine-tuned with instructions, begins to outperform its untuned counterpart significantly when the model size reaches 68 billion parameters. However, this performance gain is not observed for 8 billion or smaller model sizes. Furthermore, \textcite{chung2022scaling} highlights that a model size of at least 62 billion parameters is necessary for PaLM to excel across various tasks in evaluation benchmarks like MMLU, BBH, TyDiQA, and MGSM. Nevertheless, it is noted that certain specific tasks, such as MMLU, might suffice with much smaller model size, emphasising the nuanced relationship between model size and task performance.
 			            }
 			      \item \textbf{Step-by-step reasoning:} { For small LMs, it is usually difficult to solve complex tasks that involve multiple reasoning steps (e.g., mathematical word problems).
-				            In contrast, the chain-of-thought (CoT) prompting strategy \cite{wei2022chain} empowers Large Language Models (LLMs) to surmount these challenges. By leveraging the CoT prompting mechanism, which involves intermediate reasoning steps to derive the final solution, LLMs exhibit proficiency in tasks requiring intricate cognitive processes. This capability is speculated to be honed through training on code by \textcite{wei2022chain}. Empirical findings in \textcite{wei2022chain} demonstrate that the employment of CoT prompting yields performance gains, particularly on arithmetic reasoning benchmarks, when applied to variants of models like PaLM and LaMDA, especially with a model size surpassing 60B. The advantages of CoT prompting become more pronounced as the model size exceeds 100B. Furthermore, the effectiveness of CoT prompting exhibits variability across different tasks, with performance improvement observed in the order of GSM8k~\textgreater~MAWPS~\textgreater~SWAMP for PaLM~\cite{wei2022chain}.
+				            In contrast, the chain-of-thought (CoT) prompting strategy \cite{wei2022chain} empowers Large Language Models (LLMs) to surmount these challenges. By leveraging the CoT prompting mechanism, which involves intermediate reasoning steps to derive the final solution, LLMs exhibit proficiency in tasks requiring intricate cognitive processes. This capability is speculated to be honed through training on code by \textcite{wei2022chain}. Authors demonstrate that the employment of CoT prompting yields performance gains, particularly on arithmetic reasoning benchmarks, when applied to variants of models like PaLM and LaMDA, especially with a model size surpassing 60B. The advantages of CoT prompting become more pronounced as the model size exceeds 100B. Furthermore, the effectiveness of CoT prompting exhibits variability across different tasks, with performance improvement observed in the order of GSM8k~\textgreater~MAWPS~\textgreater~SWAMP for PaLM~\cite{wei2022chain}.
+				            Recent studies have shown that size is not a deciding factor in the model's ability to perform step-by-step reasoning tasks. We will investigate this further in Chapter~\ref{subsec:cot-performance}.
 			            }
 		      \end{enumerate}
 	      }
