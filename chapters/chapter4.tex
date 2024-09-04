@@ -33,28 +33,28 @@ One piece of evidence is that code-davinci-002, a model trained on code data, is
 
 \begin{table}[ht]
 	\centering
-	\begin{tabularx}{\textwidth}{Xccccccc}
+	\begin{tabularx}{\textwidth}{Xccccc}
 		\toprule
-		\textbf{Model}   & \multicolumn{2}{c}{\textbf{NumWord}} & \multicolumn{2}{c}{\textbf{SwapAnt}} & \multicolumn{2}{c}{\textbf{All}}                                                                 \\
-		                 & \textbf{ori}                         & \textbf{trans}                       & \textbf{ori}                     & \textbf{trans} & \textbf{ori} & \textbf{trans} & \textbf{all} \\
+		\textbf{Model}   & \multicolumn{2}{c}{\textbf{NumWord}} & \multicolumn{2}{c}{\textbf{SwapAnt}} &                                                                                     \\
+		                 & \textbf{ori}                         & \textbf{trans}                       & \textbf{ori}               & \textbf{trans}             & \textbf{all}              \\
 		\midrule
-		\multicolumn{8}{c}{\textbf{0-shot}}                                                                                                                                                               \\
+		\multicolumn{6}{c}{\textbf{0-shot}}                                                                                                                                                  \\
 		\midrule
-		code-davinci-002 & 0.00±0.00                            & 4.67±8.08                            & 26.00±45.03                      & 8.00±13.86     & 70.00±3.07   &                &              \\
-		text-davinci-002 & 68.41±6.24                           & 66.67±35.79                          & 95.57±5.18                       & 36.29±18.66    & 72.73±2.55   &                &              \\
+		code-davinci-002 & 0.00\textpm0.00                      & 4.67\textpm8.08                      & 26.00\textpm45.03          & 8.00\textpm13.86           & 70.00\textpm3.07          \\
+		text-davinci-002 & \textbf{68.41\textpm6.24}            & \textbf{66.67\textpm35.79}           & \textbf{95.57\textpm5.18}  & \textbf{36.29\textpm18.66} & \textbf{72.73\textpm2.55} \\
 		\midrule
-		\multicolumn{8}{c}{\textbf{1-shot}}                                                                                                                                                               \\
+		\multicolumn{6}{c}{\textbf{1-shot}}                                                                                                                                                  \\
 		\midrule
-		code-davinci-002 & 69.00±5.29                           & 97.33±3.06                           & \textbf{89.67±5.51}              & 80.33±10.60    & 76.13±3.63   &                &              \\
-		text-davinci-002 & 72.31±7.04                           & 98.59±1.65                           & 64.14±14.24                      & 78.69±1.93     & 69.57±8.35   &                &              \\
+		code-davinci-002 & 69.00\textpm5.29                     & 97.33\textpm3.06                     & \textbf{89.67\textpm5.51}  & \textbf{80.33\textpm10.60} & \textbf{76.13\textpm3.63} \\
+		text-davinci-002 & \textbf{72.31\textpm7.04}            & \textbf{98.59\textpm1.65}            & 64.14\textpm14.24          & 78.69\textpm1.93           & 69.57\textpm8.35          \\
 		\midrule
-		\multicolumn{8}{c}{\textbf{3-shot}}                                                                                                                                                               \\
+		\multicolumn{6}{c}{\textbf{3-shot}}                                                                                                                                                  \\
 		\midrule
-		code-davinci-002 & \textbf{73.00±1.00}                  & \textbf{100.00±0.00}                 & 80.67±4.51                       & 84.48±0.18     &              &                &              \\
-		text-davinci-002 & 73.14±2.60                           & 96.10±6.53                           & 66.45±5.80                       & 85.86±9.69     & 72.70±3.57   &                &              \\
+		code-davinci-002 & \textbf{73.00\textpm1.00}            & \textbf{100.00\textpm0.00}           & \textbf{80.67\textpm4.51 } & \textbf{91.00\textpm5.57}  & \textbf{84.48\textpm0.18} \\
+		text-davinci-002 & 73.14\textpm2.60                     & 96.10\textpm6.53                     & 66.45\textpm5.80           & 85.86\textpm9.69           & 72.70\textpm3.57          \\
 		\bottomrule
 	\end{tabularx}
-	\caption{Results of code-davinci-002 and text-davinci-002 on MRPC dataset. The results highlight the superiority of code-davinci-002 on CoT.}
+	\caption{Results of code-davinci-002 and text-davinci-002 on MRPC dataset (original and transformed by TextFlint, a multilingual robustness evaluation toolkit for NLP tasks that incorporates universal text transformation, task-specific transformation, adversarial attack, subpopulation, and their combinations to provide comprehensive robustness analyses). The results highlight the superiority of code-davinci-002 on CoT. Source: \textcite{ye2023comprehensivecapabilityanalysisgpt3}.}
 	\label{tab:davinci-comparison}
 \end{table}
 
@@ -113,12 +113,19 @@ The results from the execution of the experiments are shown in Table~\ref{tab:ll
 \begin{table}[h!]
 	\centering
 	\begin{tabularx}{\textwidth}{Xcccc}
-		                                      & \textbf{GSM8k 0-shot} & \textbf{GSM8k 5-shot} & \textbf{gsm-hard 0-shot} & \textbf{gsm-hard 5-shot} \\
+		\toprule
+		                                      & \textbf{GSM8k 0-shot} & \textbf{GSM8k 5-shot} & \textbf{GSM-hard 0-shot} & \textbf{GSM-hard 5-shot} \\
+		\midrule
 		\textbf{Llama2\textsubscript{7B}}     & 3.1\%                 & 15.7\%                & $\approxeq$0\%           & $\approxeq$0\% (16.69\%) \\
+		\hline
 		\textbf{Code Llama\textsubscript{7B}} & 3.99\%                & 16.3\%                & 1.3\%                    & 1.5\% (27.6\%)           \\
+		\hline
 		\textbf{Llama2\textsubscript{13B}}    & 10.53\%               & 35.8\%                & $\approxeq$0\%           & $\approxeq$0\%	 (36\%)   \\
+		\hline
 		\textbf{Llama3\textsubscript{7B}}     & 31.0\%                & 47.0\%                & 5.4\%                    & 7.4\% (56.1\%)           \\
+		\hline
 		\textbf{Llama3.1\textsubscript{7B}}   & 75.9 \%               & 80.9\%                & 7.85\%                   & 9.46\% (62.36\%)         \\
+		\bottomrule
 	\end{tabularx}
 	\caption{Comparison of Llama models on mathematical reasoning tasks. The numbers in parentheses for the last column are the success rate leveraging the PoT reasoning ability (i.e., executing the Python code in the reasoning part) rather than using the solution provided by the model itself.}
 	\label{tab:llama-comparison}
