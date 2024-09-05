@@ -452,6 +452,42 @@ Intuitively, code data is well organized with algorithmic logic and programming 
 We'll try to address this gap in the next chapter~\ref{ch:capabilities}, by conducting a series of experiments to evaluate the effectiveness of training on code data for reasoning tasks.
 In addition, instruction tuning seems not to be the main factor for CoT ability since the performance of LLMs on CoT tasks is not significantly improved by instruction tuning~\cite{chung2022scaling}.
 
+\section{Program-of-Thoughts}
+\label{sec:program-of-thoughts}
+
+PoT uses a programmatic approach to prompt LLMs to solve complex reasoning tasks proposed by \textcite{chen2022program}.
+It leverages models to generate text and programming languages statements, executing them to get the final answer.
+The approach is similar to CoT, but the reasoning steps are expressed in a more structured way, resembling a program (see Figure~\ref{fig:pot-cot}).
+\begin{figure}
+	\centering
+	\includegraphics[width=0.8\textwidth]{pot-cot}
+	\caption{Program-of-Thoughts (PoT) for solving math word problems. The input is a math word problem, and the output is a program that can solve the problem. Source: \textcite{chen2022program}}
+	\label{fig:pot-cot}
+\end{figure}
+CoT uses LLMs for both reasoning and computation, i.e., the language model not only needs to generate the mathematical expressions but also needs to perform the computation in each step\footnote{
+	Some studies contradict the fact that LLMs can perform computations or reasoning tasks~\cite{qian2022limitations, bian2024chatgpt, kambhampati2023role}.
+}.
+Whatever the case, LLMs are not ideal for actually solving these mathematical expressions, because:
+\begin{itemize}
+	\item LLMs are very prone to arithmetic calculation errors, especially when dealing with large numbers.
+	\item LLMs cannot solve complex mathematical expressions like polynomial equations or even differential equations.
+	\item LLMs are highly inefficient at expressing iteration, especially when the number of iteration steps is large.
+\end{itemize}
+PoT can overcome these limitations by using a programmatic approach, where the reasoning steps are expressed as Python programs that can be executed to get the final answer by a Python interpreter.
+The programmatic approach is also different from generating equations directly, that is found to be more challenging for LLMs~\cite{wei2022chain}.
+It mainly differs from equation generation for the following reasons:
+\begin{itemize}
+	\item PoT breaks down the reasoning process into a series of steps, each of which is expressed as a Python statement;
+	\item it binds semantic meaning to variables, which can elicit language models' reasoning capabilities and generate more accurate programs
+\end{itemize}
+In zero-shot PoT, a caveat is that LLM can fall back to generating a reasoning chain in comments rather than in the program.
+Therefore, \textcite{chen2022program} proposes to suppress "\#" token logits to encourage it to generate programs.
+
+As confirmed by our experiments in Chapter~\ref{ch:capabilities}, PoT can significantly improve performance on math problems compared to CoT\@.
+Even though PoT is effective on highly symbolic math problems, it still struggles with AQuA dataset, which contains complex algebraic questions mainly due to the diversity of questions, which the demonstration cannot possibly cover.
+For semantic reasoning tasks like commonsense reasoning (StrategyQA), probably PoT is not the best option.
+In contrast, CoT can solve more broader reasoning tasks.
+
 \section{Planning for complex tasks}
 \label{sec:planning}
 
