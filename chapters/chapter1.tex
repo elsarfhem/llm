@@ -1,23 +1,19 @@
 %! Author = amatarazzo
 %! Date = 10/03/24
 
-
-\chapter{Introduction to Large Language Models}
-\label{ch:introduction}
-
+\chapter{Large Language Models}
+\label{ch:large-language-models}
 
 \section{Definition and Overview}
 \label{sec:definition-and-overview}
 
-In the contemporary landscape of artificial intelligence, Large Language Models (LLMs) stand out as monumental achievements, revolutionising natural language processing.
-These models, characterised by their immense scale and complexity, have become pivotal in understanding and generating human-like text.
 At their core, LLMs are designed to comprehend, learn, and generate coherent and contextually relevant language on an unparalleled scale.
 
 Historically, the development of Language Models (LMs) has been rooted in the quest to understand and replicate human language, and four main stages can be identified:
 \begin{enumerate}
 	\item \textbf{Statistical Language Models:} {These models were developed to capture the statistical properties of language, such as word frequencies and co-occurrences, to predict the likelihood of a given sequence of words based on the Markov assumption, which states that the probability of a word depends only on the previous \textit{n} words.
 		      If the context length \textit{n} is fixed, the model is called an \textit{n}-gram model.\\
-		      However, these models are limited by the exponential number of transition probabilities to be estimated and the Markov assumption, which may not always hold true in the complexity of natural languages.
+		      However, these models are limited by the exponential number of transition probabilities to be estimated and the Markov assumption\footnote{The Markov assumption proposes that the future state of a process relies solely on the current state by disregarding the journey to the current state. Mathematically, it is expressed in terms the conditional probability \(P(S_t)\) -- the likelihood of an event occurring given the past states -- as \(P(S_{t+1} | S_t, S_{t-1} \ldots, S_1) = P(S_{t+1} | S_t)\), where \(S_t\) is the state at time \(t\). The Markov assumption simplifies the modelling process by reducing the number of parameters to estimate.}, which may not always hold true in the complexity of natural languages.
 		      Language understanding often involves capturing dependencies over longer distances than the Markov assumption allows. Models considering broader contexts, such as recurrent neural networks (RNNs) and transformers, have been developed to address these long-range dependencies in language processing tasks.}
 	\item \textbf{Neural Language Models:} {The advent of neural networks led to the development of language models that utilised neural architectures to capture language's complex patterns and dependencies.
 		      These models, such as recurrent neural networks (RNNs) and long short-term memory (LSTM) networks, could capture long-range dependencies and contextual information, enabling them to generate coherent and contextually relevant text.
