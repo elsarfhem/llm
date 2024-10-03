@@ -4,55 +4,55 @@
 
 \chapter*{Introduction}
 
-In recent years, the field of artificial intelligence has witnessed an extraordinary transformation, largely fueled by the development of Large Language Models (LLMs) based on the Transformer architecture.
-These models have revolutionized the way we approach natural language processing tasks, achieving levels of comprehension, learning, and generation that were once considered unattainable.
+In recent years, the field of artificial intelligence has witnessed an extraordinary transformation, fueled mainly by the development of Large Language Models (LLMs) based on the Transformer architecture.
+These models have revolutionized how we approach natural language processing tasks, achieving comprehension, learning, and generation levels that were once considered unattainable.
 LLMs have demonstrated unprecedented capabilities in various applications, such as text generation, question answering, language translation, and summarization, showcasing their potential in handling complex language understanding and generation tasks.
 Surprisingly, these models have also exhibited some abilities that go beyond their primary task of text generation, such as commonsense reasoning, code generation, arithmetic operations, and other complex tasks in various domains.
 
-The evolution of LLMs has been driven by several key factors, most notably the exponential growth in available data and computational resources.
+Several key factors have driven the evolution of LLMs, most notably the exponential growth in available data and computational resources.
 As LLMs have scaled up to billions of parameters, they have acquired the ability to capture intricate patterns within language, resulting in more coherent, contextually relevant, and often impressively human-like text generation.
 These models, exemplified by OpenAI's GPT series and Meta's LLaMA, have demonstrated unprecedented capabilities in various applications, ranging from chatbots and content creation to complex problem-solving tasks.
 However, with their increasing complexity and capabilities, these models have introduced new challenges and raised critical questions about their applicability, limitations, and potential for future development.
 
 How do these models learn and generalize across tasks and domains?
-What are the these emergent abilities?
+What are these emergent abilities?
 Which factors contribute to their development (e.g., model size, data, architecture)?
 Furthermore, what are the inherent limitations of these models, and how can they be addressed?
 
-This thesis aims to delve into these questions, exploring the capabilities and limitations of LLMs in-depth.
-It seeks to provide a comprehensive understanding of the mechanisms that enable LLMs to perform tasks that were previously deemed impossible for machine learning systems.
-By investigating the main components, strategies, and techniques that underpin the development of LLMs in literature, this work will shed light on how these models can be leveraged to solve complex tasks.
+This thesis aims to delve into these questions, exploring the capabilities and limitations of LLMs in depth in Chapter \ref{ch:capabilities}.
+It seeks to provide a comprehensive understanding of the mechanisms that enable LLMs to perform tasks previously deemed impossible for machine learning systems.
+This work will investigate the main components, strategies, and techniques that underpin the development of LLMs in literature, shedding light on how these models can be leveraged to solve complex tasks in Chapter \ref{ch:utilization}.
 
 The following chapters will present an in-depth analysis of LLMs, beginning with a foundational overview of their development, pre-training strategies, and architectural variations.
 This includes an examination of the progression from early language models to the sophisticated architectures of LLMs, such as BERT, GPT, and Llama.
-Moreover, we will explore the concept of scaling laws, which have been instrumental in understanding how the size and complexity of LLMs contribute to their performance and capabilities.
+Moreover, we will explore the concept of scaling laws, which have been instrumental in understanding how the size and complexity of LLMs contribute to their performance and capabilities in Section \ref{sec:scaling-law-in-large-language-models}.
 These scaling laws will be analyzed to comprehend the trade-offs and challenges associated with building increasingly larger and more capable models.
 
-In addition to exploring the general capabilities of LLMs, this thesis will investigate their application across various domains, such as healthcare, finance, education, law, and scientific research.
+In addition to exploring the general capabilities of LLMs, this thesis will investigate their application across various domains, such as healthcare, finance, education, law, and scientific research in Chapter \ref{ch:large-language-models}.
 Each of these domains presents unique challenges and opportunities for LLMs, highlighting the versatility and adaptability of these models.
 For instance, in healthcare, LLMs have shown promise in assisting with clinical decision-making, while in finance, they are being utilized for tasks such as sentiment analysis and market prediction.
 
 
 \section*{Motivation and Research Questions}
-The rise of LLMs has opened up an array of opportunities across different domains, but it has also raised several crucial questions about their potential and limitations.
-It's really important to understand how these models work, how they learn, but also their limitations and real capabilities to drive the research in the right direction.
-The central motivation of this research is to investigate the capabilities and boundaries of LLMs, particularly focusing on their ability to generalize, plan, and execute tasks autonomously.
-As these models are going to be increasingly integrated into applications that require more than just language generation, it becomes imperative to understand how well they can perform in these complex scenarios.
+The rise of LLMs has opened up various opportunities across different domains, but it has also raised several crucial questions about their potential and limitations.
+To drive the research in the right direction, it's imperative to understand how these models work and how they learn, as well as their limitations and real capabilities.
+The central motivation of this research is to investigate the capabilities and boundaries of LLMs, mainly focusing on their ability to generalize, plan, and execute tasks autonomously.
+As these models will be increasingly integrated into applications that require more than just language generation, it becomes imperative to understand how well they can perform in these complex scenarios.
 
 \noindent Key research questions guiding this thesis include:
 
 \begin{itemize}
-	\item What are the underlying mechanisms that enable LLMs to generalize across different tasks and domains?
+	\item What underlying mechanisms enable LLMs to generalize across different tasks and domains?
 	\item Are they capable of reasoning and planning?
-	\item What are the emergent abilities of LLMs and how can they be elicited?
+	\item What are the emergent abilities of LLMs, and how can they be elicited?
 	\item Can we understand where these abilities come from and how they can be improved?
 \end{itemize}
 
 \section*{Scope of the Study}
 This thesis investigates LLMs by examining their foundational architecture, the training processes that enable them to handle diverse tasks, and the strategies that improve their capabilities.
-A significant portion of this study is dedicated to exploring LLMs' ability to generalize across tasks and domains, focusing on their capacity for reasoning, planning, and problem-solving leveraging on external tools and systems where the models show limitations.
-For example, we analyze how LLMs interact with solvers and verifiers in an LLM-Modulo framework, allowing them to engage in more complex tasks that require both linguistic and logical competencies.
+Much of this study is dedicated to exploring LLMs' ability to generalize across tasks and domains, focusing on their reasoning, planning, and problem-solving capacity, leveraging external tools and systems where the models show limitations.
+For example, in Section \ref{sec:planning}, we analyze how LLMs interact with solvers and verifiers in an LLM-Modulo framework, allowing them to engage in more complex tasks that require both linguistic and logical competencies.
 This integration is crucial for expanding the applicability of LLMs beyond static text generation into dynamic environments where they must adapt and respond to changing requirements.
-Then we focused on the CoT and PoT abilities of LLMs to understand the origin of these abilities.
-Speculations in the literature suggest that the CoT and PoT abilities are related to the code's percentage in the pre-training data mix.
-We investigate this hypothesis by carefully selecting the models based on their pre-training data mix -- to minimize the impact of other factors such as model size and architecture -- and evaluating their abilities to leverage the CoT and PoT abilities as the measure of their performance improvement.
+Then we focused on the CoT and PoT abilities of LLMs to understand the origin of these abilities in Chapter \ref{ch:capabilities}
+The literature speculates that the CoT and PoT abilities are related to the code's percentage in the pre-training data mix.
+We investigate this hypothesis by carefully selecting the models based on their pre-training data mix -- to minimize the impact of other factors such as model size and architecture -- and evaluating their abilities to leverage the CoT and PoT abilities as the measure of their performance improvement in Section \ref{sec:empirical-evidence}.

@@ -2,21 +2,21 @@
 %! Date = 23/09/24
 
 \chapter*{Conclusion}
-The rapid evolution of artificial intelligence has brought us to an era where Large Language Models (LLMs) are at the forefront of technological advancement.
-These models, with their unprecedented capabilities in processing and generating human-like text, have transformed the landscape of natural language processing (NLP), setting new benchmarks for tasks such as text generation, question answering, translation, summarization, and more.
+The rapid evolution of artificial intelligence has brought us to an era in which Large Language Models (LLMs) are at the forefront of technological advancement.
+With their unprecedented capabilities in processing and generating human-like text, these models have transformed the landscape of natural language processing (NLP), setting new benchmarks for tasks such as text generation, question answering, translation, summarization, and more.
 This thesis has delved deeply into understanding the capabilities and limitations of LLMs, exploring how these models have emerged, evolved, and are applied across various domains.
 
 \section*{Summary of Key Findings}
-The journey of NLP, starting from simpler statistical models to the current state-of-the-art transformer-based architectures, has been characterized by a continuous quest to mimic human language understanding and generation.
+The journey of NLP, from simpler statistical models to the current state-of-the-art transformer-based architectures, has been characterized by a continuous quest to mimic human language understanding and generation.
 The introduction of models like BERT, T5, GPT-3, and their successors marked a significant leap in this direction, demonstrating emergent abilities that were once thought to be beyond the reach of machine learning.
 
 As the number of parameters in LLMs increased exponentially, their ability to capture intricate patterns in language also grew, resulting in better performance on a wide range of NLP tasks.
-As disputed by some researchers, this phenomenon was already known in machine learning, and it's not a surprising result.
+As disputed by some researchers, this phenomenon was already known in machine learning, and it's not surprising.
 What we found interesting is that Scaling Laws for Transformers have shown that the performance of these models scales super-linearly with the number of parameters whenever the model is trained on a large enough dataset and starts to exhibit emergent abilities such as in-context learning and chain-of-thought reasoning.
-Scaling approach, while promising, also raises critical questions about the feasibility and sustainability of continually scaling up models.
+While the scaling approach is promising, it also raises critical questions about the feasibility and sustainability of continually scaling up models.
 The computational and environmental costs associated with training such large models are significant, suggesting that future research must find a balance between model size and efficiency, trying to elicit the emergent abilities of LLMs without the need for excessive computational resources.
-Our experiments with CoT and PoT on models with limited size confirmed that the size and the architecture is not a deciding factor for the CoT ability, but the pre-training data mix is.
-Especially, CoT is more likely to be present in models trained on a mix of data containing code.
+Our experiments with CoT and PoT on models with limited size confirmed that the size and architecture are not deciding factors for the CoT ability, but the pre-training data mix is.
+CoT is especially likely to be present in models trained on a mix of data containing code.
 
 This thesis also examined the role of specialized LLMs in various sectors, such as healthcare, finance, education, law, and scientific research.
 These models have demonstrated their potential to revolutionize domain-specific applications, offering tailored solutions that address the unique challenges within each field.
@@ -27,33 +27,33 @@ While LLMs have shown remarkable capabilities, their limitations are equally evi
 One of the most notable challenges is the tendency of these models to generate plausible but factually incorrect or misleading information, a phenomenon often referred to as "hallucination".
 This limitation raises concerns about the reliability and trustworthiness of LLMs, particularly in applications where accuracy is paramount, such as medical diagnosis or legal interpretations.
 
-Another critical limitation lies in the models' ability to perform reasoning and planning tasks.
+Another critical limitation lies in the model's ability to perform reasoning and planning tasks.
 As discussed previously, while LLMs can exhibit emergent abilities such as in-context learning and chain-of-thought reasoning, their capacity to truly understand and reason through complex tasks -- such as multistep problem-solving, planning or logical inference -- remains limited.
-This is evident in the fact that LLMs often respond in a manner that mimics human-like reasoning without actually engaging in the underlying cognitive processes.
-Even in text generation, model's responses can show repetitive tokens generations that must be prevented by a number of request parameters -- such as stopping tokens or max tokens -- since the model keeps selecting the high probability tokens in the next token generation.
-For part of the community, this is a sign that the model is not truly reason and understand the context.
-Most likely the models are leveraging on the patterns they have learned during the training phase, but they are not able to reason through the problem as a human would do.
+This is evident in the way that LLMs often respond in a manner that mimics human-like reasoning without actually engaging in the underlying cognitive processes.
+Even in text generation, the model's responses can show repetitive token generation that must be prevented by a number of request parameters--such as stopping tokens or max tokens--since the model keeps selecting the high-probability tokens in the next token generation.
+This can be read as a sign that the model is not truly reason and understand the context.
+The models are most likely leveraging the patterns they have learned during the training phase, but they are not able to reason through the problem as a human would.
 
 The ethical implications of deploying LLMs also deserve careful consideration.
-Issues such as biases in training data, the potential for generating harmful or misleading content, and the environmental impact of training massive models are challenges that must be addressed to ensure responsible use of these technologies.
+To ensure responsible use of these technologies, issues such as biases in training data, the potential for generating harmful or misleading content, and the environmental impact of training massive models must be addressed.
 
 \section*{Future Research Directions}
 The insights gained from this thesis suggest several avenues for future research.
-Firstly, there is a need to explore more efficient training methods that do not rely solely on scaling up model parameters.
-Techniques such as parameter-efficient fine-tuning, transfer learning, and the development of specialized, domain-adapted models offer promising paths toward achieving high performance without the excessive computational burden.
+Firstly, more efficient training methods that do not solely rely on scaling up model parameters need to be explored.
+Techniques such as parameter-efficient fine-tuning, transfer learning, and developing specialized, domain-adapted models offer promising paths toward achieving high performance without the excessive computational burden.
 
-Secondly, the integration of external knowledge sources and tools can enhance the reasoning capabilities of LLMs, improving the performance of the models on complex tasks and improve their reliability.
-Developing models that can interact with external databases, perform calculations, or access up-to-date information could address some of the current limitations in reasoning and factual accuracy.
+Secondly, the integration of external knowledge sources and tools can enhance the reasoning capabilities of LLMs, improving the performance of the models on complex tasks and improving their reliability.
+Developing models that can interact with external databases, perform calculations, or access up-to-date information could address current limitations in reasoning and factual accuracy.
 Although the path to moving LLMs closer to true artificial general intelligence (AGI) is still long and uncertain.
 
-Additionally, interdisciplinary research that combines insights from cognitive science, linguistics, and computer science can provide a deeper understanding of how LLMs can be aligned more closely with human thought processes.
-This alignment is crucial for developing models that not only mimic human language but also comprehend and reason about it in a meaningful way.
+Additionally, interdisciplinary research that combines cognitive science, linguistics, and computer science insights can provide a deeper understanding of how LLMs can be aligned more closely with human thought processes.
+This alignment is crucial for developing models that not only mimic human language but also comprehend and reason about it meaningfully.
 
 \section*{Concluding Thoughts}
-The development and application of LLMs represent a remarkable achievement in the field of artificial intelligence, showcasing how far we have come in our quest to build machines that can understand and generate human language.
+The development and application of LLMs represent a remarkable achievement in artificial intelligence, showcasing how far we have come in our quest to build machines that can understand and generate human language.
 However, the journey toward truly intelligent systems is far from over.
-As we continue to push the boundaries of what LLMs can achieve, it is essential to remain mindful of the challenges and limitations that accompany this progress.
+As we continue to push the boundaries of what LLMs can achieve, it is essential to remain mindful of the challenges and limitations accompanying this progress.
 
-The potential of LLMs is immense, with the capacity to transform industries, revolutionize communication, and enhance our understanding of language and thought.
+The potential of LLMs is immense. They have the capacity to transform industries, revolutionize communication, and enhance our understanding of language and thought.
 Yet, achieving this potential requires a concerted effort to address the ethical, technical, and practical challenges that lie ahead.
 By doing so, we can ensure that LLMs not only serve as powerful tools for language processing but also contribute meaningfully to the broader goal of advancing human knowledge and intelligence.
