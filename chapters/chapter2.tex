@@ -212,7 +212,7 @@ Based on their content types, we categorize these corpora into six groups: Books
 	\item \textbf{Books:} {
 		      BookCorpus~\cite{zhu2015aligning} and Gutenberg~\cite{projectgutenberg} are two prominent datasets that contain text from a wide range of books spanning various genres and topics. These datasets are valuable for training LLMs on literary text and assessing their performance on text generation tasks.\\
 		      BookCorpus is a dataset consisting of text from over 11,000 books (e.g., novels and biographies), while Gutenberg is a collection of over 70,000 free ebooks, including novels, essays, poetry, drama, history, science, philosophy, and other types of works, in the public domain.\\
-		      BookCorpus is commonly used in previous small-scale models (e.g., GPT~\cite{radford2018improving} and GPT-2~\cite{radford2019language}), while Gutenberg is used in more recent large-scale models (i.e., Llama~\cite{touvron2023llama}).\\
+		      BookCorpus is commonly used in previous small-scale models (e.g., GPT~\cite{radford2018improving} and GPT-2~\cite{radford2019language}), while Gutenberg is used in more recent large-scale models (i.e., \textsc{LLaMA}~\cite{touvron2023llama}).\\
 		      Book1 and Book2 used in GPT-3~\cite{brown2020language} are much larger than BookCorpus but have not been publicly released.
 	      }
 	\item \textbf{CommonCrawl:} {
@@ -548,10 +548,10 @@ The main effects of instruction tuning are:
 
 In summary, instruction tuning is a powerful technique that significantly enhances LLMs' performance, generalization, and domain specialization.
 Instruction tuning's effectiveness is evident across models of various scales and architectures, demonstrating its versatility and broad applicability.
-Larger models, such as Llama\textsubscript{13B} compared to Llama\textsubscript{7B}, generally perform better, suggesting that increased model size enhances the model's ability to follow instructions and utilize knowledge more effectively.
+Larger models, such as \textsc{LLaMA}\textsubscript{13B} compared to \textsc{LLaMA}\textsubscript{7B}, generally perform better, suggesting that increased model size enhances the model's ability to follow instructions and utilize knowledge more effectively.
 This is particularly evident in QA settings, where larger models show markedly improved performance~\cite{survey}.
 
-Increasing the complexity and diversity of the Self-Instruct-52K dataset enhances Llama's performance in both chat and QA settings.
+Increasing the complexity and diversity of the Self-Instruct-52K dataset enhances \textsc{LLaMA}'s performance in both chat and QA settings.
 For example, improving instruction complexity significantly boosts performance on QA tasks, which typically involve complex queries.
 Merely increasing the number of instructions or attempting to balance instruction difficulty does not necessarily yield better outcomes.
 In some cases, such as scaling up instruction numbers without focusing on quality, it can even degrade performance~\cite{survey}.
@@ -749,24 +749,24 @@ Different orders and configurations of the sub-layers, residual connection and l
 	\scriptsize
 	\begin{tabularx}{\textwidth}{|l|X|l|l|l|l|l|l|l|l|l|}
 		\hline
-		Model                                  & Category               & Size & Normalization & PE       & Activation & Bias & \#L & \#H & d\textsubscript{model} & MCL  \\
+		Model                                     & Category               & Size & Normalization & PE       & Activation & Bias & \#L & \#H & d\textsubscript{model} & MCL  \\
 		\hline
-		GPT3~\cite{brown2020language}          & Causal\newline decoder & 175B & Pre LayerNorm & Learned  & GeLU       & Y    & 96  & 96  & 12288                  & 2048 \\
-		PanGU-\(\alpha\)~\cite{zeng2021pangu}  & Causal\newline decoder & 207B & Pre LayerNorm & Learned  & GeLU       & Y    & 64  & 128 & 16384                  & 1024 \\
-		OPT~\cite{zhang2022opt}                & Causal\newline decoder & 175B & Pre LayerNorm & Learned  & ReLU       & Y    & 96  & 96  & 12288                  & 2048 \\
-		PaLM~\cite{chowdhery2022palm}          & Causal\newline decoder & 540B & Pre LayerNorm & RoPE     & SwiGLU     & N    & 118 & 48  & 18432                  & 2048 \\
-		BLOOM~\cite{workshop2023bloom}         & Causal\newline decoder & 176B & Pre LayerNorm & ALiBi    & GeLU       & Y    & 70  & 112 & 14336                  & 2048 \\
-		MT-NLG~\cite{smith2022deepspeed}       & Causal\newline decoder & 530B & -             & -        & -          & -    & 105 & 128 & 20480                  & 2048 \\
-		Gopher~\cite{rae2021scaling}           & Causal\newline decoder & 280B & Pre RMSNorm   & Relative & -          & -    & 80  & 128 & 16384                  & 2048 \\
-		Chinchilla~\cite{hoffmann2022training} & Causal\newline decoder & 70B  & Pre RMSNorm   & Relative & -          & -    & 80  & 64  & 8192                   & -    \\
-		Galactica~\cite{taylor2022galactica}   & Causal\newline decoder & 120B & Pre LayerNorm & Learned  & GeLU       & N    & 96  & 80  & 10240                  & 2048 \\
-		LaMDA~\cite{thoppilan2022lamda}        & Causal\newline decoder & 137B & -             & Relative & GeGLU      & -    & 64  & 128 & 8192                   & -    \\
-		Jurassic-1~\cite{lieber2021jurassic}   & Causal\newline decoder & 178B & Pre LayerNorm & Learned  & GeLU       & Y    & 76  & 96  & 13824                  & 2048 \\
-		Llama ~\cite{touvron2023llama}         & Causal\newline decoder & 65B  & Pre RMSNorm   & RoPE     & SwiGLU     & Y    & 80  & 64  & 8192                   & 2048 \\
-		Llama 2~\cite{touvron2023llama2}       & Causal\newline decoder & 70B  & Pre RMSNorm   & RoPE     & SwiGLU     & Y    & 80  & 64  & 8192                   & 4096 \\
-		Falcon~\cite{penedo2023refinedweb}     & Causal\newline decoder & 40B  & Pre LayerNorm & RoPE     & GeLU       & N    & 60  & 64  & 8192                   & 2048 \\
-		GLM-130B~\cite{zeng2022glm130b}        & Prefix\newline decoder & 130B & Post DeepNorm & RoPE     & GeGLU      & Y    & 64  & 96  & 12288                  & 2048 \\
-		T5~\cite{raffel2023exploring}          & Encoder-decoder        & 11B  & Pre RMSNorm   & Relative & ReLU       & N    & 24  & 128 & 1024                   & 512  \\
+		GPT3~\cite{brown2020language}             & Causal\newline decoder & 175B & Pre LayerNorm & Learned  & GeLU       & Y    & 96  & 96  & 12288                  & 2048 \\
+		PanGU-\(\alpha\)~\cite{zeng2021pangu}     & Causal\newline decoder & 207B & Pre LayerNorm & Learned  & GeLU       & Y    & 64  & 128 & 16384                  & 1024 \\
+		OPT~\cite{zhang2022opt}                   & Causal\newline decoder & 175B & Pre LayerNorm & Learned  & ReLU       & Y    & 96  & 96  & 12288                  & 2048 \\
+		PaLM~\cite{chowdhery2022palm}             & Causal\newline decoder & 540B & Pre LayerNorm & RoPE     & SwiGLU     & N    & 118 & 48  & 18432                  & 2048 \\
+		BLOOM~\cite{workshop2023bloom}            & Causal\newline decoder & 176B & Pre LayerNorm & ALiBi    & GeLU       & Y    & 70  & 112 & 14336                  & 2048 \\
+		MT-NLG~\cite{smith2022deepspeed}          & Causal\newline decoder & 530B & -             & -        & -          & -    & 105 & 128 & 20480                  & 2048 \\
+		Gopher~\cite{rae2021scaling}              & Causal\newline decoder & 280B & Pre RMSNorm   & Relative & -          & -    & 80  & 128 & 16384                  & 2048 \\
+		Chinchilla~\cite{hoffmann2022training}    & Causal\newline decoder & 70B  & Pre RMSNorm   & Relative & -          & -    & 80  & 64  & 8192                   & -    \\
+		Galactica~\cite{taylor2022galactica}      & Causal\newline decoder & 120B & Pre LayerNorm & Learned  & GeLU       & N    & 96  & 80  & 10240                  & 2048 \\
+		LaMDA~\cite{thoppilan2022lamda}           & Causal\newline decoder & 137B & -             & Relative & GeGLU      & -    & 64  & 128 & 8192                   & -    \\
+		Jurassic-1~\cite{lieber2021jurassic}      & Causal\newline decoder & 178B & Pre LayerNorm & Learned  & GeLU       & Y    & 76  & 96  & 13824                  & 2048 \\
+		\textsc{LLaMA} ~\cite{touvron2023llama}   & Causal\newline decoder & 65B  & Pre RMSNorm   & RoPE     & SwiGLU     & Y    & 80  & 64  & 8192                   & 2048 \\
+		\textsc{LLaMA} 2~\cite{touvron2023llama2} & Causal\newline decoder & 70B  & Pre RMSNorm   & RoPE     & SwiGLU     & Y    & 80  & 64  & 8192                   & 4096 \\
+		Falcon~\cite{penedo2023refinedweb}        & Causal\newline decoder & 40B  & Pre LayerNorm & RoPE     & GeLU       & N    & 60  & 64  & 8192                   & 2048 \\
+		GLM-130B~\cite{zeng2022glm130b}           & Prefix\newline decoder & 130B & Post DeepNorm & RoPE     & GeGLU      & Y    & 64  & 96  & 12288                  & 2048 \\
+		T5~\cite{raffel2023exploring}             & Encoder-decoder        & 11B  & Pre RMSNorm   & Relative & ReLU       & N    & 24  & 128 & 1024                   & 512  \\
 		\hline
 	\end{tabularx}
 	\caption{Model cards of several selected LLMs with public configuration details. PE denotes position embedding, \#L denotes the number of layers, \#H denotes the number of attention heads, d\textsubscript{model} denotes the size of hidden states, and MCL denotes the maximum context length during training. Source: \textcite{survey}.}
@@ -1068,7 +1068,7 @@ It can significantly reduce the computational cost of the attention operation wi
 Palm~\cite{chowdhery2022palm} and Starcoder~\cite{li2023starcoder} are examples of LLMs that use the multi-query attention mechanism.
 A tradeoff between multi-query and multi-head attention grouped-query (GQA) has been explored in \textcite{ainslie2023gqa}.
 In GQA, heads are grouped together, and each group shares the same transformation matrices.
-This mechanism has been adopted and empirically tested in the Llama 2 model~\cite{touvron2023llama2}.
+This mechanism has been adopted and empirically tested in the \textsc{LLaMA} 2 model~\cite{touvron2023llama2}.
 
 Flash attention~\cite{dao2022flashattention} is an approach that proposes to optimize the speed and memory consumption of attention modules on the GPUs.
 Modern GPUs have different memory types, and Flash attention takes advantage of this by organizing the input block on the faster memory\footnote{SRAM has fast IO, while HBM is slower}.

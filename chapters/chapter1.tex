@@ -341,45 +341,47 @@ Specifically, the model generates text outputs, given inputs consisting of arbit
 Despite its capabilities, GPT-4 has similar limitations to earlier GPT models: it is not fully reliable (e.g.\ can suffer from \enquote{hallucinations}), has a limited context window, and does not learn from experience.
 Care should be taken when using the outputs of GPT-4, particularly in contexts where reliability is important.
 
-\subsection{Llama}
+\subsection{\textsc{LLaMA}}
 \label{subsec:llama}
 
-Llama~\footnote{Large Language Model Meta AI} is a language model developed by Meta AI, designed to be a versatile and efficient foundation for a wide range of natural language processing (NLP) tasks.
-Llama is built on a transformer architecture~\cite{vaswani2023attention}, similar to other large language models, with a range from 7B to 65B parameters.
-Main differences between Llama and original Transformer architecture~\cite{vaswani2023attention} are the following:
+\textsc{LLaMA}~\footnote{Large Language Model Meta AI} is a language model developed by Meta AI, designed to be a versatile and efficient foundation for a wide range of natural language processing (NLP) tasks.
+\textsc{LLaMA} is built on a transformer architecture~\cite{vaswani2023attention}, similar to other large language models, with a range from 7B to 65B parameters.
+Main differences between \textsc{LLaMA} and original Transformer architecture~\cite{vaswani2023attention} are the following:
 \begin{enumerate}
-	\item \textbf{Pre-normalization\footnote{Inspired by GTP-3 model}} {Llama uses pre-normalization\footnote{See Section \ref{subsubsec:normalization}}, which means that the normalization layer is placed before the self-attention and feed-forward layers.
+	\item \textbf{Pre-normalization\footnote{Inspired by GTP-3 model}} {\textsc{LLaMA} uses pre-normalization\footnote{See Section \ref{subsubsec:normalization}}, which means that the normalization layer is placed before the self-attention and feed-forward layers.
 		      Pre-normalization has improved training stability and convergence in large language models, making it a popular choice for many state-of-the-art models.
 	      }
-	\item \textbf{SwiGLU activation function\footnote{Inspired by PaLM model}} {Llama uses the SwiGLU\footnote{See Section \ref{subsubsec:activation-functions}} activation function by \textcite{shazeer2020glu}, which is a variant of the Gated Linear Unit (GLU) activation function.
+	\item \textbf{SwiGLU activation function\footnote{Inspired by PaLM model}} {\textsc{LLaMA} uses the SwiGLU\footnote{See Section \ref{subsubsec:activation-functions}} activation function by \textcite{shazeer2020glu}, which is a variant of the Gated Linear Unit (GLU) activation function.
 		      SwiGLU has been shown to improve the performance of large language models by enhancing the flow of information through the network.
 	      }
-	\item \textbf{Rotary Embeddings\footnote{Inspired by GPTNeo model}} {Llama uses rotary embeddings by \textcite{su2021roformer}, which are a type of positional encoding that helps the model capture long-range dependencies in the input data.
+	\item \textbf{Rotary Embeddings\footnote{Inspired by GPTNeo model}} {\textsc{LLaMA} uses rotary embeddings by \textcite{su2021roformer}, which are a type of positional encoding that helps the model capture long-range dependencies in the input data.
 	      }
 \end{enumerate}
 
 \begin{table}[ht]
 	\centering
+	\small
 	\begin{tabular}{@{}ccccccccc@{}}
 		\toprule
-		Model       & params & dimension & \# heads & \# layers & learning rate          & batch size & \# tokens & context \\
+		Model                & params & dimension & \# heads & \# layers & learning               & batch & \# tokens & context \\
+		                     &        &           &          &           & rate                   & size  &           & length  \\
 		\midrule
-		LLaMA       & 6.7B   & 4096      & 32       & 32        & \(3.0 \times 10^{-4}\) & 4M         & 1.0T      & 2k      \\
-		LLaMA       & 13.0B  & 5120      & 40       & 40        & \(3.0 \times 10^{-4}\) & 4M         & 1.0T      & 2k      \\
-		LLaMA       & 32.5B  & 6656      & 52       & 60        & \(1.5 \times 10^{-4}\) & 4M         & 1.4T      & 2k      \\
-		LLaMA       & 65.2B  & 8192      & 64       & 80        & \(1.5 \times 10^{-4}\) & 4M         & 1.4T      & 2k      \\
-		CodeLlama 2 & 7B     & 4096      & 32       & 32        & $2.0 \times 10^{-4}$   & 4M         & 1.8T      & 16k     \\
-		LLaMA 2     & 7B     & 4096      & 32       & 32        & $2.0 \times 10^{-4}$   & 4M         & 1.8T      & 4k      \\
-		LLaMA 2     & 13B    & 5120      & 40       & 40        & $2.0 \times 10^{-4}$   & 4M         & 1.8T      & 4k      \\
-		LLaMA 2     & 70B    & 8192      & 64       & 80        & $1.5 \times 10^{-4}$   & 4M         & 1.8T      & 4k      \\
-		LLaMA 3     & 8B     & 4096      & 32       & 32        & $2.5 \times 10^{-4}$   & 4M         & 15T       & 8k      \\
-		LLaMA 3     & 70B    & 8192      & 64       & 80        & $1.0 \times 10^{-4}$   & 4M         & 15T       & 8k      \\
-		LLaMA 3.1   & 8B     & 4096      & 32       & 32        & $3.0 \times 10^{-4}$   & 4M         & 15T       & 128k    \\
-		LLaMA 3.1   & 70B    & 8192      & 64       & 80        & $1.5 \times 10^{-4}$   & 4M         & 15T       & 128k    \\
-		LLaMA 3.1   & 504B   & 16384     & 128      & 126       & $8.0 \times 10^{-5}$   & 4M         & 15T       & 128k    \\
+		\textsc{LLaMA}       & 6.7B   & 4096      & 32       & 32        & \(3.0 \times 10^{-4}\) & 4M    & 1.0T      & 2k      \\
+		\textsc{LLaMA}       & 13.0B  & 5120      & 40       & 40        & \(3.0 \times 10^{-4}\) & 4M    & 1.0T      & 2k      \\
+		\textsc{LLaMA}       & 32.5B  & 6656      & 52       & 60        & \(1.5 \times 10^{-4}\) & 4M    & 1.4T      & 2k      \\
+		\textsc{LLaMA}       & 65.2B  & 8192      & 64       & 80        & \(1.5 \times 10^{-4}\) & 4M    & 1.4T      & 2k      \\
+		Code\textsc{LLaMA} 2 & 7B     & 4096      & 32       & 32        & $2.0 \times 10^{-4}$   & 4M    & 1.8T      & 16k     \\
+		\textsc{LLaMA} 2     & 7B     & 4096      & 32       & 32        & $2.0 \times 10^{-4}$   & 4M    & 1.8T      & 4k      \\
+		\textsc{LLaMA} 2     & 13B    & 5120      & 40       & 40        & $2.0 \times 10^{-4}$   & 4M    & 1.8T      & 4k      \\
+		\textsc{LLaMA} 2     & 70B    & 8192      & 64       & 80        & $1.5 \times 10^{-4}$   & 4M    & 1.8T      & 4k      \\
+		\textsc{LLaMA} 3     & 8B     & 4096      & 32       & 32        & $2.5 \times 10^{-4}$   & 4M    & 15T       & 8k      \\
+		\textsc{LLaMA} 3     & 70B    & 8192      & 64       & 80        & $1.0 \times 10^{-4}$   & 4M    & 15T       & 8k      \\
+		\textsc{LLaMA} 3.1   & 8B     & 4096      & 32       & 32        & $3.0 \times 10^{-4}$   & 4M    & 15T       & 128k    \\
+		\textsc{LLaMA} 3.1   & 70B    & 8192      & 64       & 80        & $1.5 \times 10^{-4}$   & 4M    & 15T       & 128k    \\
+		\textsc{LLaMA} 3.1   & 504B   & 16384     & 128      & 126       & $8.0 \times 10^{-5}$   & 4M    & 15T       & 128k    \\
 		\bottomrule
 	\end{tabular}
-	\caption{Llama models sizes, architectures, and optimization hyper-parameters.
+	\caption{\textsc{LLaMA} models sizes, architectures, and optimization hyper-parameters.
 		Params: This column represents the total number of parameters in billions.
 		Dimension: The dimension of the model's hidden layers.
 		\# heads: The number of attention heads in the model.
@@ -391,33 +393,33 @@ Main differences between Llama and original Transformer architecture~\cite{vaswa
 	\label{tab:llama-model-params}
 \end{table}
 
-Based on the Llama paper by \textcite{touvron2023llama}, even though Llama \textsubscript{13B} is smaller than many competitors, it outperforms GPT-3 on most benchmarks, and the 65B model is competitive with the best large language models available, such as Chinchilla and PaLM-540B, despite being x10 smaller (as shown in Table~\ref{tab:llama-zero-shot-performance}).
+Based on the \textsc{LLaMA} paper by \textcite{touvron2023llama}, even though \textsc{LLaMA} \textsubscript{13B} is smaller than many competitors, it outperforms GPT-3 on most benchmarks, and the 65B model is competitive with the best large language models available, such as Chinchilla and PaLM-540B, despite being x10 smaller (as shown in Table~\ref{tab:llama-zero-shot-performance}).
 
 \begin{table}[htbp]
 	\centering
 	\scriptsize
 	\begin{tabularx}{\textwidth}{@{}lXXXXXXXXX@{}}
 		\toprule
-		Model      & Params & BoolQ & PIQA & SIQA & HellaSwag & WinoGrande & ARC-e & ARC-c & OBQA \\
+		Model          & Params & BoolQ & PIQA & SIQA & HellaSwag & WinoGrande & ARC-e & ARC-c & OBQA \\
 		\midrule
-		GPT-3      & 175B   & 60.5  & 81.0 & -    & 78.9      & 70.2       & 68.8  & 51.4  & 57.6 \\
-		Gopher     & 280B   & 79.3  & 81.8 & 50.6 & 79.2      & 70.1       & -     & -     & -    \\
-		Chinchilla & 70B    & 83.7  & 81.8 & 51.3 & 80.8      & 74.9       & -     & -     & -    \\
-		PaLM       & 62B    & 84.8  & 80.5 & -    & 79.7      & 77.0       & 75.2  & 52.5  & 50.4 \\
-		PaLM-cont  & 62B    & 83.9  & 81.4 & -    & 80.6      & 77.0       & -     & -     & -    \\
-		PaLM       & 540B   & 88.0  & 82.3 & -    & 83.4      & 81.1       & 76.6  & 53.0  & 53.4 \\
+		GPT-3          & 175B   & 60.5  & 81.0 & -    & 78.9      & 70.2       & 68.8  & 51.4  & 57.6 \\
+		Gopher         & 280B   & 79.3  & 81.8 & 50.6 & 79.2      & 70.1       & -     & -     & -    \\
+		Chinchilla     & 70B    & 83.7  & 81.8 & 51.3 & 80.8      & 74.9       & -     & -     & -    \\
+		PaLM           & 62B    & 84.8  & 80.5 & -    & 79.7      & 77.0       & 75.2  & 52.5  & 50.4 \\
+		PaLM-cont      & 62B    & 83.9  & 81.4 & -    & 80.6      & 77.0       & -     & -     & -    \\
+		PaLM           & 540B   & 88.0  & 82.3 & -    & 83.4      & 81.1       & 76.6  & 53.0  & 53.4 \\
 		\addlinespace
-		Llama      & 7B     & 76.5  & 79.8 & 48.9 & 76.1      & 70.1       & 72.8  & 47.6  & 57.2 \\
-		Llama      & 13B    & 78.1  & 80.1 & 50.4 & 79.2      & 73.0       & 74.8  & 52.7  & 56.4 \\
-		Llama      & 33B    & 83.1  & 82.3 & 50.4 & 82.8      & 76.0       & 80.0  & 57.8  & 58.6 \\
-		Llama      & 65B    & 85.3  & 82.8 & 52.3 & 84.2      & 77.0       & 78.9  & 56.0  & 60.2 \\
+		\textsc{LLaMA} & 7B     & 76.5  & 79.8 & 48.9 & 76.1      & 70.1       & 72.8  & 47.6  & 57.2 \\
+		\textsc{LLaMA} & 13B    & 78.1  & 80.1 & 50.4 & 79.2      & 73.0       & 74.8  & 52.7  & 56.4 \\
+		\textsc{LLaMA} & 33B    & 83.1  & 82.3 & 50.4 & 82.8      & 76.0       & 80.0  & 57.8  & 58.6 \\
+		\textsc{LLaMA} & 65B    & 85.3  & 82.8 & 52.3 & 84.2      & 77.0       & 78.9  & 56.0  & 60.2 \\
 		\bottomrule
 	\end{tabularx}
 	\caption{Zero-shot performance on Common Sense Reasoning tasks. Source: \textcite{touvron2023llama}.}
 	\label{tab:llama-zero-shot-performance}
 \end{table}
 
-The Llama models were trained exclusively on publicly available data, setting them apart from other models that rely on proprietary datasets~\footnote{Such as "Books --- 2TB" or "Social media conversations"}.
+The \textsc{LLaMA} models were trained exclusively on publicly available data, setting them apart from other models that rely on proprietary datasets~\footnote{Such as "Books --- 2TB" or "Social media conversations"}.
 The dataset is a mixture of several sources (webpages, books, scientific data and code) as reported in Table~\ref{tab:llama-pretraining-data}.
 
 \begin{table}[h!]
@@ -439,18 +441,18 @@ The dataset is a mixture of several sources (webpages, books, scientific data an
 	\label{tab:llama-pretraining-data}
 \end{table}
 
-Llama models were designed with efficiency in mind, both in training and inference, allowing even the 13B parameter model to run on a single GPU\@.
-A synthetic view of the Llama model family parameters is reported in Table~\ref{tab:llama-model-params}.
+\textsc{LLaMA} models were designed with efficiency in mind, both in training and inference, allowing even the 13B parameter model to run on a single GPU\@.
+A synthetic view of the \textsc{LLaMA} model family parameters is reported in Table~\ref{tab:llama-model-params}.
 The optimizer used during the training is the same AdamW with the following hyper-parameters: $\beta_1=0.9, \beta_2=0.95, eps=10^{-5}$, a weight decay of 0.1, gradient clipping of 1.0, a cosine learning rate schedule and a warmup of 2000 steps.
 
 \textcite{touvron2023llama} acknowledges the presence of biases and toxicity in the models due to the nature of web data and evaluates these aspects using benchmarks from the responsible AI community.
 
-\subsubsection{Llama 2}
+\subsubsection{\textsc{LLaMA} 2}
 \label{subsubsec:llama-2}
 
-Llama 2~\cite{touvron2023llama2} is a continuation of the Llama series, developed by Meta AI, released in scale from 7B to 70B parameters.
-The pre-training data of the Llama2 model is a new mix of data from publicly available sources.
-The training corpus is 40\% larger than the one used for Llama 1, and it is composed of a mix of text and a percentage of code data that is roughly 8\% of the total.
+\textsc{LLaMA} 2~\cite{touvron2023llama2} is a continuation of the \textsc{LLaMA} series, developed by Meta AI, released in scale from 7B to 70B parameters.
+The pre-training data of the \textsc{LLaMA}2 model is a new mix of data from publicly available sources.
+The training corpus is 40\% larger than the one used for \textsc{LLaMA} 1, and it is composed of a mix of text and a percentage of code data that is roughly 8\% of the total.
 The exact composition of the data mix is not disclosed, but the code percentage is reported in the caption of the Table~\ref{tab:llama2-pretraining-data} extracted from the original paper~\cite{touvron2023llama2}.
 The pre-training selection focuses on addressing biases and toxicity recognised in the previous version of the model.
 
@@ -480,56 +482,56 @@ The pre-training selection focuses on addressing biases and toxicity recognised 
 	\label{tab:llama2-pretraining-data}
 \end{table}
 
-Llama 2 adopts most of the pretraining settings and model architecture from Llama 1, including the standard transformer architecture, pre-normalization using RMSNorm, the SwiGLU activation function, and rotary positional embeddings.
+\textsc{LLaMA} 2 adopts most of the pretraining settings and model architecture from \textsc{LLaMA} 1, including the standard transformer architecture, pre-normalization using RMSNorm, the SwiGLU activation function, and rotary positional embeddings.
 The optimizer used during the training is the same AdamW with the following hyper-parameters: $\beta_1=0.9, \beta_2=0.95, eps=10^{-5}$, a weight decay of 0.1, gradient clipping of 1.0, a cosine learning rate schedule and a warmup of 2000 steps.
-The primary architectural differences from Llama 1 include increased context length and grouped-query attention (GQA).
+The primary architectural differences from \textsc{LLaMA} 1 include increased context length and grouped-query attention (GQA).
 
-\subsubsection{Code Llama}
+\subsubsection{Code \textsc{LLaMA}}
 \label{subsubsec:code-llama}
 
-Code Llama~\cite{roziere2024codellamaopenfoundation} is a family of large language models for code generation based on Llama 2 providing infilling\footnote{With the terms infilling or code completion, we refer to the process of generating code snippets that complete a given code fragment.} capabilities, support
+Code \textsc{LLaMA}~\cite{roziere2024codellamaopenfoundation} is a family of large language models for code generation based on \textsc{LLaMA} 2 providing infilling\footnote{With the terms infilling or code completion, we refer to the process of generating code snippets that complete a given code fragment.} capabilities, support
 for large input contexts and zero-shot instruction following ability for programming tasks.
 It comes in three flavours: the vanilla model, the Python specialized model, and the instruction-following model with 7B, 13B, 34B, and 70B parameters each (see Figure~\ref{fig:code-llama}).
 
 \begin{figure}[h!]
 	\centering
 	\includegraphics[width=0.9\textwidth]{codellama-pipeline}
-	\caption{The Code Llama 70B specialization pipeline. The different fine-tuning stages are annotated with the number of tokens seen during training. Infilling-capable models are marked with the $\rightleftarrows$ symbol. Source: \textcite{roziere2024codellamaopenfoundation}.}
+	\caption{The Code \textsc{LLaMA} 70B specialization pipeline. The different fine-tuning stages are annotated with the number of tokens seen during training. Infilling-capable models are marked with the $\rightleftarrows$ symbol. Source: \textcite{roziere2024codellamaopenfoundation}.}
 	\label{fig:code-llama}
 \end{figure}
 
-While most of the code generation models are trained on code only, Code Llama was fine-tuned starting from Llama 2, which was trained on general-purpose text and code data.
-The comparison in \textcite{roziere2024codellamaopenfoundation} shows that initializing from Llama 2 leads to better performance on code generation tasks than initializing from a code-only model for a given budget as shown in Figure~\ref{fig:code-llama-comparison}.
-Code Llama was fine-tuned on 500B extra tokens consisting mostly of code data (85\%).
+While most of the code generation models are trained on code only, Code \textsc{LLaMA} was fine-tuned starting from \textsc{LLaMA} 2, which was trained on general-purpose text and code data.
+The comparison in \textcite{roziere2024codellamaopenfoundation} shows that initializing from \textsc{LLaMA} 2 leads to better performance on code generation tasks than initializing from a code-only model for a given budget as shown in Figure~\ref{fig:code-llama-comparison}.
+Code \textsc{LLaMA} was fine-tuned on 500B extra tokens consisting mostly of code data (85\%).
 
 \begin{figure}[ht!]
 	\centering
 	\includegraphics[width=0.7\textwidth]{codellama-loss}
-	\caption{Comparison of Code Llama models versus an identical model trained from scratch. Source: \textcite{roziere2024codellamaopenfoundation}.}
+	\caption{Comparison of Code \textsc{LLaMA} models versus an identical model trained from scratch. Source: \textcite{roziere2024codellamaopenfoundation}.}
 	\label{fig:code-llama-comparison}
 \end{figure}
 
-\subsubsection{Llama 3}
+\subsubsection{\textsc{LLaMA} 3}
 \label{subsubsec:llama-3}
 
-Llama 3~\cite{llama3} is a continuation of the Llama series, developed by Meta AI, with different model sizes: 8B, 70B, and 405B parameters.
+\textsc{LLaMA} 3~\cite{llama3} is a continuation of the \textsc{LLaMA} series, developed by Meta AI, with different model sizes: 8B, 70B, and 405B parameters.
 
-Llama 3 uses a standard, dense Transformer architecture.
-It does not deviate significantly from Llama and Llama 2 in terms of model architecture; therefore performance gains are primarily driven by improvements in data quality and diversity as well as by increased training scale.
-Compared to Llama 2, Llama 3 has a few small changes in the model architecture:
+\textsc{LLaMA} 3 uses a standard, dense Transformer architecture.
+It does not deviate significantly from \textsc{LLaMA} and \textsc{LLaMA} 2 in terms of model architecture; therefore performance gains are primarily driven by improvements in data quality and diversity as well as by increased training scale.
+Compared to \textsc{LLaMA} 2, \textsc{LLaMA} 3 has a few small changes in the model architecture:
 \begin{enumerate}
 	\item grouped query attention (GQA) with 8 key-value heads to improve inference speed and to reduce the size of key-value caches during decoding
 	\item an attention mask that prevents self-attention between different documents within the same sequence.
 	      This change has limited impact during standard pre-training, but it's important in continued pre-training on very long sequences.
 	\item a vocabulary with 128K tokens.
-	      Compared to the Llama 2 tokenizer, the new tokenizer improves compression rates on a sample of English data from 3.17 to 3.94 characters per token.
+	      Compared to the \textsc{LLaMA} 2 tokenizer, the new tokenizer improves compression rates on a sample of English data from 3.17 to 3.94 characters per token.
 	\item the RoPE base frequency hyper-parameter increased to 500,000 to support longer contexts.
 \end{enumerate}
-A summary of the key hyper-parameters of Llama 3 is shown in Table~\ref{tab:llama3-hyperparameters}.
+A summary of the key hyper-parameters of \textsc{LLaMA} 3 is shown in Table~\ref{tab:llama3-hyperparameters}.
 
 \begin{table}[h!]
 	\centering
-	\caption{Overview of the key hyperparameters of Llama 3. We display settings for 8B, 70B, and 405B language models.}
+	\caption{Overview of the key hyperparameters of \textsc{LLaMA} 3. We display settings for 8B, 70B, and 405B language models.}
 	\begin{tabularx}{\textwidth}{Xccc}
 		\textbf{}                      & \textbf{8B}               & \textbf{70B}              & \textbf{405B}             \\
 		\textbf{Layers}                & 32                        & 80                        & 126                       \\
@@ -543,13 +545,13 @@ A summary of the key hyper-parameters of Llama 3 is shown in Table~\ref{tab:llam
 		\textbf{Positional Embeddings} & RoPE ($\theta = 500,000$) & RoPE ($\theta = 500,000$) & RoPE ($\theta = 500,000$) \\
 		\hline
 	\end{tabularx}
-	\caption{Overview of the key hyperparameters of Llama 3}
+	\caption{Overview of the key hyperparameters of \textsc{LLaMA} 3}
 	\label{tab:llama3-hyperparameters}
 \end{table}
 
-The authors improved the quantity and quality of the data we used for pre-training and post-training compared to prior versions of Llama.
+The authors improved the quantity and quality of the data we used for pre-training and post-training compared to prior versions of \textsc{LLaMA}.
 These improvements include developing more careful pre-processing and curation pipelines for pre-training data and more rigorous quality assurance and filtering approaches for post-training data.
-The pre-training corpus consists of about 15T tokens, which is about 50% larger than the one used for Llama 2.
+The pre-training corpus consists of about 15T tokens, which is about 50% larger than the one used for \textsc{LLaMA} 2.
 It contains roughly 50\% of tokens corresponding to general knowledge, 25\% of mathematical and reasoning tokens, 17\% code tokens, and 8\% multilingual tokens~\cite{llama3}.
 The resulting models have a rich set of capabilities.
 They can answer questions in at least eight languages, write high-quality code, solve complex reasoning problems, and use tools out-of-the-box or in a zero-shot way
@@ -573,7 +575,7 @@ The design philosophy targets efficient deployment across diverse hardware platf
 	\label{fig:gemma-comparison2}
 \end{figure}
 
-In comparative benchmarks, Gemma models have demonstrated capabilities that exceed those of larger parameter models, such as Llama 2 (13B), indicating a significant efficiency in parameter utilization.
+In comparative benchmarks, Gemma models have demonstrated capabilities that exceed those of larger parameter models, such as \textsc{LLaMA} 2 (13B), indicating a significant efficiency in parameter utilization.
 Improvements are particularly evident in language understanding and reasoning tasks where Gemma models have been pitted against their contemporaries.
 
 One prominent strength of Gemma models is their deployment efficiency, which democratizes access to state-of-the-art NLP tools.
@@ -734,8 +736,8 @@ Here's a more detailed look at these techniques:
 		Model                                  & Backbone           & Paras.  & PT Techniques & PT \newline Data Size                    & Evaluation \newline Task & Dataset                                               & O.S.\ Model & PT & IFT \\
 		\midrule
 		BloombergGPT~\cite{wu2023bloomberggpt} & BLOOM              & 50B     & PT, PE        & (G) 345B tokens \newline (F) 363B tokens & SA, TC                   & FPB, FiQA-SA, Headline                                & N           & N  & N   \\
-		FinMA~\cite{xie2023pixiu}              & Llama              & 7B, 30B & IFT, PE       & (G) 1T tokens                            & SA, TC, NER, QA          & FPB, FiQA-SA, Headline \newline FIN, FinQA, ConvFinQA & Y           & Y  & Y   \\
-		InvestLM~\cite{yang2023investlm}       & Llama              & 65B     & PEFT          & (G) 1.4T tokens                          & SA, TC, SMP              & StockNet, CIKM18, BigData22                           & Y           & N  & N   \\
+		FinMA~\cite{xie2023pixiu}              & \textsc{LLaMA}     & 7B, 30B & IFT, PE       & (G) 1T tokens                            & SA, TC, NER, QA          & FPB, FiQA-SA, Headline \newline FIN, FinQA, ConvFinQA & Y           & Y  & Y   \\
+		InvestLM~\cite{yang2023investlm}       & \textsc{LLaMA}     & 65B     & PEFT          & (G) 1.4T tokens                          & SA, TC, SMP              & StockNet, CIKM18, BigData22                           & Y           & N  & N   \\
 		FinGPT~\cite{wang2023fingpt}           & 6 open-source LLMs & 7B      & PEFT          & (G) 2T tokens                            & SA, TC, NER, RE          & FPB, FiQA-SA, Headline \newline FIN, FinRED           & Y           & Y  & Y   \\
 		\bottomrule
 	\end{tabularx}
@@ -770,7 +772,7 @@ Here's a more detailed look at these techniques:
 	      }
 \end{itemize}
 
-Within the four FinLLMs in Figure~\ref{tab:fin_llms}, FinMA~\cite{xie2023pixiu}, InvestLM~\cite{yang2023investlm}, and FinGPT~\cite{wang2023fingpt} are based on Llama or other open-source based models, while BloombergGPT~\cite{wu2023bloomberggpt} is a BLOOM-style closed-source model.
+Within the four FinLLMs in Figure~\ref{tab:fin_llms}, FinMA~\cite{xie2023pixiu}, InvestLM~\cite{yang2023investlm}, and FinGPT~\cite{wang2023fingpt} are based on \textsc{LLaMA} or other open-source based models, while BloombergGPT~\cite{wu2023bloomberggpt} is a BLOOM-style closed-source model.
 
 Regarding the evaluation tasks, the models are assessed on a range of financial NLP tasks, as shown below:
 

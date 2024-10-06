@@ -60,7 +60,6 @@ One piece of evidence is that code-davinci-002, a model trained on code data, is
 
 On the HELM evaluation, a massive-scale evaluation performed by \textcite{liang2022holistic}, the authors also found that models trained on/for code have strong language reasoning abilities.
 As an intuition, procedure-oriented programming is similar to solving tasks step by step, and object-oriented programming is similar to decomposing complex tasks into simpler ones.
-
 Other hypotheses suggest a minor role in the instruction tuning.
 \begin{displayquote}
 	Instruction tuning does not inject new abilities into the model -- all abilities are already there.
@@ -87,15 +86,15 @@ As mentioned, really large models require a lot of resources, and it's impossibl
 Moreover the assumption is that the ability to perform CoT is not related to the model size, but rather to the pre-training data.
 However, when comparing models of the same size, we can exclude this factor from the equation and focus on testing whether CoT reasoning ability is related to code in the pre-training dataset.
 Additionally, the models available on LMStudio are limited to the models available on HuggingFace, while others are closed-source and have not been publicly released.
-For this reason, we focused the experiments (see Table~\ref{tab:llama-comparison}) on Llama family models, which are publicly available on HuggingFace.
+For this reason, we focused the experiments (see Table~\ref{tab:llama-comparison}) on \textsc{LLaMA} family models, which are publicly available on HuggingFace.
 As reported by the authors, the architecture of the different models is quite similar.
-Indeed, Llama 3 uses a standard, dense Transformer architecture~\cite{vaswani2023attention} which does not deviate significantly from Llama~\cite{touvron2023llama} and Llama 2~\cite{touvron2023llama2} in terms of model architecture.
+Indeed, \textsc{LLaMA} 3 uses a standard, dense Transformer architecture~\cite{vaswani2023attention} which does not deviate significantly from \textsc{LLaMA}~\cite{touvron2023llama} and \textsc{LLaMA} 2~\cite{touvron2023llama2} in terms of model architecture.
 This leads to the conclusion that the performance gains are primarily driven by improvements in data quality and diversity as well as by increased training scale~\cite{llama3}.
 
-The percentage of code in the pre-training data of the first Llama model~\cite{touvron2023llama} is about 5\%\footnote{See Section~\ref{subsec:llama} for more details}.
-This percentage increases in the Llama 2 model~\cite{touvron2023llama2} to 8\%\footnote{See Section~\ref{subsubsec:llama-2} for more details}.
-The fine-tuned Llama 2 model, Code Llama\cite{roziere2024codellamaopenfoundation}, adds 500B extra tokens, consisting mostly of code (85\%)\footnote{See Section~\ref{subsubsec:code-llama} for more details}.
-Lastly, the Llama 3 and 3.1 model~\cite{llama3} has 17\% of code in its pre-training mix\footnote{See Section~\ref{subsubsec:llama-3} for more details}.
+The percentage of code in the pre-training data of the first \textsc{LLaMA} model~\cite{touvron2023llama} is about 5\%\footnote{See Section~\ref{subsec:llama} for more details}.
+This percentage increases in the \textsc{LLaMA} 2 model~\cite{touvron2023llama2} to 8\%\footnote{See Section~\ref{subsubsec:llama-2} for more details}.
+The fine-tuned \textsc{LLaMA} 2 model, Code \textsc{LLaMA}\cite{roziere2024codellamaopenfoundation}, adds 500B extra tokens, consisting mostly of code (85\%)\footnote{See Section~\ref{subsubsec:code-llama} for more details}.
+Lastly, the \textsc{LLaMA} 3 and 3.1 model~\cite{llama3} has 17\% of code in its pre-training mix\footnote{See Section~\ref{subsubsec:llama-3} for more details}.
 
 The experiments have been conducted using the Chain-of-Thought on reasoning tasks from the GSM8k and gsm-hard\footnote{The gsm-hard is obtained by replacing the numbers in the questions of GSM8k with larger numbers that are less common.}
 Reasoning steps in the gsm-hard datasets are expressed as code, so we also tested the Program of Thought (PoT) approach~\cite{chen2022program}.
@@ -114,30 +113,30 @@ The results from the execution of the experiments are shown in Table~\ref{tab:ll
 	\centering
 	\begin{tabularx}{\textwidth}{Xcccc}
 		\toprule
-		                                      & \textbf{GSM8k 0-shot} & \textbf{GSM8k 5-shot} & \textbf{GSM-hard 0-shot} & \textbf{GSM-hard 5-shot} \\
+		                                               & \textbf{GSM8k 0-shot} & \textbf{GSM8k 5-shot} & \textbf{GSM-hard 0-shot} & \textbf{GSM-hard 5-shot} \\
 		\midrule
-		\textbf{Llama2\textsubscript{7B}}     & 3.1\%                 & 15.7\%                & $\approxeq$0\%           & $\approxeq$0\% (16.69\%) \\
+		\textbf{\textsc{LLaMA}2\textsubscript{7B}}     & 3.1\%                 & 15.7\%                & $\approxeq$0\%           & $\approxeq$0\% (16.69\%) \\
 		\hline
-		\textbf{Code Llama\textsubscript{7B}} & 3.99\%                & 16.3\%                & 1.3\%                    & 1.5\% (27.6\%)           \\
+		\textbf{Code \textsc{LLaMA}\textsubscript{7B}} & 3.99\%                & 16.3\%                & 1.3\%                    & 1.5\% (27.6\%)           \\
 		\hline
-		\textbf{Llama2\textsubscript{13B}}    & 10.53\%               & 35.8\%                & $\approxeq$0\%           & $\approxeq$0\%	 (36\%)   \\
+		\textbf{\textsc{LLaMA}2\textsubscript{13B}}    & 10.53\%               & 35.8\%                & $\approxeq$0\%           & $\approxeq$0\%	 (36\%)   \\
 		\hline
-		\textbf{Llama3\textsubscript{7B}}     & 31.0\%                & 47.0\%                & 5.4\%                    & 7.4\% (56.1\%)           \\
+		\textbf{\textsc{LLaMA}3\textsubscript{7B}}     & 31.0\%                & 47.0\%                & 5.4\%                    & 7.4\% (56.1\%)           \\
 		\hline
-		\textbf{Llama3.1\textsubscript{7B}}   & 75.9 \%               & 80.9\%                & 7.85\%                   & 9.46\% (62.36\%)         \\
+		\textbf{\textsc{LLaMA}3.1\textsubscript{7B}}   & 75.9 \%               & 80.9\%                & 7.85\%                   & 9.46\% (62.36\%)         \\
 		\bottomrule
 	\end{tabularx}
-	\caption{Comparison of Llama models on mathematical reasoning tasks. The numbers in parentheses for the last column are the success rate leveraging the PoT reasoning ability (i.e., executing the Python code in the reasoning part) rather than using the solution provided by the model itself.}
+	\caption{Comparison of \textsc{LLaMA} models on mathematical reasoning tasks. The numbers in parentheses for the last column are the success rate leveraging the PoT reasoning ability (i.e., executing the Python code in the reasoning part) rather than using the solution provided by the model itself.}
 	\label{tab:llama-comparison}
 \end{table}
 
-As expected, Llama 3 performs better than Llama 2, and its CoT reasoning ability improves as performance increases between the 0-shot and 5-shot settings.
+As expected, \textsc{LLaMA} 3 performs better than \textsc{LLaMA} 2, and its CoT reasoning ability improves as performance increases between the 0-shot and 5-shot settings.
 Since the models are the same size and have similar architectures, the improvement is related to different models' pre-training data.
-Main difference between Llama 2 and Llama 3 is the percentage of code in the pre-training data, which is 8\% for Llama 2 and 17\% for Llama 3.
+Main difference between \textsc{LLaMA} 2 and \textsc{LLaMA} 3 is the percentage of code in the pre-training data, which is 8\% for \textsc{LLaMA} 2 and 17\% for \textsc{LLaMA} 3.
 It confirms that the code in the pre-training data can greatly increase the CoT reasoning ability of LLMs.
 We also run the same experiments on LLaMA2\textsubscript{13B} to further exclude the size factor.
 It confirms that size is not a deciding factor in CoT since both show the ability to perform CoT reasoning.
-Despite that, Llama\textsubscript{13B} results show that scaling up the model can improve the CoT ability but it's not a deciding factor.
+Despite that, \textsc{LLaMA}\textsubscript{13B} results show that scaling up the model can improve the CoT ability but it's not a deciding factor.
 As hypothesized, in general the improvement between the 0-shot and 5-shot on GSM8k consistently increases with the percentage of code in the pre-training data among all the models.
 
 We also tested the Program-of-Thoughts (PoT) reasoning ability on the gsm-hard dataset since the dataset demonstrations are expressed as code, and the model is stimulated to produce reasoning expressed as code.
@@ -193,8 +192,8 @@ Let's think step by step.
 \end{Verbatim}
 since the reasoning is guided by the assistant messages.
 
-\subsubsection*{Llama2 7B GSM8k 0-shot}
-\noindent Example of generated text from Llama2\textsubscript{7B} on GSM8k -- 0-shot task:
+\subsubsection*{\textsc{LLaMA}2 7B GSM8k 0-shot}
+\noindent Example of generated text from \textsc{LLaMA}2\textsubscript{7B} on GSM8k -- 0-shot task:
 \begin{displayquote}
 	\textbf{Prompt:}
 	\begin{Verbatim}[fontsize=\small,breaklines]
@@ -220,13 +219,13 @@ The answer is incorrect (correct answer is 30).
 
 \noindent\rule{\textwidth}{0.4pt}
 
-\subsubsection*{Llama2 7B gsm-hard 0-shot}
-We do not report any sample of generated text from Llama2\textsubscript{7B} on gsm-hard -- 0-shot task, as the model has not shown any ability to answer correctly to any of the prompts.
+\subsubsection*{\textsc{LLaMA}2 7B gsm-hard 0-shot}
+We do not report any sample of generated text from \textsc{LLaMA}2\textsubscript{7B} on gsm-hard -- 0-shot task, as the model has not shown any ability to answer correctly to any of the prompts.
 
 \noindent\rule{\textwidth}{0.4pt}
 
-\subsubsection*{Code Llama 7B GSM8k 0-shot}
-\noindent Example of generated text from Code Llama\textsubscript{7B} on GSM8k -- 0-shot task:
+\subsubsection*{Code \textsc{LLaMA} 7B GSM8k 0-shot}
+\noindent Example of generated text from Code \textsc{LLaMA}\textsubscript{7B} on GSM8k -- 0-shot task:
 \begin{displayquote}
 	\textbf{Prompt:}
 	\begin{Verbatim}[fontsize=\small,breaklines]
@@ -254,8 +253,8 @@ The reasoning is coherent, but it misses the final step to calculate the total a
 
 \noindent\rule{\textwidth}{0.4pt}
 
-\subsubsection*{Code Llama 7B gsm-hard 0-shot}
-\noindent Example of generated text from Code Llama\textsubscript{7B} on gsm-hard -- 0-shot task:
+\subsubsection*{Code \textsc{LLaMA} 7B gsm-hard 0-shot}
+\noindent Example of generated text from Code \textsc{LLaMA}\textsubscript{7B} on gsm-hard -- 0-shot task:
 \begin{displayquote}
 	\textbf{Prompt:}
 	\begin{Verbatim}[fontsize=\small,breaklines]
@@ -318,8 +317,8 @@ The answer is incorrect (correct answer is 225514250).
 
 \noindent\rule{\textwidth}{0.4pt}
 
-\subsubsection*{Llama2 13B GSM8k 0-shot}
-\noindent Example of generated text from Llama2\textsubscript{13B} on GSM8k -- 0-shot task:
+\subsubsection*{\textsc{LLaMA}2 13B GSM8k 0-shot}
+\noindent Example of generated text from \textsc{LLaMA}2\textsubscript{13B} on GSM8k -- 0-shot task:
 \begin{displayquote}
 	\textbf{Prompt:}
 	\begin{Verbatim}[fontsize=\small,breaklines]
@@ -346,8 +345,8 @@ The answer is incorrect (correct answer is 62).
 
 \noindent\rule{\textwidth}{0.4pt}
 
-\subsubsection*{Llama2 13B gsm-hard 0-shot}
-\noindent Example of generated text from Llama2\textsubscript{13B} on gsm-hard -- 0-shot task:
+\subsubsection*{\textsc{LLaMA}2 13B gsm-hard 0-shot}
+\noindent Example of generated text from \textsc{LLaMA}2\textsubscript{13B} on gsm-hard -- 0-shot task:
 \begin{displayquote}
 	\textbf{Prompt:}
 	\begin{Verbatim}[fontsize=\small,breaklines]
@@ -377,8 +376,8 @@ The answer is incorrect (correct answer is 1806106.8000000003).
 
 \noindent\rule{\textwidth}{0.4pt}
 
-\subsubsection*{Llama 3 7B GSM8k 0-shot}
-\noindent Example of generated text from Llama 3\textsubscript{7B} on GSM8k -- 0-shot task:
+\subsubsection*{\textsc{LLaMA} 3 7B GSM8k 0-shot}
+\noindent Example of generated text from \textsc{LLaMA} 3\textsubscript{7B} on GSM8k -- 0-shot task:
 \begin{displayquote}
 	\textbf{Prompt:}
 	\begin{Verbatim}[fontsize=\small,breaklines]
@@ -449,8 +448,8 @@ The answer is incorrect (correct answer is 175).
 
 \noindent\rule{\textwidth}{0.4pt}
 
-\subsubsection*{Llama 3 7B gsm-hard 0-shot}
-\noindent Example of generated text from Llama 3\textsubscript{7B} on gsm-hard -- 0-shot task:
+\subsubsection*{\textsc{LLaMA} 3 7B gsm-hard 0-shot}
+\noindent Example of generated text from \textsc{LLaMA} 3\textsubscript{7B} on gsm-hard -- 0-shot task:
 \begin{displayquote}
 	\textbf{Prompt:}
 	\begin{Verbatim}[fontsize=\small,breaklines]
@@ -532,8 +531,8 @@ The answer is incorrect (correct answer is 42474420).
 
 \noindent\rule{\textwidth}{0.4pt}
 
-\subsubsection*{Llama3.1 7B GSM8k 0-shot}
-\noindent Example of generated text from Llama3.1\textsubscript{7B} on GSM8k -- 0-shot task:
+\subsubsection*{\textsc{LLaMA}3.1 7B GSM8k 0-shot}
+\noindent Example of generated text from \textsc{LLaMA}3.1\textsubscript{7B} on GSM8k -- 0-shot task:
 \begin{displayquote}
 	\textbf{Prompt:}
 	\begin{Verbatim}[fontsize=\small,breaklines]
@@ -600,7 +599,7 @@ The model is just missing to increase the initial price of the house by the 150\
 
 \noindent\rule{\textwidth}{0.4pt}
 
-\noindent Example of generated text from Llama3.1\textsubscript{7B} on gsm-hard -- 0-shot task:
+\noindent Example of generated text from \textsc{LLaMA}3.1\textsubscript{7B} on gsm-hard -- 0-shot task:
 \begin{displayquote}
 	\textbf{Prompt:}
 	\begin{Verbatim}[fontsize=\small,breaklines]
@@ -647,8 +646,8 @@ The answer is incorrect (correct answer is 42463867).
 In the 5-shot setting, the model is given 5 demonstrations of the task in the prompt\footnote{The CoT prompt is not reported for brevity in the following examples}.
 The demonstration is given in the form of a question and answer pair, and they do not contain the answer to the task.
 
-\subsubsection*{Llama2 7B GSM8k 5-shot}
-\noindent Example of generated text from Llama2\textsubscript{7B} on GSM8k -- 5-shot task:
+\subsubsection*{\textsc{LLaMA}2 7B GSM8k 5-shot}
+\noindent Example of generated text from \textsc{LLaMA}2\textsubscript{7B} on GSM8k -- 5-shot task:
 \begin{displayquote}
 	\textbf{Prompt:}
 	\begin{Verbatim}[fontsize=\small,breaklines]
@@ -674,8 +673,8 @@ The solution is 128
 \end{displayquote}
 The answer is incorrect (correct answer is 310).
 
-\subsubsection*{Llama2 7B gsm-hard 5-shot}
-\noindent Example of generated text from Llama2\textsubscript{7B} on gsm-hard -- 5-shot task:
+\subsubsection*{\textsc{LLaMA}2 7B gsm-hard 5-shot}
+\noindent Example of generated text from \textsc{LLaMA}2\textsubscript{7B} on gsm-hard -- 5-shot task:
 \begin{displayquote}
 	\textbf{Prompt:}
 	\begin{Verbatim}[fontsize=\small,breaklines]
@@ -690,8 +689,8 @@ The answer is incorrect (correct answer is 13).
 
 \noindent\rule{\textwidth}{0.4pt}
 
-\subsubsection*{Code Llama 7B GSM8k 5-shot}
-\noindent Example of generated text from Code Llama\textsubscript{7B} on GSM8k -- 5-shot task:
+\subsubsection*{Code \textsc{LLaMA} 7B GSM8k 5-shot}
+\noindent Example of generated text from Code \textsc{LLaMA}\textsubscript{7B} on GSM8k -- 5-shot task:
 \begin{displayquote}
 	\textbf{Prompt:}
 	\begin{Verbatim}[fontsize=\small,breaklines]
@@ -720,8 +719,8 @@ The formula used to calculate the remaining balance is correct $\$2200-165\times
 
 	\noindent\rule{\textwidth}{0.4pt}
 
-	\subsubsection*{Code Llama 7B gsm-hard 5-shot}
-	\noindent Example of generated text from Code Llama\textsubscript{7B} on gsm-hard -- 5-shot task:
+	\subsubsection*{Code \textsc{LLaMA} 7B gsm-hard 5-shot}
+	\noindent Example of generated text from Code \textsc{LLaMA}\textsubscript{7B} on gsm-hard -- 5-shot task:
 	\begin{displayquote}
 		\textbf{Prompt:}
 		\begin{Verbatim}[fontsize=\small,breaklines]
@@ -769,8 +768,8 @@ The solution is 43581690.0.
 
 	\noindent\rule{\textwidth}{0.4pt}
 
-	\subsubsection*{Llama2 13B GSM8k 5-shot}
-	\noindent Example of generated text from Llama2\textsubscript{13B} on GSM8k -- 5-shot task:
+	\subsubsection*{\textsc{LLaMA}2 13B GSM8k 5-shot}
+	\noindent Example of generated text from \textsc{LLaMA}2\textsubscript{13B} on GSM8k -- 5-shot task:
 	\begin{displayquote}
 		\textbf{Prompt:}
 		\begin{Verbatim}[fontsize=\small,breaklines]
@@ -802,8 +801,8 @@ The solution is <<10*$8=$9.7>> 3x<<$26 + Action Figure * Doll / =<font size=smal
 
 	\noindent\rule{\textwidth}{0.4pt}
 
-	\subsubsection*{Llama2 13B gsm-hard 5-shot}
-	\noindent Example of generated text from Llama2\textsubscript{13B} on gsm-hard -- 5-shot task:
+	\subsubsection*{\textsc{LLaMA}2 13B gsm-hard 5-shot}
+	\noindent Example of generated text from \textsc{LLaMA}2\textsubscript{13B} on gsm-hard -- 5-shot task:
 	\begin{displayquote}
 		\textbf{Prompt:}
 		\begin{Verbatim}[fontsize=\small,breaklines]
@@ -819,8 +818,8 @@ def solution():
 
 	\noindent\rule{\textwidth}{0.4pt}
 
-	\subsubsection*{Llama3 7B GSM8k 5-shot}
-	\noindent Example of generated text from Llama3\textsubscript{7B} on GSM8k -- 5-shot task:
+	\subsubsection*{\textsc{LLaMA}3 7B GSM8k 5-shot}
+	\noindent Example of generated text from \textsc{LLaMA}3\textsubscript{7B} on GSM8k -- 5-shot task:
 	\begin{displayquote}
 		\textbf{Prompt:}
 		\begin{Verbatim}[fontsize=\small,breaklines]
@@ -853,8 +852,8 @@ I am an AI assistant, here to help you with any questions or problems you may ha
 
 	\noindent\rule{\textwidth}{0.4pt}
 
-	\subsubsection*{Llama3 7B gsm-hard 5-shot}
-	\noindent Example of generated text from Llama3\textsubscript{7B} on gsm-hard -- 5-shot task:
+	\subsubsection*{\textsc{LLaMA}3 7B gsm-hard 5-shot}
+	\noindent Example of generated text from \textsc{LLaMA}3\textsubscript{7B} on gsm-hard -- 5-shot task:
 	\begin{displayquote}
 		\textbf{Prompt:}
 		\begin{Verbatim}[fontsize=\small,breaklines]
@@ -929,8 +928,8 @@ I hope this helps! Let me know if you have any further questions or need help wi
 
 	\noindent\rule{\textwidth}{0.4pt}
 
-	\subsubsection*{Llama3.1 7B GSM8k 5-shot}
-	\noindent Example of generated text from Llama3.1\textsubscript{7B} on GSM8k -- 5-shot task:
+	\subsubsection*{\textsc{LLaMA}3.1 7B GSM8k 5-shot}
+	\noindent Example of generated text from \textsc{LLaMA}3.1\textsubscript{7B} on GSM8k -- 5-shot task:
 	\begin{displayquote}
 		\textbf{Prompt:}
 		\begin{Verbatim}[fontsize=\small,breaklines]
@@ -969,8 +968,8 @@ The solution is 27.65.
 
 	\noindent\rule{\textwidth}{0.4pt}
 
-	\subsubsection*{Llama3.1 7B gsm-hard 5-shot}
-	\noindent Example of generated text from Llama3.1\textsubscript{7B} on gsm-hard -- 5-shot task:
+	\subsubsection*{\textsc{LLaMA}3.1 7B gsm-hard 5-shot}
+	\noindent Example of generated text from \textsc{LLaMA}3.1\textsubscript{7B} on gsm-hard -- 5-shot task:
 	\begin{displayquote}
 		\textbf{Prompt:}
 		\begin{Verbatim}[fontsize=\small,breaklines]
@@ -1046,8 +1045,8 @@ def solution():
 
 	\noindent\rule{\textwidth}{0.4pt}
 
-	\subsubsection*{Llama2 7B gsm-hard 5-shot PoT}
-	\noindent Example of generated text from Llama2\textsubscript{7B} on gsm-hard -- 5-shot task using PoT:
+	\subsubsection*{\textsc{LLaMA}2 7B gsm-hard 5-shot PoT}
+	\noindent Example of generated text from \textsc{LLaMA}2\textsubscript{7B} on gsm-hard -- 5-shot task using PoT:
 	\begin{displayquote}
 		\textbf{Prompt:}
 		\begin{Verbatim}[fontsize=\small,breaklines]
@@ -1088,8 +1087,8 @@ def solution():
 
 	\noindent\rule{\textwidth}{0.4pt}
 
-	\subsubsection*{Code Llama 7B gsm-hard 5-shot PoT}
-	\noindent Example of generated text from Code Llama\textsubscript{7B} on gsm-hard -- 5-shot task using PoT:
+	\subsubsection*{Code \textsc{LLaMA} 7B gsm-hard 5-shot PoT}
+	\noindent Example of generated text from Code \textsc{LLaMA}\textsubscript{7B} on gsm-hard -- 5-shot task using PoT:
 	\begin{displayquote}
 		\textbf{Prompt:}
 		\begin{Verbatim}[fontsize=\small,breaklines]
@@ -1130,8 +1129,8 @@ def solution():
 
 	\noindent\rule{\textwidth}{0.4pt}
 
-	\subsubsection*{Llama3 7B gsm-hard 5-shot PoT}
-	\noindent Example of generated text from Llama3\textsubscript{7B} on gsm-hard -- 5-shot task using PoT:
+	\subsubsection*{\textsc{LLaMA}3 7B gsm-hard 5-shot PoT}
+	\noindent Example of generated text from \textsc{LLaMA}3\textsubscript{7B} on gsm-hard -- 5-shot task using PoT:
 	\begin{displayquote}
 		\textbf{Prompt:}
 		\begin{Verbatim}[fontsize=\small,breaklines]
@@ -1172,8 +1171,8 @@ def solution():
 
 	\noindent\rule{\textwidth}{0.4pt}
 
-	\subsubsection*{Llama3.1 7B gsm-hard 5-shot PoT}
-	\noindent Example of generated text from Llama3.1\textsubscript{7B} on gsm-hard -- 5-shot task using PoT:
+	\subsubsection*{\textsc{LLaMA}3.1 7B gsm-hard 5-shot PoT}
+	\noindent Example of generated text from \textsc{LLaMA}3.1\textsubscript{7B} on gsm-hard -- 5-shot task using PoT:
 	\begin{displayquote}
 		\textbf{Prompt:}
 		\begin{Verbatim}[fontsize=\small,breaklines]
