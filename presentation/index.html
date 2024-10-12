@@ -33,6 +33,10 @@
 
 						![history](./imgs/history.png)
 
+						Large Language Models (LLMs)
+
+						10B parameters
+
 						---
 
 						<!-- .slide: data-background-image="./imgs/llm.png" data-background-size="80%" data-background-opacity="0.2" -->
@@ -56,66 +60,49 @@
 						Planning <!-- .element: class="fragment grow" data-fragment-index="2" -->
 
 						</div>
-						---
-
-						<!-- .slide: data-background-image="./imgs/llm.png" data-background-size="80%" data-background-opacity="0.2" -->
-
-						# Domain specific models
-
-						<div class="r-stack">
-						<div class="fragment fade-in-then-out">
-
-						### Healthcare
-						- Medical image analysis
-						- Clinical decision support
-						- Drug discovery and development
-						- Personalized Medicine
-
-						</div>
-						<div class="fragment fade-in-then-out">
-
-						### Finance
-						- Risk management
-						- Fraud detection
-						- Algorithmic trading
-						- Customer service
-
-						</div>
-						<div class="fragment fade-in-then-out">
-
-						### Law
-						- Legal document analysis
-						- Legal judgment prediction
-						- Legal document writing
-
-						</div>
-						<div class="fragment fade-in-then-out">
-
-						### Education
-						- Intelligent tutoring systems
-						- Automated grading
-						- Personalized learning
-						- Curriculum design
-
-						</div>
-						<div class="fragment fade-in-then-out">
-
-						### Scientific Research
-						- Literature review
-						- Hypothesis generation
-						- Data analysis
-						- Brainstorming
-
-						</div>
-						</div>
 
 						---
 
 						# LLM adaptation
 
-						- Pre-training <!-- .element: class="fragment" -->
-						- Fine tuning <!-- .element: class="fragment" -->
-						- Instruction tuning <!-- .element: class="fragment" -->
+						<div class="r-stack">
+						<div class="fragment fade-out" data-fragment-index="0">
+
+						![adaptation](./imgs/adaptation.png)
+
+						</div>
+						<div class="fragment current-visible" data-fragment-index="0">
+
+						## Pre-training
+
+						The foundation for the power of LLMS
+
+						***
+
+						- Large corpus with mixed data (web pages, books, code, etc.)
+						- Costly and time-consuming
+						- Models good at understanding and generating language
+
+						</div>
+						<div class="fragment current-visible" data-fragment-index="1">
+
+						## Fine-tuning
+						The process of adjusting the parameters of a pre-trained large language model to a specific task or domain without the need to train a model from scratch
+
+						***
+
+						- billions of parameters are expensive to tune
+						- it can improve model performance
+						- it may leads to loss of generalization capabilities
+
+						</div>
+
+						<div class="fragment" data-fragment-index="2">
+
+						![domain](./imgs/domain.png)
+
+						</div>
+						</div>
 
 						---
 
@@ -129,38 +116,141 @@
 						Transformer - Encoder/Decoder [Vaswani et al. 2017]
 
 						</div>
-						<div class="fragment current-visible" style="display:flex; align-items: center;" data-fragment-index="0">
+						<div class="fragment current-visible" style="display:flex; align-items: center; text-align: justify;" data-fragment-index="0">
 
-						![](./imgs/encoder.png) <!-- .element: style="width: 800px; float:left; margin: 0" -->
+						![](./imgs/encoder.png)
 
-						The encoder transforms an input sequence into a set of representations that capture its semantic and syntactic properties
+						<div>
+
+						### Encoder
+
+						- transforms an input sequence into embeddings
+						- capture text semantic and syntactic properties
 
 						</div>
+						</div>
 
-						<div class="fragment current-visible" style="display:flex; align-items: center;" data-fragment-index="1">
+						<div class="fragment current-visible" style="display:flex; align-items: center; text-align: justify;" data-fragment-index="1">
 
-						![](./imgs/decoder.png) <!-- .element: style="width: 1000px; float:left; margin: 0" -->
+						![](./imgs/decoder.png)
 
-						Decoder turns the embedding back into a text output, i.e. the translated version of the input text
+						<div>
+
+						### Decoder
+
+						- turns the embedding back into a text output
+
+						- translation task: the translated version of the input text
+
+						</div>
+						</div>
+						<div class="fragment" style="display:flex; align-items: center; text-align: justify;" data-fragment-index="2">
+
+						![](./imgs/heads.png)
+
+						<div>
+
+						### Multi-head self-attention mechanism
+
+						- "focus attention" on different parts of the sentence
+						- parallel processing
+						- scale adding attention layers
 
 						</div>
 						</div>
 
 						---
 
+						# Scaling laws
 
+						<div class="r-stack">
+						<div class="fragment fade-out" data-fragment-index="0">
 
-						## Pre-training
+						## KM (OpenAI)
+						`\[\begin{aligned} L(N) & =(\frac{N_c}{N})^{\alpha_N}, \alpha_N \approx 0.076, N_c \approx 8.8 \times 10^{13} \\ L(D) & =(\frac{D_c}{D})^{\alpha_D}, \alpha_D \approx 0.095, D_c \approx 5.4 \times 10^{13} \\ L(C) & =(\frac{C_c}{C})^{\alpha_C}, \alpha_C \approx 0.050, C_c \approx 3.1 \times 10^8 \end{aligned} \]`
 
-						## Fine tuning
+						</div>
+						<div class="fragment" data-fragment-index="0">
 
-						## Scaling law
+						## Chinchilla (Google)
+						`\[ L(N,D) = E + \frac{A}{N^\alpha} + \frac{B}{D^\beta} \]`
 
-						## Emergent abilities
+						</div>
+						</div>
 
 						---
 
-						# CoT/PoT
+						# Scaling laws
+
+						- Relationship between model size, data size, and compute budget
+						- Optimal allocation of compute budget to model size and data size <!-- .element: class="fragment" -->
+						- Model size and performance relationship <!-- .element: class="fragment" -->
+
+						---
+
+						# Emergent abilities
+
+						<div class="r-stack">
+						<div class="fragment fade-out" data-fragment-index="0">
+
+						![scaling](./imgs/scaling-phase.png)
+
+						"Emergence is when quantitative changes in a system result in qualitative changes in behavior" <!-- .element: style="font-style: italic; font-size: 0.5em" -->
+
+						</div>
+						<div class="fragment current-visible" style="display:flex" data-fragment-index="0">
+
+						![](./imgs/icl.png)
+						- In-Context Learning (ICL) <!-- .element: class="fragment highlight-current-blue" data-fragment-index="0" -->
+						- Chain of Thought (CoT)
+						- Program of Thought (PoT)
+						- Planning
+
+						</div>
+						<div class="fragment current-visible" data style="display:flex" data-fragment-index="1">
+
+						![](./imgs/cot.png)
+						- In-Context Learning (ICL)
+						- Chain of Thought (CoT) <!-- .element: class="fragment highlight-current-blue" data-fragment-index="1" -->
+						- Program of Thought (PoT)
+						- Planning
+
+						</div>
+
+						<div class="fragment current-visible" data style="display:flex" data-fragment-index="2">
+
+						![](./imgs/pot.png) <!-- .element: style="width: 80%;" -->
+						- In-Context Learning (ICL)
+						- Chain of Thought (CoT)
+						- Program of Thought (PoT) <!-- .element: class="fragment highlight-current-blue" data-fragment-index="2" -->
+						- Planning
+
+						</div>
+						<div class="fragment" data style="display:flex" data-fragment-index="4">
+
+						![](./imgs/planning.png) <!-- .element: style="width: 80%;" -->
+						- In-Context Learning (ICL)
+						- Chain of Thought (CoT)
+						- Program of Thought (PoT)
+						- Planning <!-- .element: class="fragment highlight-current-blue" data-fragment-index="4" -->
+
+						</div>
+
+						</div>
+
+						---
+
+						## Chain of Thoughts <!-- .element: style="font-variant: small-caps" -->
+
+
+						***
+
+						- Only effective for step-by-step reasoning, such as arithmetic, commonsense, and symbolic reasoning
+						- Model size is not a deciding factor!
+
+
+
+						---
 
 						## Esperimenti
 
@@ -190,7 +280,6 @@
 			// - https://revealjs.com/config/
 			Reveal.initialize({
 				hash: true,
-
 				// Learn about plugins: https://revealjs.com/plugins/
 				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes, RevealMath.KaTeX ]
 			});
