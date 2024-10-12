@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>reveal.js</title>
+
+		<link rel="stylesheet" href="dist/reset.css">
+		<link rel="stylesheet" href="dist/reveal.css">
+		<link rel="stylesheet" href="dist/theme/black.css">
+
+		<!-- Theme used for syntax highlighted code -->
+		<link rel="stylesheet" href="plugin/highlight/monokai.css">
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section data-markdown>
+					<textarea data-template>
+						![Logo](./imgs/Logo_Roma_Tre.jpg) <!-- .element: style="width: 20%;" -->
+
+						# Exploring LLM abilities
+						## A deep dive into LLMs
+
+						Andrea Matarazzo <!-- .element: style="font-size: 0.4em; margin-top: 2em" -->
+
+						A.A. 2023/2024 <!-- .element: style="font-size: 0.3em" -->
+
+						---
+
+						# Models evolution
+
+						![history](./imgs/history.png)
+
+						---
+
+						<!-- .slide: data-background-image="./imgs/llm.png" data-background-size="80%" data-background-opacity="0.2" -->
+
+						# Tasks
+
+						Text generation <!-- .element: class="fragment semi-fade-out" data-fragment-index="1" -->
+
+						<div class="fragment fade-in" data-fragment-index="1">
+
+						Translation <!-- .element: class="fragment grow" data-fragment-index="2" -->
+
+						Question answering <!-- .element: class="fragment grow" data-fragment-index="2" -->
+
+						Summarization <!-- .element: class="fragment grow" data-fragment-index="2" -->
+
+						Sentiment analysis <!-- .element: class="fragment grow" data-fragment-index="2" -->
+
+						Reasoning <!-- .element: class="fragment grow" data-fragment-index="2" -->
+
+						Planning <!-- .element: class="fragment grow" data-fragment-index="2" -->
+
+						</div>
+						---
+
+						<!-- .slide: data-background-image="./imgs/llm.png" data-background-size="80%" data-background-opacity="0.2" -->
+
+						# Domain specific models
+
+						<div class="r-stack">
+						<div class="fragment fade-in-then-out">
+
+						### Healthcare
+						- Medical image analysis
+						- Clinical decision support
+						- Drug discovery and development
+						- Personalized Medicine
+
+						</div>
+						<div class="fragment fade-in-then-out">
+
+						### Finance
+						- Risk management
+						- Fraud detection
+						- Algorithmic trading
+						- Customer service
+
+						</div>
+						<div class="fragment fade-in-then-out">
+
+						### Law
+						- Legal document analysis
+						- Legal judgment prediction
+						- Legal document writing
+
+						</div>
+						<div class="fragment fade-in-then-out">
+
+						### Education
+						- Intelligent tutoring systems
+						- Automated grading
+						- Personalized learning
+						- Curriculum design
+
+						</div>
+						<div class="fragment fade-in-then-out">
+
+						### Scientific Research
+						- Literature review
+						- Hypothesis generation
+						- Data analysis
+						- Brainstorming
+
+						</div>
+						</div>
+
+						---
+
+						# LLM adaptation
+
+						- Pre-training <!-- .element: class="fragment" -->
+						- Fine tuning <!-- .element: class="fragment" -->
+						- Instruction tuning <!-- .element: class="fragment" -->
+
+						---
+
+						# LLM architecture
+
+						<div class="r-stack">
+						<div class="fragment fade-out" data-fragment-index="0">
+
+						![](./imgs/architecture.png) <!-- .element: style="width: 75%;" -->
+
+						Transformer - Encoder/Decoder [Vaswani et al. 2017]
+
+						</div>
+						<div class="fragment current-visible" style="display:flex; align-items: center;" data-fragment-index="0">
+
+						![](./imgs/encoder.png) <!-- .element: style="width: 800px; float:left; margin: 0" -->
+
+						The encoder transforms an input sequence into a set of representations that capture its semantic and syntactic properties
+
+						</div>
+
+						<div class="fragment current-visible" style="display:flex; align-items: center;" data-fragment-index="1">
+
+						![](./imgs/decoder.png) <!-- .element: style="width: 1000px; float:left; margin: 0" -->
+
+						Decoder turns the embedding back into a text output, i.e. the translated version of the input text
+
+						</div>
+						</div>
+
+						---
+
+
+
+						## Pre-training
+
+						## Fine tuning
+
+						## Scaling law
+
+						## Emergent abilities
+
+						---
+
+						# CoT/PoT
+
+						## Esperimenti
+
+						### Selezione del modello: LLaMA
+
+						### Risultati
+
+						---
+
+						# Conclusioni
+
+						## Limiti e prospettive
+						
+					</textarea>
+				</section>
+			</div>
+		</div>
+
+		<script src="dist/reveal.js"></script>
+		<script src="plugin/notes/notes.js"></script>
+		<script src="plugin/markdown/markdown.js"></script>
+		<script src="plugin/highlight/highlight.js"></script>
+		<script src="plugin/math/math.js"></script>
+		<script>
+			// More info about initialization & config:
+			// - https://revealjs.com/initialization/
+			// - https://revealjs.com/config/
+			Reveal.initialize({
+				hash: true,
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes, RevealMath.KaTeX ]
+			});
+		</script>
+	</body>
+</html>
