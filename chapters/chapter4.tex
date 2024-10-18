@@ -143,8 +143,8 @@ We also tested the Program-of-Thoughts (PoT) reasoning ability on the gsm-hard d
 The code was extracted from the model's solution and executed by a Python interpreter to calculate the result.
 The performance is indicated in the table inside the parentheses, which shows that PoT also increases with the percentage of code in the pre-training data.
 We can note that all the models have a low success rate in the gsm-hard dataset, while the performance increases using PoT\@.
-The fact that the models' performance drops in the 0-shot gsm-hard dataset, which is simply using larger numbers, suggests that the LLMs cannot reason if they cannot figure out the underlying algorithm, rather they learn the distribution in the pre-training data.
-Also, the CoT reasoning ability is accepted that doesn’t generalize well after a point as we can see in the results of the 5-shot gsm-hard dataset.
+The fact that the models' performance drops in the 0-shot gsm-hard dataset, which simply uses larger numbers, suggests that the LLMs cannot reason if they cannot figure out the underlying algorithm; rather, they learn the distribution in the pre-training data.
+Also, the CoT reasoning ability is accepted that doesn't generalize well after a point as we can see in the results of the 5-shot gsm-hard dataset.
 The increment using PoT is more significant than the one using the model's solution, which suggests that demonstrating reasoning as code improves the ability to generate code rather than the reasoning itself.
 It could be explained by the fact that models are trained on GitHub, an high quality code dataset, so they can retrieve the pieces of code.
 
