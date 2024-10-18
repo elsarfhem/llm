@@ -17,3 +17,6 @@ main.run.xml
 *.iml
 .DS_Store
 *.bak*
+
+#node
+/presentation/node_modules/
