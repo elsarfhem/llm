@@ -73,9 +73,9 @@
 						</div>
 						<div class="fragment current-visible" data-fragment-index="0">
 
-						## Pre-training
+						## Training
 
-						The foundation for the power of LLMS
+						The foundation for the power of LLMs
 
 						***
 
@@ -183,8 +183,8 @@
 						# Scaling laws
 
 						- Relationship between model size, data size, and compute budget
-						- Optimal allocation of compute budget to model size and data size <!-- .element: class="fragment" -->
-						- Model size and performance relationship <!-- .element: class="fragment" -->
+						- Optimal allocation of compute budget to model size and data size
+						- Model size and performance relationship
 
 						---
 
@@ -199,17 +199,17 @@
 
 						</div>
 						<div class="fragment current-visible" style="display:flex" data-fragment-index="0">
+						<img src="./imgs/icl.png" style="width: 500px;" />
 
-						![](./imgs/icl.png)
 						- In-Context Learning (ICL) <!-- .element: class="fragment highlight-current-blue" data-fragment-index="0" -->
 						- Chain of Thought (CoT)
 						- Program of Thought (PoT)
 						- Planning
 
 						</div>
-						<div class="fragment current-visible" data style="display:flex" data-fragment-index="1">
+						<div class="fragment current-visible" style="display:flex" data-fragment-index="1">
+						<img src="./imgs/cot.png" style="width: 500px;" />
 
-						![](./imgs/cot.png)
 						- In-Context Learning (ICL)
 						- Chain of Thought (CoT) <!-- .element: class="fragment highlight-current-blue" data-fragment-index="1" -->
 						- Program of Thought (PoT)
@@ -217,22 +217,22 @@
 
 						</div>
 
-						<div class="fragment current-visible" data style="display:flex" data-fragment-index="2">
+						<div class="fragment current-visible" style="display:flex" data-fragment-index="2">
+						<img src="./imgs/pot.png" style="width: 500px;" />
 
-						![](./imgs/pot.png) <!-- .element: style="width: 80%;" -->
 						- In-Context Learning (ICL)
 						- Chain of Thought (CoT)
 						- Program of Thought (PoT) <!-- .element: class="fragment highlight-current-blue" data-fragment-index="2" -->
 						- Planning
 
 						</div>
-						<div class="fragment" data style="display:flex" data-fragment-index="4">
+						<div class="fragment" style="display:flex" data-fragment-index="3">
+						<img src="./imgs/planning.png" style="width: 500px;" />
 
-						![](./imgs/planning.png) <!-- .element: style="width: 80%;" -->
 						- In-Context Learning (ICL)
 						- Chain of Thought (CoT)
 						- Program of Thought (PoT)
-						- Planning <!-- .element: class="fragment highlight-current-blue" data-fragment-index="4" -->
+						- Planning <!-- .element: class="fragment highlight-current-blue" data-fragment-index="3" -->
 
 						</div>
 
@@ -240,27 +240,233 @@
 
 						---
 
-						## Chain of Thoughts <!-- .element: style="font-variant: small-caps" -->
+						# Chain of Thought
 
+						Where this ability comes from?
 
 						***
 
-						- Only effective for step-by-step reasoning, such as arithmetic, commonsense, and symbolic reasoning
-						- Model size is not a deciding factor!
-
-
-
-						---
-
-						## Esperimenti
-
-						### Selezione del modello: LLaMA
-
-						### Risultati
+						- Model size?
+						- Instruction tuning?
+						- Pre-training corpora?
+							- Hypothesized to be elicited by training on **code**
 
 						---
 
-						# Conclusioni
+						# Experiments
+
+						- LLaMA models
+							- Same architecture
+							- Same model size (7B)
+							- Different code % in pre-training corpora
+						- GSM8k and GSM-hard datasets
+							- Math word problems
+
+						---
+
+						# Results
+						## CoT performance GSM8k
+
+						<div style="height:470px">
+						<canvas data-chart="line">
+						<!--
+						{
+						 "data": {
+						  "labels": ["LLaMA2 7B", "Code LLaMA 7B", "LLaMA2 13B", "LLaMA3 7B", "LLaMA3.1 7B" ],
+						  "datasets":[
+						   {
+							"data":[3.1,3.99,10.53,31,75.9],
+							"label":"0-shot","backgroundColor":"white"
+						   },
+						   {
+							"data":[15.7, 16.3, 35.8, 47, 80.9],
+							"label":"5-shot", "backgroundColor":"white"
+						   }
+						  ]
+						 }
+						}
+						-->
+						</div>
+						</canvas>
+
+						---
+
+						# Results
+						CoT is elicited by training on code
+
+						***
+
+
+						<div style="display: flex;">
+						<div style="height:470px; width: 500px">
+						<canvas data-chart="line">
+						<!--
+						{
+						 "data": {
+						  "labels": ["LLaMA2 7B", "Code LLaMA 7B", "LLaMA2 13B", "LLaMA3 7B", "LLaMA3.1 7B" ],
+						  "datasets":[
+						   {
+							"data":[3.1,3.99,10.53,31,75.9],
+							"label":"0-shot","backgroundColor":"white"
+						   },
+						   {
+							"data":[15.7, 16.3, 35.8, 47, 80.9],
+							"label":"5-shot", "backgroundColor":"white"
+						   }
+						  ]
+						 }
+						}
+						-->
+						</canvas>
+						</div>
+						<div>
+
+						- code-davinci-002 vs text-davinci-002 <!-- .element: style="font-size: 0.8em" -->
+						- model size is not a deciding factor <!-- .element: style="font-size: 0.8em" -->
+							- ...but it improves performance <!-- .element: style="font-size: 0.6em" -->
+						- instruction tuning is not a deciding factor <!-- .element: style="font-size: 0.8em" -->
+							- Code LLaMA (fine-tuned) is not better than LLaMA2 <!-- .element: style="font-size: 0.6em" -->
+						- same architecture <!-- .element: style="font-size: 0.8em" -->
+							- LLaMA 3.x does not significantly deviate from LLaMA 2 <!-- .element: style="font-size: 0.6em" -->
+
+						</div>
+						</div>
+
+						---
+
+						# Results
+						## CoT performance GSM-hard
+
+						<div style="height:470px">
+						<canvas data-chart="line">
+						<!--
+						{
+						 "data": {
+						  "labels": ["LLaMA2 7B", "Code LLaMA 7B", "LLaMA2 13B", "LLaMA3 7B", "LLaMA3.1 7B" ],
+						  "datasets":[
+						   {
+							"data":[0, 1.30, 0, 5.4, 7.85],
+							"label":"0-shot","backgroundColor":"white"
+						   },
+						   {
+							"data":[0, 1.5, 0, 7.4, 9.64],
+							"label":"5-shot", "backgroundColor":"white"
+						   }
+						  ]
+						 }
+						}
+						-->
+						</canvas>
+						</div>
+
+						---
+
+						# Results
+						LLMs cannot reason
+
+						***
+
+						<div style="display: flex;">
+						<div style="height:470px; width:400px;">
+						<canvas data-chart="line">
+						<!--
+						{
+						 "data": {
+						  "labels": ["LLaMA2 7B", "Code LLaMA 7B", "LLaMA2 13B", "LLaMA3 7B", "LLaMA3.1 7B" ],
+						  "datasets":[
+						   {
+							"data":[0, 1.30, 0, 5.4, 7.85],
+							"label":"0-shot","backgroundColor":"white"
+						   },
+						   {
+							"data":[0, 1.5, 0, 7.4, 9.64],
+							"label":"5-shot", "backgroundColor":"white"
+						   }
+						  ]
+						 }
+						}
+						-->
+						</canvas>
+						</div>
+						<div>
+
+						- LLMs learn to do Bayesian inference during pre-training <!-- .element: style="font-size: 0.9em" -->
+							- ...related to data distributional properties (no big numbers) <!-- .element: style="font-size: 0.6em" -->
+							- ...next token likelihood conditioned on the input sequence (text and code instructions) <!-- .element: style="font-size: 0.6em" -->
+
+						</div>
+						</div>
+
+						---
+
+						# Results
+						## PoT performance GSM-hard
+
+						<div style="height:470px">
+						<canvas data-chart="line">
+						<!--
+						{
+						 "data": {
+						  "labels": ["LLaMA2 7B", "Code LLaMA 7B", "LLaMA2 13B", "LLaMA3 7B", "LLaMA3.1 7B" ],
+						  "datasets":[
+						   {
+							"data":[0, 1.30, 0, 5.4, 7.85],
+							"label":"0-shot","backgroundColor":"white"
+						   },
+						   {
+							"data":[16.69, 27.6, 36, 56.1, 62.36],
+							"label":"5-shot", "backgroundColor":"white"
+						   }
+						  ]
+						 }
+						}
+						-->
+						</canvas>
+						</div>
+
+						---
+
+						# Results
+						LLMs cannot plan
+
+						***
+
+						<div style="display: flex;">
+						<div style="height:470px; width:400px;">
+						<canvas data-chart="line">
+						<!--
+						{
+						 "data": {
+						  "labels": ["LLaMA2 7B", "Code LLaMA 7B", "LLaMA2 13B", "LLaMA3 7B", "LLaMA3.1 7B" ],
+						  "datasets":[
+						   {
+							"data":[0, 1.30, 0, 5.4, 7.85],
+							"label":"0-shot","backgroundColor":"white"
+						   },
+						   {
+							"data":[0, 1.5, 0, 7.4, 9.64],
+							"label":"5-shot", "backgroundColor":"white"
+						   }
+						  ]
+						 }
+						}
+						-->
+						</canvas>
+						</div>
+						<div>
+
+						- External solvers and verifiers improve performance <!-- .element: style="font-size: 0.8em" -->
+						- Good at code generation <!-- .element: style="font-size: 0.8em" -->
+							- high quality code data in the pre-training corpora (GitHub) <!-- .element: style="font-size: 0.6em" -->
+							- code history (bugfixes and improvements) <!-- .element: style="font-size: 0.6em" -->
+						- Poor at planning <!-- .element: style="font-size: 0.8em" -->
+							- Struggle with self-verification (cannot improve themselves) <!-- .element: style="font-size: 0.6em" -->
+							- Inexperienced problem solvers <!-- .element: style="font-size: 0.6em" -->
+
+						</div>
+						</div>
+
+						---
 
 						## Limiti e prospettive
 						
@@ -274,6 +480,11 @@
 		<script src="plugin/markdown/markdown.js"></script>
 		<script src="plugin/highlight/highlight.js"></script>
 		<script src="plugin/math/math.js"></script>
+		<!-- Chart plugin -->
+		<script src="https://cdn.jsdelivr.net/npm/reveal.js-plugins@latest/chart/plugin.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.2.0/chart.min.js"></script>
+
+		<!-- Chart plugin -->
 		<script>
 			// More info about initialization & config:
 			// - https://revealjs.com/initialization/
@@ -281,7 +492,18 @@
 			Reveal.initialize({
 				hash: true,
 				// Learn about plugins: https://revealjs.com/plugins/
-				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes, RevealMath.KaTeX ]
+				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes, RevealMath.KaTeX, RevealChart ],
+				chart: {
+					defaults: {
+						color: 'lightgray',
+						scale: {
+							grid: { color: "lightgray" },
+							min: 0,
+							max: 100,
+						}
+					},
+					line: { borderColor: [ "#e60049", "#0bb4ff", "#50e991", "#e6d800", "#9b19f5", "#ffa300", "#dc0ab4", "#b3d4ff", "#00bfa0"] },
+				}
 			});
 		</script>
 	</body>
