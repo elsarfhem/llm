@@ -29,13 +29,9 @@
 
 						---
 
-						# Models evolution
+						# Advent of LLMs
 
 						![history](./imgs/history.png)
-
-						Large Language Models (LLMs)
-
-						10B parameters
 
 						---
 
@@ -47,144 +43,25 @@
 
 						<div class="fragment fade-in" data-fragment-index="1">
 
-						Translation <!-- .element: class="fragment grow" data-fragment-index="2" -->
+						Translation <!-- .element: class="fragment grow" data-fragment-index="1" -->
 
-						Question answering <!-- .element: class="fragment grow" data-fragment-index="2" -->
+						Question answering <!-- .element: class="fragment grow" data-fragment-index="1" -->
 
-						Summarization <!-- .element: class="fragment grow" data-fragment-index="2" -->
+						Summarization <!-- .element: class="fragment grow" data-fragment-index="1" -->
 
-						Sentiment analysis <!-- .element: class="fragment grow" data-fragment-index="2" -->
+						Sentiment analysis <!-- .element: class="fragment grow" data-fragment-index="1" -->
 
-						Reasoning <!-- .element: class="fragment grow" data-fragment-index="2" -->
+						Reasoning <!-- .element: class="fragment grow" data-fragment-index="1" -->
 
-						Planning <!-- .element: class="fragment grow" data-fragment-index="2" -->
+						Planning <!-- .element: class="fragment grow" data-fragment-index="1" -->
 
 						</div>
 
 						---
 
-						# LLM adaptation
-
-						<div class="r-stack">
-						<div class="fragment fade-out" data-fragment-index="0">
-
-						![adaptation](./imgs/adaptation.png)
-
-						</div>
-						<div class="fragment current-visible" data-fragment-index="0">
-
-						## Training
-
-						The foundation for the power of LLMs
-
-						***
-
-						- Large corpus with mixed data (web pages, books, code, etc.)
-						- Costly and time-consuming
-						- Models good at understanding and generating language
-
-						</div>
-						<div class="fragment current-visible" data-fragment-index="1">
-
-						## Fine-tuning
-						The process of adjusting the parameters of a pre-trained large language model to a specific task or domain without the need to train a model from scratch
-
-						***
-
-						- billions of parameters are expensive to tune
-						- it can improve model performance
-						- it may leads to loss of generalization capabilities
-
-						</div>
-
-						<div class="fragment" data-fragment-index="2">
+						# LLM applications
 
 						![domain](./imgs/domain.png)
-
-						</div>
-						</div>
-
-						---
-
-						# LLM architecture
-
-						<div class="r-stack">
-						<div class="fragment fade-out" data-fragment-index="0">
-
-						![](./imgs/architecture.png) <!-- .element: style="width: 75%;" -->
-
-						Transformer - Encoder/Decoder [Vaswani et al. 2017]
-
-						</div>
-						<div class="fragment current-visible" style="display:flex; align-items: center; text-align: justify;" data-fragment-index="0">
-
-						![](./imgs/encoder.png)
-
-						<div>
-
-						### Encoder
-
-						- transforms an input sequence into embeddings
-						- capture text semantic and syntactic properties
-
-						</div>
-						</div>
-
-						<div class="fragment current-visible" style="display:flex; align-items: center; text-align: justify;" data-fragment-index="1">
-
-						![](./imgs/decoder.png)
-
-						<div>
-
-						### Decoder
-
-						- turns the embedding back into a text output
-
-						- translation task: the translated version of the input text
-
-						</div>
-						</div>
-						<div class="fragment" style="display:flex; align-items: center; text-align: justify;" data-fragment-index="2">
-
-						![](./imgs/heads.png)
-
-						<div>
-
-						### Multi-head self-attention mechanism
-
-						- "focus attention" on different parts of the sentence
-						- parallel processing
-						- scale adding attention layers
-
-						</div>
-						</div>
-
-						---
-
-						# Scaling laws
-
-						<div class="r-stack">
-						<div class="fragment fade-out" data-fragment-index="0">
-
-						## KM (OpenAI)
-						`\[\begin{aligned} L(N) & =(\frac{N_c}{N})^{\alpha_N}, \alpha_N \approx 0.076, N_c \approx 8.8 \times 10^{13} \\ L(D) & =(\frac{D_c}{D})^{\alpha_D}, \alpha_D \approx 0.095, D_c \approx 5.4 \times 10^{13} \\ L(C) & =(\frac{C_c}{C})^{\alpha_C}, \alpha_C \approx 0.050, C_c \approx 3.1 \times 10^8 \end{aligned} \]`
-
-						</div>
-						<div class="fragment" data-fragment-index="0">
-
-						## Chinchilla (Google)
-						`\[ L(N,D) = E + \frac{A}{N^\alpha} + \frac{B}{D^\beta} \]`
-
-						</div>
-						</div>
-
-						---
-
-						# Scaling laws
-
-						- Relationship between model size, data size, and compute budget
-						- Optimal allocation of compute budget to model size and data size
-						- Model size and performance relationship
 
 						---
 
@@ -246,72 +123,52 @@
 
 						***
 
-						- Model size?
-						- Instruction tuning?
-						- Pre-training corpora?
-							- Hypothesized to be elicited by training on **code**
+						- Factors
+							- Model size
+							- Instruction tuning
+							- Pre-training corpora
+						- Hypothesis is that CoT is elicited by training on **code**
 
 						---
 
 						# Experiments
 
 						- LLaMA models
-							- Same architecture
-							- Same model size (7B)
-							- Different code % in pre-training corpora
+							- Same architecture <!-- .element: style="font-size: 0.9em" -->
+								- LLaMA 3.x does not significantly deviate from LLaMA 1 and 2 <!-- .element: style="font-size: 0.6em" -->
+							- Same model size (7B) <!-- .element: style="font-size: 0.9em" -->
+							- Increasing code % in pre-training corpora <!-- .element: style="font-size: 0.9em" -->
+								- from 5% to 17% <!-- .element: style="font-size: 0.6em" -->
 						- GSM8k and GSM-hard datasets
-							- Math word problems
+							- Mathematical word problems datasets <!-- .element: style="font-size: 0.9em" -->
+							- Same problems <!-- .element: style="font-size: 0.9em" -->
+								- GSM-hard replaces numbers with large numbers <!-- .element: style="font-size: 0.6em" -->
+								- GSM-hard PoT annotated datasets <!-- .element: style="font-size: 0.6em" -->
 
 						---
 
-						# Results
-						## CoT performance GSM8k
+						## LLaMa CoT on GSM8k
 
-						<div style="height:470px">
-						<canvas data-chart="line">
-						<!--
-						{
-						 "data": {
-						  "labels": ["LLaMA2 7B", "Code LLaMA 7B", "LLaMA2 13B", "LLaMA3 7B", "LLaMA3.1 7B" ],
-						  "datasets":[
-						   {
-							"data":[3.1,3.99,10.53,31,75.9],
-							"label":"0-shot","backgroundColor":"white"
-						   },
-						   {
-							"data":[15.7, 16.3, 35.8, 47, 80.9],
-							"label":"5-shot", "backgroundColor":"white"
-						   }
-						  ]
-						 }
-						}
-						-->
-						</div>
-						</canvas>
-
-						---
-
-						# Results
 						CoT is elicited by training on code
 
 						***
 
-
 						<div style="display: flex;">
-						<div style="height:470px; width: 500px">
-						<canvas data-chart="line">
+						<div style="height:470px; max-width: 500px">
+						<canvas data-chart="bar">
 						<!--
 						{
+						 "options": { "scales": { "x": { "stacked": true } } },
 						 "data": {
 						  "labels": ["LLaMA2 7B", "Code LLaMA 7B", "LLaMA2 13B", "LLaMA3 7B", "LLaMA3.1 7B" ],
 						  "datasets":[
 						   {
 							"data":[3.1,3.99,10.53,31,75.9],
-							"label":"0-shot","backgroundColor":"white"
+							"label":"0-shot"
 						   },
 						   {
 							"data":[15.7, 16.3, 35.8, 47, 80.9],
-							"label":"5-shot", "backgroundColor":"white"
+							"label":"5-shot"
 						   }
 						  ]
 						 }
@@ -321,66 +178,41 @@
 						</div>
 						<div>
 
-						- code-davinci-002 vs text-davinci-002 <!-- .element: style="font-size: 0.8em" -->
 						- model size is not a deciding factor <!-- .element: style="font-size: 0.8em" -->
-							- ...but it improves performance <!-- .element: style="font-size: 0.6em" -->
-						- instruction tuning is not a deciding factor <!-- .element: style="font-size: 0.8em" -->
-							- Code LLaMA (fine-tuned) is not better than LLaMA2 <!-- .element: style="font-size: 0.6em" -->
-						- same architecture <!-- .element: style="font-size: 0.8em" -->
-							- LLaMA 3.x does not significantly deviate from LLaMA 2 <!-- .element: style="font-size: 0.6em" -->
+							- ...but it improves CoT <!-- .element: style="font-size: 0.7em" -->
+							- Some 175B don't do CoT <!-- .element: style="font-size: 0.7em" -->
+						- fine-tuning doesn't affect CoT  <!-- .element: style="font-size: 0.8em" -->
+							- CoT on Code LLaMA (fine-tuned) is not better than LLaMA2 <!-- .element: style="font-size: 0.7em" -->
+						- code in pre-training corpora is the key <!-- .element: style="font-size: 0.8em" -->
+							- all tested LLaMA models trained on code do CoT <!-- .element: style="font-size: 0.7em" -->
+							- code-davinci-002 vs text-davinci-002 <!-- .element: style="font-size: 0.7em" -->
 
 						</div>
 						</div>
 
 						---
 
-						# Results
-						## CoT performance GSM-hard
-
-						<div style="height:470px">
-						<canvas data-chart="line">
-						<!--
-						{
-						 "data": {
-						  "labels": ["LLaMA2 7B", "Code LLaMA 7B", "LLaMA2 13B", "LLaMA3 7B", "LLaMA3.1 7B" ],
-						  "datasets":[
-						   {
-							"data":[0, 1.30, 0, 5.4, 7.85],
-							"label":"0-shot","backgroundColor":"white"
-						   },
-						   {
-							"data":[0, 1.5, 0, 7.4, 9.64],
-							"label":"5-shot", "backgroundColor":"white"
-						   }
-						  ]
-						 }
-						}
-						-->
-						</canvas>
-						</div>
-
-						---
-
-						# Results
+						## LLaMa CoT on GSM-hard
 						LLMs cannot reason
 
 						***
 
 						<div style="display: flex;">
 						<div style="height:470px; width:400px;">
-						<canvas data-chart="line">
+						<canvas data-chart="bar">
 						<!--
 						{
+						 "options": { "scales": { "x": { "stacked": true } } },
 						 "data": {
 						  "labels": ["LLaMA2 7B", "Code LLaMA 7B", "LLaMA2 13B", "LLaMA3 7B", "LLaMA3.1 7B" ],
 						  "datasets":[
 						   {
-							"data":[0, 1.30, 0, 5.4, 7.85],
-							"label":"0-shot","backgroundColor":"white"
+							"data":[0.1, 1.30, 0.1, 5.4, 7.85],
+							"label":"0-shot"
 						   },
 						   {
-							"data":[0, 1.5, 0, 7.4, 9.64],
-							"label":"5-shot", "backgroundColor":"white"
+							"data":[0.1, 1.5, 0.1, 7.4, 9.64],
+							"label":"5-shot"
 						   }
 						  ]
 						 }
@@ -390,62 +222,35 @@
 						</div>
 						<div>
 
-						- LLMs learn to do Bayesian inference during pre-training <!-- .element: style="font-size: 0.9em" -->
-							- ...related to data distributional properties (no big numbers) <!-- .element: style="font-size: 0.6em" -->
-							- ...next token likelihood conditioned on the input sequence (text and code instructions) <!-- .element: style="font-size: 0.6em" -->
+						- LLMs are retrievers, more than reasoners
+						- LLMs learn to do Bayesian inference during pre-training
 
 						</div>
 						</div>
 
 						---
 
-						# Results
-						## PoT performance GSM-hard
-
-						<div style="height:470px">
-						<canvas data-chart="line">
-						<!--
-						{
-						 "data": {
-						  "labels": ["LLaMA2 7B", "Code LLaMA 7B", "LLaMA2 13B", "LLaMA3 7B", "LLaMA3.1 7B" ],
-						  "datasets":[
-						   {
-							"data":[0, 1.30, 0, 5.4, 7.85],
-							"label":"0-shot","backgroundColor":"white"
-						   },
-						   {
-							"data":[16.69, 27.6, 36, 56.1, 62.36],
-							"label":"5-shot", "backgroundColor":"white"
-						   }
-						  ]
-						 }
-						}
-						-->
-						</canvas>
-						</div>
-
-						---
-
-						# Results
+						## LLaMa PoT on GSM-hard
 						LLMs cannot plan
 
 						***
 
 						<div style="display: flex;">
 						<div style="height:470px; width:400px;">
-						<canvas data-chart="line">
+						<canvas data-chart="bar">
 						<!--
 						{
+						 "options": { "scales": { "x": { "stacked": true } } },
 						 "data": {
 						  "labels": ["LLaMA2 7B", "Code LLaMA 7B", "LLaMA2 13B", "LLaMA3 7B", "LLaMA3.1 7B" ],
 						  "datasets":[
 						   {
-							"data":[0, 1.30, 0, 5.4, 7.85],
-							"label":"0-shot","backgroundColor":"white"
+							"data":[0.1, 1.30, 0.1, 5.4, 7.85],
+							"label":"0-shot"
 						   },
 						   {
-							"data":[0, 1.5, 0, 7.4, 9.64],
-							"label":"5-shot", "backgroundColor":"white"
+							"data":[16.69, 27.6, 36, 56.1, 62.36],
+							"label":"5-shot"
 						   }
 						  ]
 						 }
@@ -455,20 +260,35 @@
 						</div>
 						<div>
 
-						- External solvers and verifiers improve performance <!-- .element: style="font-size: 0.8em" -->
-						- Good at code generation <!-- .element: style="font-size: 0.8em" -->
-							- high quality code data in the pre-training corpora (GitHub) <!-- .element: style="font-size: 0.6em" -->
-							- code history (bugfixes and improvements) <!-- .element: style="font-size: 0.6em" -->
-						- Poor at planning <!-- .element: style="font-size: 0.8em" -->
-							- Struggle with self-verification (cannot improve themselves) <!-- .element: style="font-size: 0.6em" -->
-							- Inexperienced problem solvers <!-- .element: style="font-size: 0.6em" -->
+						- Same as previous experiment
+							- ...but using Python compiler to execute generated code <!-- .element: style="font-size: 0.7em" -->
+						- Good at code generation
+							- ...but poor in leveraging the generated code to give the correct answer <!-- .element: style="font-size: 0.7em" -->
+						- Poor at planning
+							- Self-verification and self-improvement essential for planning <!-- .element: style="font-size: 0.7em" -->
 
 						</div>
 						</div>
 
 						---
 
-						## Limiti e prospettive
+						# Conclusions
+
+						![](./imgs/systems.png) <!-- .element: style="width: 50%;" -->
+
+						"The automatic operations of System 1 generate surprisingly complex patterns of ideas, but only the slower System 2 can construct thoughts in an orderly series of steps." <!-- .element: style="font-size: 0.5em" -->
+
+						Daniel Kahneman <!-- .element: style="font-size: 0.3em" --> *in Thinking, Fast and Slow*
+
+						"Why does LLM respond in constant time, even for polynomial or exponential problems?" <!-- .element: style="font-size: 0.5em" -->
+
+						Subbarao Kambhampati <!-- .element: style="font-size: 0.3em" --> *in LLMs Can’t Plan, But Can Help Planning in LLM-Modulo Frameworks*
+
+						---
+
+						# The end
+
+						Thank you!
 						
 					</textarea>
 				</section>
@@ -481,8 +301,8 @@
 		<script src="plugin/highlight/highlight.js"></script>
 		<script src="plugin/math/math.js"></script>
 		<!-- Chart plugin -->
-		<script src="https://cdn.jsdelivr.net/npm/reveal.js-plugins@latest/chart/plugin.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.2.0/chart.min.js"></script>
+		<script src="plugin/chart/plugin.js"></script>
+		<script src="plugin/chart/chart.min.js"></script>
 
 		<!-- Chart plugin -->
 		<script>
@@ -503,6 +323,9 @@
 						}
 					},
 					line: { borderColor: [ "#e60049", "#0bb4ff", "#50e991", "#e6d800", "#9b19f5", "#ffa300", "#dc0ab4", "#b3d4ff", "#00bfa0"] },
+					bar: {
+						backgroundColor: [ "#e60049", "#0bb4ff", "#50e991", "#e6d800", "#9b19f5", "#ffa300", "#dc0ab4", "#b3d4ff", "#00bfa0"]
+					},
 				}
 			});
 		</script>
