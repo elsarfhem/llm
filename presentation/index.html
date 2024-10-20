@@ -18,7 +18,10 @@
 			<div class="slides">
 				<section data-markdown>
 					<textarea data-template>
-						![Logo](./imgs/Logo_Roma_Tre.jpg) <!-- .element: style="width: 20%;" -->
+
+						<!-- .slide: data-background-video="./imgs/brain.mp4" data-background-video-muted data-background-opacity="0.6" data-background-size="cover" -->
+
+						![Logo](./imgs/logo.png) <!-- .element: style="width: 15%;" -->
 
 						# Exploring LLM abilities
 						## A deep dive into LLMs
@@ -35,115 +38,68 @@
 
 						---
 
-						<!-- .slide: data-background-image="./imgs/llm.png" data-background-size="80%" data-background-opacity="0.2" -->
-
-						# Tasks
-
-						Text generation <!-- .element: class="fragment semi-fade-out" data-fragment-index="1" -->
-
-						<div class="fragment fade-in" data-fragment-index="1">
-
-						Translation <!-- .element: class="fragment grow" data-fragment-index="1" -->
-
-						Question answering <!-- .element: class="fragment grow" data-fragment-index="1" -->
-
-						Summarization <!-- .element: class="fragment grow" data-fragment-index="1" -->
-
-						Sentiment analysis <!-- .element: class="fragment grow" data-fragment-index="1" -->
-
-						Reasoning <!-- .element: class="fragment grow" data-fragment-index="1" -->
-
-						Planning <!-- .element: class="fragment grow" data-fragment-index="1" -->
-
-						</div>
-
-						---
-
-						# LLM applications
-
-						![domain](./imgs/domain.png)
-
-						---
-
-						# Emergent abilities
-
 						<div class="r-stack">
 						<div class="fragment fade-out" data-fragment-index="0">
 
+						# Emergent abilities
 						![scaling](./imgs/scaling-phase.png)
 
 						"Emergence is when quantitative changes in a system result in qualitative changes in behavior" <!-- .element: style="font-style: italic; font-size: 0.5em" -->
 
 						</div>
-						<div class="fragment current-visible" style="display:flex" data-fragment-index="0">
-						<img src="./imgs/icl.png" style="width: 500px;" />
+						<div class="fragment current-visible" style="display:flex; flex-direction: column;" data-fragment-index="0">
 
-						- In-Context Learning (ICL) <!-- .element: class="fragment highlight-current-blue" data-fragment-index="0" -->
-						- Chain of Thought (CoT)
-						- Program of Thought (PoT)
-						- Planning
+						# Emergent abilities <!-- .element: style="display:block" -->
 
-						</div>
-						<div class="fragment current-visible" style="display:flex" data-fragment-index="1">
-						<img src="./imgs/cot.png" style="width: 500px;" />
+						<div style="display:flex">
+						<div style="width: 50%">
 
-						- In-Context Learning (ICL)
-						- Chain of Thought (CoT) <!-- .element: class="fragment highlight-current-blue" data-fragment-index="1" -->
-						- Program of Thought (PoT)
-						- Planning
+						Chain-of-Thought
+
+						![cot](./imgs/cot.png)
 
 						</div>
+						<div style="width: 50%">
 
-						<div class="fragment current-visible" style="display:flex" data-fragment-index="2">
-						<img src="./imgs/pot.png" style="width: 500px;" />
+						Program-of-Thought
 
-						- In-Context Learning (ICL)
-						- Chain of Thought (CoT)
-						- Program of Thought (PoT) <!-- .element: class="fragment highlight-current-blue" data-fragment-index="2" -->
-						- Planning
+						![pot](./imgs/pot.png)
 
 						</div>
-						<div class="fragment" style="display:flex" data-fragment-index="3">
-						<img src="./imgs/planning.png" style="width: 500px;" />
-
-						- In-Context Learning (ICL)
-						- Chain of Thought (CoT)
-						- Program of Thought (PoT)
-						- Planning <!-- .element: class="fragment highlight-current-blue" data-fragment-index="3" -->
-
 						</div>
-
+						</div>
 						</div>
 
 						---
+
+						<!-- .slide: data-background-video="./imgs/digital.webm" data-background-video-muted  -->
 
 						# Chain of Thought
 
-						Where this ability comes from?
+						Is it elicited by training on code?
 
 						***
 
-						- Factors
+						- Possible factors
 							- Model size
 							- Instruction tuning
 							- Pre-training corpora
-						- Hypothesis is that CoT is elicited by training on **code**
 
 						---
 
+						<!-- .slide: data-background-video="./imgs/experiments.mp4" data-background-video-loop data-background-video-muted data-background-opacity="0.4" -->
 						# Experiments
 
 						- LLaMA models
 							- Same architecture <!-- .element: style="font-size: 0.9em" -->
-								- LLaMA 3.x does not significantly deviate from LLaMA 1 and 2 <!-- .element: style="font-size: 0.6em" -->
-							- Same model size (7B) <!-- .element: style="font-size: 0.9em" -->
+								- LLaMA 3.x does not significantly deviate from previous versions <!-- .element: style="font-size: 0.6em" -->
+							- Same model size available (7B) <!-- .element: style="font-size: 0.9em" -->
 							- Increasing code % in pre-training corpora <!-- .element: style="font-size: 0.9em" -->
 								- from 5% to 17% <!-- .element: style="font-size: 0.6em" -->
 						- GSM8k and GSM-hard datasets
-							- Mathematical word problems datasets <!-- .element: style="font-size: 0.9em" -->
+							- Grade school math word problems <!-- .element: style="font-size: 0.9em" -->
 							- Same problems <!-- .element: style="font-size: 0.9em" -->
 								- GSM-hard replaces numbers with large numbers <!-- .element: style="font-size: 0.6em" -->
-								- GSM-hard PoT annotated datasets <!-- .element: style="font-size: 0.6em" -->
 
 						---
 
@@ -154,7 +110,7 @@
 						***
 
 						<div style="display: flex;">
-						<div style="height:470px; max-width: 500px">
+						<div style="height:470px; width: 450px">
 						<canvas data-chart="bar">
 						<!--
 						{
@@ -198,7 +154,7 @@
 						***
 
 						<div style="display: flex;">
-						<div style="height:470px; width:400px;">
+						<div style="height:470px; width:450px;">
 						<canvas data-chart="bar">
 						<!--
 						{
@@ -236,7 +192,7 @@
 						***
 
 						<div style="display: flex;">
-						<div style="height:470px; width:400px;">
+						<div style="height:470px; width:450px;">
 						<canvas data-chart="bar">
 						<!--
 						{
@@ -286,10 +242,11 @@
 
 						---
 
-						# The end
+						<!-- .slide: data-background-video="./imgs/digital.webm" data-background-video-muted data-background-opacity="0.6" data-background-size="cover" -->
 
+						# The end
 						Thank you!
-						
+
 					</textarea>
 				</section>
 			</div>
@@ -302,7 +259,7 @@
 		<script src="plugin/math/math.js"></script>
 		<!-- Chart plugin -->
 		<script src="plugin/chart/plugin.js"></script>
-		<script src="plugin/chart/chart.min.js"></script>
+		<script src="plugin/chart/chart3.min.js"></script>
 
 		<!-- Chart plugin -->
 		<script>
