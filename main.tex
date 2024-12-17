@@ -44,7 +44,6 @@
 \newcommand{\R}{\mathbb{R}}
 \definecolor{light-gray}{gray}{0.95}
 \newcommand{\code}[1]{\colorbox{light-gray}{\texttt{#1}}}
-\renewcommand{\clearforchapter}{\clearpage~\thispagestyle{cleared}\cleartorecto}
 
 % Document
 \begin{document}
@@ -77,15 +76,19 @@
 
 \input{chapters/acknowledgements}
 
+\clearpage\null\thispagestyle{empty}
 \tableofcontents
 
 \input{chapters/chapter_intro}
 \input{chapters/chapter1}
 \input{chapters/chapter2}
 \input{chapters/chapter3}
+\clearpage\null\thispagestyle{empty}
 \input{chapters/chapter4}
+\clearpage\null\thispagestyle{empty}
 \input{chapters/chapter_conclusions}
 
+\clearpage\null\thispagestyle{empty}
 \chapter*{Bibliography}
 \normalem
 \printbibliography[heading=none]
