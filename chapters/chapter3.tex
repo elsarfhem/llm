@@ -1,13 +1,13 @@
 %! Author = amatarazzo
 %! Date = 09/05/24
 
-\chapter{Utilization Strategies and Techniques}
+\section{Utilization Strategies and Techniques}
 \label{ch:utilization}
 
-\section{Introduction}
+%\subsection{Introduction}
 \label{sec:ch3-introduction}
 
-In this chapter, we will discuss the strategies and techniques for effectively utilizing large language models.
+In this section, we will discuss the strategies and techniques for effectively utilizing large language models.
 We will start by discussing the importance of context in utilizing large language models and how it can be used to improve their performance.
 We will then move on to the concept of chain-of-thought prompting and how it can be used to guide text generation.
 Finally, we will discuss the LLMs' ability to plan for complex tasks.
@@ -30,8 +30,10 @@ Finally, we will discuss the LLMs' ability to plan for complex tasks.
 	\label{tab:utilization-methods}
 \end{table}
 
-\section{In-Context Learning}
+\subsection{In-Context Learning}
 \label{sec:in-context-learning}
+
+\subsubsection{ICL strategy}
 In-context learning is a special prompting technique, initially introduced by \textcite{brown2020language}, that allows the model to learn from the context of the prompt (examples shown in Figure~\ref{fig:in-context-learning}).
 \begin{figure}[h!]
 	\centering
@@ -225,7 +227,7 @@ In generation tasks such as machine translation, ICL predicts the answer by deco
 In this way, language models are required to generate every token in the input, which could boost the performance under imbalanced training data regimes.
 To calibrate the bias or mitigate the sensitivity via scoring strategies, some studies add additional calibration parameters to adjust the model predictions~\cite{zhao2021calibrate}.
 
-\subsection{ICL performance and origins}
+\subsubsection{ICL performance and origins}
 \label{subsec:icl-performance}
 
 Knowing and understanding the factors that influence ICL can help improve LLMs' performance.
@@ -278,7 +280,7 @@ The ICL ability emerges when the training data have examples appearing in cluste
 \textcite{xie2022an} explained ICL as implicit Bayesian inference\footnote{
 Bayesian inference is a method of statistical inference in which Bayes' theorem is used to update the probability for a hypothesis as more evidence or information becomes available. Fundamentally, Bayesian inference uses prior knowledge, in the form of a prior distribution in order to estimate posterior probabilities.
 $P(H||E)=frac{P(E|H) \cdot P(H)}{P(E)})$, where $P(H)$ is the prior probability of hypothesis $H$, $P(E|H)$ is the likelihood of evidence $E$ given hypothesis $H$, $P(E)$ is the marginal likelihood of evidence, and $P(H|E)$ is the posterior probability of hypothesis $H$ given evidence $E$~\cite{wikipedia2023bayesianinference}.
-}\footnote{dalal2024blackboxstatisticalmodel} and constructed a synthetic dataset to prove that the ICL ability emerges when the pretraining distribution follows a mixture of hidden Markov models.
+} and constructed a synthetic dataset to prove that the ICL ability emerges when the pretraining distribution follows a mixture of hidden Markov models.
 The hypotheses is that LM learn to do Bayesian inference during pre-training.
 To predict the next token during pretraining, the LM must infer ("locate") the latent concept\footnote{A latent variable that contains various document-level statistics. For example, a "news topics" concept describes a distribution of words (news and their topics), a format (the way that news articles are written), a relation between news and topics, and other semantic and syntactic relationships between words. In general, concepts may be a combination of many latent variables that specify different aspects of the semantics and syntax of a document} for the document using evidence from the previous sentences.
 Later, if the LM infers also the latent concept prompt (provided by the demonstrations), then the in-context learning ability occurs.
@@ -308,7 +310,7 @@ Frozen and Flamingo models have demonstrated the feasibility of multi-modal, few
 These models effectively perform ICL on multi-modal tasks when trained on large-scale multi-modal web corpora~\cite{tsimpoukelli2021frozen, alayrac2022flamingo}.
 Kosmos-1 and METALM extend these capabilities by demonstrating strong performance across various vision-language tasks, underpinned by a semi-causal language modelling objective~\cite{huang2023language, hao2022language}.
 
-\subsection{ICL future research}
+\subsubsection{ICL future research}
 \label{subsec:icl-future}
 
 Future research in ICL is expected to focus on several key areas, including the optimization of pretraining objectives, the distillation of ICL abilities, the enhancement of ICL robustness, the improvement of ICL efficiency and scalability, the updating of knowledge within LLMs, the augmentation of models, and the expansion of ICL into multi-modal domains~\cite{dong2023survey}.
@@ -324,8 +326,10 @@ The development of models with extended context capabilities~\cite{li2023context
 Finally, the expansion of ICL into multi-modal domains is expected to yield new insights and applications, particularly in vision and speech~\cite{dong2023survey}.
 
 
-\section{Chain-of-Thought}
+\subsection{Chain-of-Thought}
 \label{sec:chain-of-thought}
+
+\subsubsection{CoT strategy}
 
 Chain-of-Thought (CoT) prompting is an enhanced strategy developed to augment the performance of large language models (LLMs) on complex reasoning tasks such as arithmetic, commonsense, and symbolic reasoning~\cite{wei2022chain, miao2021diverse, talmor2019commonsenseqa}.
 This method integrates intermediate reasoning steps within the prompts, providing a more structured path towards the solution.
@@ -436,7 +440,7 @@ The overall procedure is illustrated in Figure~\ref{fig:auto-cot}.
 Diversity-based clustering may mitigate misleading by similarity effects\footnote{The retrieved demonstration questions are similar to the test question and ask "how long will it take him to cook \underline{the rest}?" The reasoning chains generated by Zero-Shot-CoT produce answers regarding "the total of" instead of "the rest". Following the demonstrations, the component that retrieves the top-k similar questions -- called Retrieval-Q-CoT -- also fails by misunderstanding the meaning of "the rest".}, and the representative selection algorithm can select the most representative questions from each cluster is used as demonstrations to generate reasoning chains for the test question.
 Auto-CoT has shown to be effective in generating diverse reasoning chains and improving the performance of LLMs on arithmetic and symbolic reasoning~\cite{zhang2022automatic}.
 
-\subsection{CoT performance and origins}
+\subsubsection{CoT performance and origins}
 \label{subsec:cot-performance}
 
 CoT is considered by many as an emergent ability~\cite{wei2022emergent}, a capability that suddenly appears and greatly enhances the performance of LLMs when they reach a certain scale.
@@ -449,10 +453,10 @@ It has been shown that pattern and text are essential for CoT performance, and r
 
 The origins of CoT ability are widely hypothesized to be elicited by training on code since those models have shown to be more effective in reasoning tasks~\cite{fu2022gptroadmap, liang2022holistic}.
 Intuitively, code data is well organized with algorithmic logic and programming flow, which may be helpful in improving the reasoning performance of LLMs. However, this hypothesis still lacks publicly reported evidence of ablation experiments (with and without training on code).
-We'll try to address this gap in the next chapter~\ref{ch:capabilities}, by conducting a series of experiments to evaluate the effectiveness of training on code data for reasoning tasks.
+We'll try to address this gap in the next section~\ref{ch:capabilities}, by conducting a series of experiments to evaluate the effectiveness of training on code data for reasoning tasks.
 In addition, instruction tuning seems not to be the main factor for CoT ability since the performance of LLMs on CoT tasks is not significantly improved by instruction tuning~\cite{chung2022scaling}.
 
-\section{Program-of-Thoughts}
+\subsection{Program-of-Thoughts}
 \label{sec:program-of-thoughts}
 
 PoT uses a programmatic approach to prompt LLMs to solve complex reasoning tasks proposed by \textcite{chen2022program}.
@@ -483,29 +487,30 @@ It mainly differs from equation generation for the following reasons:
 In zero-shot PoT, a caveat is that LLM can fall back to generating a reasoning chain in comments rather than in the program.
 Therefore, \textcite{chen2022program} proposes to suppress "\#" token logits to encourage it to generate programs.
 
-As confirmed by our experiments in Chapter~\ref{ch:capabilities}, PoT can significantly improve performance on math problems compared to CoT\@.
+As confirmed by our experiments in Section~\ref{ch:capabilities}, PoT can significantly improve performance on math problems compared to CoT\@.
 Even though PoT is effective on highly symbolic math problems, it still struggles with AQuA dataset, which contains complex algebraic questions mainly due to the diversity of questions, which the demonstration cannot possibly cover.
 For semantic reasoning tasks like commonsense reasoning (StrategyQA), probably PoT is not the best option.
 In contrast, CoT can solve more broader reasoning tasks.
 
-\section{Planning for complex tasks}
+\subsection{Planning for complex tasks}
 \label{sec:planning}
+
+\subsubsection{Commonsense knowledge}
 
 ICL and CoT are two simple yet general strategies for solving various tasks.
 However, they struggle with complex tasks that require long-term planning, such as mathematical word problems~\cite{qian2022limitations} and multi-hop question answering~\cite{bian2024chatgpt}.
 Commonsense knowledge\footnote{It includes knowledge about the spatial, physical, social, temporal, and psychological aspects of the typical everyday life, as well as an awareness of social norms, beliefs, and values~\cite{liu2004conceptnet}.} is essential for NLP systems to understand and generate human-like language.
 Main categories are summarized in \textcite{bian2024chatgpt}:
-\begin{quote}
-	\textbf{General commonsense} refers to knowledge that is widely shared and assumed to be true by most people, such as the sun rises in the east and sets in the west.\\
-	\textbf{Physical commonsense} involves intuitive knowledge about the physical world, such as objects falling to the ground when dropped and water flowing downhill.\\
-	\textbf{Social commonsense} involves knowledge about social norms, customs, and practices, such as it is polite to say "thank you" when
-	making requests.\\
-	\textbf{Science commonsense} involves knowledge about basic scientific principles, such as gravity pulling all objects on Earth to Earth’s centre.\\
-	\textbf{Event commonsense} involves knowledge about the sequence of events and their causal relationships, such as if a glass is knocked over, the liquid inside will spill.\\
-	\textbf{Numerical commonsense} involves knowledge about numbers, such as a human has two hands and ten fingers.\\
-	\textbf{Prototypical commonsense} involves knowledge about typical or prototypical examples of concepts, such as a swallow is a kind of bird and a bird has wings.\\
-	\textbf{Temporal commonsense} involves knowledge about time, such as travelling abroad requires a longer time than taking a walk.
-\end{quote}
+\begin{itemize}
+	\item	\textbf{General commonsense:} refers to knowledge that is widely shared and assumed to be true by most people, such as the sun rises in the east and sets in the west.
+	\item	\textbf{Physical commonsense:} involves intuitive knowledge about the physical world, such as objects falling to the ground when dropped and water flowing downhill.
+	\item	\textbf{Social commonsense:} involves knowledge about social norms, customs, and practices, such as it is polite to say "thank you" when making requests.
+	\item	\textbf{Science commonsense:} involves knowledge about basic scientific principles, such as gravity pulling all objects on Earth to Earth’s centre.
+	\item	\textbf{Event commonsense:} involves knowledge about the sequence of events and their causal relationships, such as if a glass is knocked over, the liquid inside will spill.
+	\item	\textbf{Numerical commonsense:} involves knowledge about numbers, such as a human has two hands and ten fingers.
+	\item	\textbf{Prototypical commonsense:} involves knowledge about typical or prototypical examples of concepts, such as a swallow is a kind of bird and a bird has wings.
+	\item	\textbf{Temporal commonsense:} involves knowledge about time, such as travelling abroad requires a longer time than taking a walk.
+\end{itemize}
 A list of commonsense QA datasets commonly used in evaluating LLMs is shown in Table~\ref{tab:dataset_examples}.
 \begin{table}[h!]
 	\small
@@ -613,7 +618,7 @@ The LM with tutor method
 In the following paragraphs, we will discuss the general framework of prompt-based planning, plan generation, plan execution, and plan evaluation.
 After that we will present the most common approaches to planning and their limitations.
 
-\subsection{Prompt and code based planning}
+\subsubsection{Prompt and code based planning}
 \label{subsec:plan-based}
 
 Prompt-based planning has been proposed to break down complex tasks into simpler sub-tasks, and generate a plan of actions to accomplish the task.
@@ -1113,7 +1118,7 @@ MemoryBank~\cite{zhong2023memorybankenhancinglargelanguage} incorporates a memor
 	It shows that humans tend to halve their memory of newly learned knowledge in days or weeks unless they consciously review the learned material.}
 This mechanism allows the model to forget less relevant information and retain more important information based on time elapsed and relative relevance, thereby offering a human-like memory management system.
 
-\subsection{LLM-modulo Framework}
+\subsubsection{LLM-modulo Framework}
 \label{subsec:llm-modulo}
 
 LLM-modulo framework are a novel approach to planning that combines the strengths of LLMs with the modularity of traditional planning systems.

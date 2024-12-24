@@ -1,11 +1,11 @@
 %! Author = amatarazzo
 %! Date = 06/04/24
 
-\chapter{Foundations of Large Language Models}
+\section{Foundations of Large Language Models}
 \label{ch:foundations-of-large-language-models}
 
-\section{Introduction}
-\label{sec:ch2-introduction}
+%\subsection{Introduction}
+%[\label{sec:ch2-introduction}
 
 Large Language Models (LLMs) have revolutionized the field of Natural Language Processing (NLP) by achieving state-of-the-art performance on a wide range of tasks, such as text generation, text classification, and machine translation.
 These models are trained on vast amounts of text data to learn the underlying structure of the language and capture the relationships between words.
@@ -16,7 +16,7 @@ After that, we will discuss some model adaptation techniques for fine-tuning LLM
 
 Finally, we will discuss the tuning and quantization of LLMs, techniques used to reduce the model's size and computational complexity, making it more efficient for deployment on resource-constrained devices.
 
-\section{Pre-training}
+\subsection{Pre-training}
 \label{sec:pre-training}
 
 Pre-training constitutes a foundational phase in developing Large Language Models (LLMs).
@@ -30,7 +30,7 @@ Additionally, the data used for pre-training can influence the model's biases an
 The field is evolving towards more efficient pre-training methods, such as transfer learning, where a pre-trained model is adapted to new tasks or languages with minimal additional training~\cite{ruder2019transfer}.
 Moreover, emerging approaches aim to enhance LLMs' contextual awareness and ethical sensitivity during the pre-training phase, addressing the challenges of bias and fairness.
 
-\subsection{Pre-training strategies}
+%\subsection{Pre-training strategies}
 \label{subsec:pre-training-strategies}
 
 Several pre-training strategies have been used to train large language models, including unsupervised, supervised, and semi-supervised pre-training.
@@ -123,7 +123,7 @@ The semi-supervised approach is predicated on certain assumptions about the unde
 	\item \textbf{Low-Density Separation Assumption:} {This assumption posits that the decision boundary between different classes should lie in regions of low data density~\cite{chapelle2009semi}. Essentially, there is expected to be a natural separation or gap between classes, and the learning algorithm should prefer hypotheses that place the decision boundary in regions with few data points.}
 \end{itemize}
 
-\subsection{Data source}
+\subsection{Data sources}
 \label{subsec:data-source}
 
 Large Language Models (LLMs) strongly depend on extensive, high-calibre data for pre-training, with their efficacy closely tied to the nature and preprocessing of the utilized corpora.
@@ -136,7 +136,9 @@ The primary sources of data for training and evaluating LLMs can be broadly cate
 	\label{fig:data_sources}
 \end{figure}
 
-\textbf{General Data:} This category typically encompasses web content, literary works, and conversational texts, prized for their voluminous, varied, and accessible nature, thereby bolstering LLMs' language modelling and generalization prowess.
+\subsubsection{General Data}
+
+This category typically encompasses web content, literary works, and conversational texts, prized for their voluminous, varied, and accessible nature, thereby bolstering LLMs' language modelling and generalization prowess.
 Including general data, such as web pages and books, offers a rich lexicon spanning various themes, essential for the comprehensive training of LLMs.
 As shown in Figure~\ref{fig:data_sources}, general-purpose data are among the most commonly used general data sources for training LLMs.\\
 Three important general data sources are:
@@ -154,7 +156,7 @@ Three important general data sources are:
 	      }
 \end{itemize}
 
-\textbf{Specialized Data:} Tailored to refine LLMs' proficiency in particular tasks, specialized datasets encompass multilingual text, scientific literature, and programming code.
+\subsubsection{Specialized Data} Tailored to refine LLMs' proficiency in particular tasks, specialized datasets encompass multilingual text, scientific literature, and programming code.
 Specialized datasets are useful to improve the specific capabilities of LLMs on downstream tasks.
 Next, we introduce three kinds of specialized data.
 \begin{itemize}
@@ -175,7 +177,7 @@ Next, we introduce three kinds of specialized data.
 	      }
 \end{itemize}
 
-\subsubsection{Commonly-used data sources}
+\subsubsection{Commonly-used data sources.}
 \label{subsubsec:commonly-used-data-sources}
 
 The development and evaluation of Large Language Models (LLMs) rely heavily on the availability of high-quality datasets that span diverse domains and languages.
@@ -212,7 +214,7 @@ Based on their content types, we categorize these corpora into six groups: Books
 	\item \textbf{Books:} {
 		      BookCorpus~\cite{zhu2015aligning} and Gutenberg~\cite{projectgutenberg} are two prominent datasets that contain text from a wide range of books spanning various genres and topics. These datasets are valuable for training LLMs on literary text and assessing their performance on text generation tasks.\\
 		      BookCorpus is a dataset consisting of text from over 11,000 books (e.g., novels and biographies), while Gutenberg is a collection of over 70,000 free ebooks, including novels, essays, poetry, drama, history, science, philosophy, and other types of works, in the public domain.\\
-		      BookCorpus is commonly used in previous small-scale models (e.g., GPT~\cite{radford2018improving} and GPT-2~\cite{radford2019language}), while Gutenberg is used in more recent large-scale models (i.e., \textsc{LLaMA}~\cite{touvron2023llama}).\\
+		      BookCorpus is commonly used in previous small-scale models (e.g., GPT~\cite{radford2018improving} and GPT-2~\cite{radford2019language}), while Gutenberg is used in more recent large-scale models (i.e., Llama~\cite{touvron2023llama}).\\
 		      Book1 and Book2 used in GPT-3~\cite{brown2020language} are much larger than BookCorpus but have not been publicly released.
 	      }
 	\item \textbf{CommonCrawl:} {
@@ -256,7 +258,7 @@ A typical pipeline for data preprocessing involves several steps, as shown in Fi
 	\label{fig:preprocessing}
 \end{figure}
 
-\textbf{Quality Filtering.}
+\subsubsection{Quality Filtering.}
 The first step in data preprocessing is quality filtering, where the data is cleaned to remove irrelevant or low-quality content.
 Existing works mainly adopt two strategies for quality filtering: classifier-based and heuristic-based filtering.
 
@@ -283,7 +285,7 @@ The set of rules can be summarized as follows:
 	\item \textit{Keyword based filtering}. {Remove data that contains specific keywords that are noisy, irrelevant or toxic, like HTML tags, URLs, boilerplate text, or offensive language.}
 \end{itemize}
 
-\textbf{Deduplication.}
+\subsubsection{Deduplication.}
 The next step in data preprocessing is deduplication, where duplicate data are removed to reduce redundancy and improve the diversity of the training data.
 Moreover, \textcite{hernandez2022scaling} found that duplication may cause instability in the training process, leading to overfitting and poor generalization performance.
 Therefore, deduplication is essential to ensure the model is exposed to diverse text data during training.
@@ -294,7 +296,7 @@ At the document level, the deduplication can be done by computing the overlap ra
 To avoid the contamination problem, the deduplication process should be done before the data is split into training, validation, and test sets~\cite{chowdhery2022palm}.
 \textcite{chowdhery2022palm} and \textcite{carlini2022quantifying} have shown that the three deduplication strategies should be used in conjunction to improve the training of LLMs.
 
-\textbf{Privacy reduction.}
+\subsubsection{Privacy reduction.}
 Privacy reduction is another important step in data preprocessing, especially when dealing with sensitive or personal information.
 Since data is often collected from the web and contains user-generated content, the risk of privacy breaching is high~\cite{carlini2021extracting}.
 This step involves anonymizing or obfuscating sensitive data to protect individuals' privacy.
@@ -302,7 +304,7 @@ Common techniques for privacy reduction include masking personally identifiable 
 Privacy attacks on LLMs can be attributed to duplicated PII data in the pre-training, which can be used to extract the original PII data~\cite{lee2022deduplicating}.
 Therefore, de-duplication can also reduce privacy risks to some extent.
 
-\textbf{Tokenization.}
+\subsubsection{Tokenization.}
 Tokenization is a crucial step in data preprocessing, where the text data is converted into tokens that can be processed by the model.
 The choice of tokenization method can significantly impact the model's performance, as different tokenization strategies can affect the model's ability to capture the underlying structure of the language.
 
@@ -349,7 +351,7 @@ It particularly excels in the context of language models that require a nuanced 
 Unigram tokenization has been pivotal in developing the SentencePiece~\cite{kudo2018sentencepiece} tokenization library, renowned for its application in T5 and mBART\@.
 The adaptability and language-agnostic properties of Unigram tokenization make it a preferred choice for LLMs tasked with processing multilingual data~\cite{kudo2018sentencepiece}.
 
-\section{Adaptation of Large Language Models}
+\subsection{LLM Adaptation}
 \label{sec:adaptation-of-llms}
 
 The adaptation of Large Language Models (LLMs) is a critical aspect of their deployment in real-world applications.
@@ -389,7 +391,7 @@ Adaptation can be achieved through various techniques, such as instruction tunin
 	\end{tabularx}
 \end{table}
 
-\subsection{Instruction Tuning}
+\subsubsection{Instruction Tuning}
 \label{subsec:instruction-tuning}
 
 Instruction tuning is a technique that leverages natural language instructions to fine-tune pre-trained LLMs~\cite{wei2022fine}, which is highly related to supervised fine-tuning~\cite{ouyang2022training} and multi-task prompted training~\cite{sanhetal2022multitask}.
@@ -548,15 +550,15 @@ The main effects of instruction tuning are:
 
 In summary, instruction tuning is a powerful technique that significantly enhances LLMs' performance, generalization, and domain specialization.
 Instruction tuning's effectiveness is evident across models of various scales and architectures, demonstrating its versatility and broad applicability.
-Larger models, such as \textsc{LLaMA}\textsubscript{13B} compared to \textsc{LLaMA}\textsubscript{7B}, generally perform better, suggesting that increased model size enhances the model's ability to follow instructions and utilize knowledge more effectively.
+Larger models, such as Llama\textsubscript{13B} compared to Llama\textsubscript{7B}, generally perform better, suggesting that increased model size enhances the model's ability to follow instructions and utilize knowledge more effectively.
 This is particularly evident in QA settings, where larger models show markedly improved performance~\cite{survey}.
 
-Increasing the complexity and diversity of the Self-Instruct-52K dataset enhances \textsc{LLaMA}'s performance in both chat and QA settings.
+Increasing the complexity and diversity of the Self-Instruct-52K dataset enhances Llama's performance in both chat and QA settings.
 For example, improving instruction complexity significantly boosts performance on QA tasks, which typically involve complex queries.
 Merely increasing the number of instructions or attempting to balance instruction difficulty does not necessarily yield better outcomes.
 In some cases, such as scaling up instruction numbers without focusing on quality, it can even degrade performance~\cite{survey}.
 
-\subsection{Alignment Tuning}
+\subsubsection{Alignment Tuning}
 \label{subsec:alignment-tuning}
 
 LLMs may sometimes generate outputs inconsistent with human values or preferences (e.g., fabricating false information, pursuing inaccurate objectives, and producing harmful, misleading, or biased content)~\cite{ouyang2022training, kenton2021alignment}.
@@ -627,7 +629,7 @@ Additionally, reward models can be reused to select highly rated responses from 
 Non-RL alignment methods employ supervised learning strategies similar to those used in original instruction tuning.
 These methods may also integrate auxiliary learning objectives, such as ranking responses or contrasting instruction-response pairs, to further enhance LLMs' alignment accuracy and performance.
 
-\section{Architecture}
+\subsection{Architecture}
 \label{sec:architecture}
 
 The architecture of Large Language Models (LLMs) plays a pivotal role in determining their performance, efficiency, and scalability.
@@ -665,7 +667,7 @@ All of these are sequence-to-sequence models (often referred to as seq2seq model
 Mainstream architectures can be further categorized into three major types: encoder-decoder, casual decoder and prefix decoder, as shown in Figure~\ref{fig:architectures}.
 Both casual decoder and prefix decoder are decoder-only architectures, but they differ in how they generate tokens.
 
-\subsection{Encoder-decoder}
+\subsubsection{Encoder-decoder}
 \label{subsec:encoder-decoder}
 
 The vanilla version of the Transformer architecture introduced by \textcite{vaswani2023attention} belongs to this category, which consists of an encoder and a decoder.
@@ -685,7 +687,7 @@ So far, there are only a small number of models that use the encoder-decoder arc
 	\label{fig:architectures}
 \end{figure}
 
-\subsection{Casual decoder}
+\subsubsection{Casual decoder}
 \label{subsec:casual-decoder}
 
 A causal decoder predicts each token based on the preceding tokens.
@@ -700,7 +702,7 @@ The GPT series\footnote{GPT-3~\cite{brown2020language} showed amazing in-context
 The causal decoder architecture is well-suited for tasks requiring sequential generation, such as text completion, language modelling, and text generation.
 It has been widely adopted as the architecture of choice for many large-scale language models, such as OPT~\cite{zhang2022opt}, BLOOM~\cite{workshop2023bloom}, and Gopher~\cite{rae2021scaling}.
 
-\subsection{Prefix decoder}
+\subsubsection{Prefix decoder}
 \label{subsec:prefix-decoder}
 
 The prefix decoder architecture\footnote{Also called non-causal decoder~\cite{zhang2022examining}} enables partial conditioning of generated sequences, revising the masking mechanism of causal decoders, to allow performing bidirectional attention over the prefix tokens~\cite{dong2019unified} and unidirectional attention only on generated tokens.
@@ -715,7 +717,7 @@ Still, the flexibility provided by the prefix decoder makes it suitable for a ra
 
 This architecture has been utilized in various language models to improve text generation control and enhance the models' ability to handle specific formats or styles~\cite{raffel2023exploring}.
 
-\subsection{Transformer Architecture}
+\subsubsection{Transformer Architecture}
 \label{subsec:transformer-architecture}
 
 The Transformer architecture has emerged as the de facto standard for LLMs, owing to its ability to capture long-range dependencies and model complex language structures effectively~\cite{vaswani2023attention}, making it possible to train models with billions or even trillions of parameters~\cite{brown2020language, touvron2023llama}.
@@ -749,37 +751,37 @@ Different orders and configurations of the sub-layers, residual connection and l
 	\scriptsize
 	\begin{tabularx}{\textwidth}{|l|X|l|l|l|l|l|l|l|l|l|}
 		\hline
-		Model                                     & Category               & Size & Normalization & PE       & Activation & Bias & \#L & \#H & d\textsubscript{model} & MCL  \\
+		Model                                  & Category               & Size & Normalization & PE       & Activation & Bias & \#L & \#H & d\textsubscript{model} & MCL  \\
 		\hline
-		GPT3~\cite{brown2020language}             & Causal\newline decoder & 175B & Pre LayerNorm & Learned  & GeLU       & Y    & 96  & 96  & 12288                  & 2048 \\
-		PanGU-\(\alpha\)~\cite{zeng2021pangu}     & Causal\newline decoder & 207B & Pre LayerNorm & Learned  & GeLU       & Y    & 64  & 128 & 16384                  & 1024 \\
-		OPT~\cite{zhang2022opt}                   & Causal\newline decoder & 175B & Pre LayerNorm & Learned  & ReLU       & Y    & 96  & 96  & 12288                  & 2048 \\
-		PaLM~\cite{chowdhery2022palm}             & Causal\newline decoder & 540B & Pre LayerNorm & RoPE     & SwiGLU     & N    & 118 & 48  & 18432                  & 2048 \\
-		BLOOM~\cite{workshop2023bloom}            & Causal\newline decoder & 176B & Pre LayerNorm & ALiBi    & GeLU       & Y    & 70  & 112 & 14336                  & 2048 \\
-		MT-NLG~\cite{smith2022deepspeed}          & Causal\newline decoder & 530B & -             & -        & -          & -    & 105 & 128 & 20480                  & 2048 \\
-		Gopher~\cite{rae2021scaling}              & Causal\newline decoder & 280B & Pre RMSNorm   & Relative & -          & -    & 80  & 128 & 16384                  & 2048 \\
-		Chinchilla~\cite{hoffmann2022training}    & Causal\newline decoder & 70B  & Pre RMSNorm   & Relative & -          & -    & 80  & 64  & 8192                   & -    \\
-		Galactica~\cite{taylor2022galactica}      & Causal\newline decoder & 120B & Pre LayerNorm & Learned  & GeLU       & N    & 96  & 80  & 10240                  & 2048 \\
-		LaMDA~\cite{thoppilan2022lamda}           & Causal\newline decoder & 137B & -             & Relative & GeGLU      & -    & 64  & 128 & 8192                   & -    \\
-		Jurassic-1~\cite{lieber2021jurassic}      & Causal\newline decoder & 178B & Pre LayerNorm & Learned  & GeLU       & Y    & 76  & 96  & 13824                  & 2048 \\
-		\textsc{LLaMA} ~\cite{touvron2023llama}   & Causal\newline decoder & 65B  & Pre RMSNorm   & RoPE     & SwiGLU     & Y    & 80  & 64  & 8192                   & 2048 \\
-		\textsc{LLaMA} 2~\cite{touvron2023llama2} & Causal\newline decoder & 70B  & Pre RMSNorm   & RoPE     & SwiGLU     & Y    & 80  & 64  & 8192                   & 4096 \\
-		Falcon~\cite{penedo2023refinedweb}        & Causal\newline decoder & 40B  & Pre LayerNorm & RoPE     & GeLU       & N    & 60  & 64  & 8192                   & 2048 \\
-		GLM-130B~\cite{zeng2022glm130b}           & Prefix\newline decoder & 130B & Post DeepNorm & RoPE     & GeGLU      & Y    & 64  & 96  & 12288                  & 2048 \\
-		T5~\cite{raffel2023exploring}             & Encoder-decoder        & 11B  & Pre RMSNorm   & Relative & ReLU       & N    & 24  & 128 & 1024                   & 512  \\
+		GPT3~\cite{brown2020language}          & Causal\newline decoder & 175B & Pre LayerNorm & Learned  & GeLU       & Y    & 96  & 96  & 12288                  & 2048 \\
+		PanGU-\(\alpha\)~\cite{zeng2021pangu}  & Causal\newline decoder & 207B & Pre LayerNorm & Learned  & GeLU       & Y    & 64  & 128 & 16384                  & 1024 \\
+		OPT~\cite{zhang2022opt}                & Causal\newline decoder & 175B & Pre LayerNorm & Learned  & ReLU       & Y    & 96  & 96  & 12288                  & 2048 \\
+		PaLM~\cite{chowdhery2022palm}          & Causal\newline decoder & 540B & Pre LayerNorm & RoPE     & SwiGLU     & N    & 118 & 48  & 18432                  & 2048 \\
+		BLOOM~\cite{workshop2023bloom}         & Causal\newline decoder & 176B & Pre LayerNorm & ALiBi    & GeLU       & Y    & 70  & 112 & 14336                  & 2048 \\
+		MT-NLG~\cite{smith2022deepspeed}       & Causal\newline decoder & 530B & -             & -        & -          & -    & 105 & 128 & 20480                  & 2048 \\
+		Gopher~\cite{rae2021scaling}           & Causal\newline decoder & 280B & Pre RMSNorm   & Relative & -          & -    & 80  & 128 & 16384                  & 2048 \\
+		Chinchilla~\cite{hoffmann2022training} & Causal\newline decoder & 70B  & Pre RMSNorm   & Relative & -          & -    & 80  & 64  & 8192                   & -    \\
+		Galactica~\cite{taylor2022galactica}   & Causal\newline decoder & 120B & Pre LayerNorm & Learned  & GeLU       & N    & 96  & 80  & 10240                  & 2048 \\
+		LaMDA~\cite{thoppilan2022lamda}        & Causal\newline decoder & 137B & -             & Relative & GeGLU      & -    & 64  & 128 & 8192                   & -    \\
+		Jurassic-1~\cite{lieber2021jurassic}   & Causal\newline decoder & 178B & Pre LayerNorm & Learned  & GeLU       & Y    & 76  & 96  & 13824                  & 2048 \\
+		Llama ~\cite{touvron2023llama}         & Causal\newline decoder & 65B  & Pre RMSNorm   & RoPE     & SwiGLU     & Y    & 80  & 64  & 8192                   & 2048 \\
+		Llama 2~\cite{touvron2023llama2}       & Causal\newline decoder & 70B  & Pre RMSNorm   & RoPE     & SwiGLU     & Y    & 80  & 64  & 8192                   & 4096 \\
+		Falcon~\cite{penedo2023refinedweb}     & Causal\newline decoder & 40B  & Pre LayerNorm & RoPE     & GeLU       & N    & 60  & 64  & 8192                   & 2048 \\
+		GLM-130B~\cite{zeng2022glm130b}        & Prefix\newline decoder & 130B & Post DeepNorm & RoPE     & GeGLU      & Y    & 64  & 96  & 12288                  & 2048 \\
+		T5~\cite{raffel2023exploring}          & Encoder-decoder        & 11B  & Pre RMSNorm   & Relative & ReLU       & N    & 24  & 128 & 1024                   & 512  \\
 		\hline
 	\end{tabularx}
 	\caption{Model cards of several selected LLMs with public configuration details. PE denotes position embedding, \#L denotes the number of layers, \#H denotes the number of attention heads, d\textsubscript{model} denotes the size of hidden states, and MCL denotes the maximum context length during training. Source: \textcite{survey}.}
 	\label{tab:model-cards}
 \end{table}
 
-\subsubsection{Configurations}
+\paragraph{Configurations}
 \label{subsubsec:configurations}
 
 Since the introduction of the Transformer architecture, several variants and configurations have been proposed to improve the performance and efficiency of LLMs.
 The configuration of the four major parts of the Transformer architecture includes normalization, position embeddings, activation functions, and attention and bias, as shown in Table~\ref{tab:configurations}.
 
-\subsubsection{Normalization Methods}
+\paragraph{Normalization Methods}
 \label{subsubsec:normalization}
 Normalization methods are crucial for stabilizing the training process and improving the convergence of LLMs.
 In the vanilla Transformer~\cite{vaswani2023attention} architecture, LayerNorm~\cite{ba2016layer} is the most commonly used normalization method, which normalizes the hidden states across the feature dimension.
@@ -822,7 +824,7 @@ It has been used in models such as GLM-130B~\cite{zeng2022glm130b}.
 	\label{tab:configurations}
 \end{table}
 
-\subsubsection{Normalization Position}
+\paragraph{Normalization Position}
 \label{subsubsec:normalization-position}
 
 \begin{figure}
@@ -851,7 +853,7 @@ Sandwich-LN~\cite{ding2021cogview} is a configuration that combines the advantag
 This configuration has been shown to improve the performance of Transformer models by providing better stability during training and faster convergence~\cite{ding2021cogview}.
 In \textcite{zeng2022glm130b}, the authors found that the Sandwich-LN configuration sometimes fails to stabilize the training of LLMs and may lead to the collapse of training.
 
-\subsubsection{Activation Functions}
+\paragraph{Activation Functions}
 \label{subsubsec:activation-functions}
 
 Activation functions play a crucial role in the training and performance of LLMs by introducing non-linearity into the model\footnote{In the feed-forward layer}.
@@ -935,7 +937,7 @@ The GeGLU activation is formulated as follows:
 This second matrix is calculated by multiplying the input matrix x with another matrix W and adding a bias term b.
 The output of this multiplication is then passed through a second matrix V and added to a scalar term c.
 
-\subsubsection{Position Embeddings}
+\paragraph{Position Embeddings}
 \label{subsubsec:position-embeddings}
 
 Position embeddings are a crucial component of the Transformer architecture.
@@ -1004,7 +1006,7 @@ The modified attention score with ALiBi can be represented as:
 
 In \textcite{press2022train}, the authors found that ALiBi has better extrapolation performance than traditional position embeddings, and it can also improve the stability and convergence of Transformer models during training~\cite{workshop2023bloom}.
 
-\subsubsection{Attention Mechanisms}
+\paragraph{Attention Mechanisms}
 \label{subsubsec:attention-mechanisms}
 
 Attention mechanisms are a key component of the Transformer architecture.
@@ -1068,7 +1070,7 @@ It can significantly reduce the computational cost of the attention operation wi
 Palm~\cite{chowdhery2022palm} and Starcoder~\cite{li2023starcoder} are examples of LLMs that use the multi-query attention mechanism.
 A tradeoff between multi-query and multi-head attention grouped-query (GQA) has been explored in \textcite{ainslie2023gqa}.
 In GQA, heads are grouped together, and each group shares the same transformation matrices.
-This mechanism has been adopted and empirically tested in the \textsc{LLaMA} 2 model~\cite{touvron2023llama2}.
+This mechanism has been adopted and empirically tested in the Llama 2 model~\cite{touvron2023llama2}.
 
 Flash attention~\cite{dao2022flashattention} is an approach that proposes to optimize the speed and memory consumption of attention modules on the GPUs.
 Modern GPUs have different memory types, and Flash attention takes advantage of this by organizing the input block on the faster memory\footnote{SRAM has fast IO, while HBM is slower}.
@@ -1101,7 +1103,7 @@ For stronger generalization and training stability, the pre-RMSNorm should be ch
 In addition, LN may not be used immediately after embedding layers, which is likely to incur performance degradation.
 As for position embeddings, RoPE or ALiBi is a better choice since it performs better on long sequences.
 
-\subsection{Emerging architectures}
+\subsubsection{Emerging architectures}
 \label{subsec:emerging-architectures}
 
 Several emerging architectures have been proposed to address specific challenges or improve the performance of Transformers.
@@ -1161,13 +1163,13 @@ Compared to the attention operators in Transformers, Hyena has a lower computati
 	\label{fig:hyena}
 \end{figure}
 
-\section{Tuning and Optimization}
+\subsection{Tuning and Optimization}
 \label{sec:tuning-optimization}
 
 Since LLMs consist of millions or billions of parameters, parameter tuning can be expensive and time-consuming.
 In this section, we discuss model adaptation of parameters and memory.
 
-\subsection{Parameter-efficient model adaptation}
+\subsubsection{Parameter-efficient model adaptation}
 \label{subsec:parameter-efficient}
 
 In the existing literature, several methods exist to adapt the model parameters to improve the performance of LLMs~\cite{hu2021lora, li2021prefixtuning, lester2021power}.
@@ -1182,7 +1184,7 @@ In the following sections, we discuss some of the most popular methods for param
 	\label{fig:parameter-tuning}
 \end{figure}
 
-\subsubsection{Adapter tuning}
+\paragraph{Adapter tuning}
 \label{subsubsec:adapter-tuning}
 
 Adapter tuning is a parameter-efficient technique for transferring a pre-trained model to multiple downstream tasks without re-training the entire model for each new task.
@@ -1228,7 +1230,7 @@ In this way, we can effectively reduce the number of trainable parameters during
 Adapter tuning has been shown to achieve near state-of-the-art performance on various tasks with significantly fewer parameters than full fine-tuning.
 For example, on the GLUE benchmark, adapter tuning approaches the performance of full fine-tuning with only about 3.6\% of the parameters trained per task.
 
-\subsubsection{Prefix tuning}
+\paragraph{Prefix tuning}
 \label{subsubsec:prefix-tuning}
 
 Prefix-tuning is introduced as an efficient alternative to traditional fine-tuning methods for deploying large pre-trained language models (PLMs) across various tasks.
@@ -1252,7 +1254,7 @@ Results indicate that prefix-tuning reduces parameter count significantly and ma
 The approach effectively handles tasks with unseen topics during training, showcasing better generalization capabilities~\cite{lewis2020bart}.
 
 
-\subsubsection{Prompt tuning}
+\paragraph{Prompt tuning}
 \label{subsubsec:prompt-tuning}
 
 Prompt tuning primarily involves incorporating trainable vectors, called prompt tokens, at the input layer of a model.
@@ -1280,7 +1282,7 @@ P-Tuning v2 has been evaluated across various model scales (from 330M to 10B par
 The experiments demonstrate that P-Tuning v2 provides comparable results to full model fine-tuning, requiring only 0.1\%-3\% of the parameters to be tuned.
 \textcite{liu2022ptuning} concludes that P-Tuning v2 significantly narrows the performance gap between prompt tuning and full fine-tuning, offering a robust, scalable, and efficient alternative for adapting large pre-trained models to diverse NLU tasks.
 
-\subsubsection{LoRA}
+\paragraph{LoRA}
 \label{subsubsec:lora}
 
 The technique called LoRA (Low-Rank Adaptation) is used for efficient fine-tuning neural networks, particularly in adapting dense layers to downstream tasks with fewer trainable parameters.
@@ -1334,7 +1336,7 @@ In addition to parameter-efficient model adaptation, memory-efficient techniques
 These methods aim to reduce the memory requirements of LLMs during inference, making them more suitable for deployment in resource-constrained environments.
 This section discusses some of the most popular methods for memory-efficient model adaptation, i.e.\ model quantization.
 
-\subsubsection{Quantization}
+\paragraph{Quantization}
 \label{subsubsec:quantization}
 
 Quantization techniques reduce memory and computational costs by representing weights and activations with lower-precision data types, such as 8-bit integers (int8).

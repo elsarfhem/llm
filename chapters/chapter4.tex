@@ -1,20 +1,20 @@
 %! Author = amatarazzo
 %! Date = 09/05/24
 
-\chapter{Capabilities of Large Language Models}
+\section{Testing the CoT Capabilities of LLMs}
 \label{ch:capabilities}
 
-\section{Introduction}
-\label{sec:ch4-introduction}
+%\subsection{Introduction}
+%\label{sec:ch4-introduction}
 
-In this chapter, we investigate the origins of some skills demonstrated by large language models (LLMs), such as the Chain-of-Thought (CoT).
+In this section, we investigate the origins of some skills demonstrated by large language models (LLMs), such as the Chain-of-Thought (CoT).
 We will briefly summarize the evidence presented in several experiments documented in scientific articles and papers.
 Subsequently, we will examine whether certain hypotheses are validated through tests conducted on publicly available models via LMStudio software on HuggingFace.
 
-\section{What is eliciting the Chain-of-Thought?}
+\subsection{What is eliciting the Chain-of-Thought?}
 \label{sec:what-is-eliciting-the-chain-of-thought?}
 
-As we have seen in the previous chapters, LLMs have shown some remarkable abilities, such as language generation, the ability to perform Chain-of-Thought (CoT), a form of "reasoning" that involves multiple steps, In-Context Learning, and more.
+As we have seen in the previous sections, LLMs have shown some remarkable abilities, such as language generation, the ability to perform Chain-of-Thought (CoT), a form of "reasoning" that involves multiple steps, In-Context Learning, and more.
 Even though LLMs' reasoning ability is controversial, we focus our attention on a different question: what is eliciting these abilities?
 
 Generally, the above abilities are attributed to the large size of the pre-training data.
@@ -60,6 +60,7 @@ One piece of evidence is that code-davinci-002, a model trained on code data, is
 
 On the HELM evaluation, a massive-scale evaluation performed by \textcite{liang2022holistic}, the authors also found that models trained on/for code have strong language reasoning abilities.
 As an intuition, procedure-oriented programming is similar to solving tasks step by step, and object-oriented programming is similar to decomposing complex tasks into simpler ones.
+
 Other hypotheses suggest a minor role in the instruction tuning.
 \begin{displayquote}
 	Instruction tuning does not inject new abilities into the model -- all abilities are already there.
@@ -69,7 +70,7 @@ Other hypotheses suggest a minor role in the instruction tuning.
 A piece of evidence is the GPT-3 text-davinci-002 \footnote{The model is instruction-tuned with RL} leverages on CoT to improve performance, whereas the previous text-davinci-001 could not do CoT well.
 PaLM~\cite{chowdhery2022palm} itself shows that instruction-tuning can elicit CoT since the first version was not instruction-tuned.
 
-\section{Empirical evidences}
+\subsection{Empirical evidences}
 \label{sec:empirical-evidence}
 
 In this section, we will present some empirical evidence supporting the previous section's hypotheses.
@@ -86,17 +87,17 @@ As mentioned, really large models require a lot of resources, and it's impossibl
 Moreover the assumption is that the ability to perform CoT is not related to the model size, but rather to the pre-training data.
 However, when comparing models of the same size, we can exclude this factor from the equation and focus on testing whether CoT reasoning ability is related to code in the pre-training dataset.
 Additionally, the models available on LMStudio are limited to the models available on HuggingFace, while others are closed-source and have not been publicly released.
-For this reason, we focused the experiments (see Table~\ref{tab:llama-comparison}) on \textsc{LLaMA} family models, which are publicly available on HuggingFace.
+For this reason, we focused the experiments (see Table~\ref{tab:llama-comparison}) on Llama family models, which are publicly available on HuggingFace.
 As reported by the authors, the architecture of the different models is quite similar.
-Indeed, \textsc{LLaMA} 3 uses a standard, dense Transformer architecture~\cite{vaswani2023attention} which does not deviate significantly from \textsc{LLaMA}~\cite{touvron2023llama} and \textsc{LLaMA} 2~\cite{touvron2023llama2} in terms of model architecture.
+Indeed, Llama 3 uses a standard, dense Transformer architecture~\cite{vaswani2023attention} which does not deviate significantly from Llama~\cite{touvron2023llama} and Llama 2~\cite{touvron2023llama2} in terms of model architecture.
 This leads to the conclusion that the performance gains are primarily driven by improvements in data quality and diversity as well as by increased training scale~\cite{llama3}.
 
-The percentage of code in the pre-training data of the first \textsc{LLaMA} model~\cite{touvron2023llama} is about 5\%\footnote{See Section~\ref{subsec:llama} for more details}.
-This percentage increases in the \textsc{LLaMA} 2 model~\cite{touvron2023llama2} to 8\%\footnote{See Section~\ref{subsubsec:llama-2} for more details}.
-The fine-tuned \textsc{LLaMA} 2 model, Code \textsc{LLaMA}\cite{roziere2024codellamaopenfoundation}, adds 500B extra tokens, consisting mostly of code (85\%)\footnote{See Section~\ref{subsubsec:code-llama} for more details}.
-Lastly, the \textsc{LLaMA} 3 and 3.1 model~\cite{llama3} has 17\% of code in its pre-training mix\footnote{See Section~\ref{subsubsec:llama-3} for more details}.
+The percentage of code in the pre-training data of the first Llama model~\cite{touvron2023llama} is about 5\%\footnote{See Section~\ref{subsubsec:llama} for more details}.
+This percentage increases in the Llama 2 model~\cite{touvron2023llama2} to 8\%\footnote{See Section~\ref{par:llama-2} for more details}.
+The fine-tuned Llama 2 model, Code Llama\cite{roziere2024codellamaopenfoundation}, adds 500B extra tokens, consisting mostly of code (85\%)\footnote{See Section~\ref{par:code-llama} for more details}.
+Lastly, the Llama 3 and 3.1 model~\cite{llama3} has 17\% of code in its pre-training mix\footnote{See Section~\ref{par:llama-3} for more details}.
 
-The experiments have been conducted using the Chain-of-Thought on reasoning tasks from the GSM8k and gsm-hard\footnote{The gsm-hard is obtained by replacing the numbers in the questions of GSM8k with larger numbers that are less common.}.
+The experiments have been conducted using the Chain-of-Thought on reasoning tasks from the GSM8k and gsm-hard\footnote{The gsm-hard is obtained by replacing the numbers in the questions of GSM8k with larger numbers that are less common.}
 Reasoning steps in the gsm-hard datasets are expressed as code, so we also tested the Program of Thought (PoT) approach~\cite{chen2022program}.
 \begin{figure}[h!]
 	\centering
@@ -113,38 +114,38 @@ The results from the execution of the experiments are shown in Table~\ref{tab:ll
 	\centering
 	\begin{tabularx}{\textwidth}{Xcccc}
 		\toprule
-		                                               & \textbf{GSM8k 0-shot} & \textbf{GSM8k 5-shot} & \textbf{GSM-hard 0-shot} & \textbf{GSM-hard 5-shot} \\
+		                                      & \textbf{GSM8k 0-shot} & \textbf{GSM8k 5-shot} & \textbf{GSM-hard 0-shot} & \textbf{GSM-hard 5-shot} \\
 		\midrule
-		\textbf{\textsc{LLaMA}2\textsubscript{7B}}     & 3.1\%                 & 15.7\%                & $\approxeq$0\%           & $\approxeq$0\% (16.69\%) \\
+		\textbf{Llama2\textsubscript{7B}}     & 3.1\%                 & 15.7\%                & $\approxeq$0\%           & $\approxeq$0\% (16.69\%) \\
 		\hline
-		\textbf{Code \textsc{LLaMA}\textsubscript{7B}} & 3.99\%                & 16.3\%                & 1.3\%                    & 1.5\% (27.6\%)           \\
+		\textbf{Code Llama\textsubscript{7B}} & 3.99\%                & 16.3\%                & 1.3\%                    & 1.5\% (27.6\%)           \\
 		\hline
-		\textbf{\textsc{LLaMA}2\textsubscript{13B}}    & 10.53\%               & 35.8\%                & $\approxeq$0\%           & $\approxeq$0\%	 (36\%)   \\
+		\textbf{Llama2\textsubscript{13B}}    & 10.53\%               & 35.8\%                & $\approxeq$0\%           & $\approxeq$0\%	 (36\%)   \\
 		\hline
-		\textbf{\textsc{LLaMA}3\textsubscript{7B}}     & 31.0\%                & 47.0\%                & 5.4\%                    & 7.4\% (56.1\%)           \\
+		\textbf{Llama3\textsubscript{7B}}     & 31.0\%                & 47.0\%                & 5.4\%                    & 7.4\% (56.1\%)           \\
 		\hline
-		\textbf{\textsc{LLaMA}3.1\textsubscript{7B}}   & 75.9 \%               & 80.9\%                & 7.85\%                   & 9.46\% (62.36\%)         \\
+		\textbf{Llama3.1\textsubscript{7B}}   & 75.9 \%               & 80.9\%                & 7.85\%                   & 9.46\% (62.36\%)         \\
 		\bottomrule
 	\end{tabularx}
-	\caption{Comparison of \textsc{LLaMA} models on mathematical reasoning tasks. The numbers in parentheses for the last column are the success rate leveraging the PoT reasoning ability (i.e., executing the Python code in the reasoning part) rather than using the solution provided by the model itself.}
+	\caption{Comparison of Llama models on mathematical reasoning tasks. The numbers in parentheses for the last column are the success rate leveraging the PoT reasoning ability (i.e., executing the Python code in the reasoning part) rather than using the solution provided by the model itself.}
 	\label{tab:llama-comparison}
 \end{table}
 
-As expected, \textsc{LLaMA} 3 performs better than \textsc{LLaMA} 2, and its CoT reasoning ability improves as performance increases between the 0-shot and 5-shot settings.
+As expected, Llama 3 performs better than Llama 2, and its CoT reasoning ability improves as performance increases between the 0-shot and 5-shot settings.
 Since the models are the same size and have similar architectures, the improvement is related to different models' pre-training data.
-Main difference between \textsc{LLaMA} 2 and \textsc{LLaMA} 3 is the percentage of code in the pre-training data, which is 8\% for \textsc{LLaMA} 2 and 17\% for \textsc{LLaMA} 3.
+Main difference between Llama 2 and Llama 3 is the percentage of code in the pre-training data, which is 8\% for Llama 2 and 17\% for Llama 3.
 It confirms that the code in the pre-training data can greatly increase the CoT reasoning ability of LLMs.
 We also run the same experiments on LLaMA2\textsubscript{13B} to further exclude the size factor.
 It confirms that size is not a deciding factor in CoT since both show the ability to perform CoT reasoning.
-Despite that, \textsc{LLaMA}\textsubscript{13B} results show that scaling up the model can improve the CoT ability but it's not a deciding factor.
+Despite that, Llama\textsubscript{13B} results show that scaling up the model can improve the CoT ability but it's not a deciding factor.
 As hypothesized, in general the improvement between the 0-shot and 5-shot on GSM8k consistently increases with the percentage of code in the pre-training data among all the models.
 
 We also tested the Program-of-Thoughts (PoT) reasoning ability on the gsm-hard dataset since the dataset demonstrations are expressed as code, and the model is stimulated to produce reasoning expressed as code.
 The code was extracted from the model's solution and executed by a Python interpreter to calculate the result.
 The performance is indicated in the table inside the parentheses, which shows that PoT also increases with the percentage of code in the pre-training data.
 We can note that all the models have a low success rate in the gsm-hard dataset, while the performance increases using PoT\@.
-The fact that the models' performance drops in the 0-shot gsm-hard dataset, which simply uses larger numbers, suggests that the LLMs cannot reason if they cannot figure out the underlying algorithm; rather, they learn the distribution in the pre-training data.
-Also, the CoT reasoning ability is accepted that doesn't generalize well after a point as we can see in the results of the 5-shot gsm-hard dataset.
+The fact that the models' performance drops in the 0-shot gsm-hard dataset, which is simply using larger numbers, suggests that the LLMs cannot reason if they cannot figure out the underlying algorithm, rather they learn the distribution in the pre-training data.
+Also, the CoT reasoning ability is accepted that doesn’t generalize well after a point as we can see in the results of the 5-shot gsm-hard dataset.
 The increment using PoT is more significant than the one using the model's solution, which suggests that demonstrating reasoning as code improves the ability to generate code rather than the reasoning itself.
 It could be explained by the fact that models are trained on GitHub, an high quality code dataset, so they can retrieve the pieces of code.
 
@@ -192,8 +193,8 @@ Let's think step by step.
 \end{Verbatim}
 since the reasoning is guided by the assistant messages.
 
-\subsubsection*{\textsc{LLaMA}2 7B GSM8k 0-shot}
-\noindent Example of generated text from \textsc{LLaMA}2\textsubscript{7B} on GSM8k -- 0-shot task:
+\subsubsection*{Llama2 7B GSM8k 0-shot}
+\noindent Example of generated text from Llama2\textsubscript{7B} on GSM8k -- 0-shot task:
 \begin{displayquote}
 	\textbf{Prompt:}
 	\begin{Verbatim}[fontsize=\small,breaklines]
@@ -219,42 +220,42 @@ The answer is incorrect (correct answer is 30).
 
 \noindent\rule{\textwidth}{0.4pt}
 
-\subsubsection*{\textsc{LLaMA}2 7B gsm-hard 0-shot}
-We do not report any sample of generated text from \textsc{LLaMA}2\textsubscript{7B} on gsm-hard -- 0-shot task, as the model has not shown any ability to answer correctly to any of the prompts.
+\subsubsection*{Llama2 7B gsm-hard 0-shot}
+We do not report any sample of generated text from Llama2\textsubscript{7B} on gsm-hard -- 0-shot task, as the model has not shown any ability to answer correctly to any of the prompts.
 
 \noindent\rule{\textwidth}{0.4pt}
 
-\subsubsection*{Code \textsc{LLaMA} 7B GSM8k 0-shot}
-\noindent Example of generated text from Code \textsc{LLaMA}\textsubscript{7B} on GSM8k -- 0-shot task:
+\subsubsection*{Code Llama 7B GSM8k 0-shot}
+\noindent Example of generated text from Code Llama\textsubscript{7B} on GSM8k -- 0-shot task:
 \begin{displayquote}
 	\textbf{Prompt:}
 	\begin{Verbatim}[fontsize=\small,breaklines]
 John adopts a dog.  He takes the dog to the groomer, which costs $100.  The groomer offers him a 30% discount for being a new customer.  How much does the grooming cost?
-    \end{Verbatim}
+	\end{Verbatim}
 	\textbf{Answer:}
 	\begin{Verbatim}[fontsize=\small,breaklines]
 The answer is: John spends $70 on the dog’s grooming.
-    \end{Verbatim}
+	\end{Verbatim}
 \end{displayquote}
 Executing the code snippet returns the correct answer.
 \begin{displayquote}
 	\textbf{Prompt:}
 	\begin{Verbatim}[fontsize=\small,breaklines]
 Christina is planning a birthday party and needs .75 gift bags per invited guest, because 1/4 of attendees don't show up. She invited 16 friends. Gift bags are $2 each. How much will she spend?
-    \end{Verbatim}
+	\end{Verbatim}
 	\textbf{Answer:}
 	\begin{Verbatim}[fontsize=\small,breaklines]
 Let’s think step by step.Christina is planning a birthday party and needs .75 gift bags per invited guest, because 1/4 of attendees don't show up. She invited 16 friends. Gift bags are $2 each. How much will she spend?
 The number of attendees who don’t show up is 25% of the total number of guests, so 16*0.75=12.
-    \end{Verbatim}
+	\end{Verbatim}
 \end{displayquote}
 The code snippet returns the wrong answer (correct answer is 24).
 The reasoning is coherent, but it misses the final step to calculate the total amount spent $12 \times 2\$ = 24\$$.
 
 \noindent\rule{\textwidth}{0.4pt}
 
-\subsubsection*{Code \textsc{LLaMA} 7B gsm-hard 0-shot}
-\noindent Example of generated text from Code \textsc{LLaMA}\textsubscript{7B} on gsm-hard -- 0-shot task:
+\subsubsection*{Code Llama 7B gsm-hard 0-shot}
+\noindent Example of generated text from Code Llama\textsubscript{7B} on gsm-hard -- 0-shot task:
 \begin{displayquote}
 	\textbf{Prompt:}
 	\begin{Verbatim}[fontsize=\small,breaklines]
@@ -317,8 +318,8 @@ The answer is incorrect (correct answer is 225514250).
 
 \noindent\rule{\textwidth}{0.4pt}
 
-\subsubsection*{\textsc{LLaMA}2 13B GSM8k 0-shot}
-\noindent Example of generated text from \textsc{LLaMA}2\textsubscript{13B} on GSM8k -- 0-shot task:
+\subsubsection*{Llama2 13B GSM8k 0-shot}
+\noindent Example of generated text from Llama2\textsubscript{13B} on GSM8k -- 0-shot task:
 \begin{displayquote}
 	\textbf{Prompt:}
 	\begin{Verbatim}[fontsize=\small,breaklines]
@@ -345,8 +346,8 @@ The answer is incorrect (correct answer is 62).
 
 \noindent\rule{\textwidth}{0.4pt}
 
-\subsubsection*{\textsc{LLaMA}2 13B gsm-hard 0-shot}
-\noindent Example of generated text from \textsc{LLaMA}2\textsubscript{13B} on gsm-hard -- 0-shot task:
+\subsubsection*{Llama2 13B gsm-hard 0-shot}
+\noindent Example of generated text from Llama2\textsubscript{13B} on gsm-hard -- 0-shot task:
 \begin{displayquote}
 	\textbf{Prompt:}
 	\begin{Verbatim}[fontsize=\small,breaklines]
@@ -376,8 +377,8 @@ The answer is incorrect (correct answer is 1806106.8000000003).
 
 \noindent\rule{\textwidth}{0.4pt}
 
-\subsubsection*{\textsc{LLaMA} 3 7B GSM8k 0-shot}
-\noindent Example of generated text from \textsc{LLaMA} 3\textsubscript{7B} on GSM8k -- 0-shot task:
+\subsubsection*{Llama 3 7B GSM8k 0-shot}
+\noindent Example of generated text from Llama 3\textsubscript{7B} on GSM8k -- 0-shot task:
 \begin{displayquote}
 	\textbf{Prompt:}
 	\begin{Verbatim}[fontsize=\small,breaklines]
@@ -448,8 +449,8 @@ The answer is incorrect (correct answer is 175).
 
 \noindent\rule{\textwidth}{0.4pt}
 
-\subsubsection*{\textsc{LLaMA} 3 7B gsm-hard 0-shot}
-\noindent Example of generated text from \textsc{LLaMA} 3\textsubscript{7B} on gsm-hard -- 0-shot task:
+\subsubsection*{Llama 3 7B gsm-hard 0-shot}
+\noindent Example of generated text from Llama 3\textsubscript{7B} on gsm-hard -- 0-shot task:
 \begin{displayquote}
 	\textbf{Prompt:}
 	\begin{Verbatim}[fontsize=\small,breaklines]
@@ -531,8 +532,8 @@ The answer is incorrect (correct answer is 42474420).
 
 \noindent\rule{\textwidth}{0.4pt}
 
-\subsubsection*{\textsc{LLaMA}3.1 7B GSM8k 0-shot}
-\noindent Example of generated text from \textsc{LLaMA}3.1\textsubscript{7B} on GSM8k -- 0-shot task:
+\subsubsection*{Llama3.1 7B GSM8k 0-shot}
+\noindent Example of generated text from Llama3.1\textsubscript{7B} on GSM8k -- 0-shot task:
 \begin{displayquote}
 	\textbf{Prompt:}
 	\begin{Verbatim}[fontsize=\small,breaklines]
@@ -599,7 +600,7 @@ The model is just missing to increase the initial price of the house by the 150\
 
 \noindent\rule{\textwidth}{0.4pt}
 
-\noindent Example of generated text from \textsc{LLaMA}3.1\textsubscript{7B} on gsm-hard -- 0-shot task:
+\noindent Example of generated text from Llama3.1\textsubscript{7B} on gsm-hard -- 0-shot task:
 \begin{displayquote}
 	\textbf{Prompt:}
 	\begin{Verbatim}[fontsize=\small,breaklines]
@@ -646,8 +647,8 @@ The answer is incorrect (correct answer is 42463867).
 In the 5-shot setting, the model is given 5 demonstrations of the task in the prompt\footnote{The CoT prompt is not reported for brevity in the following examples}.
 The demonstration is given in the form of a question and answer pair, and they do not contain the answer to the task.
 
-\subsubsection*{\textsc{LLaMA}2 7B GSM8k 5-shot}
-\noindent Example of generated text from \textsc{LLaMA}2\textsubscript{7B} on GSM8k -- 5-shot task:
+\subsubsection*{Llama2 7B GSM8k 5-shot}
+\noindent Example of generated text from Llama2\textsubscript{7B} on GSM8k -- 5-shot task:
 \begin{displayquote}
 	\textbf{Prompt:}
 	\begin{Verbatim}[fontsize=\small,breaklines]
@@ -673,8 +674,8 @@ The solution is 128
 \end{displayquote}
 The answer is incorrect (correct answer is 310).
 
-\subsubsection*{\textsc{LLaMA}2 7B gsm-hard 5-shot}
-\noindent Example of generated text from \textsc{LLaMA}2\textsubscript{7B} on gsm-hard -- 5-shot task:
+\subsubsection*{Llama2 7B gsm-hard 5-shot}
+\noindent Example of generated text from Llama2\textsubscript{7B} on gsm-hard -- 5-shot task:
 \begin{displayquote}
 	\textbf{Prompt:}
 	\begin{Verbatim}[fontsize=\small,breaklines]
@@ -689,8 +690,8 @@ The answer is incorrect (correct answer is 13).
 
 \noindent\rule{\textwidth}{0.4pt}
 
-\subsubsection*{Code \textsc{LLaMA} 7B GSM8k 5-shot}
-\noindent Example of generated text from Code \textsc{LLaMA}\textsubscript{7B} on GSM8k -- 5-shot task:
+\subsubsection*{Code Llama 7B GSM8k 5-shot}
+\noindent Example of generated text from Code Llama\textsubscript{7B} on GSM8k -- 5-shot task:
 \begin{displayquote}
 	\textbf{Prompt:}
 	\begin{Verbatim}[fontsize=\small,breaklines]
@@ -719,8 +720,8 @@ The formula used to calculate the remaining balance is correct $\$2200-165\times
 
 	\noindent\rule{\textwidth}{0.4pt}
 
-	\subsubsection*{Code \textsc{LLaMA} 7B gsm-hard 5-shot}
-	\noindent Example of generated text from Code \textsc{LLaMA}\textsubscript{7B} on gsm-hard -- 5-shot task:
+	\subsubsection*{Code Llama 7B gsm-hard 5-shot}
+	\noindent Example of generated text from Code Llama\textsubscript{7B} on gsm-hard -- 5-shot task:
 	\begin{displayquote}
 		\textbf{Prompt:}
 		\begin{Verbatim}[fontsize=\small,breaklines]
@@ -768,8 +769,8 @@ The solution is 43581690.0.
 
 	\noindent\rule{\textwidth}{0.4pt}
 
-	\subsubsection*{\textsc{LLaMA}2 13B GSM8k 5-shot}
-	\noindent Example of generated text from \textsc{LLaMA}2\textsubscript{13B} on GSM8k -- 5-shot task:
+	\subsubsection*{Llama2 13B GSM8k 5-shot}
+	\noindent Example of generated text from Llama2\textsubscript{13B} on GSM8k -- 5-shot task:
 	\begin{displayquote}
 		\textbf{Prompt:}
 		\begin{Verbatim}[fontsize=\small,breaklines]
@@ -801,8 +802,8 @@ The solution is <<10*$8=$9.7>> 3x<<$26 + Action Figure * Doll / =<font size=smal
 
 	\noindent\rule{\textwidth}{0.4pt}
 
-	\subsubsection*{\textsc{LLaMA}2 13B gsm-hard 5-shot}
-	\noindent Example of generated text from \textsc{LLaMA}2\textsubscript{13B} on gsm-hard -- 5-shot task:
+	\subsubsection*{Llama2 13B gsm-hard 5-shot}
+	\noindent Example of generated text from Llama2\textsubscript{13B} on gsm-hard -- 5-shot task:
 	\begin{displayquote}
 		\textbf{Prompt:}
 		\begin{Verbatim}[fontsize=\small,breaklines]
@@ -818,8 +819,8 @@ def solution():
 
 	\noindent\rule{\textwidth}{0.4pt}
 
-	\subsubsection*{\textsc{LLaMA}3 7B GSM8k 5-shot}
-	\noindent Example of generated text from \textsc{LLaMA}3\textsubscript{7B} on GSM8k -- 5-shot task:
+	\subsubsection*{Llama3 7B GSM8k 5-shot}
+	\noindent Example of generated text from Llama3\textsubscript{7B} on GSM8k -- 5-shot task:
 	\begin{displayquote}
 		\textbf{Prompt:}
 		\begin{Verbatim}[fontsize=\small,breaklines]
@@ -852,8 +853,8 @@ I am an AI assistant, here to help you with any questions or problems you may ha
 
 	\noindent\rule{\textwidth}{0.4pt}
 
-	\subsubsection*{\textsc{LLaMA}3 7B gsm-hard 5-shot}
-	\noindent Example of generated text from \textsc{LLaMA}3\textsubscript{7B} on gsm-hard -- 5-shot task:
+	\subsubsection*{Llama3 7B gsm-hard 5-shot}
+	\noindent Example of generated text from Llama3\textsubscript{7B} on gsm-hard -- 5-shot task:
 	\begin{displayquote}
 		\textbf{Prompt:}
 		\begin{Verbatim}[fontsize=\small,breaklines]
@@ -928,8 +929,8 @@ I hope this helps! Let me know if you have any further questions or need help wi
 
 	\noindent\rule{\textwidth}{0.4pt}
 
-	\subsubsection*{\textsc{LLaMA}3.1 7B GSM8k 5-shot}
-	\noindent Example of generated text from \textsc{LLaMA}3.1\textsubscript{7B} on GSM8k -- 5-shot task:
+	\subsubsection*{Llama3.1 7B GSM8k 5-shot}
+	\noindent Example of generated text from Llama3.1\textsubscript{7B} on GSM8k -- 5-shot task:
 	\begin{displayquote}
 		\textbf{Prompt:}
 		\begin{Verbatim}[fontsize=\small,breaklines]
@@ -968,8 +969,8 @@ The solution is 27.65.
 
 	\noindent\rule{\textwidth}{0.4pt}
 
-	\subsubsection*{\textsc{LLaMA}3.1 7B gsm-hard 5-shot}
-	\noindent Example of generated text from \textsc{LLaMA}3.1\textsubscript{7B} on gsm-hard -- 5-shot task:
+	\subsubsection*{Llama3.1 7B gsm-hard 5-shot}
+	\noindent Example of generated text from Llama3.1\textsubscript{7B} on gsm-hard -- 5-shot task:
 	\begin{displayquote}
 		\textbf{Prompt:}
 		\begin{Verbatim}[fontsize=\small,breaklines]
@@ -1045,8 +1046,8 @@ def solution():
 
 	\noindent\rule{\textwidth}{0.4pt}
 
-	\subsubsection*{\textsc{LLaMA}2 7B gsm-hard 5-shot PoT}
-	\noindent Example of generated text from \textsc{LLaMA}2\textsubscript{7B} on gsm-hard -- 5-shot task using PoT:
+	\subsubsection*{Llama2 7B gsm-hard 5-shot PoT}
+	\noindent Example of generated text from Llama2\textsubscript{7B} on gsm-hard -- 5-shot task using PoT:
 	\begin{displayquote}
 		\textbf{Prompt:}
 		\begin{Verbatim}[fontsize=\small,breaklines]
@@ -1087,8 +1088,8 @@ def solution():
 
 	\noindent\rule{\textwidth}{0.4pt}
 
-	\subsubsection*{Code \textsc{LLaMA} 7B gsm-hard 5-shot PoT}
-	\noindent Example of generated text from Code \textsc{LLaMA}\textsubscript{7B} on gsm-hard -- 5-shot task using PoT:
+	\subsubsection*{Code Llama 7B gsm-hard 5-shot PoT}
+	\noindent Example of generated text from Code Llama\textsubscript{7B} on gsm-hard -- 5-shot task using PoT:
 	\begin{displayquote}
 		\textbf{Prompt:}
 		\begin{Verbatim}[fontsize=\small,breaklines]
@@ -1129,8 +1130,8 @@ def solution():
 
 	\noindent\rule{\textwidth}{0.4pt}
 
-	\subsubsection*{\textsc{LLaMA}3 7B gsm-hard 5-shot PoT}
-	\noindent Example of generated text from \textsc{LLaMA}3\textsubscript{7B} on gsm-hard -- 5-shot task using PoT:
+	\subsubsection*{Llama3 7B gsm-hard 5-shot PoT}
+	\noindent Example of generated text from Llama3\textsubscript{7B} on gsm-hard -- 5-shot task using PoT:
 	\begin{displayquote}
 		\textbf{Prompt:}
 		\begin{Verbatim}[fontsize=\small,breaklines]
@@ -1171,13 +1172,13 @@ def solution():
 
 	\noindent\rule{\textwidth}{0.4pt}
 
-	\subsubsection*{\textsc{LLaMA}3.1 7B gsm-hard 5-shot PoT}
-	\noindent Example of generated text from \textsc{LLaMA}3.1\textsubscript{7B} on gsm-hard -- 5-shot task using PoT:
+	\subsubsection*{Llama3.1 7B gsm-hard 5-shot PoT}
+	\noindent Example of generated text from Llama3.1\textsubscript{7B} on gsm-hard -- 5-shot task using PoT:
 	\begin{displayquote}
 		\textbf{Prompt:}
 		\begin{Verbatim}[fontsize=\small,breaklines]
 Amy is taking a history test. She correctly answers 80% of the multiple-choice questions, 90% of the true/false questions, and 60% of the long-answer questions. The multiple-choice and true/false questions are worth 1 point each, and the long answer questions are worth 5 points each. How many points does Amy score if there are 7853336 multiple-choice questions, 20 true/false questions, and 5 long answer questions?
-    \end{Verbatim}
+	\end{Verbatim}
 		\textbf{Answer:}
 		\begin{Verbatim}[fontsize=\small,breaklines]
 def solution():
@@ -1190,14 +1191,14 @@ def solution():
     total_points = multiple_choice_points + long_answer_points
     result = total_points
     return result
-    \end{Verbatim}
+	\end{Verbatim}
 	\end{displayquote}
 	Executing the code snippet returns the correct answer (correct answer is 6282701.800000001).
 	\begin{displayquote}
 		\textbf{Prompt:}
 		\begin{Verbatim}[fontsize=\small,breaklines]
 Brenda invested $7270258 into a scheme that accumulates simple interest at the rate of three-quarters of the original amount per year. How much in total will she have after 3 years?
-    \end{Verbatim}
+	\end{Verbatim}
 		\textbf{Answer:}
 		\begin{Verbatim}[fontsize=\small,breaklines]
 def solution():
@@ -1208,7 +1209,7 @@ def solution():
     total_interest = brenda_investment * (interest_rate_per_year ** num_years)
     result = brenda_investment + total_interest
     return result
-    \end{Verbatim}
+	\end{Verbatim}
 	\end{displayquote}
 	The code snippet returns the wrong answer (correct answer is 23628338.5).
 	The applied formula is incorrect as it calculates the compound interest instead of the simple interest.
