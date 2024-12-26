@@ -64,81 +64,81 @@ The actual answer $y_{k+1}$ is left as a blank to be predicted by the LLM\@.
 		\begin{forest}
 			forked edges,
 			for tree={
-					grow=east,
-					reversed=true, % reverse the direction of growth
-					anchor=base west, % align text to the west
-					parent anchor=east,
-					child anchor=west,
-					base=left,
-					font=\small,
-					rectangle,
-					draw,
-					align=left,
-					s sep=3mm, % sibling distance
-					l sep=10mm, % level distance
-					inner xsep=3mm, % text padding horizontal
-					inner ysep=1mm  % text padding vertical
-				}
-				[In-context Learning
-						[Inference
-								[Scoring Function
-										[{Channel prompt tuning~\cite{min2022metaicl},\\
-													kNN-Prompting~\cite{xu2023knn}}]
-								]
-								[Demonstration Designing
-										[Organization
-												[Selecting
-														[{KATE~\cite{liu2022good}, \\
-																	EPR~\cite{rubin2022learning}, \\
-																	PPL~\cite{gonen2022demystifying}, \\
-																	SG-ICL~\cite{kim2022self}, \\
-																	Self Adaptive~\cite{wu2022selfadaptive}, \\
-																	MI~\cite{sorensen2022information}, \\
-																	Q-Learning~\cite{zhang2022active}, \\
-																	Informative Score~\cite{li2023finding}, \\
-																	Topic~\cite{wang2023large}, \\
-																	UDR~\cite{li2023finding}}]
-												]
-												[Ordering
-														[{GlobalE\&LocalE~\cite{lu2022fantastically}}]
-												]
-										]
-										[Formatting
-												[Instruction
-														[{Instruction Induction~\cite{honovich2022instruction}, \\
-																	APE~\cite{zhou2022least}, \\
-																	Self-Instruct~\cite{wang2022selfinstruct}}]
-												]
-												[Reasoning Steps
-														[{CoT~\cite{wang2022selfinstruct}, \\
-																	Complex CoT~\cite{fu2022complexity}, \\
-																	AutoCoT~\cite{zhang2022automatic}, \\
-																	Self-Ask~\cite{press2022train}, \\
-																	MoT~\cite{li2023mot}, \\
-																	SuperICL~\cite{xu2023small}, \\
-																	iCAP~\cite{wang2022iteratively}, \\
-																	Least-to-Most Prompting~\cite{zhou2022least} }]
-												]
-										]
-								]
-						]
-						[Training
-								[Warmup
-										[Self-supervised In-context Training
-												[{Self-supervised ICL~\cite{chen2022improving}, \\
-															PICL~\cite{gu2023pretraining}}]
-										]
-										[Supervised In-context Training
-												[{MetaICL~\cite{min2022metaicl}, \\
-															OPT-IML~\cite{iyer2022opt}, \\
-															FLAN~\cite{wei2022fine}, \\
-															Super-NaturalInstructions~\cite{wang2022super}, \\
-															Scaling Instruction~\cite{chung2022scaling}, \\
-															Symbol Tuning~\cite{wei2023symbol}}]
-										]
-								]
-						]
-				]
+				grow=east,
+				reversed=true, % reverse the direction of growth
+				anchor=base west, % align text to the west
+				parent anchor=east,
+				child anchor=west,
+				base=left,
+				font=\small,
+				rectangle,
+				draw,
+				align=left,
+				s sep=3mm, % sibling distance
+				l sep=10mm, % level distance
+				inner xsep=3mm, % text padding horizontal
+				inner ysep=1mm  % text padding vertical
+			}
+			[In-context Learning
+			[Inference
+			[Scoring Function
+			[{Channel prompt tuning~\cite{min2022metaicl},\\
+			kNN-Prompting~\cite{xu2023knn}}]
+			]
+			[Demonstration Designing
+			[Organization
+			[Selecting
+			[{KATE~\cite{liu2022good}, \\
+			EPR~\cite{rubin2022learning}, \\
+			PPL~\cite{gonen2022demystifying}, \\
+			SG-ICL~\cite{kim2022self}, \\
+			Self Adaptive~\cite{wu2022selfadaptive}, \\
+			MI~\cite{sorensen2022information}, \\
+			Q-Learning~\cite{zhang2022active}, \\
+			Informative Score~\cite{li2023finding}, \\
+			Topic~\cite{wang2023large}, \\
+			UDR~\cite{li2023finding}}]
+			]
+			[Ordering
+			[{GlobalE\&LocalE~\cite{lu2022fantastically}}]
+			]
+			]
+			[Formatting
+			[Instruction
+			[{Instruction Induction~\cite{honovich2022instruction}, \\
+			APE~\cite{zhou2022least}, \\
+			Self-Instruct~\cite{wang2022selfinstruct}}]
+			]
+			[Reasoning Steps
+			[{CoT~\cite{wang2022selfinstruct}, \\
+			Complex CoT~\cite{fu2022complexity}, \\
+			AutoCoT~\cite{zhang2022automatic}, \\
+			Self-Ask~\cite{press2022train}, \\
+			MoT~\cite{li2023mot}, \\
+			SuperICL~\cite{xu2023small}, \\
+			iCAP~\cite{wang2022iteratively}, \\
+			Least-to-Most Prompting~\cite{zhou2022least} }]
+			]
+			]
+			]
+			]
+			[Training
+			[Warmup
+			[Self-supervised In-context Training
+			[{Self-supervised ICL~\cite{chen2022improving}, \\
+			PICL~\cite{gu2023pretraining}}]
+			]
+			[Supervised In-context Training
+			[{MetaICL~\cite{min2022metaicl}, \\
+			OPT-IML~\cite{iyer2022opt}, \\
+			FLAN~\cite{wei2022fine}, \\
+			Super-NaturalInstructions~\cite{wang2022super}, \\
+			Scaling Instruction~\cite{chung2022scaling}, \\
+			Symbol Tuning~\cite{wei2023symbol}}]
+			]
+			]
+			]
+			]
 		\end{forest}
 	}
 	\caption{Taxonomy of in-context learning. The training and the inference stage are two main stages for ICL. During the training stage, existing ICL studies mainly take a pre-trained LLM as the backbone and optionally warm up the model to strengthen and generalize the ICL ability. Towards the inference stage, the demonstration design and the scoring function selection are crucial for the ultimate performance. Source: \textcite{dong2023survey}}
@@ -223,7 +223,7 @@ where C are the tokens of the demonstration examples, $x$ is the input query, an
 As PPL is a global metric (i.e., it considers the entire input sequence), it removes the limitations of token positions but requires extra computation time.
 In generation tasks such as machine translation, ICL predicts the answer by decoding tokens with the highest sentence probability combined with diversity-promoting strategies such as beam search or Top-p and Top-k~\cite{holzman2020curious} sampling algorithms.
 \textcite{min2022noisy} proposed a channel scoring function that estimates the likelihood of the input query given the candidate answer\footnote{Compute the conditional
-	probability in a reversed direction}, which is more efficient and stable than the direct estimation method.
+probability in a reversed direction}, which is more efficient and stable than the direct estimation method.
 In this way, language models are required to generate every token in the input, which could boost the performance under imbalanced training data regimes.
 To calibrate the bias or mitigate the sensitivity via scoring strategies, some studies add additional calibration parameters to adjust the model predictions~\cite{zhao2021calibrate}.
 
@@ -243,20 +243,20 @@ Furthermore, instruction tuning can enhance the ICL ability of LLMs to perform t
 		\textbf{Stage} & \textbf{Factor}                                                                               \\
 		\midrule
 		\multirow{4}{*}{Pretraining}
-		               & Pretraining corpus domain~\cite{shin2022effect}                                               \\
-		               & Pretraining corpus combination~\cite{shin2022effect}                                          \\
-		               & Number of model parameters~\cite{wei2022emergent, brown2020language}                          \\
-		               & Number of pretraining steps~\cite{wei2022emergent}                                            \\
+		& Pretraining corpus domain~\cite{shin2022effect}                                               \\
+		& Pretraining corpus combination~\cite{shin2022effect}                                          \\
+		& Number of model parameters~\cite{wei2022emergent, brown2020language}                          \\
+		& Number of pretraining steps~\cite{wei2022emergent}                                            \\
 		\midrule
 		\multirow{8}{*}{Inference}
-		               & Label space exposure~\cite{min2022rethinking}                                                 \\
-		               & Demonstration input distribution~\cite{min2022rethinking}                                     \\
-		               & Format of input-label pairing~\cite{min2022rethinking,an2023how}                              \\
-		               & Demonstration input-label mapping~\cite{min2022rethinking, yoo2022groundtruth, wei2023symbol} \\
-		               & Demonstration sample ordering~\cite{lu2022fantastically}                                      \\
-		               & Demonstration-query similarity~\cite{lu2022fantastically}                                     \\
-		               & Demonstration diversity~\cite{an2023how}                                                      \\
-		               & Demonstration complexity~\cite{an2023how}                                                     \\
+		& Label space exposure~\cite{min2022rethinking}                                                 \\
+		& Demonstration input distribution~\cite{min2022rethinking}                                     \\
+		& Format of input-label pairing~\cite{min2022rethinking,an2023how}                              \\
+		& Demonstration input-label mapping~\cite{min2022rethinking, yoo2022groundtruth, wei2023symbol} \\
+		& Demonstration sample ordering~\cite{lu2022fantastically}                                      \\
+		& Demonstration-query similarity~\cite{lu2022fantastically}                                     \\
+		& Demonstration diversity~\cite{an2023how}                                                      \\
+		& Demonstration complexity~\cite{an2023how}                                                     \\
 		\bottomrule
 	\end{tabularx}
 	\caption{Summary of factors that correlate relatively strongly to ICL performance. Source: \textcite{dong2023survey}}
@@ -278,8 +278,8 @@ The reasons for the ICL ability have been investigated from different perspectiv
 Focusing on the pretraining data distribution, \textcite{chan2022data} showed that the ICL ability is driven by data distributional properties.
 The ICL ability emerges when the training data have examples appearing in clusters and have enough rare classes.
 \textcite{xie2022an} explained ICL as implicit Bayesian inference\footnote{
-Bayesian inference is a method of statistical inference in which Bayes' theorem is used to update the probability for a hypothesis as more evidence or information becomes available. Fundamentally, Bayesian inference uses prior knowledge, in the form of a prior distribution in order to estimate posterior probabilities.
-$P(H||E)=frac{P(E|H) \cdot P(H)}{P(E)})$, where $P(H)$ is the prior probability of hypothesis $H$, $P(E|H)$ is the likelihood of evidence $E$ given hypothesis $H$, $P(E)$ is the marginal likelihood of evidence, and $P(H|E)$ is the posterior probability of hypothesis $H$ given evidence $E$~\cite{wikipedia2023bayesianinference}.
+	Bayesian inference is a method of statistical inference in which Bayes' theorem is used to update the probability for a hypothesis as more evidence or information becomes available. Fundamentally, Bayesian inference uses prior knowledge, in the form of a prior distribution in order to estimate posterior probabilities.
+	$P(H||E)=frac{P(E|H) \cdot P(H)}{P(E)})$, where $P(H)$ is the prior probability of hypothesis $H$, $P(E|H)$ is the likelihood of evidence $E$ given hypothesis $H$, $P(E)$ is the marginal likelihood of evidence, and $P(H|E)$ is the posterior probability of hypothesis $H$ given evidence $E$~\cite{wikipedia2023bayesianinference}.
 } and constructed a synthetic dataset to prove that the ICL ability emerges when the pretraining distribution follows a mixture of hidden Markov models.
 The hypotheses is that LM learn to do Bayesian inference during pre-training.
 To predict the next token during pretraining, the LM must infer ("locate") the latent concept\footnote{A latent variable that contains various document-level statistics. For example, a "news topics" concept describes a distribution of words (news and their topics), a format (the way that news articles are written), a relation between news and topics, and other semantic and syntactic relationships between words. In general, concepts may be a combination of many latent variables that specify different aspects of the semantics and syntax of a document} for the document using evidence from the previous sentences.
@@ -353,13 +353,13 @@ To some extent, CoT can be considered a special case of ICL, as it involves the 
 CoT can be effectively combined with In-context Learning (ICL) in both few-shot and zero-shot settings:
 \begin{itemize}
 	\item \textbf{Few-shot CoT.} {In the few-shot scenario, CoT augments standard input-output pairs with intermediate reasoning steps.
-		      The design of CoT prompts is crucial; incorporating diverse and complex reasoning paths has been shown to boost LLM performance significantly.
-		      An automated approach, Auto-CoT, facilitates the generation of CoT sequences without manual effort by clustering and selecting representative questions~\cite{zhang2022automatic}.
-	      }
+	The design of CoT prompts is crucial; incorporating diverse and complex reasoning paths has been shown to boost LLM performance significantly.
+	An automated approach, Auto-CoT, facilitates the generation of CoT sequences without manual effort by clustering and selecting representative questions~\cite{zhang2022automatic}.
+	}
 	\item \textbf{Zero-shot CoT.} {Unlike its few-shot counterpart, zero-shot CoT does not rely on annotated demonstrations.
-		      Instead, it generates reasoning steps directly from a prompt, significantly improving performance when scaled to larger models.
-		      This approach was pioneered by models like Flan-T5, which demonstrated improved zero-shot performance through instruction tuning on CoT annotations~\cite{chung2022scaling}.
-	      }
+	Instead, it generates reasoning steps directly from a prompt, significantly improving performance when scaled to larger models.
+	This approach was pioneered by models like Flan-T5, which demonstrated improved zero-shot performance through instruction tuning on CoT annotations~\cite{chung2022scaling}.
+	}
 \end{itemize}
 
 \begin{figure}[h!]
@@ -493,7 +493,7 @@ For semantic reasoning tasks like commonsense reasoning (StrategyQA), probably P
 In contrast, CoT can solve more broader reasoning tasks.
 
 \subsection{Planning for complex tasks}
-\label{sec:planning}
+\label{subsec:planning}
 
 \subsubsection{Commonsense knowledge}
 
@@ -589,9 +589,9 @@ For \textcite{subbarao2024canlanguagemodelsreasonplan, kambhampati2024llmscantpl
 LLMs can mimic planning by combining retrieved information but lack true instance-level understanding required for accurate reasoning.
 LLMs excel at tasks involving pattern recognition within a distribution\footnote{The distributional or style properties in various fields can be understood as the recurring patterns and characteristics that define the general appearance or structure of an object or medium. In the realm of art, these properties might include brushstroke patterns, color palettes, and compositional rules that collectively define an artist's body of work or the broader characteristics of an art movement. These stylistic elements enable the recognition of an artist's work even when individual pieces differ in content.
 
-	Similarly, in language, distributional properties pertain to the recurring patterns in word choice, sentence structure, and other linguistic elements that define a particular writing style or genre. These patterns help in identifying the genre or author of a text based on its overall style rather than its specific content.
+Similarly, in language, distributional properties pertain to the recurring patterns in word choice, sentence structure, and other linguistic elements that define a particular writing style or genre. These patterns help in identifying the genre or author of a text based on its overall style rather than its specific content.
 
-	In computer vision, distributional properties refer to the consistent textures, lighting conditions, and geometric patterns across images of a specific type of object or scene. For example, the overall shape of cars or the texture of fur in animals represents such properties. These features allow models to recognize new instances of objects that share these common characteristics, even if the specific details differ from those previously encountered.
+In computer vision, distributional properties refer to the consistent textures, lighting conditions, and geometric patterns across images of a specific type of object or scene. For example, the overall shape of cars or the texture of fur in animals represents such properties. These features allow models to recognize new instances of objects that share these common characteristics, even if the specific details differ from those previously encountered.
 }, but struggle with instance-specific\footnote{
 	Instance properties refer to the specific and unique features that distinguish one example from another within a given category. In art, these properties are reflected in the distinct brushstrokes, intricate details, and particular color choices used in an individual painting. These elements contribute to the identity of a specific artwork, differentiating it from others, even within the same artist's portfolio.
 
@@ -608,12 +608,23 @@ In this setup, LLMs support planning by suggesting plans, guessing domain models
 Even though we have seen surprising abilities of LLMs, \textcite{qian2022limitations} have shown additional limitations on certain basic symbolic manipulation tasks, such as copy, reverse and addition, particularly when dealing with repeating symbols\footnote{Copy example with repeating symbols \code{$\text{input:} \ldots 989894 \ldots \longrightarrow \text{answer:} \ldots 9894 \ldots$}} and OOD\footnote{Out-of-distribution refers to prompting the model to execute an operation on numbers with more digits with respect to numbers used for training. It demonstrates the ability to generalize on unseen data.} data.
 To address these limitations, \textcite{qian2022limitations} have proposed a series of methods to improve the performance of LLMs on these tasks, such as positional markers, fine-grained computation steps, and combining LMs with callable programs for basic operations.
 Positional markers\footnote{LMs have implicit positional markers embedded in the architecture. Most Transformer-based LMs encode the positional information into positional vectors and add each of
-	them to the corresponding word vector. Explicit positional markers are added into input strings: \code{$\text{input:} \ldots 222 \ldots \longrightarrow \text{output:} \ldots \text{A} 2 \text{B} 2 \text{C} 2 \ldots$}.
-	Essentially, adding explicit positional markers breaks the repeating numbers into a non-repeating input sequence.} and fine-grained computation steps\footnote{For example, in k-digit addition, the model is allowed to break it down into k simple 1-digit addition, and the model is allowed to generate k intermediate addition results to get the final answer.} provide some improvement with repeating symbols but not with OOD\@.
+them to the corresponding word vector. Explicit positional markers are added into input strings: \code{$\text{input:} \ldots 222 \ldots \longrightarrow \text{output:} \ldots \text{A} 2 \text{B} 2 \text{C} 2 \ldots$}.
+Essentially, adding explicit positional markers breaks the repeating numbers into a non-repeating input sequence.} and fine-grained computation steps\footnote{For example, in k-digit addition, the model is allowed to break it down into k simple 1-digit addition, and the model is allowed to generate k intermediate addition results to get the final answer.} provide some improvement with repeating symbols but not with OOD\@.
 It clearly indicates the limitation of Transformers and pre-trained language models in induction.
 Combining LMs with callable programs\footnote{A callable function \code{add(1,5)} can be invoked and return the result in text: \code{carry C: 0, result 6}} for basic operations shows potential but still relies on the LM's ability to locate tokens accurately.
 The LM with tutor method
 \footnote{A tutor shows every single step visually and sometimes calls an already learned sub-module to complete a task. Instead of providing a training example: \code{copy: 1 1 1 2 2 2 result: 1 1 1 2 2 2}, the tutor explicitly shows the model how to copy the input as follows: \code{rmov, end=F, cpy, rmov, end=F, cpy, \ldots , rmov, end=T.} where \code{rmov} is a function that moves the tape head to the right, \code{cpy} is a function that copies the current symbol, and \code{end=F} indicates that the end of the tape is not reached. One can relate the setting with a multiple tape Turing machine where state transition is conducted among the positions of tape heads and read/write operations. The Transformer is trained to learn such state transition, thus completing the programming of a Turing machine.} demonstrates each task step, significantly improving accuracy and handling OOD scenarios, effectively achieving 100\% accuracy on all tasks.
+
+With the release of new models like Open AI o1 and o3\footnote{There are still not enough details about the o3 model to provide a comprehensive analysis.} and Claude 3.5, the field is moving towards more powerful models that can potentially address some of the previous limitations.
+\textcite{wang2024planningabilitiesopenaiso1} explores the planning capabilities of OpenAI’s o1 models, focusing on their performance across diverse tasks requiring feasibility, optimality, and generalizability.
+The o1-preview model demonstrates improvements in generating feasible plans compared to earlier language models like GPT-4.
+However, the study identifies key challenges, such as the model's limitations in following domain-specific constraints, which often misinterpret physical or logical constraints.
+Also, the model struggles to generate coherent plans. Although the individual steps may be valid, the model sometimes fails to sequence them into a coherent, goal-oriented plan.
+Moreover, the model's ability to interpret initial and goal states leads to errors, particularly in tasks requiring multi-step reasoning.
+Regarding the optimality of plans, the model often fails to generate optimal plans, instead producing suboptimal or inefficient solutions with duplicate or unnecessary steps.
+The model lacks mechanisms to incorporate domain-specific heuristics or optimization techniques, resulting in suboptimal decision-making.
+Finally, the model's generalizability remains limited.
+It struggles with tasks that require reasoning over unseen scenarios and symbolic reasoning, where action semantics diverge from natural language.
 
 In the following paragraphs, we will discuss the general framework of prompt-based planning, plan generation, plan execution, and plan evaluation.
 After that we will present the most common approaches to planning and their limitations.
@@ -1105,9 +1116,9 @@ This feature improves not only sample efficiency but also reliability for future
 	\label{fig:skill-library}
 \end{figure}
 To implement the long-term memory, \textcite{wang2023voyager, wang2021milvus} proposes tools like vector databases, which can store plans or feedback into high-dimensional vectors.\footnote{A vector database is a type of database engineered specifically for handling vector data, which are arrays of numbers or embeddings representing various types of data objects.
-	These databases are designed to efficiently store, manage, and perform operations on vectors, often used to represent images, text, or other complex data types in a form suitable for machine learning models and similarity search operations.
-	Vector databases excel in handling similarity searches, which involve finding vectors closest to a given vector.
-	They are optimized to store and query high-dimensional data efficiently.}
+These databases are designed to efficiently store, manage, and perform operations on vectors, often used to represent images, text, or other complex data types in a form suitable for machine learning models and similarity search operations.
+Vector databases excel in handling similarity searches, which involve finding vectors closest to a given vector.
+They are optimized to store and query high-dimensional data efficiently.}
 \begin{figure}[h!]
 	\centering
 	\includegraphics[width=\textwidth]{memorybank}
@@ -1115,7 +1126,7 @@ To implement the long-term memory, \textcite{wang2023voyager, wang2021milvus} pr
 	\label{fig:memorybank}
 \end{figure}
 MemoryBank~\cite{zhong2023memorybankenhancinglargelanguage} incorporates a memory updating mechanism inspired by the Ebbinghaus Forgetting Curve theory.\footnote{The Ebbinghaus Forgetting Curve is a psychological theory that describes how information is lost over time when there is no attempt to retain it.
-	It shows that humans tend to halve their memory of newly learned knowledge in days or weeks unless they consciously review the learned material.}
+It shows that humans tend to halve their memory of newly learned knowledge in days or weeks unless they consciously review the learned material.}
 This mechanism allows the model to forget less relevant information and retain more important information based on time elapsed and relative relevance, thereby offering a human-like memory management system.
 
 \subsubsection{LLM-modulo Framework}
@@ -1148,9 +1159,9 @@ As a result of not being good at self-critique their plans, LLMs can't self-impr
 		\textbf{Domain} & \textbf{Method} & \textbf{GPT-4o}  & \textbf{GPT-4-Turbo} & \textbf{Claude-3-Opus} & \textbf{LLaMA-3 70B} & \textbf{Gemini Pro} & \textbf{GPT-4}   \\
 		\midrule
 		Blocksworld                                                                                                                                                          \\ (BW)       & One-shot        & 170/600 (28.33\%) & 138/600 (23\%)   & 289/600 (48.17\%) & 76/600 (12.6\%)   & 68/600 (11.3\%) & 206/600 (34.3\%) \\
-		                & Zero-shot       & 213/600 (35.5\%) & 241/600 (40.1\%)     & 356/600 (59.3\%)       & 205/600 (34.16\%)    & 3/600 (0.5\%)       & 210/600 (34.6\%) \\
+		& Zero-shot       & 213/600 (35.5\%) & 241/600 (40.1\%)     & 356/600 (59.3\%)       & 205/600 (34.16\%)    & 3/600 (0.5\%)       & 210/600 (34.6\%) \\
 		Mystery BW                                                                                                                                                           \\ (Deceptive) & One-shot        & 5/600 (0.83\%)    & 5/600 (0.83\%)   & 8/600 (1.3\%)     & 15/600 (2.5\%)    & 2/500 (0.4\%)   & 26/600 (4.3\%)   \\
-		                & Zero-shot       & 0/600 (0\%)      & 1/600 (0.16\%)       & 0/600 (0\%)            & 0/600 (0\%)          & 0/500 (0\%)         & 1/600 (0.16\%)   \\
+		& Zero-shot       & 0/600 (0\%)      & 1/600 (0.16\%)       & 0/600 (0\%)            & 0/600 (0\%)          & 0/500 (0\%)         & 1/600 (0.16\%)   \\
 		\bottomrule
 	\end{tabularx}
 	\caption{Results of state-of-the-art LLMs GPT-4o, GPT-4-Turbo, Claude-3-Opus, Gemini Pro, and LLaMA-3 70B for Plan Generation with prompts in natural language (PlanBench). Source: \textcite{kambhampati2024llmscantplanhelp}}
@@ -1241,31 +1252,31 @@ RAG systems are categorized into three main paradigms:
 	\item \textbf{Advanced RAG}: it introduces specific improvements to address the limitations of Naïve RAG. About retrieval quality, it employes pre-retrieval and post-retrieval strategies to enhance the relevance of retrieved data. For indexing, it uses more sophisticated techniques like sliding window approach, fine-grained segmentation and metadata. It incorporates additional optimization techniques to streamline the retrieval process~\cite{ilin2023rag}.
 
 	\item {
-	      \textbf{Modular RAG}: this architecture advances beyond previous RAG paradigms (Naive and Advanced RAG) by offering greater adaptability, flexibility, and functionality. It introduces new components and interaction patterns to address the challenges of static and rigid retrieval-generation frameworks, making it suitable for diverse tasks and dynamic scenarios.
-	      Modular RAG incorporates specialized modules to enhance retrieval and generation:
+		\textbf{Modular RAG}: this architecture advances beyond previous RAG paradigms (Naive and Advanced RAG) by offering greater adaptability, flexibility, and functionality. It introduces new components and interaction patterns to address the challenges of static and rigid retrieval-generation frameworks, making it suitable for diverse tasks and dynamic scenarios.
+		Modular RAG incorporates specialized modules to enhance retrieval and generation:
 
-	      \begin{itemize}
-		      \item Search Module: Supports direct searches across diverse data sources such as databases, search engines, and knowledge graphs using LLM-generated queries~\cite{ma2023query}.
-		      \item RAGFusion: Implements multi-query strategies for diverse perspectives, utilizing parallel searches and re-ranking for knowledge discovery~\cite{shao2023enhancing}.
-		      \item Memory Module: Uses LLM memory to iteratively align retrieval processes with data distribution and enable unbounded memory pools~\cite{cheng2023lift}.
-		      \item Routing Module: Dynamically selects pathways (e.g., summarization or database querying) to ensure optimal information retrieval and merging~\cite{zheng2023take}.
-		      \item Predict Module: Reduces redundancy and enhances context relevance by generating content directly via the LLM~\cite{yu2022generate}.
-		      \item Task Adapter Module: Adapts RAG to downstream tasks, automating prompt retrieval for zero-shot scenarios and enabling task-specific retrievers through few-shot learning~\cite{wang2024bridging, asai2023selfrag}.
-	      \end{itemize}
-	      These enhancements enable precise and relevant information retrieval for a wide range of applications, improving retrieval efficiency and task-specific flexibility.
-	      The architecture introduces new patterns of interaction and flexibility in module orchestration:
+		\begin{itemize}
+			\item Search Module: Supports direct searches across diverse data sources such as databases, search engines, and knowledge graphs using LLM-generated queries~\cite{ma2023query}.
+			\item RAGFusion: Implements multi-query strategies for diverse perspectives, utilizing parallel searches and re-ranking for knowledge discovery~\cite{shao2023enhancing}.
+			\item Memory Module: Uses LLM memory to iteratively align retrieval processes with data distribution and enable unbounded memory pools~\cite{cheng2023lift}.
+			\item Routing Module: Dynamically selects pathways (e.g., summarization or database querying) to ensure optimal information retrieval and merging~\cite{zheng2023take}.
+			\item Predict Module: Reduces redundancy and enhances context relevance by generating content directly via the LLM~\cite{yu2022generate}.
+			\item Task Adapter Module: Adapts RAG to downstream tasks, automating prompt retrieval for zero-shot scenarios and enabling task-specific retrievers through few-shot learning~\cite{wang2024bridging, asai2023selfrag}.
+		\end{itemize}
+		These enhancements enable precise and relevant information retrieval for a wide range of applications, improving retrieval efficiency and task-specific flexibility.
+		The architecture introduces new patterns of interaction and flexibility in module orchestration:
 
-	      \begin{itemize}
-		      \item Rewrite-Retrieve-Read: Enhances retrieval queries through LLM-based query rewriting and feedback mechanisms, improving task performance~\cite{ma2023query}.
-		      \item Generate-Read: Replaces retrieval with LLM-generated content for certain scenarios~\cite{yu2022generate}.
-		      \item Recite-Read: Retrieves directly from model weights to better handle knowledge-intensive tasks \cite{cheng2023lift}.
-		      \item Iterative and Hybrid Retrieval: Combines multiple retrieval strategies, including keyword, semantic, and vector searches, or uses hypothetical document embeddings (HyDE) for improved relevance~\cite{shao2023enhancing}.
-		      \item Dynamic Frameworks: Frameworks like DSP~\cite{zheng2023take} and ITERRETGEN~\cite{shao2023enhancing} iteratively process retrieval and reading steps, leveraging module outputs to enhance system performance.
-	      \end{itemize}
-	      Modular RAG's flexible architecture anables module reconfiguration (i.e., modules can be added, removed, or replaced) to adapt to diverse tasks and data sources, ensuring optimal performance across various domains and applications.
-	      Techniques like FLARE \cite{asai2023selfrag} dynamically assess the necessity of retrieval in a given context.
-	      Additionally, the architecture supports integration with technologies such as fine-tuning (e.g., retriever or generator optimization), reinforcement learning, and collaborative fine-tuning \cite{wang2024bridging, asai2023selfrag}.
-	      }
+		\begin{itemize}
+			\item Rewrite-Retrieve-Read: Enhances retrieval queries through LLM-based query rewriting and feedback mechanisms, improving task performance~\cite{ma2023query}.
+			\item Generate-Read: Replaces retrieval with LLM-generated content for certain scenarios~\cite{yu2022generate}.
+			\item Recite-Read: Retrieves directly from model weights to better handle knowledge-intensive tasks \cite{cheng2023lift}.
+			\item Iterative and Hybrid Retrieval: Combines multiple retrieval strategies, including keyword, semantic, and vector searches, or uses hypothetical document embeddings (HyDE) for improved relevance~\cite{shao2023enhancing}.
+			\item Dynamic Frameworks: Frameworks like DSP~\cite{zheng2023take} and ITERRETGEN~\cite{shao2023enhancing} iteratively process retrieval and reading steps, leveraging module outputs to enhance system performance.
+		\end{itemize}
+		Modular RAG's flexible architecture anables module reconfiguration (i.e., modules can be added, removed, or replaced) to adapt to diverse tasks and data sources, ensuring optimal performance across various domains and applications.
+		Techniques like FLARE \cite{asai2023selfrag} dynamically assess the necessity of retrieval in a given context.
+		Additionally, the architecture supports integration with technologies such as fine-tuning (e.g., retriever or generator optimization), reinforcement learning, and collaborative fine-tuning \cite{wang2024bridging, asai2023selfrag}.
+	}
 
 \end{enumerate}
 
@@ -1274,67 +1285,67 @@ Each RAG system comprises three essential components:
 \begin{enumerate}
 
 	\item {
-	      \textbf{Retrieval}: In the context of RAG, it is crucial to efficiently retrieve relevant documents from the data source. They includes unstructured data sources like text-based corpora such as Wikipedia (e.g., HotpotQA, DPR) or cross-lingual text and domain-specific data, such as medical and legal domains; semi-structured data like PDFs or text-to-SQL approaches (e.g., TableGPT) and text-based transformation methods; structured data like knowledge graphs  combining techniques like KnowledGPT and G-Retriever to enhance graph comprehension and retrieval through integration with LLMs and optimization frameworks; and LLM-generated content in methods like GenRead and Selfmem that leverage the LLM’s internal memory for iterative self-enhancement, bypassing external retrieval.
-	      The granularity is task-dependent, balancing relevance and semantic integrity against the burden of retrieval complexity.
-	      Index and query optimization are used to enhance retrieval efficiency and relevance, ensuring that the retrieved data aligns with the task requirements.
-	      In the indexing phase, documents will be processed, segmented, and transformed into Embeddings to be stored in a vector database.
-	      For indexing it's important to segment documents into smaller chunks, with trade-offs between larger chunks (context-rich but noisy) and smaller chunks (context-poor but precise). Some approaches enhances chunks with metadata (e.g., timestamps, summaries) enabling contextual filtering and time-aware retrieval.
-	      Hierarchical structures, such parent-child relationships, aid in swift data traversal and reduce illusions from block extraction. Knowledge Graph indices align document structures and relationships, improving retrieval coherence and efficiency.
-	      Formulating a precise and clear question is difficult, and imprudent queries result in subpar retrieval effectiveness. Sometimes, the question itself is complex, and the language is not well-organized. Another difficulty lies in language complexity ambiguity.
-	      Query optimization techniques includes query expansion, transformation, and routing.
-	      Query expansion techniques like multi-query and sub-query generation add contextual depth to queries.
-	      Chain-of-Verification (CoVe) validates expanded queries using LLMs to reduce hallucinations.
-	      Query transformation core concept is to retrieve chunks based on a transformed query instead of the user’s original query. It may invloves the use of LLM to rewrite query or use prompt engineering to let LLM generate a query based on the original query for subsequent retrieval.
-	      Dynamic pipelines (e.g., semantic or metadata-based routing) enhance adaptability for diverse scenarios.
-	      Embedding in RAG is crucial for efficient retrieval based on similarity (e.g., cosine similarity) between the embedding of the question and document chunks, where the semantic representation capability of embedding models plays a key role.
-	      This mainly includes a sparse encoder (BM25) and a dense retriever (BERT architecture Pre-training language models).
-	      Advanced models like AngIE and Voyage leverage multi-task tuning to improve semantic representation and retrieval accuracy.
+		\textbf{Retrieval}: In the context of RAG, it is crucial to efficiently retrieve relevant documents from the data source. They includes unstructured data sources like text-based corpora such as Wikipedia (e.g., HotpotQA, DPR) or cross-lingual text and domain-specific data, such as medical and legal domains; semi-structured data like PDFs or text-to-SQL approaches (e.g., TableGPT) and text-based transformation methods; structured data like knowledge graphs  combining techniques like KnowledGPT and G-Retriever to enhance graph comprehension and retrieval through integration with LLMs and optimization frameworks; and LLM-generated content in methods like GenRead and Selfmem that leverage the LLM’s internal memory for iterative self-enhancement, bypassing external retrieval.
+		The granularity is task-dependent, balancing relevance and semantic integrity against the burden of retrieval complexity.
+		Index and query optimization are used to enhance retrieval efficiency and relevance, ensuring that the retrieved data aligns with the task requirements.
+		In the indexing phase, documents will be processed, segmented, and transformed into Embeddings to be stored in a vector database.
+		For indexing it's important to segment documents into smaller chunks, with trade-offs between larger chunks (context-rich but noisy) and smaller chunks (context-poor but precise). Some approaches enhances chunks with metadata (e.g., timestamps, summaries) enabling contextual filtering and time-aware retrieval.
+		Hierarchical structures, such parent-child relationships, aid in swift data traversal and reduce illusions from block extraction. Knowledge Graph indices align document structures and relationships, improving retrieval coherence and efficiency.
+		Formulating a precise and clear question is difficult, and imprudent queries result in subpar retrieval effectiveness. Sometimes, the question itself is complex, and the language is not well-organized. Another difficulty lies in language complexity ambiguity.
+		Query optimization techniques includes query expansion, transformation, and routing.
+		Query expansion techniques like multi-query and sub-query generation add contextual depth to queries.
+		Chain-of-Verification (CoVe) validates expanded queries using LLMs to reduce hallucinations.
+		Query transformation core concept is to retrieve chunks based on a transformed query instead of the user’s original query. It may invloves the use of LLM to rewrite query or use prompt engineering to let LLM generate a query based on the original query for subsequent retrieval.
+		Dynamic pipelines (e.g., semantic or metadata-based routing) enhance adaptability for diverse scenarios.
+		Embedding in RAG is crucial for efficient retrieval based on similarity (e.g., cosine similarity) between the embedding of the question and document chunks, where the semantic representation capability of embedding models plays a key role.
+		This mainly includes a sparse encoder (BM25) and a dense retriever (BERT architecture Pre-training language models).
+		Advanced models like AngIE and Voyage leverage multi-task tuning to improve semantic representation and retrieval accuracy.
 
-	      }
+	}
 
 	\item {
-	      \textbf{Generation}: RAG systems benefit significantly from post-retrieval adjustments to both the retrieved content and the underlying language models (LLMs). Directly feeding raw, retrieved data into an LLM is suboptimal, as redundant or overly lengthy contexts can dilute the quality of the final output.
-	      Efficient context curation involves refining retrieved content to maximize relevance and conciseness while reducing noise. This step addresses critical challenges such as the "Lost in the Middle" problem, where LLMs often lose focus on mid-segment information in lengthy texts.
-	      Reranking prioritizes the most pertinent chunks from retrieved documents to improve the precision of inputs for LLMs. This process can involve:
-	      Contrary to the misconception that longer contexts yield better outcomes, excessive data can overwhelm LLMs. Techniques for context compression include:
+		\textbf{Generation}: RAG systems benefit significantly from post-retrieval adjustments to both the retrieved content and the underlying language models (LLMs). Directly feeding raw, retrieved data into an LLM is suboptimal, as redundant or overly lengthy contexts can dilute the quality of the final output.
+		Efficient context curation involves refining retrieved content to maximize relevance and conciseness while reducing noise. This step addresses critical challenges such as the "Lost in the Middle" problem, where LLMs often lose focus on mid-segment information in lengthy texts.
+		Reranking prioritizes the most pertinent chunks from retrieved documents to improve the precision of inputs for LLMs. This process can involve:
+		Contrary to the misconception that longer contexts yield better outcomes, excessive data can overwhelm LLMs. Techniques for context compression include:
 
-	      \begin{itemize}
-		      \item Token Filtering: Small Language Models (SLMs) such as GPT-2 Small are used to remove less critical tokens while maintaining semantic integrity.
-		      \item Information Extractors: PRCA trains specialized models to extract relevant content, while RECOMP uses contrastive learning to train condensers for refining context~\cite{cheng2023lift}, \cite{wang2024bridging}.
-		      \item Filter-Reranker Paradigm: Combines SLMs as filters and LLMs as rerankers to improve downstream information extraction tasks. For example, Chatlaw incorporates LLM critiques to assess and filter legal provisions based on relevance~\cite{ma2023query}.
-	      \end{itemize}
+		\begin{itemize}
+			\item Token Filtering: Small Language Models (SLMs) such as GPT-2 Small are used to remove less critical tokens while maintaining semantic integrity.
+			\item Information Extractors: PRCA trains specialized models to extract relevant content, while RECOMP uses contrastive learning to train condensers for refining context~\cite{cheng2023lift}, \cite{wang2024bridging}.
+			\item Filter-Reranker Paradigm: Combines SLMs as filters and LLMs as rerankers to improve downstream information extraction tasks. For example, Chatlaw incorporates LLM critiques to assess and filter legal provisions based on relevance~\cite{ma2023query}.
+		\end{itemize}
 
 
-	      \begin{itemize}
-		      \item Rule-Based Methods: These rely on predefined metrics like diversity, relevance, or Mean Reciprocal Rank (MRR).
-		      \item Model-Based Approaches: Encoder-decoder models such as SpanBERT or specialized rerankers like Cohere or GPT-based reranking mechanisms reorder documents effectively~\cite{yu2022generate, zheng2023take}.
-	      \end{itemize}
+		\begin{itemize}
+			\item Rule-Based Methods: These rely on predefined metrics like diversity, relevance, or Mean Reciprocal Rank (MRR).
+			\item Model-Based Approaches: Encoder-decoder models such as SpanBERT or specialized rerankers like Cohere or GPT-based reranking mechanisms reorder documents effectively~\cite{yu2022generate, zheng2023take}.
+		\end{itemize}
 
-	      Fine-tuning LLMs allows alignment with task-specific scenarios and enhances their ability to process domain-specific data. Key methods include:
-	      \begin{itemize}
-		      \item
-		            { Scenario-Specific Training:
-		            Fine-tuning LLMs on specialized datasets improves their adaptability to unique data formats or stylistic requirements. Frameworks like SANTA leverage contrastive learning for retriever training and reinforcement learning to align outputs with human preferences \cite{shao2023enhancing, cheng2023lift}.}
-		      \item { Distillation:
-		            When access to larger proprietary models is limited, knowledge distillation enables smaller models to emulate the behavior of powerful systems like GPT-4. This method ensures that compact models retain efficacy in specific domains.}
-		      \item { Alignment Techniques:
-		            Fine-tuning aligns retriever and generator preferences. For instance, RA-DIT uses KL divergence to align scoring functions between the retriever and the generator, enhancing overall coherence in retrieval-generation workflows \cite{asai2023selfrag}. }
-	      \end{itemize}
-	      }
+		Fine-tuning LLMs allows alignment with task-specific scenarios and enhances their ability to process domain-specific data. Key methods include:
+		\begin{itemize}
+			\item
+			{ Scenario-Specific Training:
+			Fine-tuning LLMs on specialized datasets improves their adaptability to unique data formats or stylistic requirements. Frameworks like SANTA leverage contrastive learning for retriever training and reinforcement learning to align outputs with human preferences \cite{shao2023enhancing, cheng2023lift}.}
+			\item { Distillation:
+			When access to larger proprietary models is limited, knowledge distillation enables smaller models to emulate the behavior of powerful systems like GPT-4. This method ensures that compact models retain efficacy in specific domains.}
+			\item { Alignment Techniques:
+			Fine-tuning aligns retriever and generator preferences. For instance, RA-DIT uses KL divergence to align scoring functions between the retriever and the generator, enhancing overall coherence in retrieval-generation workflows \cite{asai2023selfrag}. }
+		\end{itemize}
+	}
 
 	\item {\textbf{Augmentation}: the standard practice involves a single retrieval step followed by a generative output. While effective for straightforward tasks, this approach is often insufficient for more complex problems requiring multi-step reasoning, as it limits the scope of retrieved information \cite{yoran2023making}. To address these limitations, various iterative, recursive, and adaptive retrieval strategies have been proposed, enabling RAG systems to dynamically enhance their retrieval and generation processes.
-	      Iterative retrieval involves repeatedly querying the knowledge base based on the initial query and the text generated so far. This cyclical approach offers a more comprehensive knowledge base for language models, improving the robustness of generated responses. By incorporating additional contextual references through multiple retrieval iterations, iterative retrieval enhances the generative process, particularly for tasks requiring multi-step reasoning. However, challenges such as semantic discontinuity and the accumulation of irrelevant information can arise.
-	      ITERRETGEN \cite{shao2023enhancing} exemplifies this approach by combining "retrieval-enhanced generation" with "generation-enhanced retrieval." It iteratively refines the context, ensuring that the knowledge retrieved aligns closely with the specific task at hand. This synergy facilitates the generation of more accurate and contextually relevant responses in subsequent iterations.
+	Iterative retrieval involves repeatedly querying the knowledge base based on the initial query and the text generated so far. This cyclical approach offers a more comprehensive knowledge base for language models, improving the robustness of generated responses. By incorporating additional contextual references through multiple retrieval iterations, iterative retrieval enhances the generative process, particularly for tasks requiring multi-step reasoning. However, challenges such as semantic discontinuity and the accumulation of irrelevant information can arise.
+	ITERRETGEN \cite{shao2023enhancing} exemplifies this approach by combining "retrieval-enhanced generation" with "generation-enhanced retrieval." It iteratively refines the context, ensuring that the knowledge retrieved aligns closely with the specific task at hand. This synergy facilitates the generation of more accurate and contextually relevant responses in subsequent iterations.
 
-	      Recursive retrieval refines search results by iteratively updating the search query based on feedback from previous results. This method enhances the depth and relevance of retrieved information, enabling systems to gradually converge on the most pertinent content. Recursive retrieval is particularly effective in scenarios where user queries are ambiguous or where the sought information is highly nuanced.
-	      IRCoT \cite{trivedi2022interleaving} employs a chain-of-thought (CoT) approach, using retrieval results to iteratively refine the CoT reasoning process. ToC (Tree of Clarifications) \cite{kim2023tree} systematically addresses ambiguities in queries by constructing clarification trees that refine the retrieval process step-by-step.
-	      Recursive retrieval often pairs with multi-hop retrieval for graph-structured data, extracting interconnected knowledge. This combination is particularly effective for hierarchical or multi-document environments, where summaries or structured indices aid in refining subsequent retrieval steps \cite{li2023chain}.
+	Recursive retrieval refines search results by iteratively updating the search query based on feedback from previous results. This method enhances the depth and relevance of retrieved information, enabling systems to gradually converge on the most pertinent content. Recursive retrieval is particularly effective in scenarios where user queries are ambiguous or where the sought information is highly nuanced.
+	IRCoT \cite{trivedi2022interleaving} employs a chain-of-thought (CoT) approach, using retrieval results to iteratively refine the CoT reasoning process. ToC (Tree of Clarifications) \cite{kim2023tree} systematically addresses ambiguities in queries by constructing clarification trees that refine the retrieval process step-by-step.
+	Recursive retrieval often pairs with multi-hop retrieval for graph-structured data, extracting interconnected knowledge. This combination is particularly effective for hierarchical or multi-document environments, where summaries or structured indices aid in refining subsequent retrieval steps \cite{li2023chain}.
 
-	      Adaptive retrieval allows RAG systems to dynamically decide when and what to retrieve, tailoring the retrieval process to the specific requirements of the task. This flexibility enhances both the efficiency and the relevance of retrieved information.
-	      Flare \cite{asai2023selfrag} and Self-RAG \cite{cheng2023lift} enable LLMs to determine optimal retrieval moments and content, improving the adaptive capabilities of RAG frameworks.
-	      GraphToolformer \cite{li2023chain} divides retrieval into distinct stages, where LLMs actively utilize tools such as retrievers and apply techniques like Self-Ask or few-shot prompts to guide the process.
-	      WebGPT \cite{nakano2021webgpt} integrates reinforcement learning to train LLMs for autonomous search engine usage. By leveraging special tokens for actions such as querying, browsing, and citing sources, it mimics an agent actively gathering and validating information during generation.
-	      }
+	Adaptive retrieval allows RAG systems to dynamically decide when and what to retrieve, tailoring the retrieval process to the specific requirements of the task. This flexibility enhances both the efficiency and the relevance of retrieved information.
+	Flare \cite{asai2023selfrag} and Self-RAG \cite{cheng2023lift} enable LLMs to determine optimal retrieval moments and content, improving the adaptive capabilities of RAG frameworks.
+	GraphToolformer \cite{li2023chain} divides retrieval into distinct stages, where LLMs actively utilize tools such as retrievers and apply techniques like Self-Ask or few-shot prompts to guide the process.
+	WebGPT \cite{nakano2021webgpt} integrates reinforcement learning to train LLMs for autonomous search engine usage. By leveraging special tokens for actions such as querying, browsing, and citing sources, it mimics an agent actively gathering and validating information during generation.
+	}
 
 \end{enumerate}
 
