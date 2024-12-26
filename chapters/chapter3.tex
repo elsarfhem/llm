@@ -1189,7 +1189,7 @@ This should be expected because the LLMs have difficulty generating plausible ca
 \end{figure}
 For the travel planning case study~\cite{gundawar2024robust}, \textcite{kambhampati2024llmscantplanhelp} adapted the LLM-Modulo framework to this benchmark by operationalizing hard constraints (e.g., budget constraints) or commonsense constraints (e.g., suggesting diverse attractions to visit) as critics as shown in Figure~\ref{fig:llm-modulo-travel}.
 The LLM-modulo approach improved of 6\texttimes the startlingly low 0.7\% baseline, achieved in \textcite{gundawar2024robust} by using LLMs planners with different prompting techniques, such as Cot and ReAct (as shown in Figure~\ref{fig:llm-modulo-travel-results}).
-\begin{figure}
+\begin{figure}[h!]
 	\centering
 	\includegraphics[width=\textwidth]{llm-modulo-result}
 	\caption{Final Pass rates of models across LLM Modulo Iterations. Source: \textcite{kambhampati2024llmscantplanhelp}}
@@ -1197,3 +1197,184 @@ The LLM-modulo approach improved of 6\texttimes the startlingly low 0.7\% baseli
 \end{figure}
 Furthermore, authors also find that LLMs reliably play the role of hard critics and several commonsense critics, as well as the reformatter role (i.e., converting free form travel plans into structured plans parseable by the critics for back-prompts or plan evaluation).
 In this domain the LLM was able to enumerate the type of critics that are needed to validate the plan, with little human supervision.
+
+\subsection{Retrieval-Augmented Generation}
+\label{subsec:retrieval-augmented-generation}
+
+(RAG) is an innovative paradigm designed to enhance the capabilities of large language models (LLMs)~\cite{gao2024retrievalaugmentedgenerationlargelanguage}.
+By integrating retrieval systems with generative models, RAG addresses some of the most pressing challenges in LLMs, including hallucinations, outdated knowledge, and untraceable reasoning processes. \textcite{gao2024retrievalaugmentedgenerationlargelanguage} delves into the evolution of RAG frameworks, the components that constitute these systems, and the metrics used for their evaluation.
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=\textwidth]{rag-tree}
+	\caption{Technology tree of RAG research. The stages of involving RAG mainly include pre-training, fine-tuning, and inference. With the emergence of LLMs, research on RAG initially focused on leveraging the powerful in context learning abilities of LLMs, primarily concentrating on the inference stage. Subsequent research has delved deeper, gradually integrating more with the fine-tuning of LLMs. Researchers have also been exploring ways to enhance language models in the pre-training stage through retrieval-augmented techniques. Source: \textcite{gao2024retrievalaugmentedgenerationlargelanguage}}
+	\label{fig:rag-tree}
+\end{figure}
+
+RAG merges the intrinsic generative abilities of LLMs with external retrieval mechanisms, creating a synergy that enhances knowledge-intensive tasks.
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=\textwidth]{rag-framework}
+	\caption{Retrieval-Augmented Generation (RAG) Framework mainly consists of 3 steps. 1) Indexing. Documents are split into chunks, encoded into vectors, and stored in a vector database. 2) Retrieval. Retrieve the Top k chunks most relevant to the question based on semantic similarity. 3) Generation. Input the original question and the retrieved chunks together into LLM to generate the final answer. Source: \textcite{gao2024retrievalaugmentedgenerationlargelanguage}}
+	\label{fig:rag-framework}
+\end{figure}
+
+This framework offers the following core advantages:
+
+\begin{enumerate}
+
+	\item \textbf{Enhanced Knowledge Integration}: By querying external databases, RAG systems continuously update their knowledge base, addressing the limitations of static pre-trained models.
+
+	\item \textbf{Improved Accuracy}: Retrieved data serves as contextual grounding, reducing hallucinations and increasing the factual reliability of generated outputs.
+
+	\item \textbf{Domain Adaptability}: RAG enables LLMs to integrate domain-specific information, improving performance in specialized areas like law, medicine, and engineering.
+
+\end{enumerate}
+
+RAG systems are categorized into three main paradigms:
+
+\begin{enumerate}
+
+	\item \textbf{Naïve RAG}: it was the first iteration of RAG systems. It follows the traditional pipeline of indexing, retrieval, and generation, which is also characterized as a "Retrieve-Read" framework~\cite{ma2023queryrewritingretrievalaugmentedlarge}. This approach is simple and effective but suffers notable drawbacks in terms of retrieval precision (e.g., missing crucial information) and generation accuracy (e.g., allowing for hallucinations, toxicity or bias).
+
+	\item \textbf{Advanced RAG}: it introduces specific improvements to address the limitations of Naïve RAG. About retrieval quality, it employes pre-retrieval and post-retrieval strategies to enhance the relevance of retrieved data. For indexing, it uses more sophisticated techniques like sliding window approach, fine-grained segmentation and metadata. It incorporates additional optimization techniques to streamline the retrieval process~\cite{ilin2023rag}.
+
+	\item {
+	      \textbf{Modular RAG}: this architecture advances beyond previous RAG paradigms (Naive and Advanced RAG) by offering greater adaptability, flexibility, and functionality. It introduces new components and interaction patterns to address the challenges of static and rigid retrieval-generation frameworks, making it suitable for diverse tasks and dynamic scenarios.
+	      Modular RAG incorporates specialized modules to enhance retrieval and generation:
+
+	      \begin{itemize}
+		      \item Search Module: Supports direct searches across diverse data sources such as databases, search engines, and knowledge graphs using LLM-generated queries~\cite{ma2023query}.
+		      \item RAGFusion: Implements multi-query strategies for diverse perspectives, utilizing parallel searches and re-ranking for knowledge discovery~\cite{shao2023enhancing}.
+		      \item Memory Module: Uses LLM memory to iteratively align retrieval processes with data distribution and enable unbounded memory pools~\cite{cheng2023lift}.
+		      \item Routing Module: Dynamically selects pathways (e.g., summarization or database querying) to ensure optimal information retrieval and merging~\cite{zheng2023take}.
+		      \item Predict Module: Reduces redundancy and enhances context relevance by generating content directly via the LLM~\cite{yu2022generate}.
+		      \item Task Adapter Module: Adapts RAG to downstream tasks, automating prompt retrieval for zero-shot scenarios and enabling task-specific retrievers through few-shot learning~\cite{wang2024bridging, asai2023selfrag}.
+	      \end{itemize}
+	      These enhancements enable precise and relevant information retrieval for a wide range of applications, improving retrieval efficiency and task-specific flexibility.
+	      The architecture introduces new patterns of interaction and flexibility in module orchestration:
+
+	      \begin{itemize}
+		      \item Rewrite-Retrieve-Read: Enhances retrieval queries through LLM-based query rewriting and feedback mechanisms, improving task performance~\cite{ma2023query}.
+		      \item Generate-Read: Replaces retrieval with LLM-generated content for certain scenarios~\cite{yu2022generate}.
+		      \item Recite-Read: Retrieves directly from model weights to better handle knowledge-intensive tasks \cite{cheng2023lift}.
+		      \item Iterative and Hybrid Retrieval: Combines multiple retrieval strategies, including keyword, semantic, and vector searches, or uses hypothetical document embeddings (HyDE) for improved relevance~\cite{shao2023enhancing}.
+		      \item Dynamic Frameworks: Frameworks like DSP~\cite{zheng2023take} and ITERRETGEN~\cite{shao2023enhancing} iteratively process retrieval and reading steps, leveraging module outputs to enhance system performance.
+	      \end{itemize}
+	      Modular RAG's flexible architecture anables module reconfiguration (i.e., modules can be added, removed, or replaced) to adapt to diverse tasks and data sources, ensuring optimal performance across various domains and applications.
+	      Techniques like FLARE \cite{asai2023selfrag} dynamically assess the necessity of retrieval in a given context.
+	      Additionally, the architecture supports integration with technologies such as fine-tuning (e.g., retriever or generator optimization), reinforcement learning, and collaborative fine-tuning \cite{wang2024bridging, asai2023selfrag}.
+	      }
+
+\end{enumerate}
+
+Each RAG system comprises three essential components:
+
+\begin{enumerate}
+
+	\item {
+	      \textbf{Retrieval}: In the context of RAG, it is crucial to efficiently retrieve relevant documents from the data source. They includes unstructured data sources like text-based corpora such as Wikipedia (e.g., HotpotQA, DPR) or cross-lingual text and domain-specific data, such as medical and legal domains; semi-structured data like PDFs or text-to-SQL approaches (e.g., TableGPT) and text-based transformation methods; structured data like knowledge graphs  combining techniques like KnowledGPT and G-Retriever to enhance graph comprehension and retrieval through integration with LLMs and optimization frameworks; and LLM-generated content in methods like GenRead and Selfmem that leverage the LLM’s internal memory for iterative self-enhancement, bypassing external retrieval.
+	      The granularity is task-dependent, balancing relevance and semantic integrity against the burden of retrieval complexity.
+	      Index and query optimization are used to enhance retrieval efficiency and relevance, ensuring that the retrieved data aligns with the task requirements.
+	      In the indexing phase, documents will be processed, segmented, and transformed into Embeddings to be stored in a vector database.
+	      For indexing it's important to segment documents into smaller chunks, with trade-offs between larger chunks (context-rich but noisy) and smaller chunks (context-poor but precise). Some approaches enhances chunks with metadata (e.g., timestamps, summaries) enabling contextual filtering and time-aware retrieval.
+	      Hierarchical structures, such parent-child relationships, aid in swift data traversal and reduce illusions from block extraction. Knowledge Graph indices align document structures and relationships, improving retrieval coherence and efficiency.
+	      Formulating a precise and clear question is difficult, and imprudent queries result in subpar retrieval effectiveness. Sometimes, the question itself is complex, and the language is not well-organized. Another difficulty lies in language complexity ambiguity.
+	      Query optimization techniques includes query expansion, transformation, and routing.
+	      Query expansion techniques like multi-query and sub-query generation add contextual depth to queries.
+	      Chain-of-Verification (CoVe) validates expanded queries using LLMs to reduce hallucinations.
+	      Query transformation core concept is to retrieve chunks based on a transformed query instead of the user’s original query. It may invloves the use of LLM to rewrite query or use prompt engineering to let LLM generate a query based on the original query for subsequent retrieval.
+	      Dynamic pipelines (e.g., semantic or metadata-based routing) enhance adaptability for diverse scenarios.
+	      Embedding in RAG is crucial for efficient retrieval based on similarity (e.g., cosine similarity) between the embedding of the question and document chunks, where the semantic representation capability of embedding models plays a key role.
+	      This mainly includes a sparse encoder (BM25) and a dense retriever (BERT architecture Pre-training language models).
+	      Advanced models like AngIE and Voyage leverage multi-task tuning to improve semantic representation and retrieval accuracy.
+
+	      }
+
+	\item {
+	      \textbf{Generation}: RAG systems benefit significantly from post-retrieval adjustments to both the retrieved content and the underlying language models (LLMs). Directly feeding raw, retrieved data into an LLM is suboptimal, as redundant or overly lengthy contexts can dilute the quality of the final output.
+	      Efficient context curation involves refining retrieved content to maximize relevance and conciseness while reducing noise. This step addresses critical challenges such as the "Lost in the Middle" problem, where LLMs often lose focus on mid-segment information in lengthy texts.
+	      Reranking prioritizes the most pertinent chunks from retrieved documents to improve the precision of inputs for LLMs. This process can involve:
+	      Contrary to the misconception that longer contexts yield better outcomes, excessive data can overwhelm LLMs. Techniques for context compression include:
+
+	      \begin{itemize}
+		      \item Token Filtering: Small Language Models (SLMs) such as GPT-2 Small are used to remove less critical tokens while maintaining semantic integrity.
+		      \item Information Extractors: PRCA trains specialized models to extract relevant content, while RECOMP uses contrastive learning to train condensers for refining context~\cite{cheng2023lift}, \cite{wang2024bridging}.
+		      \item Filter-Reranker Paradigm: Combines SLMs as filters and LLMs as rerankers to improve downstream information extraction tasks. For example, Chatlaw incorporates LLM critiques to assess and filter legal provisions based on relevance~\cite{ma2023query}.
+	      \end{itemize}
+
+
+	      \begin{itemize}
+		      \item Rule-Based Methods: These rely on predefined metrics like diversity, relevance, or Mean Reciprocal Rank (MRR).
+		      \item Model-Based Approaches: Encoder-decoder models such as SpanBERT or specialized rerankers like Cohere or GPT-based reranking mechanisms reorder documents effectively~\cite{yu2022generate, zheng2023take}.
+	      \end{itemize}
+
+	      Fine-tuning LLMs allows alignment with task-specific scenarios and enhances their ability to process domain-specific data. Key methods include:
+	      \begin{itemize}
+		      \item
+		            { Scenario-Specific Training:
+		            Fine-tuning LLMs on specialized datasets improves their adaptability to unique data formats or stylistic requirements. Frameworks like SANTA leverage contrastive learning for retriever training and reinforcement learning to align outputs with human preferences \cite{shao2023enhancing, cheng2023lift}.}
+		      \item { Distillation:
+		            When access to larger proprietary models is limited, knowledge distillation enables smaller models to emulate the behavior of powerful systems like GPT-4. This method ensures that compact models retain efficacy in specific domains.}
+		      \item { Alignment Techniques:
+		            Fine-tuning aligns retriever and generator preferences. For instance, RA-DIT uses KL divergence to align scoring functions between the retriever and the generator, enhancing overall coherence in retrieval-generation workflows \cite{asai2023selfrag}. }
+	      \end{itemize}
+	      }
+
+	\item {\textbf{Augmentation}: the standard practice involves a single retrieval step followed by a generative output. While effective for straightforward tasks, this approach is often insufficient for more complex problems requiring multi-step reasoning, as it limits the scope of retrieved information \cite{yoran2023making}. To address these limitations, various iterative, recursive, and adaptive retrieval strategies have been proposed, enabling RAG systems to dynamically enhance their retrieval and generation processes.
+	      Iterative retrieval involves repeatedly querying the knowledge base based on the initial query and the text generated so far. This cyclical approach offers a more comprehensive knowledge base for language models, improving the robustness of generated responses. By incorporating additional contextual references through multiple retrieval iterations, iterative retrieval enhances the generative process, particularly for tasks requiring multi-step reasoning. However, challenges such as semantic discontinuity and the accumulation of irrelevant information can arise.
+	      ITERRETGEN \cite{shao2023enhancing} exemplifies this approach by combining "retrieval-enhanced generation" with "generation-enhanced retrieval." It iteratively refines the context, ensuring that the knowledge retrieved aligns closely with the specific task at hand. This synergy facilitates the generation of more accurate and contextually relevant responses in subsequent iterations.
+
+	      Recursive retrieval refines search results by iteratively updating the search query based on feedback from previous results. This method enhances the depth and relevance of retrieved information, enabling systems to gradually converge on the most pertinent content. Recursive retrieval is particularly effective in scenarios where user queries are ambiguous or where the sought information is highly nuanced.
+	      IRCoT \cite{trivedi2022interleaving} employs a chain-of-thought (CoT) approach, using retrieval results to iteratively refine the CoT reasoning process. ToC (Tree of Clarifications) \cite{kim2023tree} systematically addresses ambiguities in queries by constructing clarification trees that refine the retrieval process step-by-step.
+	      Recursive retrieval often pairs with multi-hop retrieval for graph-structured data, extracting interconnected knowledge. This combination is particularly effective for hierarchical or multi-document environments, where summaries or structured indices aid in refining subsequent retrieval steps \cite{li2023chain}.
+
+	      Adaptive retrieval allows RAG systems to dynamically decide when and what to retrieve, tailoring the retrieval process to the specific requirements of the task. This flexibility enhances both the efficiency and the relevance of retrieved information.
+	      Flare \cite{asai2023selfrag} and Self-RAG \cite{cheng2023lift} enable LLMs to determine optimal retrieval moments and content, improving the adaptive capabilities of RAG frameworks.
+	      GraphToolformer \cite{li2023chain} divides retrieval into distinct stages, where LLMs actively utilize tools such as retrievers and apply techniques like Self-Ask or few-shot prompts to guide the process.
+	      WebGPT \cite{nakano2021webgpt} integrates reinforcement learning to train LLMs for autonomous search engine usage. By leveraging special tokens for actions such as querying, browsing, and citing sources, it mimics an agent actively gathering and validating information during generation.
+	      }
+
+\end{enumerate}
+
+Some of the most widely used metrics for evaluating RAG systems include:
+
+\begin{itemize}
+
+	\item Retrieval Precision: Measures the relevance of retrieved data.
+
+	\item Generation Accuracy: Assesses the factual correctness of outputs.
+
+	\item End-to-End Performance: Evaluates the overall coherence, fluency, and informativeness of the system.
+
+\end{itemize}
+
+Benchmarks such as SQuAD~\cite{rajpurkar2016squad100000questionsmachine}, Natural Questions~\cite{kwiatkowski-etal-2019-natural}, and specialized datasets for retrieval tasks are widely used for assessment.
+
+\noindent Despite its promise, RAG faces several challenges:
+
+\begin{enumerate}
+
+	\item Retrieval Latency: Efficiently querying large databases in real time remains a technical hurdle.
+
+	\item Data Quality: The reliability of generated outputs depends heavily on the quality of retrieved data.
+
+	\item Scalability: Handling large-scale retrieval tasks while maintaining high generation quality is complex.
+
+\end{enumerate}
+
+\noindent Future research avenues include:
+
+\begin{itemize}
+
+	\item Expanding RAG frameworks to support multi-modal inputs, such as text, images, and audio.
+
+	\item Enhancing retrieval efficiency through novel indexing and search techniques.
+
+	\item Improving integration mechanisms for tighter coupling between retrieval and generation modules.
+
+\end{itemize}
+
+RAG represents a transformative step in LLM development, bridging the gap between static pre-trained knowledge and dynamic, context-aware generation.
+By combining retrieval and generation, RAG systems are poised to redefine the capabilities of AI in knowledge-intensive tasks.
