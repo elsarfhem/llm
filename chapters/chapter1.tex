@@ -586,18 +586,16 @@ Llama 3 uses a standard, dense Transformer architecture.
 It does not deviate significantly from Llama and Llama 2 in terms of model architecture; therefore performance gains are primarily driven by improvements in data quality and diversity as well as by increased training scale.
 Compared to Llama 2, Llama 3 has a few small changes in the model architecture:
 \begin{enumerate}
-	\item grouped query attention (GQA) with 8 key-value heads to improve inference speed and to reduce the size of key-value caches during decoding
+	\item improve inference speed and key-value caches during decoding by using grouped query attention (GQA) with 8 key-value heads
 	\item an attention mask that prevents self-attention between different documents within the same sequence.
 	      This change has limited impact during standard pre-training, but it's important in continued pre-training on very long sequences.
-	\item a vocabulary with 128K tokens.
-	      Compared to the Llama 2 tokenizer, the new tokenizer improves compression rates on a sample of English data from 3.17 to 3.94 characters per token.
+	\item a vocabulary with 128K tokens. It improves compression rates on English data compared to the Llama 2 tokenizer.
 	\item the RoPE base frequency hyper-parameter increased to 500,000 to support longer contexts.
 \end{enumerate}
 A summary of the key hyper-parameters of Llama 3 is shown in Table~\ref{tab:llama3-hyperparameters}.
 
 \begin{table}[h!]
 	\centering
-	\caption{Overview of the key hyperparameters of Llama 3. We display settings for 8B, 70B, and 405B language models.}
 	\begin{tabularx}{\textwidth}{Xccc}
 		\textbf{}                      & \textbf{8B}               & \textbf{70B}              & \textbf{405B}             \\
 		\textbf{Layers}                & 32                        & 80                        & 126                       \\
@@ -611,16 +609,16 @@ A summary of the key hyper-parameters of Llama 3 is shown in Table~\ref{tab:llam
 		\textbf{Positional Embeddings} & RoPE ($\theta = 500,000$) & RoPE ($\theta = 500,000$) & RoPE ($\theta = 500,000$) \\
 		\hline
 	\end{tabularx}
-	\caption{Overview of the key hyperparameters of Llama 3}
+	\caption{Overview of the key hyperparameters of Llama 3. Source: \textcite{llama3}.}
 	\label{tab:llama3-hyperparameters}
 \end{table}
 
 The authors improved the quantity and quality of the data we used for pre-training and post-training compared to prior versions of Llama.
 These improvements include developing more careful pre-processing and curation pipelines for pre-training data and more rigorous quality assurance and filtering approaches for post-training data.
-The pre-training corpus consists of about 15T tokens, which is about 50% larger than the one used for Llama 2.
-It contains roughly 50\% of tokens corresponding to general knowledge, 25\% of mathematical and reasoning tokens, 17\% code tokens, and 8\% multilingual tokens~\cite{llama3}.
-The resulting models have a rich set of capabilities.
-They can answer questions in at least eight languages, write high-quality code, solve complex reasoning problems, and use tools out-of-the-box or in a zero-shot way
+The pre-training corpus consists of about 15T tokens, which is about 50\% larger than the one used for Llama 2.
+The dataset comprises approximately 50\% general knowledge tokens, 25\% mathematical and reasoning tokens, 17\% code tokens, and 8\% multilingual tokens~\cite{llama3}.
+The resulting models possess a wide array of capabilities.
+They can respond to questions in at least eight languages, generate high-quality code, solve complex reasoning tasks, and utilize tools directly or in a zero-shot manner.
 
 
 \subsubsection{Gemma}
@@ -911,7 +909,7 @@ To accurately measure the effectiveness of FinLLMs in performing these tasks, se
 	\item \textbf{StockNet:} {This dataset combines historical price data with relevant tweets to comprehensively view SMP tasks. It has been widely used to assess the impact of market sentiment on stock prices \cite{xu2018stock}.}
 	\item \textbf{CIKM18:} {A dataset designed for SMP tasks, CIKM18 comprises stock price data and news headlines, challenging models to predict stock movements based on textual information \cite{wu2018hybrid}.}
 	\item \textbf{BigData22:} {A dataset for SMP tasks, BigData22 combines financial news articles with stock price data, evaluating models on their ability to predict stock movements based on textual information \textcite{soun2022accurate}.}
-	\item \textbf{Headline:} {A dataset of financial news headlines, used for text classification \cite{sinha2021impact}. This dataset comprises 11,412 news headlines, labelled with a binary classification across nine labels such as "price up" or "price down".}
+	\item \textbf{Headline:} {A dataset of financial news headlines, used for text classification \cite{sinha2021impact}. This dataset comprises 11,412 news headlines, where each headline is labelled with a binary classification (e.g., "price up" or "price down").}
 	\item \textbf{ECT-Sum:} {A dataset for text summarization tasks, ECT-Sum consists of consists of 2,425 document-summary pairs, containing Earnings Call Transcripts (ECTs) and bullet-point summarizations from Reuters \cite{mukherjee2022ectsum}.}
 \end{itemize}
 
@@ -1327,6 +1325,7 @@ Specifically, the davinci-002 version solved 70\% of ToM tasks, while the davinc
 Notably, GPT-3.5's performance in ToM assessments parallels that of nine-year-olds, suggesting nascent ToM capabilities in LLMs.
 The study hypothesizes that ToM-like abilities might emerge spontaneously in AI without explicit programming, especially in LLMs trained in human language.
 In the context of AI, particularly in LLMs like GPT-3, the ability to perform well on false-belief tasks suggests a sophisticated level of language understanding and a rudimentary form of Theory of Mind, albeit not conscious or sentient like in humans.
-Not surprisingly, initial excitement based on anecdotal performance of LLMs on reasoning tasks has been dissipated to some extent by the recent spate of studies, questioning the robustness of such behaviors–-be they planning~\cite{valmeekam2023planning, kambhampati2024llmscantplanhelp}, simple arithmetic and logic\cite{dziri2023faith}, theory of mind~\cite{ullman2023large, verma2024theory}, or general mathematical and abstract benchmarks~\cite{gendron2023large, mccoy2023embers}.
+
+It is unsurprising that the initial enthusiasm surrounding the anecdotal performance of LLMs on reasoning tasks has somewhat waned due to a wave of recent studies questioning the robustness of these abilities—whether in planning~\cite{valmeekam2023planning, kambhampati2024llmscantplanhelp}, basic arithmetic and logic~\cite{dziri2023faith}, theory of mind~\cite{ullman2023large, verma2024theory}, or broader mathematical and abstract benchmarks~\cite{gendron2023large, mccoy2023embers}.
 
 Moreover, the application of LLMs in software engineering is also gaining traction, with initiatives in code suggestions~\cite{sridhara2023chatgptsoftware}, code summarizations~\cite{sun2023code}, and automated program repairs~\cite{xia2023conversationalrepair}.

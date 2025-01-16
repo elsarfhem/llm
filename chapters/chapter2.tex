@@ -170,10 +170,9 @@ Next, we introduce three kinds of specialized data.
 		      Data in scientific fields are complex, commonly including mathematical symbols and protein sequences, so specific tokenization and preprocessing techniques are required to transform these different data formats into a unified form that language models can process.
 	      }
 	\item \textbf{Code:} {
-		      Code, encompassing source code snippets and software documentation, is a valuable source of structured text data, essential for training LLMs on code generation and code completion tasks~\cite{survey, nijkamp2022codegen}.
-		      Code data is often collected from open-source repositories like GitHub and StackOverflow, and it is used to train LLMs to generate code snippets, complete code fragments, and perform code summarization tasks.
-		      Recently ~\textcite{chen2021evaluating, austin2021program} have shown that models trained on code data can be used to generate code with high accuracy and efficiency, and they can be used to improve the performance of code completion tasks. Generated code can successfully pass expert-designed unit-test cases~\cite{chen2021evaluating} or solve competitive programming problems~\cite{li2022competition}.
-		      In general, two types of code corpora are used: one is question-answering datasets like Stack Exchange~\cite{xu2022systematic}; the second is public software repositories like GitHub~\cite{chen2021evaluating} where code, comments and docstring are collected for utilization.
+		      Code, which includes source code snippets and software documentation, serves as a critical source of structured text data for training LLMs in tasks such as code generation and completion~\cite{survey, nijkamp2022codegen}. Typically, this data is gathered from open-source platforms like GitHub and StackOverflow to enable LLMs to generate code snippets, complete partial code, and perform code summarization tasks.
+		      Studies~\cite{chen2021evaluating, austin2021program} demonstrate that models trained on code data can achieve high accuracy and efficiency in generating code, significantly enhancing code completion performance. Generated code has shown the ability to pass expert-designed unit tests~\cite{chen2021evaluating} and solve competitive programming problems~\cite{li2022competition}.
+		      Two primary types of code corpora are generally utilized: question-answering datasets, such as those from Stack Exchange~\cite{xu2022systematic}, and public software repositories like GitHub~\cite{chen2021evaluating}, which provide code, comments, and docstrings for training purposes.
 	      }
 \end{itemize}
 
@@ -344,8 +343,8 @@ This is particularly advantageous for handling agglutinative languages, where wo
 Unigram tokenization is a statistical method that employs a unigram language model to segment text into tokens probabilistically.
 This technique, standing in contrast to the deterministic nature of Byte Pair Encoding, involves constructing a unigram model from a large initial vocabulary and iteratively refining it to maximize the likelihood of the observed corpus~\cite{kudo2018sentencepiece}.
 The essence of Unigram tokenization lies in its iterative pruning process, wherein less probable tokens are systematically eliminated from the vocabulary.
-To estimate the unigram language model, it adopts an Expectation-Maximization (EM) algorithm: at each iteration, it first finds the currently optimal tokenization of words based on the old language model and then re-estimates the probabilities of unigrams to update the language model.
-During this procedure, dynamic programming algorithms (i.e., the Viterbi algorithm) are used to efficiently find the optimal decomposition way of a word given the language model\cite{survey}.
+The unigram language model is estimated using an Expectation-Maximization (EM) algorithm: in each iteration, it first identifies the optimal tokenization of words based on the current language model and then updates the model by re-estimating the unigram probabilities.
+Dynamic programming algorithms, such as the Viterbi algorithm, are employed during this process to efficiently determine the optimal decomposition of a word based on the language model~\cite{survey}.
 This probabilistic approach is adept at handling the linguistic complexities and variations found across different languages and domains.
 It particularly excels in the context of language models that require a nuanced understanding of morphological structures and sub-word variations.
 Unigram tokenization has been pivotal in developing the SentencePiece~\cite{kudo2018sentencepiece} tokenization library, renowned for its application in T5 and mBART\@.
@@ -429,7 +428,7 @@ Instruction tuning has been widely applied also in other models like Instruct-GP
 Other experiments in \textcite{wei2022fine} have shown that instruction tuning of LaMDA-PT started to significantly improve performance on zero-shot tasks when the model size is at least 68B\@.
 
 Let's look at the construction of instruction-formatted instances essential for instruction tuning.
-Generally, an instruction-formatted instance consists of a task description (called an \textit{instruction}) and a set of input-output examples, optionally followed by a small number of demonstrations.
+An instruction-formatted instance typically includes a task description (referred to as the \textit{instruction}), accompanied by a set of input-output examples and, optionally, a few demonstrations.
 There are three main approaches to constructing instruction-formatted instances: formatting task datasets, formatting daily dialogues, and formatting synthetic data as represented in Figure~\ref{fig:instruction-formatted-instances}.
 
 \begin{figure}[h!]
@@ -479,8 +478,7 @@ Two essential factors for the instance construction are:
 \end{itemize}
 
 Instruction tuning is often more efficient since only a few instances are needed for training.
-Since instruction tuning can be considered as a supervised training process, its optimization is different from pre-training in several aspects~\cite{chung2022scaling}, such as the training objective (i.e., sequence-to-sequence loss) and optimization
-configuration (e.g., smaller batch size and learning rate), which require special attention in practice.
+Being considered as a supervised training process, differs from pre-training in several key aspects~\cite{chung2022scaling}, including the training objective (e.g., sequence-to-sequence loss) and optimization configuration (e.g., smaller batch sizes and learning rates), necessitating careful consideration in practice.
 
 Balancing the proportion of different tasks during fine-tuning is crucial.
 A commonly used method is the examples-proportional mixing strategy~\cite{raffel2023exploring}, ensuring that no single dataset overwhelms the training process~\cite{raffel2023exploring, wei2022fine}.
@@ -493,7 +491,7 @@ A strategic approach involves multiple tuning stages, starting with extensive ta
 
 Some additional strategies to improve the instruction tuning process include:
 \begin{itemize}
-	\item \textbf{Efficient training for multi-turn chat data.} {Given a multiturn chat\footnote{The conversation between a user and a bot} dataset, each conversation can be split into multiple context-response pairs for training: the model is fine-tuned to generate responses based on the corresponding context for all splits. To save computational resources, \textcite{chiang2023vicuna} propose a method that fine-tunes the model on the whole conversation but relies on a loss mask that only computes the loss on the chatbot's responses for training.
+	\item \textbf{Efficient training for multi-turn chat data.} {In a multiturn chat\footnote{A conversation between a user and a bot} dataset, each conversation can be divided into multiple context-response pairs for training, where the model is fine-tuned to generate appropriate responses for each corresponding context. To save computational resources, \textcite{chiang2023vicuna} propose a method that fine-tunes the model on the whole conversation but relies on a loss mask that only computes the loss on the chatbot's responses for training.
 	      }
 	\item \textbf{Filtering low-quality instructions using LLMs.} {Filtering out low-quality instructions through advanced LLMs helps maintain high training standards and reduces unnecessary computational expenses~\cite{wei2022fine}.}
 	\item \textbf{Establishing self-identification for LLM.} {In real-world applications, it is important for LLMs to be able to identify themselves when asked. To achieve this, models like GPT-4 are trained to recognize and respond to self-identification instructions~\cite{radford2023gpt4}.
@@ -1074,7 +1072,7 @@ This mechanism has been adopted and empirically tested in the Llama 2 model~\cit
 
 Flash attention~\cite{dao2022flashattention} is an approach that proposes to optimize the speed and memory consumption of attention modules on the GPUs.
 Modern GPUs have different memory types, and Flash attention takes advantage of this by organizing the input block on the faster memory\footnote{SRAM has fast IO, while HBM is slower}.
-Updated version FlashAttention-2~\cite{liu2022fast} has been proposed to further improve the performance of the attention module on GPUs, partitioning of GPU thread blocks and warps, leading to around 2\texttimes speedup when compared to the original FlashAttention.
+The updated version, FlashAttention-2~\cite{liu2022fast}, has been introduced to further enhance the performance of the attention module on GPUs by optimizing the partitioning of GPU thread blocks and warps, achieving approximately a 2\texttimes speedup compared to the original FlashAttention.
 
 PagedAttention~\cite{vllm2023} is based on the observation that GPU memory is bottlenecked by cached attention keys and value tensors.
 These cached key and value tensors are often referred to as KV cache.
@@ -1179,8 +1177,7 @@ In the following sections, we discuss some of the most popular methods for param
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=\textwidth]{parameter-tuning}
-	\caption{An illustration of four different parameter-efficient fine-tuning methods. MHA and FFN denote the multi-head
-		attention and feed-forward networks in the Transformer layer, respectively. Source: \textcite{survey}.}
+	\caption{An illustration of four different parameter-efficient fine-tuning methods. MHA and FFN denote the multi-head attention and feed-forward networks in the Transformer layer, respectively. Source: \textcite{survey}.}
 	\label{fig:parameter-tuning}
 \end{figure}
 
